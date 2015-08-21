@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- 0.12
+after_success:
+- npm run report-coverage
+deploy:
+  provider: npm
+  email: d2ltravisdeploy@d2l.com
+  api_key:
+    secure: L9QoSA15cY6bizHexKkzT5/9BPAw0rFkin1RIUGASC2AcB7VVnza/FnwdHkObrLn7khwMCwFxiDtp9kRAJgN+Xi7bzE5KtmCZi3x7zsDzQwEAQcjV3Thlz4HNxBKgXhFnKg1dKOHu+RlIYbq0t3Wc73kvhgovSxKDFkkh9jEfi4DA8+GdLrELvGLC1yeA2OKb5pz6i0KRDCba2t5mieIB3nFaJliXiDQ1yAltm5y3EkQobH1srD63ncLLdpUuR4xfZKCdnjFXnm19xD8x927JNSf7mhu9xnmAzl662PhSYBKfYI9tZyo2YG0AUMXI2uR0e3znesIhB3VMsM+N9Tq5UZjk3X2PtISgGE/7IShx6tMEWEKzg3x99eh15j3zEFGM5Qy29RN/R90FFNPxdbCQYzR7Nu0Hs3BuBGuIT0HHQUQduhSWGPLoGBljAFL5p4rOwNVOEnl0IeLDTnwdLanFtd5E6tugx3Y1BKukyEYyH4ngC4+077vjHf6jxV1HfFo20Qs6Bc5UTLmHNAy65rLwtu+6xyUFLUFbDTpJVYUysAldATCU3LDw9KhEqqPSREV4aXgR4BWpAaVdM+067guiDzyzkntqkH6HVY0VF3LmdEzwsZELvBQDjCs1FwaXj6ja0fkp0JAw16YXbSYEuF1bsmgDbdAjO58sE4OcC1nJ7s=
+  on:
+    tags: true
+    repo: Brightspace/ifrau
