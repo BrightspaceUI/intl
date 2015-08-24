@@ -17,9 +17,9 @@ contributions should make use of them.
 
 [npm-url]: https://www.npmjs.org/package/d2l-intl
 [npm-image]: https://img.shields.io/npm/v/d2l-intl.svg
-[ci-url]: https://travis-ci.org/Brightspace/d2l-intl
-[ci-image]: https://img.shields.io/travis/Brightspace/d2l-intl.svg
-[coverage-url]: https://coveralls.io/r/Brightspace/d2l-intl?branch=master
-[coverage-image]: https://img.shields.io/coveralls/Brightspace/d2l-intl.svg
-[dependencies-url]: https://david-dm.org/Brightspace/d2l-intl
-[dependencies-image]: https://img.shields.io/david/Brightspace/d2l-intl.svg
+[ci-url]: https://travis-ci.org/Brightspace/intl
+[ci-image]: https://img.shields.io/travis/Brightspace/intl.svg
+[coverage-url]: https://coveralls.io/r/Brightspace/intl?branch=master
+[coverage-image]: https://img.shields.io/coveralls/Brightspace/intl.svg
+[dependencies-url]: https://david-dm.org/Brightspace/intl
+[dependencies-image]: https://img.shields.io/david/Brightspace/intl.svg
