@@ -6,7 +6,7 @@ chai.should();
 chai.use(require('sinon-chai'));
 
 import {default as format} from '../../src/number/format-decimal';
-import {default as defaultLocaleData} from './default-locale-data.json';
+import {default as defaultLocaleData} from '../../src/locale-data/en-US.json';
 
 describe('NumberFormat', () => {
 
@@ -15,7 +15,7 @@ describe('NumberFormat', () => {
 		let localeData;
 
 		beforeEach(() => {
-			localeData = JSON.parse(JSON.stringify(defaultLocaleData));
+			localeData = JSON.parse(JSON.stringify(defaultLocaleData.number));
 		});
 
 		describe('edge values', () => {
