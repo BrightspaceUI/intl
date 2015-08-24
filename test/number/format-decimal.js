@@ -60,60 +60,51 @@ describe('NumberFormat', () => {
 
 		});
 
-		describe('integers', () => {
-
-			it('should format positive integer', () => {
-				const value = format(42, localeData);
-				expect(value).to.equal('42');
-			});
-
-			it('should format negative integer', () => {
-				const value = format(-42, localeData);
-				expect(value).to.equal('-42');
-			});
-
-			it('should format 0', () => {
-				const value = format(0, localeData);
-				expect(value).to.equal('0');
-			});
-
-			it('should use negative symbol for negative integers', () => {
-				localeData.symbols.negative = '|@|';
-				const value = format(-42, localeData);
-				expect(value).to.equal('|@|42');
-			});
-
-		});
-
-		describe('decimals', () => {
+		describe('integers & decimals', () => {
 
 			[
+				{val: 42, expect: '42'},
+				{val: -42, expect: '-42'},
+				{val: 0, expect: '0'},
 				{val: 3.1, expect: '3.1'},
-				{expect: '1.235'},
-				{max: 0, expect: '1'},
-				{max: 5, expect: '1.23457'},
-				{max: 10, expect: '1.234567'},
-				{min: 3, expect: '1.235'},
-				{min: 2, expect: '1.235'},
-				{min: 8, expect: '1.23456700'},
+				{val: 1.2345, expect: '1.235'},
+				{val: 1.2, max: 0, expect: '1'},
+				{val: 1.5, max: 0, expect: '2'},
+				{val: 1.234567, max: 5, expect: '1.23457'},
+				{val: 1.234567, max: 10, expect: '1.234567'},
+				{val: 1.234567, min: 3, expect: '1.235'},
+				{val: 1.234567, min: 2, expect: '1.235'},
+				{val: 1.234567, min: 8, expect: '1.23456700'},
 				{val: 0.1234567, expect: '0.123'},
 				{val: 4, min: 2, expect: '4.00'}
 			].forEach((input) => {
-				const val = input.val || 1.234567;
-				it(`should format ${val}, max:${input.max}, min:${input.min}`, () => {
+				it(`should format ${input.val}, max:${input.max}, min:${input.min}`, () => {
 					const options = {
 						maximumFractionDigits: input.max,
 						minimumFractionDigits: input.min
 					};
-					const value = format(val, localeData, options);
+					const value = format(input.val, localeData, options);
 					expect(value).to.equal(input.expect);
 				});
+			});
+
+			it('should use custom negative symbol', () => {
+				localeData.symbols.negative = '|@|';
+				const value = format(-42, localeData);
+				expect(value).to.equal('|@|42');
 			});
 
 			it('should use custom decimal symbol', () => {
 				localeData.symbols.decimal = '|@|';
 				const value = format(3.14, localeData);
 				expect(value).to.equal('3|@|14');
+			});
+
+			// doesn't pass while still using legacy formatter
+			it.skip('should use custom positive pattern', () => {
+				localeData.patterns.decimal.positivePattern = 'foo{number}bar';
+				const value = format(3.14, localeData);
+				expect(value).to.equal('foo3.14bar');
 			});
 
 		});
@@ -142,6 +133,13 @@ describe('NumberFormat', () => {
 				});
 			});
 
+			// doesn't pass while still using legacy formatter
+			it.skip('should use custom negative pattern', () => {
+				localeData.patterns.decimal.negativePattern = 'foo{number}bar-';
+				const value = format(-3.14, localeData);
+				expect(value).to.equal('foo3.14bar-');
+			});
+
 		});
 
 		describe('groups', () => {
@@ -152,7 +150,8 @@ describe('NumberFormat', () => {
 				{val: 1234567.8915, expected: '1,234,567.892'},
 				{val: 1000.123, max: 1, expected: '1,000.1'},
 				{val: 1234567.98, max: 1, expected: '1,234,568'},
-				{val: 1234567.8915, max: 1, expected: '1,234,567.9'}
+				{val: 1234567.8915, max: 1, expected: '1,234,567.9'},
+				{val: -1234567.8915, max: 1, expected: '-1,234,567.9'}
 			].forEach((input) => {
 				it(`should use group separator ${input.val}`, () => {
 					const options = {maximumFractionDigits: input.max};
