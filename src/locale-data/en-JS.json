@@ -1,0 +1,120 @@
+{
+	"locale": "en-US",
+	"date": {
+		"hour24": false,
+		"formats": {
+			"dateFormats": {
+				"short": "M/d/yyyy",
+				"standard": "MMM d, yyyy",
+				"long": "dddd, MMMM d, yyyy",
+				"yearMonth": "MMMM yyyy",
+				"monthDay": "MMMM d"
+			},
+			"timeFormats": {
+				"standard": "h:mm tt"
+			}
+		},
+		"calendar": {
+			"type": "gregorian",
+			"firstDayOfWeek": 0,
+			"weekendStartDay": 6,
+			"weekendEndDay": 0,
+			"months": {
+				"narrow": [
+					"J",
+					"F",
+					"M",
+					"A",
+					"M",
+					"J",
+					"J",
+					"A",
+					"S",
+					"O",
+					"N",
+					"D"
+				],
+				"short": [
+					"Jan",
+					"Feb",
+					"Mar",
+					"Apr",
+					"May",
+					"Jun",
+					"Jul",
+					"Aug",
+					"Sep",
+					"Oct",
+					"Nov",
+					"Dec"
+				],
+				"long": [
+					"January",
+					"February",
+					"March",
+					"April",
+					"May",
+					"June",
+					"July",
+					"August",
+					"September",
+					"October",
+					"November",
+					"December"
+				]
+			},
+			"days": {
+				"narrow": [
+					"S",
+					"M",
+					"T",
+					"W",
+					"T",
+					"F",
+					"S"
+				],
+				"short": [
+					"Sun",
+					"Mon",
+					"Tue",
+					"Wed",
+					"Thu",
+					"Fri",
+					"Sat"
+				],
+				"long": [
+					"Sunday",
+					"Monday",
+					"Tuesday",
+					"Wednesday",
+					"Thursday",
+					"Friday",
+					"Saturday"
+				]
+			},
+			"dayPeriods": {
+				"am": "AM",
+				"pm": "PM"
+			}
+		}
+	},
+	"number": {
+		"patterns": {
+			"decimal": {
+				"positivePattern": "{number}",
+				"negativePattern": "-{number}"
+			},
+			"percent": {
+				"positivePattern": "{number} %",
+				"negativePattern": "-{number} %"
+			}
+		},
+		"symbols": {
+			"decimal": ".",
+			"group": ",",
+			"negative": "-",
+			"percent": "%"
+		},
+		"groupSize": 3
+	}
+}
