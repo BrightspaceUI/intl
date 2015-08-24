@@ -1,10 +1,10 @@
-import {formatDecimal} from './format-decimal';
-import {formatPercent} from './format-percent';
-import {validateInteger} from '../util/validate-integer';
-import {localeData} from '../locale-data/en-JS.json';
+import {default as formatDecimal} from './format-decimal';
+import {default as formatPercent} from './format-percent';
+import {default as localeData} from '../locale-data/en-JS.json';
 
 export default class NumberFormat {
 	constructor(locale, options, localeOverride) {
+		options = options || {};
 		this.options = options;
 	}
 	format(value) {

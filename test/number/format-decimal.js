@@ -6,6 +6,7 @@ chai.should();
 chai.use(require('sinon-chai'));
 
 import {default as format} from '../../src/number/format-decimal';
+import {default as defaultLocaleData} from './default-locale-data.json';
 
 describe('NumberFormat', () => {
 
@@ -14,28 +15,10 @@ describe('NumberFormat', () => {
 		let localeData;
 
 		beforeEach(() => {
-			localeData = {
-				patterns: {
-					decimal: {
-						positivePattern: "{number}",
-						negativePattern: "-{number}"
-					},
-					percent: {
-						positivePattern: "{number} %",
-						negativePattern: "-{number} %"
-					}
-				},
-				symbols: {
-					decimal: ".",
-					group: ",",
-					negative: "-",
-					percent: "%"
-				},
-				groupSize: 3
-			};
+			localeData = JSON.parse(JSON.stringify(defaultLocaleData));
 		});
 
-		describe('invalid values', () => {
+		describe('edge values', () => {
 
 			it('should format null as 0', () => {
 				const value = format(null, localeData);
@@ -164,6 +147,12 @@ describe('NumberFormat', () => {
 				localeData.symbols.group = '|@|';
 				const value = format(1000000, localeData);
 				expect(value).to.equal('1|@|000|@|000');
+			});
+
+			it('should use custom group size', () => {
+				localeData.groupSize = 5;
+				const value = format(1000000, localeData);
+				expect(value).to.equal('10,00000');
 			});
 
 		});
