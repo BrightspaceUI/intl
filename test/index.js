@@ -9,7 +9,7 @@ import {Intl} from '../src/index';
 
 describe('Intl', () => {
 
-	it('should pass', () => {
+	it('should be defined', () => {
 		expect(Intl).to.be.defined;
 	});
 
