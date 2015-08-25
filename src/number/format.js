@@ -3,7 +3,7 @@ import {default as formatPercent} from './format-percent';
 import {default as merge} from '../util/merge.js';
 
 export default class NumberFormat {
-	constructor(locale, options, localeOverride) {
+	constructor(locale, options) {
 
 		options = options || {};
 		this.options = options;
