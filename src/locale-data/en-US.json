@@ -4,14 +4,14 @@
 		"hour24": false,
 		"formats": {
 			"dateFormats": {
+				"full": "dddd, MMMM d, yyyy",
+				"medium": "MMM d, yyyy",
 				"short": "M/d/yyyy",
-				"standard": "MMM d, yyyy",
-				"long": "dddd, MMMM d, yyyy",
 				"yearMonth": "MMMM yyyy",
 				"monthDay": "MMMM d"
 			},
 			"timeFormats": {
-				"standard": "h:mm tt"
+				"short": "h:mm tt"
 			}
 		},
 		"calendar": {
