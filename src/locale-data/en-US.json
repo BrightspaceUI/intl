@@ -7,7 +7,7 @@
 				"full": "dddd, MMMM d, yyyy",
 				"medium": "MMM d, yyyy",
 				"short": "M/d/yyyy",
-				"yearMonth": "MMMM yyyy",
+				"monthYear": "MMMM yyyy",
 				"monthDay": "MMMM d"
 			},
 			"timeFormats": {

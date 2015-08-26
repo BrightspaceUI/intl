@@ -7,30 +7,9 @@ chai.use(require('sinon-chai'));
 
 import {default as DateTimeFormat} from '../../src/date-time/format';
 
-function formatDate(date, options) {
-	const dtFormat = new DateTimeFormat('en-US', options);
-	const value = dtFormat.formatDate(date);
-	return value;
-}
-
 describe('DateTimeFormat', () => {
 
 	describe('format-date', () => {
-
-		it('should choose "en-US" locale by default', () => {
-			const dtFormat = new DateTimeFormat();
-			expect(dtFormat.localeData.locale).to.equal('en-US');
-		});
-
-		it.skip('shoud load data for specified locale', () => {
-			const dtFormat = new DateTimeFormat('fr-CA');
-			expect(dtFormat.localeData.locale).to.equal('fr-CA');
-		});
-
-		it('should default "format" to "short"', () => {
-			const value = formatDate(new Date(1981, 3, 14));
-			expect(value).to.equal('4/14/1981');
-		});
 
 		[
 			{format: 'd/M/yyyy', expect: '3/8/2015'},
@@ -60,12 +39,16 @@ describe('DateTimeFormat', () => {
 			{format: 'full', expect: 'Monday, August 3, 2015'},
 			{format: 'medium', expect: 'Aug 3, 2015'},
 			{format: 'short', expect: '8/3/2015'},
-			{format: 'yearMonth', expect: 'August 2015'},
-			{format: 'monthDay', expect: 'August 3'}
+			{format: 'monthYear', expect: 'August 2015'},
+			{format: 'monthDay', expect: 'August 3'},
+			{format: 'dddd', expect: 'Monday'},
+			{format: 'ddd', expect: 'Mon'},
+			{format: 'MMMM', expect: 'August'},
+			{format: 'MMM', expect: 'Aug'}
 		].forEach((input) => {
 			it(`should apply locale format "${input.format}"`, () => {
-				const options = {format: input.format};
-				const value = formatDate(new Date(2015, 7, 3), options);
+				const dtFormat = new DateTimeFormat('en-US', {format: input.format});
+				const value = dtFormat.formatDate(new Date(2015, 7, 3));
 				expect(value).to.equal(input.expect);
 			});
 		});
