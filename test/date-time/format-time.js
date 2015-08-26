@@ -15,7 +15,7 @@ function formatTime(date, options) {
 
 describe('DateTimeFormat', () => {
 
-	describe.only('format-time', () => {
+	describe('format-time', () => {
 
 		[
 			{format: 'H:mm', expect1: '1:28', expect2: '13:52'},
