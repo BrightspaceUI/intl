@@ -17,6 +17,11 @@ describe('DateTimeFormat', () => {
 
 	describe('format-time', () => {
 
+		it('should default "format" to "short"', () => {
+			const value = formatTime(new Date(1981, 3, 14, 10, 3));
+			expect(value).to.equal('10:03 AM');
+		});
+
 		[
 			{format: 'H:mm', expect1: '1:28', expect2: '13:52'},
 			{format: 'h:mm tt', expect1: '1:28 AM', expect2: '1:52 PM'},
@@ -24,11 +29,11 @@ describe('DateTimeFormat', () => {
 			{format: 'HH:mm', expect1: '01:28', expect2: '13:52'},
 			{format: 'tt h:mm', expect1: 'AM 1:28', expect2: 'PM 1:52'},
 			{format: 'tt hh:mm', expect1: 'AM 01:28', expect2: 'PM 01:52'},
+			{format: 'short', expect1: '1:28 AM', expect2: '1:52 PM'},
+			{format: 'full', expect1: '1:28 AM EST', expect2: '1:52 PM EST'}
 		].forEach((input) => {
 			it(`should apply locale format "${input.format} for 1-digit and 2-digit times"`, () => {
-				const options = {
-					locale: {date: {formats: {timeFormats:{short: input.format}}}}
-				};
+				const options = {format: input.format, timezone: 'EST'};
 				const value1 = formatTime(new Date(2015, 7, 25, 1, 28), options);
 				expect(value1).to.equal(input.expect1);
 				const value2 = formatTime(new Date(2015, 7, 25, 13, 52), options);

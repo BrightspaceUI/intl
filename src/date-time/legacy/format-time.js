@@ -1,8 +1,15 @@
 import {default as prePadByZero} from '../../util/pre-pad-by-zero';
 
-export default function(date, localeData) {
+export default function(date, localeData, options) {
 
-	var timeFormat = localeData.date.formats.timeFormats.short;
+	options.format = options.format || 'short';
+	options.timezone = options.timezone || '';
+
+	let format = localeData.date.formats.timeFormats[options.format];
+	if(format === undefined) {
+		format = options.format;
+	}
+
 	var am = localeData.date.calendar.dayPeriods.am;
 	var pm = localeData.date.calendar.dayPeriods.pm;
 
@@ -22,7 +29,8 @@ export default function(date, localeData) {
 			{ key: 'hh', value: hour12Pad },
 			{ key: 'h', value: hour12 },
 			{ key: 'mm', value: minute },
-			{ key: 'tt', value: ( hour > 11 ) ? pm : am }
+			{ key: 'tt', value: ( hour > 11 ) ? pm : am },
+			{ key: 'ZZZ', value: options.timezone }
 		];
 
 	var doReplacements = function( buf ) {
@@ -36,8 +44,8 @@ export default function(date, localeData) {
 	var escape = false;
 	var buffer = '';
 	var value = '';
-	for( var i = 0; i < timeFormat.length; i++ ) {
-		var c = timeFormat.charAt( i );
+	for( var i = 0; i < format.length; i++ ) {
+		var c = format.charAt( i );
 		if( c == "'" ) {
 			if( !escape ) {
 				value += doReplacements( buffer );
@@ -48,7 +56,7 @@ export default function(date, localeData) {
 			value += c;
 		} else {
 			buffer += c;
-			if( i == timeFormat.length - 1 ) {
+			if( i == format.length - 1 ) {
 				value += doReplacements( buffer );
 			}
 		}

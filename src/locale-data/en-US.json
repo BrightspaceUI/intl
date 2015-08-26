@@ -11,6 +11,8 @@
 				"monthDay": "MMMM d"
 			},
 			"timeFormats": {
+				"full": "h:mm tt ZZZ",
+				"medium": "h:mm tt",
 				"short": "h:mm tt"
 			}
 		},
