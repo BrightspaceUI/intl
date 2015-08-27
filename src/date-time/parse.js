@@ -1,3 +1,4 @@
+import {default as legacyParseDate} from './legacy/parse-date';
 import {default as legacyParseTime} from './legacy/parse-time';
 import {default as merge} from '../util/merge.js';
 
@@ -13,6 +14,9 @@ export default class NumberParse {
 		this.localeData = localeData;
 		this.options = options;
 
+	}
+	parseDate(input) {
+		return legacyParseDate(input, this.localeData, this.options);
 	}
 	parseTime(input) {
 		return legacyParseTime(input, this.localeData, this.options);

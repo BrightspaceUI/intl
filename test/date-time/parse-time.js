@@ -24,9 +24,9 @@ function assert(time, expectedHour, expectedMinute) {
 	expect(time.getMinutes()).to.equal(expectedMinute);
 }
 
-describe('DateTimeFormat', () => {
+describe('DateTimeParse', () => {
 
-	describe.only('parse-time', () => {
+	describe('parse-time', () => {
 
 		beforeEach(() => {
 			now = nowMorning;
