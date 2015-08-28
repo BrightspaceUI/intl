@@ -11,38 +11,6 @@ describe('NumberFormat', () => {
 
 	describe('format', () => {
 
-		describe('localeData', () => {
-
-			it('should default to "en-US" locale', () => {
-				const numberFormat = new format();
-				expect(numberFormat.localeData.locale).to.equal('en-US');
-			});
-
-			it.skip('should load specified locale', () => {
-				const numberFormat = new format('fr-CA');
-				expect(numberFormat.localeData.locale).to.equal('fr-CA');
-			});
-
-			it('should override localeData groupSize', () => {
-				const options = {locale: {groupSize: 9}};
-				const numberFormat = new format('en-CA', options);
-				expect(numberFormat.localeData.number.groupSize).to.equal(9);
-			});
-
-			it('should override localeData negative symbol', () => {
-				const options = {locale: {symbols: {negative: '*'}}};
-				const numberFormat = new format('en-CA', options);
-				expect(numberFormat.localeData.number.symbols.negative).to.equal('*');
-			});
-
-			it('should override localeData positive percent pattern', () => {
-				const options = {locale: {patterns: {percent: {positivePattern: '&'}}}};
-				const numberFormat = new format('en-CA', options);
-				expect(numberFormat.localeData.number.patterns.percent.positivePattern).to.equal('&');
-			});
-
-		});
-
 		describe('style', () => {
 
 			it('should default to decimal format', () => {

@@ -66,7 +66,7 @@ describe('NumberParse', () => {
 			});
 
 			it('should handle custom decimal symbol', () => {
-				const locale = {symbols: {decimal: '@'}};
+				const locale = {number: {symbols: {decimal: '@'}}};
 				const value = getValueHelper('0@2194', locale);
 				expect(value).to.equal(0.2194);
 			});
@@ -91,13 +91,13 @@ describe('NumberParse', () => {
 			});
 
 			it('should handle custom group separators', () => {
-				const locale = {symbols: {group: '|'}};
+				const locale = {number: {symbols: {group: '|'}}};
 				const value = getValueHelper('4|193|018.2028', locale);
 				expect(value).to.equal(4193018.2028);
 			});
 
 			it('should handle space as a group separator', () => {
-				const locale = {symbols: {group: ' '}};
+				const locale = {number: {symbols: {group: ' '}}};
 				const value = getValueHelper('4 193 018.2028', locale);
 				expect(value).to.equal(4193018.2028);
 			});
@@ -126,7 +126,7 @@ describe('NumberParse', () => {
 			});
 
 			it('should parse with custom negative symbol', () => {
-				const locale = {symbols: {negative: '^'}};
+				const locale = {number: {symbols: {negative: '^'}}};
 				const value = getValueHelper('^ 42', locale);
 				expect(value).to.equal(-42);
 			});

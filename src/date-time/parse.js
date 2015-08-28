@@ -1,19 +1,12 @@
 import {default as legacyParseDate} from './legacy/parse-date';
 import {default as legacyParseTime} from './legacy/parse-time';
-import {default as merge} from '../util/merge.js';
+import {default as localeProvider} from '../locale-data/provider';
 
 export default class NumberParse {
 	constructor(locale, options) {
-
 		options = options || {};
-		locale = locale || 'en-US';
-		let localeData = JSON.parse(JSON.stringify(
-			require('../locale-data/en-US.json')
-		));
-		merge(localeData, options.locale);
-		this.localeData = localeData;
+		this.localeData = localeProvider(locale, options.locale);
 		this.options = options;
-
 	}
 	parseDate(input) {
 		return legacyParseDate(input, this.localeData, this.options);

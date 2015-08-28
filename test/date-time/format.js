@@ -11,16 +11,6 @@ describe('DateTimeFormat', () => {
 
 	describe('format', () => {
 
-		it('should choose "en-US" locale by default', () => {
-			const dtFormat = new DateTimeFormat();
-			expect(dtFormat.localeData.locale).to.equal('en-US');
-		});
-
-		it.skip('shoud load data for specified locale', () => {
-			const dtFormat = new DateTimeFormat('fr-CA');
-			expect(dtFormat.localeData.locale).to.equal('fr-CA');
-		});
-
 		it('should default "format" to "short"', () => {
 			const dtFormat = new DateTimeFormat('en-US');
 			const value = dtFormat.format(new Date(1981, 3, 14, 10, 3));

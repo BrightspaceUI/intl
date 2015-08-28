@@ -1,24 +1,24 @@
 {
-	"locale": "en-US",
+	"locale": "sv-SE",
 	"date": {
-		"hour24": false,
+		"hour24": true,
 		"formats": {
 			"dateFormats": {
-				"full": "dddd, MMMM d, yyyy",
-				"medium": "MMM d, yyyy",
-				"short": "M/d/yyyy",
+				"full": "dddd 'den' d MMMM yyyy",
+				"medium": "d MMMM yyyy",
+				"short": "yyyy-MM-dd",
 				"monthYear": "MMMM yyyy",
 				"monthDay": "MMMM d"
 			},
 			"timeFormats": {
-				"full": "h:mm tt ZZZ",
-				"medium": "h:mm tt",
-				"short": "h:mm tt"
+				"full": "HH:mm ZZZ",
+				"medium": "HH:mm",
+				"short": "HH:mm"
 			}
 		},
 		"calendar": {
 			"type": "gregorian",
-			"firstDayOfWeek": 0,
+			"firstDayOfWeek": 1,
 			"weekendStartDay": 6,
 			"weekendEndDay": 0,
 			"months": {
@@ -27,26 +27,26 @@
 					"Feb",
 					"Mar",
 					"Apr",
-					"May",
+					"Maj",
 					"Jun",
 					"Jul",
 					"Aug",
 					"Sep",
-					"Oct",
+					"Okt",
 					"Nov",
 					"Dec"
 				],
 				"long": [
-					"January",
-					"February",
-					"March",
+					"Januari",
+					"Februari",
+					"Mars",
 					"April",
-					"May",
-					"June",
-					"July",
-					"August",
+					"Maj",
+					"Juni",
+					"Juli",
+					"Augusti",
 					"September",
-					"October",
+					"Oktober",
 					"November",
 					"December"
 				]
@@ -56,33 +56,33 @@
 					"S",
 					"M",
 					"T",
-					"W",
+					"O",
 					"T",
 					"F",
-					"S"
+					"L"
 				],
 				"short": [
-					"Sun",
-					"Mon",
-					"Tue",
-					"Wed",
-					"Thu",
-					"Fri",
-					"Sat"
+					"Sön",
+					"Mån",
+					"Tis",
+					"Ons",
+					"Tor",
+					"Fre",
+					"Lör"
 				],
 				"long": [
-					"Sunday",
-					"Monday",
-					"Tuesday",
-					"Wednesday",
-					"Thursday",
-					"Friday",
-					"Saturday"
+					"Söndag",
+					"Måndag",
+					"Tisdag",
+					"Onsdag",
+					"Torsdag",
+					"Fredag",
+					"Lördag"
 				]
 			},
 			"dayPeriods": {
-				"am": "AM",
-				"pm": "PM"
+				"am": "FM",
+				"pm": "EM"
 			}
 		}
 	},
@@ -93,13 +93,13 @@
 				"negativePattern": "-{number}"
 			},
 			"percent": {
-				"positivePattern": "{number} %",
-				"negativePattern": "-{number} %"
+				"positivePattern": "%{number}",
+				"negativePattern": "-%{number}"
 			}
 		},
 		"symbols": {
-			"decimal": ".",
-			"group": ",",
+			"decimal": ",",
+			"group": ".",
 			"negative": "-",
 			"percent": "%"
 		},

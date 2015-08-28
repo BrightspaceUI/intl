@@ -1,20 +1,12 @@
 import {default as formatDecimal} from './format-decimal';
 import {default as formatPercent} from './format-percent';
-import {default as merge} from '../util/merge.js';
+import {default as localeProvider} from '../locale-data/provider';
 
 export default class NumberFormat {
 	constructor(locale, options) {
-
 		options = options || {};
 		this.options = options;
-
-		locale = locale || 'en-US';
-		let localeData = JSON.parse(JSON.stringify(
-			require('../locale-data/en-US.json')
-		));
-		merge(localeData.number, options.locale);
-		this.localeData = localeData;
-
+		this.localeData = localeProvider(locale, options.locale);
 	}
 	format(value) {
 		switch(this.options.style) {
