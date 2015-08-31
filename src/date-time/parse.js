@@ -1,4 +1,4 @@
-import {default as legacyParseDate} from './legacy/parse-date';
+import {default as parseDate} from './parse-date';
 import {default as parseTime} from './parse-time';
 import {default as localeProvider} from '../locale-provider';
 
@@ -9,7 +9,7 @@ export default class NumberParse {
 		this.options = options;
 	}
 	parseDate(input) {
-		return legacyParseDate(input, this.localeData, this.options);
+		return parseDate(input, this.localeData, this.options);
 	}
 	parseTime(input) {
 		return parseTime(input, this.localeData, this.options);
