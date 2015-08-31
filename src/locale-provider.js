@@ -1,27 +1,27 @@
-import {default as merge} from '../util/merge';
+import {default as merge} from './util/merge';
 
 const allLocales = {
-	'ar-SA': require('./ar-SA.json'),
-	'ar': require('./ar.json'),
-	'en-CA': require('./en-CA.json'),
-	'en-GB': require('./en-GB.json'),
-	'en-US': require('./en-US.json'),
-	'en': require('./en.json'),
-	'es-MX': require('./es-MX.json'),
-	'es': require('./es.json'),
-	'fr-CA': require('./fr-CA.json'),
-	'fr': require('./fr.json'),
-	'ja': require('./ja.json'),
-	'ko-KR': require('./ko-KR.json'),
-	'pt-BR': require('./pt-BR.json'),
-	'pt': require('./pt.json'),
-	'sv-SE': require('./sv-SE.json'),
-	'sv': require('./sv.json'),
-	'tr-TR': require('./tr-TR.json'),
-	'tr': require('./tr.json'),
-	'zh-CN': require('./zh-CN.json'),
-	'zh-TW': require('./zh-TW.json'),
-	'zh': require('./zh.json')
+	'ar-SA': require('./locale-data/ar-SA.json'),
+	'ar': require('./locale-data/ar.json'),
+	'en-CA': require('./locale-data/en-CA.json'),
+	'en-GB': require('./locale-data/en-GB.json'),
+	'en-US': require('./locale-data/en-US.json'),
+	'en': require('./locale-data/en.json'),
+	'es-MX': require('./locale-data/es-MX.json'),
+	'es': require('./locale-data/es.json'),
+	'fr-CA': require('./locale-data/fr-CA.json'),
+	'fr': require('./locale-data/fr.json'),
+	'ja': require('./locale-data/ja.json'),
+	'ko-KR': require('./locale-data/ko-KR.json'),
+	'pt-BR': require('./locale-data/pt-BR.json'),
+	'pt': require('./locale-data/pt.json'),
+	'sv-SE': require('./locale-data/sv-SE.json'),
+	'sv': require('./locale-data/sv.json'),
+	'tr-TR': require('./locale-data/tr-TR.json'),
+	'tr': require('./locale-data/tr.json'),
+	'zh-CN': require('./locale-data/zh-CN.json'),
+	'zh-TW': require('./locale-data/zh-TW.json'),
+	'zh': require('./locale-data/zh.json')
 };
 
 function normalizeLangTag(langTag) {

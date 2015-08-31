@@ -1,5 +1,5 @@
 import {default as legacyParse} from './legacy/parse';
-import {default as localeProvider} from '../locale-data/provider';
+import {default as localeProvider} from '../locale-provider';
 
 export default class NumberParse {
 	constructor(locale, options) {
