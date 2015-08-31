@@ -1,4 +1,4 @@
-import {default as legacyFormatTime} from './legacy/format-time';
+import {default as formatTime} from './format-time';
 import {default as formatDate} from './format-date';
 import {default as localeProvider} from '../locale-provider';
 
@@ -38,6 +38,6 @@ export default class DateTimeFormat {
 		return formatDate(date, this.localeData, this.options);
 	}
 	formatTime(date) {
-		return legacyFormatTime(date, this.localeData, this.options);
+		return formatTime(date, this.localeData, this.options);
 	}
 }
