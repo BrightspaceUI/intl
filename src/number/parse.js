@@ -1,4 +1,4 @@
-import {default as localeProvider} from '../locale-provider';
+import localeProvider from '../locale-provider';
 
 export default class NumberParse {
 	constructor(locale, options) {

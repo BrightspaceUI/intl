@@ -1,5 +1,5 @@
-import {default as prePadByZero} from '../util/pre-pad-by-zero';
-import {default as processPattern} from '../util/process-pattern';
+import prePadByZero from '../util/pre-pad-by-zero';
+import processPattern from '../util/process-pattern';
 
 export default function(date, localeData, options) {
 

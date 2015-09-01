@@ -1,5 +1,5 @@
-import {default as validateFormatOptions} from './validate-format-options';
-import {default as validateFormatValue} from './validate-format-value';
+import validateFormatOptions from './validate-format-options';
+import validateFormatValue from './validate-format-value';
 
 export default function(value, localeData, options) {
 

@@ -1,6 +1,6 @@
-import {default as formatTime} from './format-time';
-import {default as formatDate} from './format-date';
-import {default as localeProvider} from '../locale-provider';
+import formatTime from './format-time';
+import formatDate from './format-date';
+import localeProvider from '../locale-provider';
 
 export default class DateTimeFormat {
 	constructor(locale, options) {

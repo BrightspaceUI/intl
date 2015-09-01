@@ -1,4 +1,4 @@
-import {default as calendarProvider} from '../calendar/provider';
+import calendarProvider from '../calendar/provider';
 
 const reSeparator = new RegExp('\\W');
 

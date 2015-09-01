@@ -1,6 +1,6 @@
-import {default as formatDecimal} from './format-decimal';
-import {default as formatPercent} from './format-percent';
-import {default as localeProvider} from '../locale-provider';
+import formatDecimal from './format-decimal';
+import formatPercent from './format-percent';
+import localeProvider from '../locale-provider';
 
 export default class NumberFormat {
 	constructor(locale, options) {

@@ -1,4 +1,4 @@
-import {default as validateInteger} from '../util/validate-integer';
+import validateInteger from '../util/validate-integer';
 
 export default function(options) {
 

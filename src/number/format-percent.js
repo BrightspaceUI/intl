@@ -1,5 +1,5 @@
-import {default as validateFormatValue} from './validate-format-value';
-import {default as formatDecimal} from './format-decimal';
+import validateFormatValue from './validate-format-value';
+import formatDecimal from './format-decimal';
 
 export default function(value, localeData, options) {
 

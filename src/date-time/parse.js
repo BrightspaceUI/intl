@@ -1,6 +1,6 @@
-import {default as parseDate} from './parse-date';
-import {default as parseTime} from './parse-time';
-import {default as localeProvider} from '../locale-provider';
+import parseDate from './parse-date';
+import parseTime from './parse-time';
+import localeProvider from '../locale-provider';
 
 export default class NumberParse {
 	constructor(locale, options) {
