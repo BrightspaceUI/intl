@@ -90,16 +90,12 @@ describe('NumberParse', () => {
 				expect(value).to.equal(929322293.29382);
 			});
 
-			it('should handle custom group separators', () => {
-				const locale = {number: {symbols: {group: '|'}}};
-				const value = getValueHelper('4|193|018.2028', locale);
-				expect(value).to.equal(4193018.2028);
-			});
-
-			it('should handle space as a group separator', () => {
-				const locale = {number: {symbols: {group: ' '}}};
-				const value = getValueHelper('4 193 018.2028', locale);
-				expect(value).to.equal(4193018.2028);
+			['|', ' '].forEach((sep) => {
+				it(`should handle "${sep}" as a group separator`, () => {
+					const locale = {number: {symbols: {group: sep}}};
+					const value = getValueHelper(`4${sep}193${sep}018.2028`, locale);
+					expect(value).to.equal(4193018.2028);
+				});
 			});
 
 		});
