@@ -11,15 +11,13 @@ export default class NumberParse {
 			return 0;
 		}
 
-		value = value.trim();
-		if(value === '') {
-			return 0;
-		}
-
 		value = value.replace(
 			new RegExp(`\\s|[${this.localeData.number.symbols.group}]`, 'g' ),
 			''
 		);
+		if(value === '') {
+			return 0;
+		}
 
 		let ret = '';
 		let negative = false;

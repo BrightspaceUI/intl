@@ -25,7 +25,9 @@ describe('NumberParse', () => {
 				'',
 				'  		 ',
 				' 0 	',
-				'0'
+				'0',
+				',',
+				'  ,  ,'
 			].forEach((input) => {
 				it(`should parse "${input}" as 0`, () => {
 					const value = getValueHelper(input);
