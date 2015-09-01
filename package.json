@@ -4,9 +4,7 @@
   "description": "D2L internationalization APIs for number, date and time formatting and parsing.",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "npm run lint:src && npm run lint:test",
-    "lint:src": "jshint src",
-    "lint:test": "jshint test",
+    "lint": "jshint src && jshint test",
     "test:unit": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive",
     "test": "npm run lint -s && npm run test:unit -s",
     "prepublish": "npm run transpile",
