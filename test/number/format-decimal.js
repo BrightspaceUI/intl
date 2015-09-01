@@ -49,6 +49,8 @@ describe('NumberFormat', () => {
 				{val: 42, expect: '42'},
 				{val: -42, expect: '-42'},
 				{val: 0, expect: '0'},
+				{val: 0, min: 2, expect: '0.00'},
+				{val: -0, expect: '0'},
 				{val: 3.1, expect: '3.1'},
 				{val: 1.2345, expect: '1.235'},
 				{val: 1.2, max: 0, expect: '1'},
@@ -64,7 +66,7 @@ describe('NumberFormat', () => {
 				it(`should format ${input.val}, max:${input.max}, min:${input.min}`, () => {
 					const options = {
 						maximumFractionDigits: input.max,
-						minimumFractionDigits: input.min
+						minimumFractionDigits: input.min,
 					};
 					const value = format(input.val, localeData, options);
 					expect(value).to.equal(input.expect);
@@ -83,8 +85,7 @@ describe('NumberFormat', () => {
 				expect(value).to.equal('3|@|14');
 			});
 
-			// doesn't pass while still using legacy formatter
-			it.skip('should use custom positive pattern', () => {
+			it('should use custom positive pattern', () => {
 				localeData.patterns.decimal.positivePattern = 'foo{number}bar';
 				const value = format(3.14, localeData);
 				expect(value).to.equal('foo3.14bar');
@@ -100,13 +101,11 @@ describe('NumberFormat', () => {
 				{pattern: '{number}-', expected: '4-'},
 				{pattern: '{number} -', expected: '4 -'},
 				{pattern: '-{number}', expected: '-4'},
-				{pattern: 'unknown', expected: '-4'},
 				{pattern: '({number})', expected: '(4.0)', min: 1},
 				{pattern: '- {number}', expected: '- 4.0', min: 1},
 				{pattern: '{number}-', expected: '4.0-', min: 1},
 				{pattern: '{number} -', expected: '4.0 -', min: 1},
-				{pattern: '-{number}', expected: '-4.0', min: 1},
-				{pattern: 'unknown', expected: '-4.0', min: 1}
+				{pattern: '-{number}', expected: '-4.0', min: 1}
 			].forEach((input) => {
 				it(`should apply negative pattern "${input.pattern}"`, () => {
 					localeData.patterns.decimal.negativePattern = input.pattern;
@@ -116,8 +115,7 @@ describe('NumberFormat', () => {
 				});
 			});
 
-			// doesn't pass while still using legacy formatter
-			it.skip('should use custom negative pattern', () => {
+			it('should use custom negative pattern', () => {
 				localeData.patterns.decimal.negativePattern = 'foo{number}bar-';
 				const value = format(-3.14, localeData);
 				expect(value).to.equal('foo3.14bar-');
