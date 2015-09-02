@@ -3,6 +3,8 @@ node_js:
 - 0.12
 after_success:
 - npm run report-coverage
+- '[ "$TRAVIS_SECURE_ENV_VARS" = "true" ] && [ "x$TRAVIS_TAG" != "x" ] && npm run
+  publish:cdn'
 deploy:
   provider: npm
   email: d2ltravisdeploy@d2l.com
@@ -11,3 +13,6 @@ deploy:
   on:
     tags: true
     repo: Brightspace/intl
+env:
+  global:
+    secure: CzvWVyhyq4NTAYFAO4C3MxsoFLoqAQBeepvvndnuN8r6TphmYDwvHtrnqkhtJ/yPtI/5QI2YimqS3MiWfJGQcCvk5ZfKS2Sr3eaplAdEakkdrbNxSdDjZxtaBMbU6bgoW/1ijnXZFlcJxJn9kmLkL+LwzKLfdp07Xqyo1zeMhv4CF0+hAJFD1UOLlhJJci0FHvwGGeiEz8UynXeJV5kcdoh+bxWWbHCkrsBWCMlyDGFvz26Sv0AlvpKPsBe9BuQXFYnAmRNNvylMorjJ+Zzg0FPLQ61tYOoSPaukqIGFE7YJBnLdYf9p537L31/6c/G81X67mr/QVDgKE0W+YjAgjEp7pp+EG0KATZ5z9hNMfpFbswYWuy35GRn8mAn/6wpA06819yPUFzwczUmdRzkG697N6YknfBr2ipGajasJPnaGi0euAS9ovExEq9kA4Uo4sVTwadodwt6XC681ftX5idQh9M4OlKb3kkYBGRe2Dp+VF+ayeY0infteoJl0PGyHra0QqxHAdP0nUJuAc2BmOGRRARPWM8x5X7qhIFKGT0UFo4DlS022fNVYu6l2RkRelJCEptq6h7GEvr+/YM/YYWk29sc9Olyo7TMTYxUpl2zSJXaTg/h+YHkXc+MZsV0X/Ev3bAgDdF0Ka7ttIwcD9vDGphQvLd4bMQ5m27idf9w=

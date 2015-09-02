@@ -4,11 +4,15 @@
   "description": "D2L internationalization APIs for number, date and time formatting and parsing.",
   "main": "lib/index.js",
   "scripts": {
+    "prebrowserify": "rimraf dist && mkdir dist && npm run transpile",
+    "browserify": "browserify -g uglifyify -s d2lIntl ./lib/index.js > ./dist/Intl.js",
     "lint": "jshint src && jshint test",
     "test:unit": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive",
     "test": "npm run lint -s && npm run test:unit -s",
-    "prepublish": "npm run transpile",
-    "transpile": "rimraf lib && babel src --out-dir lib && cpy src/locale-data/*.json lib/locale-data",
+    "prepublish:cdn": "npm run browserify",
+    "publish:cdn": "frau-publisher -m lib -t d2l-intl -f './dist/**' -k AKIAJUEYQT65A7MPJSUA --secretvar S3_SECRET --versionvar TRAVIS_TAG",
+    "pretranspile": "rimraf lib",
+    "transpile": "babel src --out-dir lib && cpy src/locale-data/*.json lib/locale-data",
     "report-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
@@ -33,12 +37,15 @@
   "homepage": "https://github.com/Brightspace/intl",
   "devDependencies": {
     "babel": "^5.6.4",
+    "browserify": "^11.0.1",
     "chai": "^3.0.0",
     "coveralls": "^2.11.2",
     "cpy": "^3.4.0",
+    "gulp-frau-publisher": "^2.4.0",
     "istanbul-harmony": "^0.3.15",
     "jshint": "^2.8.0",
     "mocha": "^2.2.5",
-    "rimraf": "^2.3.4"
+    "rimraf": "^2.3.4",
+    "uglifyify": "^3.0.1"
   }
 }
