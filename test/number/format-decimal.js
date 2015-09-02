@@ -1,12 +1,10 @@
 let chai = require('chai'),
-	expect = chai.expect,
-	sinon = require('sinon');
+	expect = chai.expect;
 
 chai.should();
-chai.use(require('sinon-chai'));
 
-import {default as format} from '../../src/number/format-decimal';
-import {default as defaultLocaleData} from '../../src/locale-data/en-US.json';
+import format from '../../src/number/format-decimal';
+import defaultLocaleData from '../../src/locale-data/en-US.json';
 
 describe('NumberFormat', () => {
 

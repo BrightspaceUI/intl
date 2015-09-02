@@ -1,11 +1,9 @@
 let chai = require('chai'),
-	expect = chai.expect,
-	sinon = require('sinon');
+	expect = chai.expect;
 
 chai.should();
-chai.use(require('sinon-chai'));
 
-import {default as validate} from '../../src/util/validate-integer';
+import validate from '../../src/util/validate-integer';
 
 describe('validate-integer', () => {
 

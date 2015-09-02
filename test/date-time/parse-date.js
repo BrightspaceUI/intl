@@ -1,11 +1,9 @@
 let chai = require('chai'),
-	expect = chai.expect,
-	sinon = require('sinon');
+	expect = chai.expect;
 
 chai.should();
-chai.use(require('sinon-chai'));
 
-import {default as DateTimeParse} from '../../src/date-time/parse';
+import DateTimeParse from '../../src/date-time/parse';
 
 function parseDate(input, options) {
 	const parser = new DateTimeParse('en-US', options);

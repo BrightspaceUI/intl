@@ -1,11 +1,9 @@
 let chai = require('chai'),
-	expect = chai.expect,
-	sinon = require('sinon');
+	expect = chai.expect;
 
 chai.should();
-chai.use(require('sinon-chai'));
 
-import {default as parse} from '../../src/number/parse';
+import parse from '../../src/number/parse';
 
 function getValueHelper(input, locale) {
 	const numberParse = new parse('en-US', {locale:locale});

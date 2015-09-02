@@ -1,11 +1,9 @@
 let chai = require('chai'),
-	expect = chai.expect,
-	sinon = require('sinon');
+	expect = chai.expect;
 
 chai.should();
-chai.use(require('sinon-chai'));
 
-import {default as DateTimeFormat} from '../../src/date-time/format';
+import DateTimeFormat from '../../src/date-time/format';
 
 describe('DateTimeFormat', () => {
 

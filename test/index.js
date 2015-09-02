@@ -1,9 +1,7 @@
 var chai = require('chai'),
-	expect = chai.expect,
-	sinon = require('sinon');
+	expect = chai.expect;
 
 chai.should();
-chai.use(require('sinon-chai'));
 
 import Intl from '../src/index';
 
