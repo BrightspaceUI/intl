@@ -210,6 +210,35 @@ console.log(
 );
 ```
 
+## File Size Parsing
+The `FileSizeFormat` object can be used to format a file size appropriately for the user's locale.
+
+Syntax:
+
+```javascript
+var formatFS = new d2lIntl.FileSizeFormat(locale[, options]);
+```
+Options:
+
+- **locale**: see [overriding locale data](#Overriding Locale Data)
+- **decimalPlaces**: Change the default maximum amount of decimal places to include in the result (Default: 2)
+
+To format a file size, call the `formatFileSize` method:
+
+```javascript
+var fileSize = formatFS.formatFileSize(fileSize[, options]);
+```
+
+Options:
+
+- **decimalPlaces**: The maximum amount of decimal places to include in the result (overrides the default)
+
+```javascript
+var formatFS = new d2lIntl.FileSizeFormat('en-US');
+var fileSize = formatFS.formatFileSize(100);
+console.log(fileSize) // -> 100 bytes
+```
+
 ## Contributing
 Contributions are welcome, please submit a pull request!
 
