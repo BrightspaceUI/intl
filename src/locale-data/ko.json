@@ -107,7 +107,7 @@
 	},
 	"fileSize": {
 		"patterns": {
-			"fileSizePattern": "{number} {unit}"
+			"fileSizePattern": "{number}{unit}"
 		},
 		"units" : {
 			"gigabyte": "GB",

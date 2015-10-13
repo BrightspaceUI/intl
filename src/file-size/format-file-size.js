@@ -12,7 +12,7 @@ function getFileSizeUnits(localeData) {
 	return fileSizeUnits;
 }
 
-export default function(numBytes, localeData, options) {
+export default function(numBytes, localeData) {
 	numBytes = validateFormatValue(numBytes);
 
 	const fileSizeUnits = getFileSizeUnits(localeData);

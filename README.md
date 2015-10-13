@@ -218,14 +218,11 @@ Syntax:
 ```javascript
 var formatFS = new d2lIntl.FileSizeFormat(locale[, options]);
 ```
-Options:
 
-- **locale**: see [overriding locale data](#Overriding Locale Data)
-
-To format a file size, call the `formatFileSize` method:
+To format a file size, call the `format` method:
 
 ```javascript
-var fileSize = formatFS.formatFileSize(fileSize[, options]);
+var fileSize = formatFS.format(fileSize);
 ```
 
 ```javascript

@@ -13,6 +13,7 @@ const allLocales = {
 	'fr': require('./locale-data/fr.json'),
 	'ja': require('./locale-data/ja.json'),
 	'ko-KR': require('./locale-data/ko-KR.json'),
+	'ko': require('./locale-data/ko.json'),
 	'pt-BR': require('./locale-data/pt-BR.json'),
 	'pt': require('./locale-data/pt.json'),
 	'sv-SE': require('./locale-data/sv-SE.json'),
