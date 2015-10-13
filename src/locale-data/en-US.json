@@ -113,7 +113,8 @@
 			"gigabyte": "GB",
 			"megabyte": "MB",
 			"kilobyte": "KB",
-			"bytes": "bytes"
+			"bytes": "bytes",
+			"byte": "byte"
 		}
 	}
 }

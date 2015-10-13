@@ -18,17 +18,19 @@ export default function(numBytes, localeData, options) {
 	const fileSizeUnits = getFileSizeUnits(localeData);
 
 	let formatUnit,
-		size,
-		maximumFractionDigits = isNaN(options.maximumFractionDigits)? 2 : options.maximumFractionDigits;
+		size;
 
 	if(numBytes === 0) {
 		formatUnit = localeData.fileSize.units.bytes;
 		size = 0;
+	} else if(Math.abs(numBytes) === 1){
+		formatUnit = localeData.fileSize.units.byte;
+		size = numBytes;
 	} else {
 		for (var unitSize of fileSizeUnits) {
 			if (Math.abs(numBytes) >= unitSize.num) {
 				formatUnit = unitSize.unit;
-				size = formatDecimal(numBytes/unitSize.num, localeData.number, { maximumFractionDigits: maximumFractionDigits });
+				size = formatDecimal(numBytes/unitSize.num, localeData.number, { maximumFractionDigits: 2 });
 				break;
 			}
 		}

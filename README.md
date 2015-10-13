@@ -221,17 +221,12 @@ var formatFS = new d2lIntl.FileSizeFormat(locale[, options]);
 Options:
 
 - **locale**: see [overriding locale data](#Overriding Locale Data)
-- **maximumFractionDigits**: Change the default maximum amount of decimal places to include in the result (Default: 2)
 
 To format a file size, call the `formatFileSize` method:
 
 ```javascript
 var fileSize = formatFS.formatFileSize(fileSize[, options]);
 ```
-
-Options:
-
-- **maximumFractionDigits**: The maximum amount of decimal places to include in the result (overrides the default)
 
 ```javascript
 var formatFS = new d2lIntl.FileSizeFormat('en-US');
