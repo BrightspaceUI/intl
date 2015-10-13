@@ -104,5 +104,17 @@
 			"percent": "%"
 		},
 		"groupSize": 3
+	},
+	"fileSize": {
+		"patterns": {
+			"fileSizePattern": "{number} {unit}"
+		},
+		"units" : {
+			"gigabyte": "غيغا بايت",
+			"megabyte": "ميغا بايت",
+			"kilobyte": "كيلو بايت",
+			"bytes": "بايت",
+			"byte": "بايت"
+		}
 	}
 }

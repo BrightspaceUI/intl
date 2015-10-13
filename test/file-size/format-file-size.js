@@ -8,13 +8,13 @@ chai.should();
 describe('file-size', () => {
 	describe('format-file-size', () => {
 		[
-			{byteNum:0, expect:'0 bytes'},
-			{byteNum:-1, expect:'-1 byte'},
-			{byteNum:1, expect:'1 byte'},
-			{byteNum:2, expect:'2 bytes'},
-			{byteNum:-2, expect:'-2 bytes'},
-			{byteNum:1023, expect:'1,023 bytes'},
-			{byteNum:-1023, expect:'-1,023 bytes'},
+			{byteNum:0, expect:'0 Bytes'},
+			{byteNum:-1, expect:'-1 Byte'},
+			{byteNum:1, expect:'1 Byte'},
+			{byteNum:2, expect:'2 Bytes'},
+			{byteNum:-2, expect:'-2 Bytes'},
+			{byteNum:1023, expect:'1,023 Bytes'},
+			{byteNum:-1023, expect:'-1,023 Bytes'},
 			{byteNum:1024, expect:'1 KB'},
 			{byteNum:-1024, expect:'-1 KB'},
 			{byteNum:1048576, expect:'1 MB'},
@@ -26,8 +26,8 @@ describe('file-size', () => {
 		].forEach(input => {
 			it(`should parse the file-size: "${input.byteNum}" bytes`, () => {
 				var options;
-				var formatFS = new format('en', {});
-				const parsedFileSize = formatFS.formatFileSize(input.byteNum, options);
+				var formatFileSize = new format('en', {});
+				const parsedFileSize = formatFileSize.format(input.byteNum, options);
 				expect(parsedFileSize).to.equal(input.expect);
 			});
 		});

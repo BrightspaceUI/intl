@@ -230,8 +230,8 @@ var fileSize = formatFS.formatFileSize(fileSize[, options]);
 
 ```javascript
 var formatFS = new d2lIntl.FileSizeFormat('en-US');
-var fileSize = formatFS.formatFileSize(100);
-console.log(fileSize) // -> 100 bytes
+var fileSize = formatFS.format(100);
+console.log(fileSize) // -> 100 Bytes
 ```
 
 ## Contributing

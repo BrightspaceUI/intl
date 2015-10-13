@@ -104,5 +104,17 @@
 			"percent": "%"
 		},
 		"groupSize": 3
+	},
+	"fileSize": {
+		"patterns": {
+			"fileSizePattern": "{number} {unit}"
+		},
+		"units" : {
+			"gigabyte": "GB",
+			"megabyte": "MB",
+			"kilobyte": "KB",
+			"bytes": "0]바이트",
+			"byte": "0]바이트"
+		}
 	}
 }
