@@ -7,9 +7,14 @@ export default class FileSizeFormat {
 		this.localeData = localeProvider(locale, options.locale);
 	}
 	formatFileSize(fileSize, options){
-		for(var option in options){
-			this.options[option] = options[option];
+		options = options || {};
+
+		for(var option in this.options) {
+			if(options[option] === undefined) {
+				options[option] = this.options[option];
+			}
 		}
-		return FileSizeFormatter(fileSize, this.localeData, this.options);
+
+		return FileSizeFormatter(fileSize, this.localeData, options);
 	}
 }
