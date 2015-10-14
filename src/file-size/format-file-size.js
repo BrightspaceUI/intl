@@ -1,5 +1,6 @@
 import formatDecimal from '../number/format-decimal';
 import validateFormatValue from '../number/validate-format-value';
+import processPattern from '../util/process-pattern';
 
 function getFileSizeUnits(localeData) {
 	const fileSizeUnits = Object.freeze([
@@ -36,8 +37,12 @@ export default function(numBytes, localeData) {
 		}
 	}
 
-	let ret = localeData.fileSize.patterns.fileSizePattern;
-	ret = ret.replace('{number}', size).replace('{unit}', formatUnit);
+	let format = localeData.fileSize.patterns.fileSizePattern;
+	const replacements = {
+		'{number}': size,
+		'{unit}': formatUnit
+	};
 
-	return ret;
+	const value = processPattern (format, replacements);
+	return value;
 }
