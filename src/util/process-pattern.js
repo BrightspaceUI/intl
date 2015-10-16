@@ -15,14 +15,14 @@ export default function(pattern, replacements) {
 	let escape = false;
 	let buffer = '';
 	let value = '';
-	for(let c of pattern) {
-		if(c == "'") {
-			if(!escape) {
+	for (let c of pattern) {
+		if (c === "'") {
+			if (!escape) {
 				value += doReplacements(buffer);
 				buffer = '';
 			}
 			escape = !escape;
-		} else if(escape) {
+		} else if (escape) {
 			value += c;
 		} else {
 			buffer += c;

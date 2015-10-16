@@ -14,7 +14,7 @@ export default function(value, localeData, options) {
 		localeData.patterns.percent.positivePattern;
 	percent = percent.replace('{number}', dec);
 	percent = percent.replace('%', localeData.symbols.percent);
-	if(isNegative) {
+	if (isNegative) {
 		percent = percent.replace('-', localeData.symbols.negative);
 	}
 

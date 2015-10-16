@@ -27,19 +27,19 @@ const allLocales = {
 
 function normalizeLangTag(langTag) {
 
-	if(langTag === undefined || langTag === null) {
+	if (langTag === undefined || langTag === null) {
 		return 'en';
 	}
 
 	langTag = langTag.trim().toLowerCase();
 
 	const subtags = langTag.split('-');
-	if(subtags.length < 2) {
+	if (subtags.length < 2) {
 		return langTag;
 	}
 
 	const langSubtag = subtags[0];
-	const regionSubtag = subtags[subtags.length-1].toUpperCase();
+	const regionSubtag = subtags[subtags.length - 1].toUpperCase();
 
 	return langSubtag + '-' + regionSubtag;
 
@@ -50,9 +50,9 @@ function resolveLangTag(langTag, locales) {
 	langTag = normalizeLangTag(langTag);
 
 	let localeData = allLocales[langTag];
-	if(localeData === undefined) {
+	if (localeData === undefined) {
 		const subtags = langTag.split('-');
-		if(subtags.length > 0 && allLocales[subtags[0]]) {
+		if (subtags.length > 0 && allLocales[subtags[0]]) {
 			locales.push(subtags[0]);
 		}
 	}
@@ -63,17 +63,17 @@ function resolveLangTag(langTag, locales) {
 
 export default function(locales, override) {
 
-	if(!locales) {
+	if (!locales) {
 		locales = [];
 	}
-	if(!Array.isArray(locales)) {
+	if (!Array.isArray(locales)) {
 		locales = [locales];
 	}
 
 	let localeData;
-	for(let i=0; i<locales.length; i++) {
+	for (let i = 0; i < locales.length; i++) {
 		localeData = resolveLangTag(locales[i], locales);
-		if(localeData) {
+		if (localeData) {
 			break;
 		}
 	}

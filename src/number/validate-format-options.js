@@ -4,7 +4,7 @@ export default function(options) {
 
 	options = options || {};
 
-	if(options.style !== 'decimal' && options.style !== 'percent') {
+	if (options.style !== 'decimal' && options.style !== 'percent') {
 		options.style = 'decimal';
 	}
 	options.minimumFractionDigits = validateInteger(
@@ -22,7 +22,7 @@ export default function(options) {
 		20
 	);
 
-	if(options.minimumFractionDigits > options.maximumFractionDigits) {
+	if (options.minimumFractionDigits > options.maximumFractionDigits) {
 		throw new RangeError('maximumFractionDigits value is out of range.');
 	}
 

@@ -5,7 +5,7 @@ export default class FileSizeFormat {
 	constructor(locale) {
 		this.localeData = localeProvider(locale);
 	}
-	format(fileSize){
+	format(fileSize) {
 		return FileSizeFormatter(fileSize, this.localeData);
 	}
 }

@@ -4,7 +4,7 @@ const reSeparator = new RegExp('\\W');
 
 function getSeparator(localeData) {
 	const match = reSeparator.exec(localeData.date.formats.dateFormats.short);
-	if(match !== null) {
+	if (match !== null) {
 		return match[0];
 	}
 	return '/';
@@ -16,9 +16,9 @@ function getParts(localeData) {
 	const separator = getSeparator(localeData);
 	const parts = localeData.date.formats.dateFormats.short.split(separator);
 
-	for(let i=0; i<parts.length; i++) {
+	for (let i = 0; i < parts.length; i++) {
 		const part = parts[i].trim();
-		switch(part) {
+		switch (part) {
 			case 'dd':
 			case 'd':
 				result.push('d');
@@ -33,7 +33,7 @@ function getParts(localeData) {
 		}
 	}
 
-	if(result.length !== 3) {
+	if (result.length !== 3) {
 		return ['M', 'd', 'yyyy'];
 	}
 
@@ -41,9 +41,9 @@ function getParts(localeData) {
 
 }
 
-export default function(input, localeData, options) {
+export default function(input, localeData) {
 
-	if(input === undefined || input === null) {
+	if (input === undefined || input === null) {
 		input = '';
 	}
 	input = input.toString().trim();
@@ -55,19 +55,19 @@ export default function(input, localeData, options) {
 	const dateFormatParts = getParts(localeData);
 
 	const dateParts = input.split(separator);
-	if(dateParts.length !== dateFormatParts.length) {
+	if (dateParts.length !== dateFormatParts.length) {
 		throw new Error('Invalid input date: not enough parts');
 	}
 
-	for(let i=0; i<dateFormatParts.length; i++) {
+	for (let i = 0; i < dateFormatParts.length; i++) {
 
 		const dateFormatPart = dateFormatParts[i];
 		const partValue = parseInt(dateParts[i]);
-		if(isNaN(partValue)) {
+		if (isNaN(partValue)) {
 			throw new Error('Invalid input date: part number value');
 		}
 
-		switch(dateFormatPart) {
+		switch (dateFormatPart) {
 			case 'yyyy':
 				calendarSpecificYear = partValue;
 				break;
@@ -87,7 +87,7 @@ export default function(input, localeData, options) {
 		calendarSpecificMonth,
 		calendarSpecificDay
 	);
-	if(gregorianLocalDate === null ) {
+	if (gregorianLocalDate === null ) {
 		throw new Error('Invalid input date: part range value');
 	}
 
