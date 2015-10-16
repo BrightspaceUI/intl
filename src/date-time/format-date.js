@@ -1,18 +1,20 @@
-import prePadByZero from '../util/pre-pad-by-zero';
-import processPattern from '../util/process-pattern';
+'use strict';
 
-export default function(date, localeData, options) {
+var prePadByZero = require('../util/pre-pad-by-zero'),
+	processPattern = require('../util/process-pattern');
+
+module.exports = function(date, localeData, options) {
 
 	options.format = options.format || 'short';
 
-	let format = localeData.date.formats.dateFormats[options.format];
+	var format = localeData.date.formats.dateFormats[options.format];
 	if (format === undefined) {
 		format = options.format;
 	}
 
-	const calendar = localeData.date.calendar;
+	var calendar = localeData.date.calendar;
 
-	const replacements = {
+	var replacements = {
 		'dddd': calendar.days.long[date.getDay()],
 		'ddd': calendar.days.short[date.getDay()],
 		'dd': prePadByZero(date.getDate(), 2),
@@ -24,7 +26,7 @@ export default function(date, localeData, options) {
 		'yyyy': date.getFullYear().toString()
 	};
 
-	const value = processPattern(format, replacements);
+	var value = processPattern(format, replacements);
 	return value;
 
-}
+};

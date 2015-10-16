@@ -1,43 +1,45 @@
-import formatTime from './format-time';
-import formatDate from './format-date';
-import localeProvider from '../locale-provider';
+'use strict';
 
-export default class DateTimeFormat {
-	constructor(locale, options) {
-		options = options || {};
-		this.options = options;
-		this.localeData = localeProvider(locale, options.locale);
-	}
-	format(date) {
-		let format = this.options.format || 'short';
-		switch (format) {
-			case 'full':
-			case 'medium':
-			case 'short':
-				return this.formatDate(date) + ' ' + this.formatTime(date);
-			case 'monthYear':
-			case 'monthDay':
-				break;
-			case 'longDayOfWeek':
-				format = 'dddd';
-				break;
-			case 'shortDayOfWeek':
-				format = 'ddd';
-				break;
-			case 'longMonth':
-				format = 'MMMM';
-				break;
-			case 'shortMonth':
-				format = 'MMM';
-				break;
-		}
-		const value = formatDate(date, this.localeData, {format: format});
-		return value;
-	}
-	formatDate(date) {
-		return formatDate(date, this.localeData, this.options);
-	}
-	formatTime(date) {
-		return formatTime(date, this.localeData, this.options);
-	}
+var formatTime = require('./format-time'),
+	formatDate = require('./format-date'),
+	localeProvider = require('../locale-provider');
+
+function DateTimeFormat(locale, options) {
+	options = options || {};
+	this.options = options;
+	this.localeData = localeProvider(locale, options.locale);
 }
+DateTimeFormat.prototype.format = function(date) {
+	var format = this.options.format || 'short';
+	switch (format) {
+		case 'full':
+		case 'medium':
+		case 'short':
+			return this.formatDate(date) + ' ' + this.formatTime(date);
+		case 'monthYear':
+		case 'monthDay':
+			break;
+		case 'longDayOfWeek':
+			format = 'dddd';
+			break;
+		case 'shortDayOfWeek':
+			format = 'ddd';
+			break;
+		case 'longMonth':
+			format = 'MMMM';
+			break;
+		case 'shortMonth':
+			format = 'MMM';
+			break;
+	}
+	var value = formatDate(date, this.localeData, {format: format});
+	return value;
+};
+DateTimeFormat.prototype.formatDate = function(date) {
+	return formatDate(date, this.localeData, this.options);
+};
+DateTimeFormat.prototype.formatTime = function(date) {
+	return formatTime(date, this.localeData, this.options);
+};
+
+module.exports = DateTimeFormat;

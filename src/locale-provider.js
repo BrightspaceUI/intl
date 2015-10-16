@@ -1,6 +1,8 @@
-import {default as merge} from './util/merge';
+'use strict';
 
-const allLocales = {
+var merge = require('./util/merge');
+
+var allLocales = {
 	'ar-SA': require('./locale-data/ar-SA.json'),
 	'ar': require('./locale-data/ar.json'),
 	'en-CA': require('./locale-data/en-CA.json'),
@@ -33,13 +35,13 @@ function normalizeLangTag(langTag) {
 
 	langTag = langTag.trim().toLowerCase();
 
-	const subtags = langTag.split('-');
+	var subtags = langTag.split('-');
 	if (subtags.length < 2) {
 		return langTag;
 	}
 
-	const langSubtag = subtags[0];
-	const regionSubtag = subtags[subtags.length - 1].toUpperCase();
+	var langSubtag = subtags[0];
+	var regionSubtag = subtags[subtags.length - 1].toUpperCase();
 
 	return langSubtag + '-' + regionSubtag;
 
@@ -49,9 +51,9 @@ function resolveLangTag(langTag, locales) {
 
 	langTag = normalizeLangTag(langTag);
 
-	let localeData = allLocales[langTag];
+	var localeData = allLocales[langTag];
 	if (localeData === undefined) {
-		const subtags = langTag.split('-');
+		var subtags = langTag.split('-');
 		if (subtags.length > 0 && allLocales[subtags[0]]) {
 			locales.push(subtags[0]);
 		}
@@ -61,7 +63,7 @@ function resolveLangTag(langTag, locales) {
 
 }
 
-export default function(locales, override) {
+module.exports = function(locales, override) {
 
 	if (!locales) {
 		locales = [];
@@ -70,8 +72,8 @@ export default function(locales, override) {
 		locales = [locales];
 	}
 
-	let localeData;
-	for (let i = 0; i < locales.length; i++) {
+	var localeData;
+	for (var i = 0; i < locales.length; i++) {
 		localeData = resolveLangTag(locales[i], locales);
 		if (localeData) {
 			break;
@@ -79,8 +81,8 @@ export default function(locales, override) {
 	}
 	localeData = localeData || allLocales.en;
 
-	let copy = JSON.parse(JSON.stringify(localeData));
+	var copy = JSON.parse(JSON.stringify(localeData));
 	merge(copy, override);
 	return copy;
 
-}
+};

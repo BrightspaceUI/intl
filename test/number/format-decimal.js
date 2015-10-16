@@ -1,47 +1,48 @@
-let chai = require('chai'),
-	expect = chai.expect;
+'use strict';
+
+var chai = require('chai'),
+	expect = chai.expect,
+	format = require('../../src/number/format-decimal'),
+	defaultLocaleData = require('../../src/locale-data/en-US.json');
 
 chai.should();
 
-import format from '../../src/number/format-decimal';
-import defaultLocaleData from '../../src/locale-data/en-US.json';
+describe('NumberFormat', function() {
 
-describe('NumberFormat', () => {
+	describe('format-decimal', function() {
 
-	describe('format-decimal', () => {
+		var localeData;
 
-		let localeData;
-
-		beforeEach(() => {
+		beforeEach(function() {
 			localeData = JSON.parse(JSON.stringify(defaultLocaleData.number));
 		});
 
-		describe('edge values', () => {
+		describe('edge values', function() {
 
-			it('should format null as 0', () => {
-				const value = format(null, localeData);
+			it('should format null as 0', function() {
+				var value = format(null, localeData);
 				expect(value).to.equal('0');
 			});
 
-			it('should format undefined as 0', () => {
-				const value = format(undefined, localeData);
+			it('should format undefined as 0', function() {
+				var value = format(undefined, localeData);
 				expect(value).to.equal('0');
 			});
 
-			it('should parse strings', () => {
-				const value = format('32.1935', localeData);
+			it('should parse strings', function() {
+				var value = format('32.1935', localeData);
 				expect(value).to.equal('32.194');
 			});
 
-			it('should throw for unparsable strings', () => {
-				expect(() => {
+			it('should throw for unparsable strings', function() {
+				expect(function() {
 					format('blah', localeData);
 				}).to.throw(RangeError, 'value is out of range');
 			});
 
 		});
 
-		describe('integers & decimals', () => {
+		describe('integers & decimals', function() {
 
 			[
 				{val: 42, expect: '42'},
@@ -60,38 +61,38 @@ describe('NumberFormat', () => {
 				{val: 1.234567, min: 8, expect: '1.23456700'},
 				{val: 0.1234567, expect: '0.123'},
 				{val: 4, min: 2, expect: '4.00'}
-			].forEach((input) => {
-				it(`should format ${input.val}, max:${input.max}, min:${input.min}`, () => {
-					const options = {
+			].forEach(function(input) {
+				it('should format ' + input.val + ', max:' + input.max + ', min:' + input.min, function() {
+					var options = {
 						maximumFractionDigits: input.max,
 						minimumFractionDigits: input.min
 					};
-					const value = format(input.val, localeData, options);
+					var value = format(input.val, localeData, options);
 					expect(value).to.equal(input.expect);
 				});
 			});
 
-			it('should use custom negative symbol', () => {
+			it('should use custom negative symbol', function() {
 				localeData.symbols.negative = '|@|';
-				const value = format(-42, localeData);
+				var value = format(-42, localeData);
 				expect(value).to.equal('|@|42');
 			});
 
-			it('should use custom decimal symbol', () => {
+			it('should use custom decimal symbol', function() {
 				localeData.symbols.decimal = '|@|';
-				const value = format(3.14, localeData);
+				var value = format(3.14, localeData);
 				expect(value).to.equal('3|@|14');
 			});
 
-			it('should use custom positive pattern', () => {
+			it('should use custom positive pattern', function() {
 				localeData.patterns.decimal.positivePattern = 'foo{number}bar';
-				const value = format(3.14, localeData);
+				var value = format(3.14, localeData);
 				expect(value).to.equal('foo3.14bar');
 			});
 
 		});
 
-		describe('negative patterns', () => {
+		describe('negative patterns', function() {
 
 			[
 				{pattern: '({number})', expected: '(4)'},
@@ -104,24 +105,24 @@ describe('NumberFormat', () => {
 				{pattern: '{number}-', expected: '4.0-', min: 1},
 				{pattern: '{number} -', expected: '4.0 -', min: 1},
 				{pattern: '-{number}', expected: '-4.0', min: 1}
-			].forEach((input) => {
-				it(`should apply negative pattern "${input.pattern}"`, () => {
+			].forEach(function(input) {
+				it('should apply negative pattern "' + input.pattern + '"', function() {
 					localeData.patterns.decimal.negativePattern = input.pattern;
-					const options = {minimumFractionDigits: input.min};
-					const value = format(-4, localeData, options);
+					var options = {minimumFractionDigits: input.min};
+					var value = format(-4, localeData, options);
 					expect(value).to.equal(input.expected);
 				});
 			});
 
-			it('should use custom negative pattern', () => {
+			it('should use custom negative pattern', function() {
 				localeData.patterns.decimal.negativePattern = 'foo{number}bar-';
-				const value = format(-3.14, localeData);
+				var value = format(-3.14, localeData);
 				expect(value).to.equal('foo3.14bar-');
 			});
 
 		});
 
-		describe('groups', () => {
+		describe('groups', function() {
 
 			[
 				{val: 1000, expected: '1,000'},
@@ -131,23 +132,23 @@ describe('NumberFormat', () => {
 				{val: 1234567.98, max: 1, expected: '1,234,568'},
 				{val: 1234567.8915, max: 1, expected: '1,234,567.9'},
 				{val: -1234567.8915, max: 1, expected: '-1,234,567.9'}
-			].forEach((input) => {
-				it(`should use group separator ${input.val}`, () => {
-					const options = {maximumFractionDigits: input.max};
-					const value = format(input.val, localeData, options);
+			].forEach(function(input) {
+				it('should use group separator ' + input.val, function() {
+					var options = {maximumFractionDigits: input.max};
+					var value = format(input.val, localeData, options);
 					expect(value).to.equal(input.expected);
 				});
 			});
 
-			it('should use custom group symbol', () => {
+			it('should use custom group symbol', function() {
 				localeData.symbols.group = '|@|';
-				const value = format(1000000, localeData);
+				var value = format(1000000, localeData);
 				expect(value).to.equal('1|@|000|@|000');
 			});
 
-			it('should use custom group size', () => {
+			it('should use custom group size', function() {
 				localeData.groupSize = 5;
-				const value = format(1000000, localeData);
+				var value = format(1000000, localeData);
 				expect(value).to.equal('10,00000');
 			});
 

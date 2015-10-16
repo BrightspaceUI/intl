@@ -1,30 +1,31 @@
+'use strict';
+
 var chai = require('chai'),
-	expect = chai.expect;
+	expect = chai.expect,
+	d2lIntl = require('../src/index');
 
 chai.should();
 
-import Intl from '../src/index';
+describe('Intl', function() {
 
-describe('Intl', () => {
-
-	it('should be defined', () => {
-		expect(Intl).to.be.defined;
+	it('should be defined', function() {
+		expect(d2lIntl).to.be.defined;
 	});
 
-	it('should expose DateTimeFormat class', () => {
-		expect(Intl.DateTimeFormat).to.be.defined;
+	it('should expose DateTimeFormat class', function() {
+		expect(d2lIntl.DateTimeFormat).to.be.defined;
 	});
 
-	it('should expose DateTimeParse class', () => {
-		expect(Intl.DateTimeParse).to.be.defined;
+	it('should expose DateTimeParse class', function() {
+		expect(d2lIntl.DateTimeParse).to.be.defined;
 	});
 
-	it('should expose NumberFormat class', () => {
-		expect(Intl.NumberFormat).to.be.defined;
+	it('should expose NumberFormat class', function() {
+		expect(d2lIntl.NumberFormat).to.be.defined;
 	});
 
-	it('should expose NumberParse class', () => {
-		expect(Intl.NumberParse).to.be.defined;
+	it('should expose NumberParse class', function() {
+		expect(d2lIntl.NumberParse).to.be.defined;
 	});
 
 });

@@ -1,10 +1,12 @@
-import dateTimeFormat from './date-time/format';
-import dateTimeParse from './date-time/parse';
-import numberFormat from './number/format';
-import numberParse from './number/parse';
-import fileSizeFormat from './file-size/format';
+'use strict';
 
-export default {
+var dateTimeFormat = require('./date-time/format'),
+	dateTimeParse = require('./date-time/parse'),
+	numberFormat = require('./number/format'),
+	numberParse = require('./number/parse'),
+	fileSizeFormat = require('./file-size/format');
+
+module.exports = {
 	DateTimeFormat: dateTimeFormat,
 	DateTimeParse: dateTimeParse,
 	NumberFormat: numberFormat,

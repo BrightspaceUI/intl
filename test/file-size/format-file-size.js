@@ -1,12 +1,12 @@
-import format from '../../src/file-size/format';
-
-let chai = require('chai'),
-	expect = chai.expect;
+'use strict';
+var chai = require('chai'),
+	expect = chai.expect,
+	format = require('../../src/file-size/format');
 
 chai.should();
 
-describe('file-size', () => {
-	describe('format-file-size', () => {
+describe('file-size', function() {
+	describe('format-file-size', function() {
 		[
 			{byteNum:0, expect:'0 Bytes', locale:'en'},
 			{byteNum:-1, expect:'-1 Byte', locale:'en'},
@@ -128,10 +128,10 @@ describe('file-size', () => {
 			{byteNum:1024, expect:'1 KB', locale:'zh'},
 			{byteNum:1048576, expect:'1 MB', locale:'zh'},
 			{byteNum:1073741824, expect:'1 GB', locale:'zh'}
-		].forEach(input => {
-			it(`should parse the file-size: "${input.byteNum}" bytes`, () => {
+		].forEach(function(input) {
+			it('should parse the file-size: "' + input.byteNum + '" bytes', function() {
 				var formatFileSize = new format(input.locale, {});
-				const parsedFileSize = formatFileSize.format(input.byteNum);
+				var parsedFileSize = formatFileSize.format(input.byteNum);
 				expect(parsedFileSize).to.equal(input.expect);
 			});
 		});

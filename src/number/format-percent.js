@@ -1,16 +1,18 @@
-import validateFormatValue from './validate-format-value';
-import formatDecimal from './format-decimal';
+'use strict';
 
-export default function(value, localeData, options) {
+var validateFormatValue = require('./validate-format-value'),
+	formatDecimal = require('./format-decimal');
+
+module.exports = function(value, localeData, options) {
 
 	value = validateFormatValue(value);
 
-	const isNegative = (value < 0);
+	var isNegative = (value < 0);
 	value = Math.abs(value) * 100;
 
-	const dec = formatDecimal(value, localeData, options);
+	var dec = formatDecimal(value, localeData, options);
 
-	let percent = isNegative ? localeData.patterns.percent.negativePattern :
+	var percent = isNegative ? localeData.patterns.percent.negativePattern :
 		localeData.patterns.percent.positivePattern;
 	percent = percent.replace('{number}', dec);
 	percent = percent.replace('%', localeData.symbols.percent);
@@ -20,4 +22,4 @@ export default function(value, localeData, options) {
 
 	return percent;
 
-}
+};

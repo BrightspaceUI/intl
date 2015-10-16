@@ -1,4 +1,6 @@
-export default function(name, value, defaultValue, min, max) {
+'use strict';
+
+module.exports = function(name, value, defaultValue, min, max) {
 
 	if (value === undefined || value === null) {
 		value = defaultValue;
@@ -7,9 +9,9 @@ export default function(name, value, defaultValue, min, max) {
 		value = parseInt(value);
 	}
 	if (isNaN(value) || typeof value !== 'number' || (min !== undefined && value < min) || (max !== undefined && value > max)) {
-		throw new RangeError(`${name} value is out of range.`);
+		throw new RangeError(name + ' value is out of range.');
 	}
 
 	return value;
 
-}
+};

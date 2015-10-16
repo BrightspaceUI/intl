@@ -1,36 +1,38 @@
+'use strict';
+
 function buildRe(part) {
-	let re = '';
-	let or = '';
-	for (let i = 0; i < part.length; i++) {
+	var re = '';
+	var or = '';
+	for (var i = 0; i < part.length; i++) {
 		re += or + part.substr(0, i + 1);
 		or = '|';
 	}
 	return new RegExp(re, 'i');
 }
 
-const reDigits = new RegExp('(\\d+)', 'g');
+var reDigits = new RegExp('(\\d+)', 'g');
 
-export default function(input, localeData, options) {
+module.exports = function(input, localeData, options) {
 
 	if (input === undefined || input === null || input === '') {
 		return null;
 	}
 
-	const match = input.match(reDigits);
+	var match = input.match(reDigits);
 	if (match === null) {
 		return null;
 	}
 
-	const nowProvider = options.nowProvider || function() { return new Date(); };
-	const reAm = buildRe(localeData.date.calendar.dayPeriods.am);
-	const rePm = buildRe(localeData.date.calendar.dayPeriods.pm);
-	const today = nowProvider();
-	const isMorning = (today.getHours() < 12);
-	const digits = match.join('');
-	const leadingZero = (digits.substr(0, 1) === '0');
+	var nowProvider = options.nowProvider || function() { return new Date(); };
+	var reAm = buildRe(localeData.date.calendar.dayPeriods.am);
+	var rePm = buildRe(localeData.date.calendar.dayPeriods.pm);
+	var today = nowProvider();
+	var isMorning = (today.getHours() < 12);
+	var digits = match.join('');
+	var leadingZero = (digits.substr(0, 1) === '0');
 
-	let hour = 0;
-	let minute = 0;
+	var hour = 0;
+	var minute = 0;
 	switch (digits.length) {
 		case 1:
 			hour = digits.substr(0, 1);
@@ -53,9 +55,9 @@ export default function(input, localeData, options) {
 
 	if (!localeData.date.hour24 && hour < 13) {
 
-		const matchPm = input.match(rePm);
-		const matchAm = input.match(reAm);
-		const noAmPm = (matchAm === null && matchPm === null);
+		var matchPm = input.match(rePm);
+		var matchAm = input.match(reAm);
+		var noAmPm = (matchAm === null && matchPm === null);
 
 		if (matchPm !== null || (noAmPm && !isMorning && !leadingZero)) {
 			hour += 12;
@@ -68,7 +70,7 @@ export default function(input, localeData, options) {
 
 	}
 
-	const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 0 );
+	var time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 0 );
 	return time;
 
-}
+};

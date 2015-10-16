@@ -1,13 +1,14 @@
-let chai = require('chai'),
-	expect = chai.expect;
+'use strict';
+
+var chai = require('chai'),
+	expect = chai.expect,
+	DateTimeFormat = require('../../src/date-time/format');
 
 chai.should();
 
-import DateTimeFormat from '../../src/date-time/format';
+describe('DateTimeFormat', function() {
 
-describe('DateTimeFormat', () => {
-
-	describe('format-date', () => {
+	describe('format-date', function() {
 
 		[
 			{format: 'd/M/yyyy', expect: '3/8/2015'},
@@ -43,10 +44,10 @@ describe('DateTimeFormat', () => {
 			{format: 'ddd', expect: 'Mon'},
 			{format: 'MMMM', expect: 'August'},
 			{format: 'MMM', expect: 'Aug'}
-		].forEach((input) => {
-			it(`should apply locale format "${input.format}"`, () => {
-				const dtFormat = new DateTimeFormat('en-US', {format: input.format});
-				const value = dtFormat.formatDate(new Date(2015, 7, 3));
+		].forEach(function(input) {
+			it('should apply locale format "' + input.format + '"', function() {
+				var dtFormat = new DateTimeFormat('en-US', {format: input.format});
+				var value = dtFormat.formatDate(new Date(2015, 7, 3));
 				expect(value).to.equal(input.expect);
 			});
 		});

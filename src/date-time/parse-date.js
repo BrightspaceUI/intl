@@ -1,9 +1,11 @@
-import calendarProvider from '../calendar/provider';
+'use strict';
 
-const reSeparator = new RegExp('\\W');
+var calendarProvider = require('../calendar/provider');
+
+var reSeparator = new RegExp('\\W');
 
 function getSeparator(localeData) {
-	const match = reSeparator.exec(localeData.date.formats.dateFormats.short);
+	var match = reSeparator.exec(localeData.date.formats.dateFormats.short);
 	if (match !== null) {
 		return match[0];
 	}
@@ -12,12 +14,12 @@ function getSeparator(localeData) {
 
 function getParts(localeData) {
 
-	let result = [];
-	const separator = getSeparator(localeData);
-	const parts = localeData.date.formats.dateFormats.short.split(separator);
+	var result = [];
+	var separator = getSeparator(localeData);
+	var parts = localeData.date.formats.dateFormats.short.split(separator);
 
-	for (let i = 0; i < parts.length; i++) {
-		const part = parts[i].trim();
+	for (var i = 0; i < parts.length; i++) {
+		var part = parts[i].trim();
 		switch (part) {
 			case 'dd':
 			case 'd':
@@ -41,28 +43,28 @@ function getParts(localeData) {
 
 }
 
-export default function(input, localeData) {
+module.exports = function(input, localeData) {
 
 	if (input === undefined || input === null) {
 		input = '';
 	}
 	input = input.toString().trim();
 
-	let calendarSpecificYear = null;
-	let calendarSpecificMonth = null;
-	let calendarSpecificDay = null;
-	const separator = getSeparator(localeData);
-	const dateFormatParts = getParts(localeData);
+	var calendarSpecificYear = null;
+	var calendarSpecificMonth = null;
+	var calendarSpecificDay = null;
+	var separator = getSeparator(localeData);
+	var dateFormatParts = getParts(localeData);
 
-	const dateParts = input.split(separator);
+	var dateParts = input.split(separator);
 	if (dateParts.length !== dateFormatParts.length) {
 		throw new Error('Invalid input date: not enough parts');
 	}
 
-	for (let i = 0; i < dateFormatParts.length; i++) {
+	for (var i = 0; i < dateFormatParts.length; i++) {
 
-		const dateFormatPart = dateFormatParts[i];
-		const partValue = parseInt(dateParts[i]);
+		var dateFormatPart = dateFormatParts[i];
+		var partValue = parseInt(dateParts[i]);
 		if (isNaN(partValue)) {
 			throw new Error('Invalid input date: part number value');
 		}
@@ -81,8 +83,8 @@ export default function(input, localeData) {
 
 	}
 
-	const calendar = calendarProvider(localeData);
-	const gregorianLocalDate = calendar.tryGetGregorianLocaleDateTime(
+	var calendar = calendarProvider(localeData);
+	var gregorianLocalDate = calendar.tryGetGregorianLocaleDateTime(
 		calendarSpecificYear,
 		calendarSpecificMonth,
 		calendarSpecificDay
@@ -93,4 +95,4 @@ export default function(input, localeData) {
 
 	return gregorianLocalDate;
 
-}
+};
