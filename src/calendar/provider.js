@@ -1,5 +1,5 @@
 import gregorian from './gregorian';
 
-export default function(localeData) {
+export default function() {
 	return gregorian;
 }

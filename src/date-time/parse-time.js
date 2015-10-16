@@ -1,7 +1,7 @@
 function buildRe(part) {
 	let re = '';
 	let or = '';
-	for(let i=0; i<part.length; i++) {
+	for (let i = 0; i < part.length; i++) {
 		re += or + part.substr(0, i + 1);
 		or = '|';
 	}
@@ -12,12 +12,12 @@ const reDigits = new RegExp('(\\d+)', 'g');
 
 export default function(input, localeData, options) {
 
-	if(input === undefined || input === null || input === '') {
+	if (input === undefined || input === null || input === '') {
 		return null;
 	}
 
 	const match = input.match(reDigits);
-	if(match === null) {
+	if (match === null) {
 		return null;
 	}
 
@@ -31,7 +31,7 @@ export default function(input, localeData, options) {
 
 	let hour = 0;
 	let minute = 0;
-	switch(digits.length) {
+	switch (digits.length) {
 		case 1:
 			hour = digits.substr(0, 1);
 			break;
@@ -51,18 +51,18 @@ export default function(input, localeData, options) {
 	hour = Math.min(Math.max(parseInt(hour, 10), 0), 23);
 	minute = Math.min(Math.max(parseInt(minute, 10), 0), 59);
 
-	if(!localeData.date.hour24 && hour<13) {
+	if (!localeData.date.hour24 && hour < 13) {
 
 		const matchPm = input.match(rePm);
 		const matchAm = input.match(reAm);
 		const noAmPm = (matchAm === null && matchPm === null);
 
-		if(matchPm !== null || (noAmPm && !isMorning && !leadingZero)) {
+		if (matchPm !== null || (noAmPm && !isMorning && !leadingZero)) {
 			hour += 12;
-			if( hour == 24 ) {
+			if (hour === 24) {
 				hour = 12;
 			}
-		} else if(hour == 12) {
+		} else if (hour === 12) {
 			hour = 0;
 		}
 

@@ -64,7 +64,7 @@ describe('NumberFormat', () => {
 				it(`should format ${input.val}, max:${input.max}, min:${input.min}`, () => {
 					const options = {
 						maximumFractionDigits: input.max,
-						minimumFractionDigits: input.min,
+						minimumFractionDigits: input.min
 					};
 					const value = format(input.val, localeData, options);
 					expect(value).to.equal(input.expect);

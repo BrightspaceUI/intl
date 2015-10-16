@@ -6,7 +6,7 @@ export default function(date, localeData, options) {
 	options.format = options.format || 'short';
 
 	let format = localeData.date.formats.dateFormats[options.format];
-	if(format === undefined) {
+	if (format === undefined) {
 		format = options.format;
 	}
 

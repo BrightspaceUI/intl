@@ -10,7 +10,7 @@ export default class DateTimeFormat {
 	}
 	format(date) {
 		let format = this.options.format || 'short';
-		switch(format) {
+		switch (format) {
 			case 'full':
 			case 'medium':
 			case 'short':

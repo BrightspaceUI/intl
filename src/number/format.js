@@ -9,7 +9,7 @@ export default class NumberFormat {
 		this.localeData = localeProvider(locale, options.locale);
 	}
 	format(value) {
-		switch(this.options.style) {
+		switch (this.options.style) {
 			case 'percent':
 				return formatPercent(value, this.localeData.number, this.options);
 			default:
