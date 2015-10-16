@@ -41,7 +41,7 @@
     "chai": "^3.0.0",
     "coveralls": "^2.11.2",
     "cpy": "^3.4.0",
-    "gulp-frau-publisher": "^2.4.0",
+    "frau-publisher": "^2.5.2",
     "istanbul-harmony": "^0.3.15",
     "jshint": "^2.8.0",
     "mocha": "^2.2.5",
