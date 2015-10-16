@@ -1,0 +1,17 @@
+{
+  "name": "d2l-intl",
+  "main": "src/index.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "test",
+    ".editorconfig",
+    ".eslintrc",
+    ".gitignore",
+    ".npmignore",
+    ".travis.yml"
+  ]
+}
