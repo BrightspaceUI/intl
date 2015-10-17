@@ -1,11 +1,13 @@
-import FileSizeFormatter from './format-file-size';
-import localeProvider from '../locale-provider';
+'use strict';
 
-export default class FileSizeFormat {
-	constructor(locale) {
-		this.localeData = localeProvider(locale);
-	}
-	format(fileSize) {
-		return FileSizeFormatter(fileSize, this.localeData);
-	}
+var FileSizeFormatter = require('./format-file-size'),
+	localeProvider = require('../locale-provider');
+
+function FileSizeFormat(locale) {
+	this.localeData = localeProvider(locale);
 }
+FileSizeFormat.prototype.format = function(fileSize) {
+	return FileSizeFormatter(fileSize, this.localeData);
+};
+
+module.exports = FileSizeFormat;

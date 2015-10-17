@@ -1,47 +1,48 @@
-let chai = require('chai'),
-	expect = chai.expect;
+'use strict';
+
+var chai = require('chai'),
+	expect = chai.expect,
+	validate = require('../../src/util/validate-integer');
 
 chai.should();
 
-import validate from '../../src/util/validate-integer';
+describe('validate-integer', function() {
 
-describe('validate-integer', () => {
-
-	it('should default undefined', () => {
-		let value = validate('foo', undefined, 42);
+	it('should default undefined', function() {
+		var value = validate('foo', undefined, 42);
 		expect(value).to.equal(42);
 	});
 
-	it('should default null', () => {
-		let value = validate('foo', null, 14);
+	it('should default null', function() {
+		var value = validate('foo', null, 14);
 		expect(value).to.equal(14);
 	});
 
-	it('should parse string values', () => {
-		let value = validate('foo', '3');
+	it('should parse string values', function() {
+		var value = validate('foo', '3');
 		expect(value).to.equal(3);
 	});
 
-	it('should throw range error for non-parsable strings', () => {
-		expect(() => {
+	it('should throw range error for non-parsable strings', function() {
+		expect(function() {
 			validate('foo', 'oh no');
 		}).to.throw(RangeError);
 	});
 
-	it('should throw range error for non-number values', () => {
-		expect(() => {
+	it('should throw range error for non-number values', function() {
+		expect(function() {
 			validate('foo', new Date());
 		}).to.throw(RangeError);
 	});
 
-	it('should throw range error if value is less than min', () => {
-		expect(() => {
+	it('should throw range error if value is less than min', function() {
+		expect(function() {
 			validate('foo', 12, undefined, 13);
 		}).to.throw(RangeError);
 	});
 
-	it('should throw range error if value is greater than max', () => {
-		expect(() => {
+	it('should throw range error if value is greater than max', function() {
+		expect(function() {
 			validate('foo', 12, undefined, undefined, 11);
 		}).to.throw(RangeError);
 	});

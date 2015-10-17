@@ -1,25 +1,27 @@
-import prePadByZero from '../util/pre-pad-by-zero';
-import processPattern from '../util/process-pattern';
+'use strict';
 
-export default function(date, localeData, options) {
+var prePadByZero = require('../util/pre-pad-by-zero'),
+	processPattern = require('../util/process-pattern');
+
+module.exports = function(date, localeData, options) {
 
 	options.format = options.format || 'short';
 	options.timezone = options.timezone || '';
 
-	let format = localeData.date.formats.timeFormats[options.format];
+	var format = localeData.date.formats.timeFormats[options.format];
 	if (format === undefined) {
 		format = options.format;
 	}
 
-	const hour = date.getHours();
-	let hour12 = hour % 12;
+	var hour = date.getHours();
+	var hour12 = hour % 12;
 	if ( hour12 === 0 ) {
 		hour12 = 12;
 	}
 
-	const calendar = localeData.date.calendar;
+	var calendar = localeData.date.calendar;
 
-	const replacements = {
+	var replacements = {
 		'HH': prePadByZero( date.getHours(), 2 ),
 		'H': date.getHours().toString(),
 		'hh': prePadByZero( hour12, 2 ),
@@ -29,7 +31,7 @@ export default function(date, localeData, options) {
 		'ZZZ': options.timezone
 	};
 
-	const value = processPattern(format, replacements);
+	var value = processPattern(format, replacements);
 	return value;
 
-}
+};

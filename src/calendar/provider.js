@@ -1,5 +1,7 @@
-import gregorian from './gregorian';
+'use strict';
 
-export default function() {
+var gregorian = require('./gregorian');
+
+module.exports = function() {
 	return gregorian;
-}
+};

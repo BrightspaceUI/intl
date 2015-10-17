@@ -1,25 +1,26 @@
-let chai = require('chai'),
+'use strict';
+
+var calendar = require('../../src/calendar/gregorian'),
+	chai = require('chai'),
 	expect = chai.expect;
 
 chai.should();
 
-import calendar from '../../src/calendar/gregorian';
+describe('Calendar', function() {
 
-describe('Calendar', () => {
+	describe('gregorian', function() {
 
-	describe('gregorian', () => {
+		describe('calendar-specific-date', function() {
 
-		describe('calendar-specific-date', () => {
-
-			it('should return input date as-is', () => {
-				const input = new Date(2005, 4, 1);
-				const value = calendar.getCalendarSpecificLocalDateTime(input);
+			it('should return input date as-is', function() {
+				var input = new Date(2005, 4, 1);
+				var value = calendar.getCalendarSpecificLocalDateTime(input);
 				expect(value).to.equal(input);
 			});
 
 		});
 
-		describe('is-valid', () => {
+		describe('is-valid', function() {
 
 			[
 				{year: null, month: 5, day: 21},
@@ -35,9 +36,9 @@ describe('Calendar', () => {
 				{year: 2015, month: 6, day: 31},
 				{year: 2015, month: 9, day: 31},
 				{year: 2015, month: 11, day: 31}
-			].forEach((input) => {
-				it(`should be false if year/month/day are out of bounds: ${input.year}, ${input.month}, ${input.day}`, () => {
-					const value = calendar.isValid(input.year, input.month, input.day);
+			].forEach(function(input) {
+				it('should be false if year/month/day are out of bounds: ' + input.year + ', ' + input.month + ', ' + input.day, function() {
+					var value = calendar.isValid(input.year, input.month, input.day);
 					expect(value).to.be.false;
 				});
 			});
@@ -48,15 +49,15 @@ describe('Calendar', () => {
 				{year: 2100, valid: false},
 				{year: 2400, valid: true},
 				{year: 1908, valid: true}
-			].forEach((input) => {
-				it(`should validate leap year ${input.year} -> ${input.valid}`, () => {
-					const value = calendar.isValid(input.year, 2, 29);
+			].forEach(function(input) {
+				it('should validate leap year ' + input.year + ' -> ' + input.valid, function() {
+					var value = calendar.isValid(input.year, 2, 29);
 					expect(value).to.equal(input.valid);
 				});
 			});
 
-			it('should be false if year is NaN', () => {
-				const value = calendar.isValid(null, 5, 21);
+			it('should be false if year is NaN', function() {
+				var value = calendar.isValid(null, 5, 21);
 				expect(value).to.be.false;
 			});
 
@@ -68,24 +69,24 @@ describe('Calendar', () => {
 				{year: 2015, month: 8, day: 31},
 				{year: 2015, month: 10, day: 31},
 				{year: 2015, month: 12, day: 31}
-			].forEach((input) => {
-				it(`should be valid for ${input.year}, ${input.month}, ${input.day}`, () => {
-					const value = calendar.isValid(input.year, input.month, input.day);
+			].forEach(function(input) {
+				it('should be valid for ' + input.year + ', ' + input.month + ', ' + input.day, function() {
+					var value = calendar.isValid(input.year, input.month, input.day);
 					expect(value).to.be.true;
 				});
 			});
 
 		});
 
-		describe('try-get-gregorian', () => {
+		describe('try-get-gregorian', function() {
 
-			it('should return "null" if date is invalid', () => {
-				const value = calendar.tryGetGregorianLocaleDateTime(2015, 2, 30);
+			it('should return "null" if date is invalid', function() {
+				var value = calendar.tryGetGregorianLocaleDateTime(2015, 2, 30);
 				expect(value).to.be.null;
 			});
 
-			it('should return Date if valid', () => {
-				const value = calendar.tryGetGregorianLocaleDateTime(2015, 8, 27);
+			it('should return Date if valid', function() {
+				var value = calendar.tryGetGregorianLocaleDateTime(2015, 8, 27);
 				expect(value.getFullYear()).to.equal(2015);
 				expect(value.getMonth()).to.equal(7);
 				expect(value.getDate()).to.equal(27);

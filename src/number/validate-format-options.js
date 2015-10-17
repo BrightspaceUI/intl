@@ -1,6 +1,8 @@
-import validateInteger from '../util/validate-integer';
+'use strict';
 
-export default function(options) {
+var validateInteger = require('../util/validate-integer');
+
+module.exports = function(options) {
 
 	options = options || {};
 
@@ -28,4 +30,4 @@ export default function(options) {
 
 	return options;
 
-}
+};

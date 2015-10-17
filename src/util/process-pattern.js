@@ -1,21 +1,24 @@
-export default function(pattern, replacements) {
+'use strict';
 
-	let reStr = '';
-	Object.keys(replacements).forEach((key) => {
+module.exports = function(pattern, replacements) {
+
+	var reStr = '';
+	Object.keys(replacements).forEach(function(key) {
 		reStr += ((reStr === '') ? '' : '|') + key;
 	});
-	const re = new RegExp(reStr, 'g');
+	var re = new RegExp(reStr, 'g');
 
-	const doReplacements = function(buf) {
-		return buf.replace(re, (m) => {
+	var doReplacements = function(buf) {
+		return buf.replace(re, function(m) {
 			return replacements[m];
 		});
 	};
 
-	let escape = false;
-	let buffer = '';
-	let value = '';
-	for (let c of pattern) {
+	var escape = false;
+	var buffer = '';
+	var value = '';
+	for ( var i = 0; i < pattern.length; i++) {
+		var c = pattern.charAt(i);
 		if (c === "'") {
 			if (!escape) {
 				value += doReplacements(buffer);
@@ -32,4 +35,4 @@ export default function(pattern, replacements) {
 
 	return value;
 
-}
+};

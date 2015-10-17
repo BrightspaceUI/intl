@@ -1,4 +1,6 @@
-export default function(value) {
+'use strict';
+
+module.exports = function(value) {
 	if (value === undefined || value === null) {
 		return 0;
 	}
@@ -6,7 +8,7 @@ export default function(value) {
 		value = parseFloat(value);
 	}
 	if (isNaN(value) || typeof value !== 'number') {
-		throw new RangeError(`value is out of range.`);
+		throw new RangeError('value is out of range.');
 	}
 	return value;
-}
+};
