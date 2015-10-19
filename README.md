@@ -1,5 +1,6 @@
 # d2l-intl
 
+[![Bower version][bower-image]][bower-url]
 [![NPM version][npm-image]][npm-url]
 [![Build status][ci-image]][ci-url]
 [![Coverage Status][coverage-image]][coverage-url]
@@ -13,7 +14,13 @@ Why not just use the standard [ECMAScript Internationalization API (ECMA-402)](h
 
 ### Installation
 
-Install from NPM:
+Install from [Bower]([bower-url]):
+
+```shell
+bower install d2l-intl
+```
+
+Or install from [NPM]([npm-url]):
 
 ```shell
 npm install d2l-intl
@@ -239,6 +246,8 @@ Contributions are welcome, please submit a pull request!
 This repository is configured with [EditorConfig](http://editorconfig.org) rules and
 contributions should make use of them.
 
+[bower-url]: http://bower.io/search/?q=d2l-intl
+[bower-image]: https://img.shields.io/bower/v/d2l-intl.svg
 [npm-url]: https://www.npmjs.org/package/d2l-intl
 [npm-image]: https://img.shields.io/npm/v/d2l-intl.svg
 [ci-url]: https://travis-ci.org/Brightspace/intl
