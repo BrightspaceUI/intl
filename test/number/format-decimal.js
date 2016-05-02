@@ -152,6 +152,19 @@ describe('NumberFormat', function() {
 				expect(value).to.equal('10,00000');
 			});
 
+			it('should handle group size of 0', function() {
+				localeData.groupSize = 0;
+				var options = {maximumFractionDigits: 2};
+				var value = format(1000000.01, localeData, options);
+				expect(value).to.equal('1000000.01');
+			});
+
+			it('should handle variable group sizes', function() {
+				localeData.groupSize = [ 3, 2, 0 ];
+				var options = {maximumFractionDigits: 2};
+				var value = format(1000000.01, localeData, options);
+				expect(value).to.equal('10,00,000.01');
+			});
 		});
 
 	});

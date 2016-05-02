@@ -19,6 +19,15 @@ module.exports = function(value, localeData, options) {
 	var ret = '';
 	var processedDecimal = (valueStr.indexOf('.') < 0);
 	var digitNum = 0;
+	var currentGroupSize ;
+	var groupSizes;
+	if ( Array.isArray( localeData.groupSize) ) {
+		groupSizes = localeData.groupSize;
+		currentGroupSize = groupSizes.shift();
+	} else {
+		groupSizes = [];
+		currentGroupSize = localeData.groupSize;
+	}
 
 	for (var i = valueStr.length; i >= 0; i--) {
 
@@ -42,7 +51,11 @@ module.exports = function(value, localeData, options) {
 
 		digitNum++;
 
-		if (digitNum > 1 && digitNum % localeData.groupSize === 1) {
+		if (digitNum > 1 && digitNum % currentGroupSize === 1) {
+			if ( groupSizes.length > 0) {
+				currentGroupSize = groupSizes.shift();
+			}
+			digitNum = 1;
 			ret = c + localeData.symbols.group + ret;
 		} else {
 			ret = c + ret;
