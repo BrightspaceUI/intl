@@ -160,10 +160,10 @@ describe('NumberFormat', function() {
 			});
 
 			it('should handle variable group sizes', function() {
-				localeData.groupSize = [ 3, 2, 0 ];
+				localeData.groupSize = [ 3, 2, 1, 0 ];
 				var options = {maximumFractionDigits: 2};
-				var value = format(1000000.01, localeData, options);
-				expect(value).to.equal('10,00,000.01');
+				var value = format(1000000000.01, localeData, options);
+				expect(value).to.equal('1000,0,00,000.01');
 			});
 		});
 

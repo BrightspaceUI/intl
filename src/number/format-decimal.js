@@ -18,16 +18,12 @@ module.exports = function(value, localeData, options) {
 	var valueStr = value + '';
 	var ret = '';
 	var processedDecimal = (valueStr.indexOf('.') < 0);
-	var digitNum = 0;
-	var currentGroupSize ;
-	var groupSizes;
-	if ( Array.isArray( localeData.groupSize) ) {
-		groupSizes = localeData.groupSize.slice(); 	// make a copy of the groupsizes
-		currentGroupSize = groupSizes.shift();		// pop the first groupSize from the front
-	} else {
-		groupSizes = [];
-		currentGroupSize = localeData.groupSize;
+	var currentGroupSizeIndex = 0;
+	var groupSizes = localeData.groupSize;
+	if ( !Array.isArray( groupSizes) ) {
+		groupSizes = [groupSizes];
 	}
+	var groupMemberCount = 0;
 
 	for (var i = valueStr.length; i >= 0; i--) {
 
@@ -49,17 +45,16 @@ module.exports = function(value, localeData, options) {
 			continue;
 		}
 
-		digitNum++;
-
-		if (digitNum > 1 && digitNum % currentGroupSize === 1) {
-			if ( groupSizes.length > 0) {
-				currentGroupSize = groupSizes.shift();
-			}
-			digitNum = 1;	// reset this back to 1 to handle variable group sizes
+		if (groupMemberCount > 0 && groupMemberCount === groupSizes[currentGroupSizeIndex] ) {	// we've filled up our group
 			ret = c + localeData.symbols.group + ret;
+			groupMemberCount = 0;
+			if ( currentGroupSizeIndex + 1 < groupSizes.length ) {
+				currentGroupSizeIndex++;
+			}
 		} else {
 			ret = c + ret;
 		}
+		groupMemberCount++;
 
 	}
 
