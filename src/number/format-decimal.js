@@ -22,8 +22,8 @@ module.exports = function(value, localeData, options) {
 	var currentGroupSize ;
 	var groupSizes;
 	if ( Array.isArray( localeData.groupSize) ) {
-		groupSizes = localeData.groupSize;
-		currentGroupSize = groupSizes.shift();
+		groupSizes = localeData.groupSize.slice(); 	// make a copy of the groupsizes
+		currentGroupSize = groupSizes.shift();		// pop the first groupSize from the front
 	} else {
 		groupSizes = [];
 		currentGroupSize = localeData.groupSize;
@@ -55,7 +55,7 @@ module.exports = function(value, localeData, options) {
 			if ( groupSizes.length > 0) {
 				currentGroupSize = groupSizes.shift();
 			}
-			digitNum = 1;
+			digitNum = 1;	// reset this back to 1 to handle variable group sizes
 			ret = c + localeData.symbols.group + ret;
 		} else {
 			ret = c + ret;
