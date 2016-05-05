@@ -6,7 +6,7 @@ function merge(obj1, obj2) {
 	}
 	for (var i in obj2) {
 		if (obj1.hasOwnProperty(i)) {
-			if (typeof(obj2[i]) === 'object') {
+			if (typeof(obj2[i]) === 'object' && typeof(obj1[i]) === 'object' ) {
 				merge(obj1[i], obj2[i]);
 			} else {
 				obj1[i] = obj2[i];
