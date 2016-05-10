@@ -6,9 +6,9 @@
 			"dateFormats": {
 				"full": "dddd d MMMM yyyy",
 				"medium": "MMM d yyyy",
-				"short": "yyyy-MM-dd",
+				"short": "dd-MM-yyyy",
 				"monthYear": "MMMM yyyy",
-				"monthDay": "MMMM d"
+				"monthDay": "d MMMM"
 			},
 			"timeFormats": {
 				"full": "HH' h 'mm ZZZ",
