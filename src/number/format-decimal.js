@@ -1,75 +1,45 @@
 'use strict';
 
-var validateFormatOptions = require('./validate-format-options'),
+var formatPositiveInteger = require('./format-positive-integer'),
+	validateFormatOptions = require('./validate-format-options'),
 	validateFormatValue = require('./validate-format-value');
 
 module.exports = function(value, localeData, options) {
-
 	value = validateFormatValue(value);
 	options = validateFormatOptions(options);
 
-	var isNegative = (value < 0);
-	value = Math.abs(
-		Math.round(
-			value * Math.pow(10, options.maximumFractionDigits)
-		) / Math.pow(10, options.maximumFractionDigits)
-	);
+	var isNegative = value < 0;
 
-	var valueStr = value + '';
-	var ret = '';
-	var processedDecimal = (valueStr.indexOf('.') < 0);
-	var currentGroupSizeIndex = 0;
-	var groupSizes = localeData.groupSize;
-	if ( !Array.isArray( groupSizes) ) {
-		groupSizes = [groupSizes];
-	}
-	var groupMemberCount = 0;
+	var precisionScaling = Math.pow(10, options.maximumFractionDigits);
+	// round to desired precision
+	value = Math.abs(Math.round(value * precisionScaling) / precisionScaling);
 
-	for (var i = valueStr.length; i >= 0; i--) {
+	var integerValue = value | 0;
 
-		var c = valueStr.charAt(i);
+	var ret = formatPositiveInteger(integerValue, localeData, options);
 
-		if (c === '.') {
-			ret = localeData.symbols.decimal + ret;
-			processedDecimal = true;
-			continue;
-		}
+	var hasDecimal = value !== integerValue;
+	var decimalStr = null;
 
-		var num = parseInt(c);
-		if (isNaN(num) || num < 0 || num > 9) {
-			continue;
-		}
-
-		if (!processedDecimal) {
-			ret = c + ret;
-			continue;
-		}
-
-		if (groupMemberCount > 0 && groupMemberCount === groupSizes[currentGroupSizeIndex] ) {	// we've filled up our group
-			ret = c + localeData.symbols.group + ret;
-			groupMemberCount = 0;
-			if ( currentGroupSizeIndex + 1 < groupSizes.length ) {
-				currentGroupSizeIndex++;
-			}
-		} else {
-			ret = c + ret;
-		}
-		groupMemberCount++;
-
+	if (hasDecimal) {
+		// get a string of 0.xxx
+		decimalStr = '' + (Math.round((value - integerValue) * precisionScaling) / precisionScaling);
+		// the first decimal place is index 2
+		decimalStr = decimalStr.slice(2);
+	} else if (options.minimumFractionDigits > 0) {
+		decimalStr = '';
 	}
 
-	var decimalIndex = ret.indexOf('.');
-	var numDecimals = (decimalIndex < 0) ? 0 : (ret.length - decimalIndex - 1);
-
-	for (var j = numDecimals; j < options.minimumFractionDigits; j++) {
-		if (j === 0) {
-			ret += localeData.symbols.decimal;
+	if (decimalStr !== null) {
+		while (decimalStr.length < options.minimumFractionDigits) {
+			decimalStr += '0';
 		}
-		ret += '0';
+		ret += localeData.symbols.decimal + decimalStr;
 	}
 
-	var pattern = (isNegative) ? localeData.patterns.decimal.negativePattern :
-		localeData.patterns.decimal.positivePattern;
+	var pattern = isNegative
+		? localeData.patterns.decimal.negativePattern
+		: localeData.patterns.decimal.positivePattern;
 
 	ret = pattern.replace('{number}', ret);
 	if (isNegative) {
