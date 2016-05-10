@@ -1,6 +1,6 @@
 {
   "name": "d2l-intl",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "D2L internationalization APIs for number, date and time formatting and parsing.",
   "main": "src/index.js",
   "scripts": {
