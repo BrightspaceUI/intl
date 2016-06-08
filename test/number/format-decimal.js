@@ -64,7 +64,11 @@ describe('NumberFormat', function() {
 				{val: 1e-9, max: 15, expect: '0.000000001'},
 				{val: -1e-9, max: 15, expect: '-0.000000001'},
 				{val: 8.256e-11, max: 15, expect: '0.00000000008256'},
-				{val: 8.256e-11, max: 12, expect: '0.000000000083'}
+				{val: 8.256e-11, max: 12, expect: '0.000000000083'},
+				{val: 1e10, expect: '10,000,000,000'},
+				{val: 6.845e13, expect: '68,450,000,000,000'},
+				{val: 12345678901.123456789, max: 3, expect: '12,345,678,901.123'},
+				{val: -12345678901.123456789, max: 3, expect: '-12,345,678,901.123'}
 			].forEach(function(input) {
 				it('should format ' + input.val + ', max:' + input.max + ', min:' + input.min, function() {
 					var options = {

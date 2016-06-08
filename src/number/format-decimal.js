@@ -4,7 +4,7 @@ var formatPositiveInteger = require('./format-positive-integer'),
 	validateFormatOptions = require('./validate-format-options'),
 	validateFormatValue = require('./validate-format-value');
 
-module.exports = function(value, localeData, options) {
+module.exports = function formatDecimal(value, localeData, options) {
 	value = validateFormatValue(value);
 	options = validateFormatOptions(options);
 
@@ -14,7 +14,7 @@ module.exports = function(value, localeData, options) {
 	// round to desired precision
 	value = Math.abs(Math.round(value * precisionScaling) / precisionScaling);
 
-	var integerValue = value | 0;
+	var integerValue = Math.trunc( value );
 
 	var ret = formatPositiveInteger(integerValue, localeData, options);
 
