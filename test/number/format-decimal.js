@@ -60,7 +60,11 @@ describe('NumberFormat', function() {
 				{val: 1.234567, min: 2, expect: '1.235'},
 				{val: 1.234567, min: 8, expect: '1.23456700'},
 				{val: 0.1234567, expect: '0.123'},
-				{val: 4, min: 2, expect: '4.00'}
+				{val: 4, min: 2, expect: '4.00'},
+				{val: 1e-9, max: 15, expect: '0.000000001'},
+				{val: -1e-9, max: 15, expect: '-0.000000001'},
+				{val: 8.256e-11, max: 15, expect: '0.00000000008256'},
+				{val: 8.256e-11, max: 12, expect: '0.000000000083'}
 			].forEach(function(input) {
 				it('should format ' + input.val + ', max:' + input.max + ', min:' + input.min, function() {
 					var options = {

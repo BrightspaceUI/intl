@@ -22,10 +22,16 @@ module.exports = function(value, localeData, options) {
 	var decimalStr = null;
 
 	if (hasDecimal) {
-		// get a string of 0.xxx
-		decimalStr = '' + (Math.round((value - integerValue) * precisionScaling) / precisionScaling);
-		// the first decimal place is index 2
-		decimalStr = decimalStr.slice(2);
+		var decimalValue = Math.round( (value - integerValue) * precisionScaling) / precisionScaling;
+		if (decimalValue.toExponential() === decimalValue.toString()) {
+			// Get a string with leading zeros
+			decimalStr = formatExponentialDecimal(decimalValue);
+		} else {
+			// get a string of 0.xxx
+			decimalStr = '' + decimalValue;
+			// the first decimal place is index 2
+			decimalStr = decimalStr.slice(2);
+		}
 	} else if (options.minimumFractionDigits > 0) {
 		decimalStr = '';
 	}
@@ -48,3 +54,17 @@ module.exports = function(value, localeData, options) {
 	return ret;
 
 };
+
+function formatExponentialDecimal( value) {
+	// Get a value like "1.25e-8" and find its values
+	value = parseFloat(value).toExponential();
+
+	var pieces = value.split( 'e-' ),
+		ret = pieces[0].replace( pieces[0].charAt(1), '' ),
+		zeroCount = parseInt( pieces[1] ) - 1;
+
+	for (var i = 0; i < zeroCount; i++) {
+		ret = '0' + ret;
+	}
+	return ret;
+}
