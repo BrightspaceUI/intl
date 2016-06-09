@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function formatPositiveInteger(value, localeData/*, options*/) {
-	value = Math.trunc( value );
+	value = Math.floor(value);
 
 	var valueStr = '' + value;
 	var ret = '';

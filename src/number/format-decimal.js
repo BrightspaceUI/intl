@@ -14,7 +14,7 @@ module.exports = function formatDecimal(value, localeData, options) {
 	// round to desired precision
 	value = Math.abs(Math.round(value * precisionScaling) / precisionScaling);
 
-	var integerValue = Math.trunc( value );
+	var integerValue = Math.floor(value);
 
 	var ret = formatPositiveInteger(integerValue, localeData, options);
 
@@ -22,13 +22,15 @@ module.exports = function formatDecimal(value, localeData, options) {
 	var decimalStr = null;
 
 	if (hasDecimal) {
-		var decimalValue = Math.round( (value - integerValue) * precisionScaling) / precisionScaling;
-		if (decimalValue.toExponential() === decimalValue.toString()) {
+		var decimalValue = Math.round((value - integerValue) * precisionScaling) / precisionScaling;
+
+		// get a string of 0.xxx, or exponent of x.xe-x
+		decimalStr = '' + decimalValue;
+
+		if (decimalValue.toExponential() === decimalStr) {
 			// Get a string with leading zeros
-			decimalStr = formatExponentialDecimal(decimalValue);
+			decimalStr = formatExponentialDecimal(decimalStr);
 		} else {
-			// get a string of 0.xxx
-			decimalStr = '' + decimalValue;
 			// the first decimal place is index 2
 			decimalStr = decimalStr.slice(2);
 		}
@@ -55,13 +57,11 @@ module.exports = function formatDecimal(value, localeData, options) {
 
 };
 
-function formatExponentialDecimal( value) {
-	// Get a value like "1.25e-8" and find its values
-	value = parseFloat(value).toExponential();
-
-	var pieces = value.split( 'e-' ),
-		ret = pieces[0].replace( pieces[0].charAt(1), '' ),
-		zeroCount = parseInt( pieces[1] ) - 1;
+function formatExponentialDecimal(value) {
+	// Get a value should be like "1.25e-8"
+	var pieces = value.split('e-'),
+		ret = pieces[0].replace('.', ''),
+		zeroCount = parseInt(pieces[1]) - 1;
 
 	for (var i = 0; i < zeroCount; i++) {
 		ret = '0' + ret;
