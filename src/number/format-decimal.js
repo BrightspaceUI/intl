@@ -4,7 +4,7 @@ var formatPositiveInteger = require('./format-positive-integer'),
 	validateFormatOptions = require('./validate-format-options'),
 	validateFormatValue = require('./validate-format-value');
 
-module.exports = function(value, localeData, options) {
+module.exports = function formatDecimal(value, localeData, options) {
 	value = validateFormatValue(value);
 	options = validateFormatOptions(options);
 
@@ -14,7 +14,7 @@ module.exports = function(value, localeData, options) {
 	// round to desired precision
 	value = Math.abs(Math.round(value * precisionScaling) / precisionScaling);
 
-	var integerValue = value | 0;
+	var integerValue = Math.floor(value);
 
 	var ret = formatPositiveInteger(integerValue, localeData, options);
 
@@ -22,10 +22,18 @@ module.exports = function(value, localeData, options) {
 	var decimalStr = null;
 
 	if (hasDecimal) {
-		// get a string of 0.xxx
-		decimalStr = '' + (Math.round((value - integerValue) * precisionScaling) / precisionScaling);
-		// the first decimal place is index 2
-		decimalStr = decimalStr.slice(2);
+		var decimalValue = Math.round((value - integerValue) * precisionScaling) / precisionScaling;
+
+		// get a string of 0.xxx, or exponent of x.xe-x
+		decimalStr = '' + decimalValue;
+
+		if (decimalValue.toExponential() === decimalStr) {
+			// Get a string with leading zeros
+			decimalStr = formatExponentialDecimal(decimalStr);
+		} else {
+			// the first decimal place is index 2
+			decimalStr = decimalStr.slice(2);
+		}
 	} else if (options.minimumFractionDigits > 0) {
 		decimalStr = '';
 	}
@@ -48,3 +56,15 @@ module.exports = function(value, localeData, options) {
 	return ret;
 
 };
+
+function formatExponentialDecimal(value) {
+	// Get a value should be like "1.25e-8"
+	var pieces = value.split('e-'),
+		ret = pieces[0].replace('.', ''),
+		zeroCount = parseInt(pieces[1]) - 1;
+
+	for (var i = 0; i < zeroCount; i++) {
+		ret = '0' + ret;
+	}
+	return ret;
+}
