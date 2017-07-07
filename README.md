@@ -26,6 +26,12 @@ Or install from [NPM]([npm-url]):
 npm install d2l-intl
 ```
 
+Or include from html:
+
+```html
+<link rel="import" href="../d2l-intl/d2l-intl.html">
+```
+
 Or include it in your application as UMD/CommonJs from the Brightspace CDN:
 
 ```html
@@ -64,6 +70,14 @@ new d2lIntl.NumberFormat('tr-TR', options).format(3.14); // -> 3.14
 ```
 
 The full set of overridable locale data can be found by inspecting one of the JSON files in the `locale-data` directory.
+
+### Retrieving Locale Data
+
+All locale data can be retrieved by providing a 'locale' option. The locale data can be overridden.
+
+```javascript
+var localeData = d2lIntl.LocaleProvider('fr');
+```
 
 ## Number Formatting
 
@@ -240,6 +254,7 @@ console.log(fileSize) // -> 100 Bytes
 
 ## Contributing
 Contributions are welcome, please submit a pull request!
+Please run a browserify build before submitting to update the latest /dist/Intl.js
 
 ### Code Style
 

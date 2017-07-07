@@ -28,4 +28,8 @@ describe('Intl', function() {
 		expect(d2lIntl.NumberParse).to.be.defined;
 	});
 
+	it('should expose LocaleProvider class', function() {
+		expect(d2lIntl.LocaleProvider).to.be.defined;
+	});
+
 });
