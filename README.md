@@ -26,7 +26,7 @@ Or install from [NPM]([npm-url]):
 npm install d2l-intl
 ```
 
-Or include from html:
+Or include it as a Polymer https://www.polymer-project.org/ HTML import:
 
 ```html
 <link rel="import" href="../d2l-intl/d2l-intl.html">
