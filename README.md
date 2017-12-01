@@ -224,7 +224,7 @@ console.log(
 );
 ```
 
-## File Size Parsing
+## File Size Formatting
 The `FileSizeFormat` object can be used to format a file size appropriately for the user's locale.
 
 Syntax:
@@ -234,10 +234,6 @@ var formatFS = new d2lIntl.FileSizeFormat(locale[, options]);
 ```
 
 To format a file size, call the `format` method:
-
-```javascript
-var fileSize = formatFS.format(fileSize);
-```
 
 ```javascript
 var formatFS = new d2lIntl.FileSizeFormat('en-US');
