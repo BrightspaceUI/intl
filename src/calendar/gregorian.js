@@ -41,10 +41,10 @@ module.exports = {
 	},
 	isValid: isValid,
 	tryGetGregorianLocaleDateTime: function(
-			calendarSpecificYear,
-			calendarSpecificMonth,
-			calendarSpecificDay
-		) {
+		calendarSpecificYear,
+		calendarSpecificMonth,
+		calendarSpecificDay
+	) {
 
 		if (!isValid(calendarSpecificYear, calendarSpecificMonth, calendarSpecificDay)) {
 			return null;

@@ -70,7 +70,7 @@ module.exports = function(input, localeData, options) {
 
 	}
 
-	var time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 0 );
+	var time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 0);
 	return time;
 
 };

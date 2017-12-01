@@ -17,7 +17,7 @@ module.exports = function(pattern, replacements) {
 	var escape = false;
 	var buffer = '';
 	var value = '';
-	for ( var i = 0; i < pattern.length; i++) {
+	for (var i = 0; i < pattern.length; i++) {
 		var c = pattern.charAt(i);
 		if (c === "'") {
 			if (!escape) {

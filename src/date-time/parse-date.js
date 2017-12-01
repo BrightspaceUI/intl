@@ -89,7 +89,7 @@ module.exports = function(input, localeData) {
 		calendarSpecificMonth,
 		calendarSpecificDay
 	);
-	if (gregorianLocalDate === null ) {
+	if (gregorianLocalDate === null) {
 		throw new Error('Invalid input date: part range value');
 	}
 

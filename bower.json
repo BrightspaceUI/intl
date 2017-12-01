@@ -9,7 +9,7 @@
     "**/.*",
     "test",
     ".editorconfig",
-    ".eslintrc",
+    ".eslintrc.json",
     ".gitignore",
     ".npmignore",
     ".travis.yml"
