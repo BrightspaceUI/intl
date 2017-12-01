@@ -14,22 +14,10 @@ Why not just use the standard [ECMAScript Internationalization API (ECMA-402)](h
 
 ### Installation
 
-Install from [Bower]([bower-url]):
-
-```shell
-bower install d2l-intl
-```
-
-Or install from [NPM]([npm-url]):
+Install from [NPM]([npm-url]):
 
 ```shell
 npm install d2l-intl
-```
-
-Or include it as a Polymer https://www.polymer-project.org/ HTML import:
-
-```html
-<link rel="import" href="../d2l-intl/d2l-intl.html">
 ```
 
 Or include it in your application as UMD/CommonJs from the Brightspace CDN:
@@ -37,6 +25,8 @@ Or include it in your application as UMD/CommonJs from the Brightspace CDN:
 ```html
 <script src="https://s.brightspace.com/lib/d2l-intl/{version}/Intl.js"></script>
 ```
+
+**Note about Polymer:** If you're using [Polymer](https://www.polymer-project.org) to write a web component or application, use [d2l-localize-behavior](https://github.com/BrightspaceUI/localize-behavior) instead.
 
 ### Specifying Locales
 
