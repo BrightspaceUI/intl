@@ -6,7 +6,7 @@
   "scripts": {
     "prebrowserify": "rimraf dist && mkdir dist",
     "browserify": "browserify -g uglifyify -t ./build/shrink-json -s d2lIntl ./src/index.js > ./dist/Intl.js",
-    "lint": "eslint src && eslint test && eslint build",
+    "lint": "eslint src test build",
     "test:unit": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive",
     "test": "npm run lint -s && npm run test:unit -s",
     "prepublish:cdn": "npm run browserify",
