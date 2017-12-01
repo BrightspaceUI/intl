@@ -2,7 +2,7 @@ coverage
 node_modules
 test
 .editorconfig
-.eslintrc
+.eslintrc.json
 .gitignore
 .travis.yml
 bower.json
