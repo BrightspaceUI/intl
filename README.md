@@ -20,10 +20,13 @@ Install from [NPM]([npm-url]):
 npm install d2l-intl
 ```
 
-Or include it in your application as UMD/CommonJs from the Brightspace CDN:
+Or include it in your application as UMD/CommonJs or as a global variable from the Brightspace CDN:
 
 ```html
-<script src="https://s.brightspace.com/lib/d2l-intl/{version}/Intl.js"></script>
+<!-- UMD/CommonJS -->
+<script src="https://s.brightspace.com/lib/d2l-intl/{version}/d2l-intl.js"></script>
+<!-- global "d2lIntl" variable -->
+<script src="https://s.brightspace.com/lib/d2l-intl/{version}/d2l-intl-global.js"></script>
 ```
 
 **Note about Polymer:** If you're using [Polymer](https://www.polymer-project.org) to write a web component or application, use [d2l-localize-behavior](https://github.com/BrightspaceUI/localize-behavior) instead.

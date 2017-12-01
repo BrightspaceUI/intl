@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "prebrowserify": "rimraf dist && mkdir dist",
-    "browserify": "browserify -g uglifyify -t ./build/shrink-json -s d2lIntl ./src/index.js > ./dist/Intl.js",
+    "browserify": "npm run browserify:umd && npm run browserify:global",
+    "browserify:umd": "browserify -g uglifyify -t ./build/shrink-json -s d2lIntl ./src/index.js > ./dist/d2l-intl.js",
+    "browserify:global": "browserify -g uglifyify -p deumdify -t ./build/shrink-json -s d2lIntl ./src/index.js > ./dist/d2l-intl-global.js",
     "lint": "eslint src test build",
     "test:unit": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive",
     "test": "npm run lint -s && npm run test:unit -s",
@@ -37,6 +39,7 @@
     "browserify": "^14.5.0",
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
+    "deumdify": "^1.2.4",
     "eslint": "^4.1.2",
     "eslint-config-brightspace": "^0.4.0",
     "frau-publisher": "^2.6.2",
