@@ -12,7 +12,7 @@ NumberParse.prototype.parse = function(value) {
 	}
 
 	value = value.replace(
-		new RegExp('\\s|[' + this.localeData.number.symbols.group + ']', 'g' ),
+		new RegExp('\\s|[' + this.localeData.number.symbols.group + ']', 'g'),
 		''
 	);
 	if (value === '') {

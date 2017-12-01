@@ -170,7 +170,7 @@ describe('NumberFormat', function() {
 			[
 				{ val: 1000000000.01, groupSize:[3, 2, 1, 0], expected: '1000,0,00,000.01' },
 				{ val: 123456789.123, groupSize:[4, 2], expected: '1,23,45,6789.12' }
-			].forEach( function(input) {
+			].forEach(function(input) {
 				it('should handle variable group sizes', function() {
 					localeData.groupSize = input.groupSize;
 					var options = {maximumFractionDigits: 2};
