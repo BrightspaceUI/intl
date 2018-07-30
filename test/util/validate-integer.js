@@ -1,10 +1,6 @@
-'use strict';
+import validate from '../../src/util/validate-integer.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	validate = require('../../src/util/validate-integer');
-
-chai.should();
+var expect = chai.expect;
 
 describe('validate-integer', function() {
 

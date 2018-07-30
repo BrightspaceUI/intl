@@ -1,10 +1,8 @@
-'use strict';
+import parseDate from './parse-date.js';
+import parseTime from './parse-time.js';
+import localeProvider from '../locale-provider.js';
 
-var parseDate = require('./parse-date'),
-	parseTime = require('./parse-time'),
-	localeProvider = require('../locale-provider');
-
-function NumberParse(locale, options) {
+export default function NumberParse(locale, options) {
 	options = options || {};
 	this.localeData = localeProvider(locale, options.locale);
 	this.options = options;
@@ -15,5 +13,3 @@ NumberParse.prototype.parseDate = function(input) {
 NumberParse.prototype.parseTime = function(input) {
 	return parseTime(input, this.localeData, this.options);
 };
-
-module.exports = NumberParse;

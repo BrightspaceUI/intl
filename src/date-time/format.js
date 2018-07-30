@@ -1,10 +1,8 @@
-'use strict';
+import formatTime from './format-time.js';
+import formatDate from './format-date.js';
+import localeProvider from '../locale-provider.js';
 
-var formatTime = require('./format-time'),
-	formatDate = require('./format-date'),
-	localeProvider = require('../locale-provider');
-
-function DateTimeFormat(locale, options) {
+export default function DateTimeFormat(locale, options) {
 	options = options || {};
 	this.options = options;
 	this.localeData = localeProvider(locale, options.locale);
@@ -41,5 +39,3 @@ DateTimeFormat.prototype.formatDate = function(date) {
 DateTimeFormat.prototype.formatTime = function(date) {
 	return formatTime(date, this.localeData, this.options);
 };
-
-module.exports = DateTimeFormat;

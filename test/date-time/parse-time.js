@@ -1,10 +1,6 @@
-'use strict';
+import DateTimeParse from '../../src/date-time/parse.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	DateTimeParse = require('../../src/date-time/parse');
-
-chai.should();
+var expect = chai.expect;
 
 var nowMorning = new Date(2015, 7, 26, 2, 5);
 var nowAfternoon = new Date(2015, 7, 26, 13, 15);

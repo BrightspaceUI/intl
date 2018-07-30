@@ -1,10 +1,6 @@
-'use strict';
+import validate from '../../src/number/validate-format-options.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	validate = require('../../src/number/validate-format-options');
-
-chai.should();
+var expect = chai.expect;
 
 describe('validate-format-options', function() {
 

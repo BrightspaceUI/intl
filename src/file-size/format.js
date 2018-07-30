@@ -1,13 +1,9 @@
-'use strict';
+import formatFileSize from './format-file-size.js';
+import localeProvider from '../locale-provider.js';
 
-var FileSizeFormatter = require('./format-file-size'),
-	localeProvider = require('../locale-provider');
-
-function FileSizeFormat(locale) {
+export default function FileSizeFormat(locale) {
 	this.localeData = localeProvider(locale);
 }
 FileSizeFormat.prototype.format = function(fileSize) {
-	return FileSizeFormatter(fileSize, this.localeData);
+	return formatFileSize(fileSize, this.localeData);
 };
-
-module.exports = FileSizeFormat;

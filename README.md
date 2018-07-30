@@ -1,6 +1,5 @@
 # d2l-intl
 
-[![Bower version][bower-image]][bower-url]
 [![NPM version][npm-image]][npm-url]
 [![Build status][ci-image]][ci-url]
 [![Coverage Status][coverage-image]][coverage-url]
@@ -12,7 +11,7 @@ This library consists of four sets of APIs (each described in detail below) to f
 
 Why not just use the standard [ECMAScript Internationalization API (ECMA-402)](http://www.ecma-international.org/ecma-402/1.0/#sec-8) and [related polyfills](https://github.com/andyearnshaw/Intl.js)? Firstly, the standard doesn't include any parsing functionality. Additionally, Brightspace supports fine-grained locale customization at the organization and user levels -- a level of configuration that simply isn't present in the standard. This library does attempt to follow the standard API syntax and naming conventions when possible.
 
-### Installation
+## Installation & Usage
 
 Install from [NPM]([npm-url]):
 
@@ -20,18 +19,27 @@ Install from [NPM]([npm-url]):
 npm install d2l-intl
 ```
 
-Or include it in your application as UMD/CommonJs or as a global variable from the Brightspace CDN:
+### NPM
 
-```html
-<!-- UMD/CommonJS -->
-<script src="https://s.brightspace.com/lib/d2l-intl/{version}/d2l-intl.js"></script>
-<!-- global "d2lIntl" variable -->
-<script src="https://s.brightspace.com/lib/d2l-intl/{version}/d2l-intl-global.js"></script>
+In NPM, require it normally:
+
+```javascript
+const d2lIntl = require('d2l-intl');
 ```
 
-**Note about Polymer:** If you're using [Polymer](https://www.polymer-project.org) to write a web component or application, use [d2l-localize-behavior](https://github.com/BrightspaceUI/localize-behavior) instead.
+### ES6
 
-### Specifying Locales
+In ES6, use an `import` statement:
+
+```javascript
+import d2lIntl from 'd2l-intl';
+```
+
+### Polymer
+
+If you're using [Polymer](https://www.polymer-project.org) to write a web component or application, use [d2l-localize-behavior](https://github.com/BrightspaceUI/localize-behavior) instead, as it wraps `d2l-intl` and exposes its functionality.
+
+## Specifying Locales
 
 Each of the APIs have a `locales` argument, which must be a string language tag (or array of language tags) matching a locale supported by Brightspace. A list of all supported locales can be found in the `locale-data` directory.
 
@@ -45,7 +53,7 @@ If the provided locale isn't supported (e.g. `fr-BE`), the base language (`fr`) 
 
 If an array of language tags is provided, the resolved locale will be the first supported locale.
 
-### Overriding Locale Data
+## Overriding Locale Data
 
 All locale data can be overridden by providing a `locale` option. Only the settings you specify will be overridden. For example, to use the `tr-TR` locale, but override the decimal symbol (which for Turkish is a comma):
 
@@ -64,7 +72,7 @@ new d2lIntl.NumberFormat('tr-TR', options).format(3.14); // -> 3.14
 
 The full set of overridable locale data can be found by inspecting one of the JSON files in the `locale-data` directory.
 
-### Retrieving Locale Data
+## Retrieving Locale Data
 
 All locale data can be retrieved by providing a 'locale' option. The locale data can be overridden.
 
@@ -242,16 +250,14 @@ console.log(fileSize) // -> 100 Bytes
 ```
 
 ## Contributing
+
 Contributions are welcome, please submit a pull request!
-Please run a browserify build before submitting to update the latest /dist/Intl.js
 
 ### Code Style
 
 This repository is configured with [EditorConfig](http://editorconfig.org) rules and
 contributions should make use of them.
 
-[bower-url]: http://bower.io/search/?q=d2l-intl
-[bower-image]: https://img.shields.io/bower/v/d2l-intl.svg
 [npm-url]: https://www.npmjs.org/package/d2l-intl
 [npm-image]: https://img.shields.io/npm/v/d2l-intl.svg
 [ci-url]: https://travis-ci.org/Brightspace/intl

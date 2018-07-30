@@ -1,9 +1,7 @@
-'use strict';
+import prePadByZero from '../util/pre-pad-by-zero.js';
+import processPattern from '../util/process-pattern.js';
 
-var prePadByZero = require('../util/pre-pad-by-zero'),
-	processPattern = require('../util/process-pattern');
-
-module.exports = function(date, localeData, options) {
+export default function formatDate(date, localeData, options) {
 
 	options.format = options.format || 'short';
 
@@ -29,4 +27,4 @@ module.exports = function(date, localeData, options) {
 	var value = processPattern(format, replacements);
 	return value;
 
-};
+}

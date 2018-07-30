@@ -1,30 +1,50 @@
-'use strict';
-
-var merge = require('./util/merge');
+import merge from './util/merge.js';
+import arSA from './locale-data/ar-SA.js';
+import ar from './locale-data/ar.js';
+import enCA from './locale-data/en-CA.js';
+import enGB from './locale-data/en-GB.js';
+import enUS from './locale-data/en-US.js';
+import en from './locale-data/en.js';
+import esMX from './locale-data/es-MX.js';
+import es from './locale-data/es.js';
+import frCA from './locale-data/fr-CA.js';
+import fr from './locale-data/fr.js';
+import ja from './locale-data/ja.js';
+import koKR from './locale-data/ko-KR.js';
+import ko from './locale-data/ko.js';
+import ptBR from './locale-data/pt-BR.js';
+import pt from './locale-data/pt.js';
+import svSE from './locale-data/sv-SE.js';
+import sv from './locale-data/sv.js';
+import trTR from './locale-data/tr-TR.js';
+import tr from './locale-data/tr.js';
+import zhCN from './locale-data/zh-CN.js';
+import zhTW from './locale-data/zh-TW.js';
+import zh from './locale-data/zh.js';
 
 var allLocales = {
-	'ar-SA': require('./locale-data/ar-SA.json'),
-	'ar': require('./locale-data/ar.json'),
-	'en-CA': require('./locale-data/en-CA.json'),
-	'en-GB': require('./locale-data/en-GB.json'),
-	'en-US': require('./locale-data/en-US.json'),
-	'en': require('./locale-data/en.json'),
-	'es-MX': require('./locale-data/es-MX.json'),
-	'es': require('./locale-data/es.json'),
-	'fr-CA': require('./locale-data/fr-CA.json'),
-	'fr': require('./locale-data/fr.json'),
-	'ja': require('./locale-data/ja.json'),
-	'ko-KR': require('./locale-data/ko-KR.json'),
-	'ko': require('./locale-data/ko.json'),
-	'pt-BR': require('./locale-data/pt-BR.json'),
-	'pt': require('./locale-data/pt.json'),
-	'sv-SE': require('./locale-data/sv-SE.json'),
-	'sv': require('./locale-data/sv.json'),
-	'tr-TR': require('./locale-data/tr-TR.json'),
-	'tr': require('./locale-data/tr.json'),
-	'zh-CN': require('./locale-data/zh-CN.json'),
-	'zh-TW': require('./locale-data/zh-TW.json'),
-	'zh': require('./locale-data/zh.json')
+	'ar-SA': arSA,
+	'ar': ar,
+	'en-CA': enCA,
+	'en-GB': enGB,
+	'en-US': enUS,
+	'en': en,
+	'es-MX': esMX,
+	'es': es,
+	'fr-CA': frCA,
+	'fr': fr,
+	'ja': ja,
+	'ko-KR': koKR,
+	'ko': ko,
+	'pt-BR': ptBR,
+	'pt': pt,
+	'sv-SE': svSE,
+	'sv': sv,
+	'tr-TR': trTR,
+	'tr': tr,
+	'zh-CN': zhCN,
+	'zh-TW': zhTW,
+	'zh': zh
 };
 
 function normalizeLangTag(langTag) {
@@ -63,7 +83,7 @@ function resolveLangTag(langTag, locales) {
 
 }
 
-module.exports = function(locales, override) {
+export default function localeProvider(locales, override) {
 
 	if (!locales) {
 		locales = [];
@@ -85,4 +105,4 @@ module.exports = function(locales, override) {
 	merge(copy, override);
 	return copy;
 
-};
+}

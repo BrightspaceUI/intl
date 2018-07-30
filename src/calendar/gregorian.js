@@ -1,5 +1,3 @@
-'use strict';
-
 function isValid(calendarSpecificYear, calendarSpecificMonth, calendarSpecificDay) {
 
 	var year = calendarSpecificYear;
@@ -35,7 +33,7 @@ function isValid(calendarSpecificYear, calendarSpecificMonth, calendarSpecificDa
 
 }
 
-module.exports = {
+export default {
 	getCalendarSpecificLocalDateTime: function(date) {
 		return date;
 	},
@@ -45,12 +43,9 @@ module.exports = {
 		calendarSpecificMonth,
 		calendarSpecificDay
 	) {
-
 		if (!isValid(calendarSpecificYear, calendarSpecificMonth, calendarSpecificDay)) {
 			return null;
 		}
-
 		return new Date(calendarSpecificYear, calendarSpecificMonth - 1, calendarSpecificDay, 0, 0, 0);
-
 	}
 };

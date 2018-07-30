@@ -1,10 +1,6 @@
-'use strict';
+import provider from '../src/locale-provider.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	provider = require('../src/locale-provider');
-
-chai.should();
+var expect = chai.expect;
 
 describe('locale-provider', function() {
 

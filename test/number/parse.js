@@ -1,10 +1,6 @@
-'use strict';
+import parse from '../../src/number/parse.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	parse = require('../../src/number/parse');
-
-chai.should();
+var expect = chai.expect;
 
 function getValueHelper(input, locale) {
 	var numberParse = new parse('en-US', {locale:locale});

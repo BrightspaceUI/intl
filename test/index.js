@@ -1,10 +1,6 @@
-'use strict';
+import d2lIntl from '../src/index.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	d2lIntl = require('../src/index');
-
-chai.should();
+var expect = chai.expect;
 
 describe('Intl', function() {
 

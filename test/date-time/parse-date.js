@@ -1,10 +1,6 @@
-'use strict';
+import DateTimeParse from '../../src/date-time/parse.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	DateTimeParse = require('../../src/date-time/parse');
-
-chai.should();
+var expect = chai.expect;
 
 function parseDate(input, options) {
 	var parser = new DateTimeParse('en-US', options);

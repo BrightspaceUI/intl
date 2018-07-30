@@ -1,10 +1,6 @@
-'use strict';
+import calendar from '../../src/calendar/gregorian.js';
 
-var calendar = require('../../src/calendar/gregorian'),
-	chai = require('chai'),
-	expect = chai.expect;
-
-chai.should();
+var expect = chai.expect;
 
 describe('Calendar', function() {
 

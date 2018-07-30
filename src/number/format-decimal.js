@@ -1,10 +1,8 @@
-'use strict';
+import formatPositiveInteger from './format-positive-integer.js';
+import validateFormatOptions from './validate-format-options.js';
+import validateFormatValue from './validate-format-value.js';
 
-var formatPositiveInteger = require('./format-positive-integer'),
-	validateFormatOptions = require('./validate-format-options'),
-	validateFormatValue = require('./validate-format-value');
-
-module.exports = function formatDecimal(value, localeData, options) {
+export default function formatDecimal(value, localeData, options) {
 	value = validateFormatValue(value);
 	options = validateFormatOptions(options);
 
@@ -55,7 +53,7 @@ module.exports = function formatDecimal(value, localeData, options) {
 	}
 	return ret;
 
-};
+}
 
 function formatExponentialDecimal(value) {
 	// Get a value should be like "1.25e-8"

@@ -1,9 +1,6 @@
-'use strict';
-var chai = require('chai'),
-	expect = chai.expect,
-	format = require('../../src/file-size/format');
+import format from '../../src/file-size/format.js';
 
-chai.should();
+var expect = chai.expect;
 
 describe('file-size', function() {
 	describe('format-file-size', function() {

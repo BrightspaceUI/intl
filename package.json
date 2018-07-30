@@ -1,19 +1,15 @@
 {
   "name": "d2l-intl",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "D2L internationalization APIs for number, date and time formatting and parsing.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "src/index.js",
   "scripts": {
-    "prebrowserify": "rimraf dist && mkdir dist",
-    "browserify": "npm run browserify:umd && npm run browserify:global",
-    "browserify:umd": "browserify -g uglifyify -t ./build/shrink-json -s d2lIntl ./src/index.js > ./dist/d2l-intl.js",
-    "browserify:global": "browserify -g uglifyify -p deumdify -t ./build/shrink-json -s d2lIntl ./src/index.js > ./dist/d2l-intl-global.js",
-    "lint": "eslint src test build",
-    "test:unit": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive",
+    "build": "babel src --out-dir dist --plugins=add-module-exports --presets=es2015",
+    "lint": "eslint src test --ext .js",
+    "test:unit": "concurrently -p name -n serve,test -s first -k \"http-server -p 8080 . -s\" \"mocha-headless-chrome -f http://localhost:8080/test/index.html -a no-sandbox -a disable-setuid-sandbox\"",
     "test": "npm run lint -s && npm run test:unit -s",
-    "prepublish:cdn": "npm run browserify",
-    "publish:cdn": "frau-publisher -m lib -t d2l-intl -f './dist/**' -k AKIAJUEYQT65A7MPJSUA --secretvar S3_SECRET --versionvar TRAVIS_TAG",
-    "report-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -36,17 +32,15 @@
   },
   "homepage": "https://github.com/Brightspace/intl",
   "devDependencies": {
-    "browserify": "^14.5.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
-    "coveralls": "^3.0.0",
-    "deumdify": "^1.2.4",
-    "eslint": "^4.1.2",
+    "concurrently": "^3.6.1",
+    "eslint": "^5.2.0",
     "eslint-config-brightspace": "^0.4.0",
-    "frau-publisher": "^2.6.2",
-    "istanbul": "^0.4.5",
-    "mocha": "^4.0.1",
-    "rimraf": "^2.6.2",
-    "through2": "^2.0.3",
-    "uglifyify": "^4.0.5"
+    "http-server": "^0.11.1",
+    "mocha": "^5.2.0",
+    "mocha-headless-chrome": "^2.0.1"
   }
 }

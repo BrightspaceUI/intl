@@ -1,5 +1,3 @@
-'use strict';
-
 function buildRe(part) {
 	var re = '';
 	var or = '';
@@ -12,7 +10,7 @@ function buildRe(part) {
 
 var reDigits = new RegExp('(\\d+)', 'g');
 
-module.exports = function(input, localeData, options) {
+export default function parseTime(input, localeData, options) {
 
 	if (input === undefined || input === null || input === '') {
 		return null;
@@ -73,4 +71,4 @@ module.exports = function(input, localeData, options) {
 	var time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 0);
 	return time;
 
-};
+}
