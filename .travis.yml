@@ -3,6 +3,7 @@ node_js: node
 deploy:
   provider: npm
   email: d2ltravisdeploy@d2l.com
+  skip_cleanup: true
   api_key:
     # d2l-travis-deploy: cdf2......ed33
     secure: FO3LArlBW47SyctOGAHCRsVWiMT2x1UEf/xszv3BWNUKvVw3ULt9OxmLb8X1U4DG5oI+EjpPqF+FF/P8PWJZjHH9KclxMUrRUQra86nULGGtDMjQ3XTrL5OghaF4kOPhPODyyzHUU2eGll7VUytQBN2/hmYPshWbpTS/Z3R2duCfwdWOpGWljfalU3bDu0AwoexZq6duu/2pOLTuIdbSpNQtv8KFNql0hndYu6lRvXd7e+qMid8m2LNuRbJDTuMfkftXjLRwuCbyxbGNRKTp6TEZ6gw9cy2ikE0+ay+Ev5l0qkv/U16DYGgvEl5wH05thy3QP2wAyblyGTzx1fcHhTO0EymPyYYSqIY8vV4hGRQD+8c0oF/I6QTsZo1GsQEOlx3SSuAZASULhSHjh9UFjdqvCOXDF+8yMIdoEROuHqhtJLpfbfEyNa01YqFjWPLfiwgsGsYpzpCO4D8asEBxuc46rEP97GBfQQWisUNyrFEeDvGQn3yjigqtS1uU8I9mUW8T9QFYErYmh3IJpkP2DE+cfAF+Yc0EJsmM9dTZr/PIc/qjuyERm8+2RzAPirBbe2fAQHEXs2PffLSdbbvzSLhQrQRptMP1AlWX9OamuZlau8HPWc6ce8m60aQNbqFBC4EBLe060XjK8yvIvGeP+3SNrRyio4Jq1zv5BTp3IZM=
