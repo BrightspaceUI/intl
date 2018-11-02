@@ -1,6 +1,4 @@
-'use strict';
-
-function merge(obj1, obj2) {
+export default function merge(obj1, obj2) {
 	if (obj2 === undefined || obj2 === null || typeof(obj2) !== 'object') {
 		return;
 	}
@@ -14,5 +12,3 @@ function merge(obj1, obj2) {
 		}
 	}
 }
-
-module.exports = merge;

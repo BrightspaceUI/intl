@@ -5,4 +5,3 @@ test
 .eslintrc.json
 .gitignore
 .travis.yml
-bower.json

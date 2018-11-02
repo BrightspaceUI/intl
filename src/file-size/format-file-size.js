@@ -1,8 +1,6 @@
-'use strict';
-
-var formatDecimal = require('../number/format-decimal'),
-	validateFormatValue = require('../number/validate-format-value'),
-	processPattern = require('../util/process-pattern');
+import formatDecimal from '../number/format-decimal.js';
+import validateFormatValue from '../number/validate-format-value.js';
+import processPattern from '../util/process-pattern.js';
 
 function getFileSizeUnits(localeData) {
 	var fileSizeUnits = Object.freeze([
@@ -14,7 +12,7 @@ function getFileSizeUnits(localeData) {
 	return fileSizeUnits;
 }
 
-module.exports = function(numBytes, localeData) {
+export default function formatFizeSize(numBytes, localeData) {
 	numBytes = validateFormatValue(numBytes);
 
 	var fileSizeUnits = getFileSizeUnits(localeData);
@@ -46,4 +44,4 @@ module.exports = function(numBytes, localeData) {
 	var value = processPattern (format, replacements);
 	return value;
 
-};
+}

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(value) {
+export default function validateFormatValue(value) {
 	if (value === undefined || value === null) {
 		return 0;
 	}
@@ -11,4 +9,4 @@ module.exports = function(value) {
 		throw new RangeError('value is out of range.');
 	}
 	return value;
-};
+}

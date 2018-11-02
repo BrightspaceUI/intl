@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function formatPositiveInteger(value, localeData/*, options*/) {
+export default function formatPositiveInteger(value, localeData/*, options*/) {
 	value = Math.floor(value);
 
 	var valueStr = '' + value;
@@ -39,4 +37,4 @@ module.exports = function formatPositiveInteger(value, localeData/*, options*/) 
 	}
 
 	return ret;
-};
+}

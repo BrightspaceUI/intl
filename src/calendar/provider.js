@@ -1,7 +1,5 @@
-'use strict';
+import gregorian from './gregorian.js';
 
-var gregorian = require('./gregorian');
-
-module.exports = function() {
+export default function calendarProvider() {
 	return gregorian;
-};
+}

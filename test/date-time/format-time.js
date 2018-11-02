@@ -1,10 +1,6 @@
-'use strict';
+import DateTimeFormat from '../../src/date-time/format.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	DateTimeFormat = require('../../src/date-time/format');
-
-chai.should();
+var expect = chai.expect;
 
 function formatTime(date, options) {
 	var dtFormat = new DateTimeFormat('en-US', options);

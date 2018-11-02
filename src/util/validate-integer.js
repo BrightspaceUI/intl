@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(name, value, defaultValue, min, max) {
+export default function validateInteger(name, value, defaultValue, min, max) {
 
 	if (value === undefined || value === null) {
 		value = defaultValue;
@@ -14,4 +12,4 @@ module.exports = function(name, value, defaultValue, min, max) {
 
 	return value;
 
-};
+}

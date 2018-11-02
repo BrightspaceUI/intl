@@ -1,10 +1,6 @@
-'use strict';
+import format from '../../src/number/format.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	format = require('../../src/number/format');
-
-chai.should();
+var expect = chai.expect;
 
 describe('NumberFormat', function() {
 

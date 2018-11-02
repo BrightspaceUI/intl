@@ -1,6 +1,4 @@
-'use strict';
-
-var calendarProvider = require('../calendar/provider');
+import calendarProvider from '../calendar/provider.js';
 
 var reSeparator = new RegExp('\\W');
 
@@ -43,7 +41,7 @@ function getParts(localeData) {
 
 }
 
-module.exports = function(input, localeData) {
+export default function parseDate(input, localeData) {
 
 	if (input === undefined || input === null) {
 		input = '';
@@ -95,4 +93,4 @@ module.exports = function(input, localeData) {
 
 	return gregorianLocalDate;
 
-};
+}

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(pattern, replacements) {
+export default function processPattern(pattern, replacements) {
 
 	var reStr = '';
 	Object.keys(replacements).forEach(function(key) {
@@ -35,4 +33,4 @@ module.exports = function(pattern, replacements) {
 
 	return value;
 
-};
+}

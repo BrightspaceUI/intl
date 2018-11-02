@@ -1,8 +1,6 @@
-'use strict';
+import localeProvider from '../locale-provider.js';
 
-var localeProvider = require('../locale-provider');
-
-function NumberParse(locale, options) {
+export default function NumberParse(locale, options) {
 	options = options || {};
 	this.localeData = localeProvider(locale, options.locale);
 }
@@ -61,5 +59,3 @@ NumberParse.prototype.parse = function(value) {
 
 	return ret;
 };
-
-module.exports = NumberParse;

@@ -1,9 +1,7 @@
-'use strict';
+import validateFormatValue from './validate-format-value.js';
+import formatDecimal from './format-decimal.js';
 
-var validateFormatValue = require('./validate-format-value'),
-	formatDecimal = require('./format-decimal');
-
-module.exports = function(value, localeData, options) {
+export default function formatPercent(value, localeData, options) {
 
 	value = validateFormatValue(value);
 
@@ -22,4 +20,4 @@ module.exports = function(value, localeData, options) {
 
 	return percent;
 
-};
+}

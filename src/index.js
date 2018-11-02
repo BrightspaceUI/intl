@@ -1,13 +1,11 @@
-'use strict';
+import dateTimeFormat from './date-time/format.js';
+import dateTimeParse from './date-time/parse.js';
+import numberFormat from './number/format.js';
+import numberParse from './number/parse.js';
+import fileSizeFormat from './file-size/format.js';
+import localeProvider from './locale-provider.js';
 
-var dateTimeFormat = require('./date-time/format'),
-	dateTimeParse = require('./date-time/parse'),
-	numberFormat = require('./number/format'),
-	numberParse = require('./number/parse'),
-	fileSizeFormat = require('./file-size/format'),
-	localeProvider = require('./locale-provider');
-
-module.exports = {
+export default {
 	DateTimeFormat: dateTimeFormat,
 	DateTimeParse: dateTimeParse,
 	NumberFormat: numberFormat,

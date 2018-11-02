@@ -1,11 +1,7 @@
-'use strict';
+import format from '../../src/number/format-decimal.js';
+import defaultLocaleData from '../../src/locale-data/en-US.js';
 
-var chai = require('chai'),
-	expect = chai.expect,
-	format = require('../../src/number/format-decimal'),
-	defaultLocaleData = require('../../src/locale-data/en-US.json');
-
-chai.should();
+var expect = chai.expect;
 
 describe('NumberFormat', function() {
 

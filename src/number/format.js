@@ -1,10 +1,8 @@
-'use strict';
+import formatDecimal from './format-decimal.js';
+import formatPercent from './format-percent.js';
+import localeProvider from '../locale-provider.js';
 
-var formatDecimal = require('./format-decimal'),
-	formatPercent = require('./format-percent'),
-	localeProvider = require('../locale-provider');
-
-function NumberFormat(locale, options) {
+export default function NumberFormat(locale, options) {
 	options = options || {};
 	this.options = options;
 	this.localeData = localeProvider(locale, options.locale);
@@ -17,5 +15,3 @@ NumberFormat.prototype.format = function(value) {
 			return formatDecimal(value, this.localeData.number, this.options);
 	}
 };
-
-module.exports = NumberFormat;
