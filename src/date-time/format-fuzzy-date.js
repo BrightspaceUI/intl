@@ -1,4 +1,4 @@
-import { DateTimeFormat } from './format';
+import DateTimeFormat from './format';
 import processPattern from '../util/process-pattern.js';
 
 const _msPerDay = 86400000;
@@ -27,6 +27,7 @@ FuzzyDateFormatter.prototype.getDateString = function(dateUTC)  {
 	} else if (calendarDateDiff >= 1 && calendarDateDiff < 3) {
 		feedbackDateString = this._getStringSomeDaysAgo(calendarDateDiff, feedbackDate);
 	} else if (sameYear) {
+		//these 2 functions give full date with time making the output wrong
 		var day = this._formatMonthDay(dateUTC);
 		var time = this._formatTime(dateUTC);
 		feedbackDateString = processPattern(this.format.dayAtTime, {'{day}': day, '{time}': time});
