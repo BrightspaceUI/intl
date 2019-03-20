@@ -7,7 +7,7 @@ export default function DateTimeFormat(locale, options) {
 	options = options || {};
 	this.options = options;
 	this.localeData = localeProvider(locale, options.locale);
-	this.formatFuzzyDate = new formatFuzzyDate(this.localeData, this.options.locale);
+	this._fuzzyDateFormatter = new formatFuzzyDate(this.localeData, this.options.locale);
 }
 DateTimeFormat.prototype.format = function(date) {
 	var format = this.options.format || 'short';
@@ -42,5 +42,5 @@ DateTimeFormat.prototype.formatTime = function(date) {
 	return formatTime(date, this.localeData, this.options);
 };
 DateTimeFormat.prototype.formatFuzzyDate = function(date) {
-	return this.formatFuzzyDate.getDateString(date);
+	return this._fuzzyDateFormatter.getDateString(date);
 };
