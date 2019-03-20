@@ -78,12 +78,24 @@ describe('DateTimeFormat', function() {
 		});
 
 		[24, 26, 47].forEach(function(hours) {
-			it('should contain "yesterday at" if date is ' + hours + ' hours before now', function() {
-				var date = new Date();
+			it('should contain "yesterday at" if date with time 23:59:59 ' + hours + ' hours before now', function() {
+				var date = new Date('March 20, 2019 23:59:59 CDT');
+				var now = new Date(date);
 				date.setHours(date.getHours() - hours);
 				var time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
-				var feedbackString = formatter.formatFuzzyDate(date);
+				var feedbackString = formatter.formatFuzzyDate(date, now);
 				expect(feedbackString).to.equal('Yesterday at ' + time);
+			});
+		});
+		[25, 26, 47].forEach(function(hours) {
+			it('should contain "[day short] at [time]" if calendar day is more than 1 from today', function() {
+				var date = new Date('March 20, 2019 00:00:00 CDT');
+				var now = new Date(date);
+				date.setHours(date.getHours() - hours);
+				var day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date);
+				var time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
+				var feedbackString = formatter.formatFuzzyDate(date, now);
+				expect(feedbackString).to.equal(day + ' at ' + time);
 			});
 		});
 

@@ -41,6 +41,6 @@ DateTimeFormat.prototype.formatDate = function(date) {
 DateTimeFormat.prototype.formatTime = function(date) {
 	return formatTime(date, this.localeData, this.options);
 };
-DateTimeFormat.prototype.formatFuzzyDate = function(date) {
-	return this._fuzzyDateFormatter.getDateString(date);
+DateTimeFormat.prototype.formatFuzzyDate = function(date, now) {
+	return this._fuzzyDateFormatter.getDateString(date, now);
 };
