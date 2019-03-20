@@ -10,6 +10,15 @@ export default {
 				'monthYear': 'MMMM, yyyy',
 				'monthDay': 'd MMMM'
 			},
+			'fuzzyFormats': {
+				'yesterdayAtTime': 'أمس عند الساعة {time}',
+				'dayAtTime': '{day} عند الساعة {time}',
+				'justNow': 'الآن',
+				'oneMinuteAgo': 'منذ دقيقة واحدة',
+				'minutesAgo': 'منذ {numMinutes} من الدقائق',
+				'oneHourAgo': 'منذ ساعة واحدة',
+				'hoursAgo': 'منذ {numHours} من الساعات',
+			},
 			'timeFormats': {
 				'full': 'h:mm tt ZZZ',
 				'medium': 'h:mm tt',

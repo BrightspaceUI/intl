@@ -10,6 +10,15 @@ export default {
 				'monthYear': 'MMMM yyyy',
 				'monthDay': 'MMMM d'
 			},
+			'fuzzyFormats': {
+				'yesterdayAtTime': 'Igår kl. {time}',
+				'dayAtTime': '{day} kl. {time}',
+				'justNow': 'Just nu',
+				'oneMinuteAgo': '1 minut sedan',
+				'minutesAgo': '{numMinutes} minuter sedan',
+				'oneHourAgo': '1 timme sedan',
+				'hoursAgo': '{numHours} timmar sedan',
+			},
 			'timeFormats': {
 				'full': 'HH:mm ZZZ',
 				'medium': 'HH:mm',

@@ -10,6 +10,15 @@ export default {
 				'monthYear': 'MMMM yyyy',
 				'monthDay': 'dd MMMM'
 			},
+			'fuzzyFormats': {
+				'yesterdayAtTime': 'Dün şu saatte: {time}',
+				'dayAtTime': '{day} günü şu saatte: {time}',
+				'justNow': 'Şimdi',
+				'oneMinuteAgo': '1 dakika önce',
+				'minutesAgo': '{numMinutes} dakika önce',
+				'oneHourAgo': '1 saat önce',
+				'hoursAgo': '{numHours} saat önce',
+			},
 			'timeFormats': {
 				'full': 'HH:mm ZZZ',
 				'medium': 'HH:mm',

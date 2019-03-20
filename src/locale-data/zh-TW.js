@@ -10,6 +10,15 @@ export default {
 				'monthYear': 'yyyy年M月',
 				'monthDay': 'M月d日'
 			},
+			'fuzzyFormats': {
+				'yesterdayAtTime': '昨天在 {time}',
+				'dayAtTime': '{day} 在 {time}',
+				'justNow': '現在',
+				'oneMinuteAgo': '1 分鐘前',
+				'minutesAgo': '{numMinutes} 分鐘前',
+				'oneHourAgo': '1 小時前',
+				'hoursAgo': '{numHours} 小時前',
+			},
 			'timeFormats': {
 				'full': 'tt hh:mm ZZZ',
 				'medium': 'tt hh:mm',

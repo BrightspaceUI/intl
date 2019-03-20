@@ -10,6 +10,15 @@ export default {
 				'monthYear': 'MMMM yyyy',
 				'monthDay': 'MMMM d'
 			},
+			'fuzzyFormats': {
+				'yesterdayAtTime': 'Hier à {time}',
+				'dayAtTime': '{day} à {time}',
+				'justNow': 'En ce moment',
+				'oneMinuteAgo': 'il y a 1 minute',
+				'minutesAgo': 'il y a {numMinutes} minutes',
+				'oneHourAgo': 'il y a 1 heure',
+				'hoursAgo': 'il y a {numHours} heures',
+			},
 			'timeFormats': {
 				'full': 'HH\' h \'mm ZZZ',
 				'medium': 'HH\' h \'mm',

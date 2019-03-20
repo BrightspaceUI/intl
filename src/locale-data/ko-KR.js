@@ -10,6 +10,15 @@ export default {
 				'monthYear': 'yyyy년 M월',
 				'monthDay': 'M월 d일'
 			},
+			'fuzzyFormats':{
+				'yesterdayAtTime': '어제 {time}',
+				'dayAtTime': '{day}, {time}',
+				'justNow': '방금',
+				'oneMinuteAgo': '1분 전',
+				'minutesAgo': '{numMinutes}분 전',
+				'oneHourAgo': '1시간 전',
+				'hoursAgo': '{numHours}시간 전',
+			},
 			'timeFormats': {
 				'full': 'tt h:mm ZZZ',
 				'medium': 'tt h:mm',
