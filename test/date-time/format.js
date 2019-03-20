@@ -21,11 +21,22 @@ describe('DateTimeFormat', function() {
 			{format: 'longDayOfWeek', expect: 'Monday'},
 			{format: 'shortDayOfWeek', expect: 'Mon'},
 			{format: 'longMonth', expect: 'August'},
-			{format: 'shortMonth', expect: 'Aug'}
+			{format: 'shortMonth', expect: 'Aug'},
+			{format: 'fuzzy', expect: 'August 3, 2015, 1:44 PM'}
 		].forEach(function(input) {
 			it('should apply locale format "' + input.format + '"', function() {
 				var dtFormat = new DateTimeFormat('en-US', {format: input.format, timezone: 'EST'});
 				var value = dtFormat.format(new Date(2015, 7, 3, 13, 44));
+				expect(value).to.equal(input.expect);
+			});
+		});
+
+		[
+			{date: () => new Date(), expect: 'Just now'}
+		].forEach(function(input) {
+			it('should apply fuzzy format', function() {
+				var dtFormat = new DateTimeFormat('en-US', {format: 'fuzzy'});
+				var value = dtFormat.format(input.date());
 				expect(value).to.equal(input.expect);
 			});
 		});

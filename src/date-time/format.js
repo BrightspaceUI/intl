@@ -32,7 +32,7 @@ DateTimeFormat.prototype.format = function(date) {
 			format = 'MMM';
 			break;
 	}
-	var value = formatDate(date, this.localeData, {format: format});
+	var value = format === 'fuzzy' ? this._fuzzyDateFormatter.getDateString(date) : formatDate(date, this.localeData, {format: format});
 	return value;
 };
 DateTimeFormat.prototype.formatDate = function(date) {
