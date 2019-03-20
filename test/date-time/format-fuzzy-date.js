@@ -1,6 +1,6 @@
-import FuzzyDate from '../../src/date-time/format-fuzzy-date';
-import DateTimeFormat from '../../src/date-time/format';
-import en from '../../src/locale-data/en';
+import FuzzyDate from '../../src/date-time/format-fuzzy-date.js';
+import DateTimeFormat from '../../src/date-time/format.js';
+import en from '../../src/locale-data/en.js';
 
 var expect = chai.expect;
 

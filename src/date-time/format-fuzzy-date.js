@@ -1,4 +1,4 @@
-import DateTimeFormat from './format';
+import DateTimeFormat from './format.js';
 import processPattern from '../util/process-pattern.js';
 
 const _msPerDay = 86400000;
