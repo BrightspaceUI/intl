@@ -1,4 +1,3 @@
-import DateTimeFormat from './format.js';
 import processPattern from '../util/process-pattern.js';
 
 const _msPerDay = 86400000;
@@ -32,7 +31,7 @@ FuzzyDateFormatter.prototype.getDateString = function(dateUTC)  {
 		var time = this._formatTime(dateUTC);
 		feedbackDateString = processPattern(this.format.dayAtTime, {'{day}': day, '{time}': time});
 	} else {
-		feedbackDateString = new DateTimeFormat(this.locale, { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(new Date(dateUTC));
+		feedbackDateString = new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(new Date(dateUTC));
 	}
 	return feedbackDateString;
 };
@@ -102,21 +101,21 @@ FuzzyDateFormatter.prototype._getDateDiffInSeconds = function(feedbackDate, refe
 * Formats weekday (e.g., Mon) in locale
 */
 FuzzyDateFormatter.prototype._formatWeekday = function(date) {
-	return new DateTimeFormat(this.locale, { weekday: 'short' }).format(new Date(date));
+	return new Intl.DateTimeFormat(this.locale, { weekday: 'short' }).format(new Date(date));
 };
 
 /*
 * Formats time (e.g., 2:38 PM) in locale
 */
 FuzzyDateFormatter.prototype._formatTime = function(date) {
-	return new DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric' }).format(new Date(date));
+	return new Intl.DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric' }).format(new Date(date));
 };
 
 /*
 * Formats month and day (e.g., December 5) in locale
 */
 FuzzyDateFormatter.prototype._formatMonthDay = function(date) {
-	return new DateTimeFormat(this.locale, { month: 'long', day: 'numeric' }).format(new Date(date));
+	return new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric' }).format(new Date(date));
 };
 
 /*

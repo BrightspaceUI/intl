@@ -1,29 +1,23 @@
-import FuzzyDate from '../../src/date-time/format-fuzzy-date.js';
 import DateTimeFormat from '../../src/date-time/format.js';
-import en from '../../src/locale-data/en.js';
 
 var expect = chai.expect;
 
-describe('formatfuzzydate', function() {
-	var component;
+describe('DateTimeFormat', function() {
+	var component = new DateTimeFormat('en-US');
 
-	beforeEach(function() {
-		component = new FuzzyDate(en, 'en');
-	});
-
-	describe('getDateString', function() {
+	describe('formatFuzzyDate', function() {
 		it('should return "just now" if feedback posted recently', function() {
 			var date = new Date();
-			var feedbackString = component.getDateString(date);
+			var feedbackString = component.formatFuzzyDate(date);
 			expect(feedbackString).to.equal('Just now');
 		});
 
 		it('should return date time if feedback posted in the future', function() {
 			var date = new Date();
 			date.setSeconds(date.getSeconds() + 60);
-			var feedbackString = component.getDateString(date);
-			var time = new DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
-			var day = new DateTimeFormat('en-US', { month: 'long', day: 'numeric' }).format(date);
+			var feedbackString = component.formatFuzzyDate(date);
+			var time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
+			var day = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric' }).format(date);
 
 			expect(feedbackString).to.equal(day + ' at ' + time);
 		});
@@ -32,7 +26,7 @@ describe('formatfuzzydate', function() {
 			it('should return "1 minute ago" if feedback posted ' + seconds + ' seconds before now', function() {
 				var date = new Date();
 				date.setSeconds(date.getSeconds() - seconds);
-				var feedbackString = component.getDateString(date);
+				var feedbackString = component.formatFuzzyDate(date);
 				expect(feedbackString).to.equal('1 minute ago');
 			});
 		});
@@ -41,7 +35,7 @@ describe('formatfuzzydate', function() {
 			it('should return "2 minutes ago" if feedback posted ' + seconds + ' seconds before now', function() {
 				var date = new Date();
 				date.setSeconds(date.getSeconds() - seconds);
-				var feedbackString = component.getDateString(date);
+				var feedbackString = component.formatFuzzyDate(date);
 				expect(feedbackString).to.equal('2 minutes ago');
 			});
 		});
@@ -50,7 +44,7 @@ describe('formatfuzzydate', function() {
 			it('should return "x minutes ago" if feedback posted ' + minutes + ' minutes before now', function() {
 				var date = new Date();
 				date.setMinutes(date.getMinutes() - minutes);
-				var feedbackString = component.getDateString(date);
+				var feedbackString = component.formatFuzzyDate(date);
 				expect(feedbackString).to.equal(`${minutes} minutes ago`);
 			});
 		});
@@ -59,7 +53,7 @@ describe('formatfuzzydate', function() {
 			it('should return "1 hour ago" if feedback posted ' + minutes + ' minutes before now', function() {
 				var date = new Date();
 				date.setMinutes(date.getMinutes() - minutes);
-				var feedbackString = component.getDateString(date);
+				var feedbackString = component.formatFuzzyDate(date);
 				expect(feedbackString).to.equal('1 hour ago');
 			});
 		});
@@ -68,7 +62,7 @@ describe('formatfuzzydate', function() {
 			it('should return "2 hours ago" if feedback posted ' + minutes + ' minutes before now', function() {
 				var date = new Date();
 				date.setMinutes(date.getMinutes() - minutes);
-				var feedbackString = component.getDateString(date);
+				var feedbackString = component.formatFuzzyDate(date);
 				expect(feedbackString).to.equal('2 hours ago');
 			});
 		});
@@ -77,7 +71,7 @@ describe('formatfuzzydate', function() {
 			it('should return "x hours ago" if feedback posted ' + Math.round(minutes / 60) + ' hours before now', function() {
 				var date = new Date();
 				date.setMinutes(date.getMinutes() - minutes);
-				var feedbackString = component.getDateString(date);
+				var feedbackString = component.formatFuzzyDate(date);
 				var numHours = Math.round(minutes / 60);
 				expect(feedbackString).to.equal(`${numHours} hours ago`);
 			});
@@ -87,8 +81,8 @@ describe('formatfuzzydate', function() {
 			it('should contain "yesterday at" if feedback posted ' + hours + ' hours before now', function() {
 				var date = new Date();
 				date.setHours(date.getHours() - hours);
-				var time = new DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
-				var feedbackString = component.getDateString(date);
+				var time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
+				var feedbackString = component.formatFuzzyDate(date);
 				expect(feedbackString).to.equal('Yesterday at ' + time);
 			});
 		});
@@ -96,9 +90,9 @@ describe('formatfuzzydate', function() {
 		it('should contain "[day short] at [time]" if feedback posted 2 days before now', function() {
 			var date = new Date();
 			date.setDate(date.getDate() - 2);
-			var time = new DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
-			var day = new DateTimeFormat('en-US', { weekday: 'short' }).format(date);
-			var feedbackString = component.getDateString(date);
+			var time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
+			var day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date);
+			var feedbackString = component.formatFuzzyDate(date);
 			expect(feedbackString).to.equal(day + ' at ' + time);
 		});
 
@@ -106,9 +100,9 @@ describe('formatfuzzydate', function() {
 			it('should contain "[month] [day] at [time]" if feedback posted ' + days + ' days before now', function() {
 				var date = new Date();
 				date.setDate(date.getDate() - days);
-				var time = new DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
-				var day = new DateTimeFormat('en-US', { month: 'long', day: 'numeric' }).format(date);
-				var feedbackString = component.getDateString(date);
+				var time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date);
+				var day = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric' }).format(date);
+				var feedbackString = component.formatFuzzyDate(date);
 
 				var dateNow = new Date();
 				if (date.getYear() === dateNow.getYear()) {
@@ -121,8 +115,8 @@ describe('formatfuzzydate', function() {
 			it('should contain full date string if feedback posted ' + days + ' days before now in the previous year', function() {
 				var date = new Date();
 				date.setDate(date.getDate() - days);
-				var day = new DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(date);
-				var feedbackString = component.getDateString(date);
+				var day = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(date);
+				var feedbackString = component.formatFuzzyDate(date);
 
 				expect(feedbackString).to.equal(day);
 			});

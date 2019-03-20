@@ -1,5 +1,6 @@
 import formatTime from './format-time.js';
 import formatDate from './format-date.js';
+import formatFuzzyDate from './format-fuzzy-date.js';
 import localeProvider from '../locale-provider.js';
 
 export default function DateTimeFormat(locale, options) {
@@ -38,4 +39,7 @@ DateTimeFormat.prototype.formatDate = function(date) {
 };
 DateTimeFormat.prototype.formatTime = function(date) {
 	return formatTime(date, this.localeData, this.options);
+};
+DateTimeFormat.prototype.formatFuzzyDate = function(date) {
+	return new formatFuzzyDate(this.localeData, this.options.locale).getDateString(date);
 };
