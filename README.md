@@ -161,6 +161,7 @@ Options:
   - **shortDayOfWeek**: short weekday only. e.g. "Wed"
   - **longMonth**: long month only. e.g. "September"
   - **shortMonth**: short month only. e.g. "Sep"
+  - **fuzzy**: relative to current date eg "Just now" or "Yesterday at 1:25 PM"
 
 All the date and time formatting methods take a [JavaScript Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) as input.
 
