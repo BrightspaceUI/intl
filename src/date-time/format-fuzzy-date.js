@@ -27,6 +27,9 @@ FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 	const calendarDateDiff = (referenceDate - inputDate) / _msPerDay;
 	const calendarDaysRounded = Math.floor(calendarDateDiff);
 	const sameYear = referenceDate.getYear() === inputDate.getYear();
+	const yesterday = new Date(referenceDate).setDate(referenceDate.getDate() - 1);
+	const yesterdayStart = new Date(yesterday).setHours(0, 0, 0, 0);
+	const yesterdayEnd = new Date(yesterday).setHours(23, 59, 59, 999);
 	const monthDay = new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric' }).format(new Date(inputDate));
 	const weekDay = new Intl.DateTimeFormat(this.locale, { weekday: 'short' }).format(new Date(inputDate));
 	const time = new Intl.DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric' }).format(new Date(inputDate));
@@ -36,7 +39,7 @@ FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 		fuzzyDateString = processPattern(this.format.dayAtTime, {'{day}': monthDay, '{time}': time});
 	} else if (calendarDaysRounded === 0) {
 		fuzzyDateString = this._getStringSameDay(inputDate, referenceDate);
-	} else if (calendarDaysRounded === 1 && (referenceDate.getDay() - inputDate.getDay()) < 2) {
+	} else if (inputDate >= yesterdayStart && inputDate <= yesterdayEnd) {
 		fuzzyDateString = processPattern(this.format.yesterdayAtTime, {'{time}': time});
 	} else if (calendarDaysRounded < 3) {
 		fuzzyDateString = processPattern(this.format.dayAtTime, {'{day}': weekDay, '{time}': time});
