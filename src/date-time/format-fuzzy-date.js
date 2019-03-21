@@ -55,28 +55,28 @@ FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 * Returns date as proper string for being same day
 * e.g., "Just now", "1 minute ago", "2 minutes ago", "10 minutes ago", "1 hour ago", "2 hours ago"
 */
-FuzzyDateFormatter.prototype._getStringSameDay = function(dateUTC, referenceDate) {
-	const timeDiff = Math.floor(referenceDate.getTime() - dateUTC.getTime());
+FuzzyDateFormatter.prototype._getStringSameDay = function(inputDate, referenceDate) {
+	const timeDiff = Math.floor(referenceDate.getTime() - inputDate.getTime());
 
-	let feedbackDateString = '';
+	let sameDayDateString = '';
 	if (timeDiff < thirtySeconds) {
-		feedbackDateString = this.format.justNow;
+		sameDayDateString = this.format.justNow;
 	} else if (timeDiff < ninetySeconds) {
-		feedbackDateString = this.format.oneMinuteAgo;
+		sameDayDateString = this.format.oneMinuteAgo;
 	} else if (timeDiff < twoAndAHalfMinutes) {
-		feedbackDateString = processPattern(this.format.minutesAgo, {'{numMinutes}': 2});
+		sameDayDateString = processPattern(this.format.minutesAgo, {'{numMinutes}': 2});
 	} else if (timeDiff < fortyFiveMinutes) {
 		const minutesRounded = Math.round(timeDiff % oneHour / oneMinute);
-		feedbackDateString = processPattern(this.format.minutesAgo, {'{numMinutes}': minutesRounded});
+		sameDayDateString = processPattern(this.format.minutesAgo, {'{numMinutes}': minutesRounded});
 	} else {
 		if (timeDiff < oneHourThirtyMinutes) {
-			feedbackDateString = this.format.oneHourAgo;
+			sameDayDateString = this.format.oneHourAgo;
 		} else if (timeDiff < twoHoursThirtyMinutes) {
-			feedbackDateString = processPattern(this.format.hoursAgo, {'{numHours}': 2});
+			sameDayDateString = processPattern(this.format.hoursAgo, {'{numHours}': 2});
 		} else {
 			const hoursRounded = Math.round(timeDiff % (24 * oneHour) / oneHour);
-			feedbackDateString = processPattern(this.format.hoursAgo, {'{numHours}': hoursRounded});
+			sameDayDateString = processPattern(this.format.hoursAgo, {'{numHours}': hoursRounded});
 		}
 	}
-	return feedbackDateString;
+	return sameDayDateString;
 };
