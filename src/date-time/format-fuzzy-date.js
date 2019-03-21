@@ -35,7 +35,7 @@ FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 	const time = new Intl.DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric' }).format(new Date(inputDate));
 	let fuzzyDateString = '';
 
-	if (calendarDateDiff < 0) {
+	if (referenceDate < inputDate) {
 		fuzzyDateString = processPattern(this.format.dayAtTime, {'{day}': monthDay, '{time}': time});
 	} else if (calendarDaysFloored === 0) {
 		fuzzyDateString = this._getStringSameDay(inputDate, referenceDate);
