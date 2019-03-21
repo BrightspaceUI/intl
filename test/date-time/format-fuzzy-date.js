@@ -99,7 +99,6 @@ describe('DateTimeFormat', function() {
 			});
 		});
 
-
 		[25, 26, 47].forEach(function(hours) {
 			it('should contain "[day short] at [time]" if calendar day is more than 1 from today', function() {
 				var date = new Date('March 20, 2019 00:00:00');
