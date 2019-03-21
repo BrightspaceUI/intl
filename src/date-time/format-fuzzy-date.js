@@ -1,6 +1,6 @@
 import processPattern from '../util/process-pattern.js';
 
-const _msPerDay = 86400000;
+const msPerDay = 86400000;
 
 const thirtySeconds = 30000;
 const ninetySeconds = 90000;
@@ -24,7 +24,7 @@ export default function FuzzyDateFormatter(localeData, locale) {
 FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 
 	const referenceDate = nowDate || new Date();
-	const calendarDateDiff = (referenceDate - inputDate) / _msPerDay;
+	const calendarDateDiff = (referenceDate - inputDate) / msPerDay;
 	const calendarDaysFloored = Math.floor(calendarDateDiff);
 	const sameYear = referenceDate.getYear() === inputDate.getYear();
 	const yesterday = new Date(referenceDate).setDate(referenceDate.getDate() - 1);
