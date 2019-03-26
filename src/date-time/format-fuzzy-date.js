@@ -13,10 +13,10 @@ const oneHour = 3600000;
 const oneHourThirtyMinutes = 5400000;
 const twoHoursThirtyMinutes = 9000000;
 
-export default function FuzzyDateFormatter(localeData, locale, timeZone) {
+export default function FuzzyDateFormatter(localeData, locale, timezone) {
 	this.format = localeData.date.formats.fuzzyFormats;
 	this.locale = locale;
-	this.timeZone = timeZone ||  new Intl.DateTimeFormat().resolvedOptions().timeZone;
+	this.timezone = timezone ||  new Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
 /*
@@ -28,14 +28,14 @@ FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 	const calendarDateDiff = (referenceDate - inputDate) / msPerDay;
 	const calendarDaysFloored = Math.floor(calendarDateDiff);
 	const sameYear = referenceDate.getYear() === inputDate.getYear();
-	const configuredTimeZoneHours = parseInt(new Intl.DateTimeFormat(this.locale, {hour:'numeric', hour12:false, timeZone: this.timeZone}).format(referenceDate).split(':'));
+	const configuredTimeZoneHours = parseInt(new Intl.DateTimeFormat(this.locale, {hour:'numeric', hour12:false, timeZone: this.timezone}).format(referenceDate).split(':'));
 	const timeZoneOffsetHours =  referenceDate.getHours() - configuredTimeZoneHours;
 	const yesterday = new Date(referenceDate).setDate(referenceDate.getDate() - 1);
 	const yesterdayStart = new Date(yesterday).setHours(0 + timeZoneOffsetHours, 0, 0, 0);
 	const yesterdayEnd = new Date(yesterday).setHours(23 + timeZoneOffsetHours, 59, 59, 999);
-	const monthDay = new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric', timeZone: this.timeZone }).format(new Date(inputDate));
-	const weekDay = new Intl.DateTimeFormat(this.locale, { weekday: 'short', timeZone: this.timeZone }).format(new Date(inputDate));
-	const time = new Intl.DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric', timeZone: this.timeZone }).format(new Date(inputDate));
+	const monthDay = new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric', timeZone: this.timezone }).format(new Date(inputDate));
+	const weekDay = new Intl.DateTimeFormat(this.locale, { weekday: 'short', timeZone: this.timezone }).format(new Date(inputDate));
+	const time = new Intl.DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric', timeZone: this.timezone }).format(new Date(inputDate));
 	let fuzzyDateString = '';
 
 	if (referenceDate < inputDate) {
@@ -49,7 +49,7 @@ FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 	} else if (sameYear) {
 		fuzzyDateString = processPattern(this.format.dayAtTime, {'{day}': monthDay, '{time}': time});
 	} else {
-		fuzzyDateString = new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: this.timeZone }).format(new Date(inputDate));
+		fuzzyDateString = new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: this.timezone }).format(new Date(inputDate));
 	}
 	return fuzzyDateString;
 };

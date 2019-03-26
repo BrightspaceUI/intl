@@ -87,6 +87,7 @@ describe('DateTimeFormat', function() {
 				expect(feedbackString).to.equal('Yesterday at ' + time);
 			});
 		});
+
 		[{ timeZone: 'America/Toronto', shortTimezone: 'EDT' },
 			{ timeZone: 'America/Vancouver', shortTimezone: 'PDT' },
 			{ timeZone: 'America/Winnipeg', shortTimezone: 'CDT' }].forEach(function(tz) {
@@ -96,7 +97,7 @@ describe('DateTimeFormat', function() {
 					var now = new Date(date);
 					date.setUTCHours(date.getUTCHours() - hours);
 					var time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric', timeZone: tz.timeZone }).format(date);
-					var timeZoneFormatter = new DateTimeFormat('en-us', { timeZone: tz.timeZone });
+					var timeZoneFormatter = new DateTimeFormat('en-us', { timezoneidentifier: tz.timeZone });
 					var feedbackString = timeZoneFormatter.formatFuzzyDate(date, now);
 					expect(feedbackString).to.equal('Yesterday at ' + time);
 				});
