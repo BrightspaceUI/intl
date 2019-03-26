@@ -91,7 +91,7 @@ describe('DateTimeFormat', function() {
 			{ timeZone: 'America/Vancouver', shortTimezone: 'PDT' },
 			{ timeZone: 'America/Winnipeg', shortTimezone: 'CDT' }].forEach(function(tz) {
 			[24, 26, 47].forEach(function(hours) {
-				it('should contain "yesterday at" if date with time 23:59:59 ' + hours + ' hours before now configuredTimeZone '+ tz.timeZone, function () {
+				it('should contain "yesterday at" if date with time 23:59:59 ' + hours + ' hours before now configuredTimeZone ' + tz.timeZone, function() {
 					var date = new Date('March 20, 2019 23:59:59 ' + tz.shortTimezone);
 					var now = new Date(date);
 					date.setUTCHours(date.getUTCHours() - hours);
