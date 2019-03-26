@@ -28,7 +28,7 @@ FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 	const calendarDateDiff = (referenceDate - inputDate) / msPerDay;
 	const calendarDaysFloored = Math.floor(calendarDateDiff);
 	const sameYear = referenceDate.getYear() === inputDate.getYear();
-	const configuredTimeZoneHours = parseInt(new Intl.DateTimeFormat(this.locale, {hour:'2-digit', hour12:false, timeZone: this.timeZone}).format(referenceDate));
+	const configuredTimeZoneHours = parseInt(new Intl.DateTimeFormat(this.locale, {hour:'numeric', hour12:false, timeZone: this.timeZone}).format(referenceDate).split(':'));
 	const timeZoneOffsetHours =  referenceDate.getHours() - configuredTimeZoneHours;
 	const yesterday = new Date(referenceDate).setDate(referenceDate.getDate() - 1);
 	const yesterdayStart = new Date(yesterday).setHours(0 + timeZoneOffsetHours, 0, 0, 0);
