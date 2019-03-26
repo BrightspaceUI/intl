@@ -87,6 +87,21 @@ describe('DateTimeFormat', function() {
 				expect(feedbackString).to.equal('Yesterday at ' + time);
 			});
 		});
+		[{ timeZone: 'America/Toronto', shortTimezone: 'EDT' },
+			{ timeZone: 'America/Vancouver', shortTimezone: 'PDT' },
+			{ timeZone: 'America/Winnipeg', shortTimezone: 'CDT' }].forEach(function(tz) {
+			[24, 26, 47].forEach(function(hours) {
+				it('should contain "yesterday at" if date with time 23:59:59 ' + hours + ' hours before now configuredTimeZone '+ tz.timeZone, function () {
+					var date = new Date('March 20, 2019 23:59:59 ' + tz.shortTimezone);
+					var now = new Date(date);
+					date.setUTCHours(date.getUTCHours() - hours);
+					var time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric', timeZone: tz.timeZone }).format(date);
+					var timeZoneFormatter = new DateTimeFormat('en-us', { timeZone: tz.timeZone });
+					var feedbackString = timeZoneFormatter.formatFuzzyDate(date, now);
+					expect(feedbackString).to.equal('Yesterday at ' + time);
+				});
+			});
+		});
 
 		[24, 26, 47].forEach(function(hours) {
 			it('should contain "yesterday at" if date with time 23:59:59 ' + hours + ' hours before begining of month', function() {
