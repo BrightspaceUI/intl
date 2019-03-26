@@ -49,7 +49,7 @@ FuzzyDateFormatter.prototype.getDateString = function(inputDate, nowDate)  {
 	} else if (sameYear) {
 		fuzzyDateString = processPattern(this.format.dayAtTime, {'{day}': monthDay, '{time}': time});
 	} else {
-		fuzzyDateString = new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(new Date(inputDate));
+		fuzzyDateString = new Intl.DateTimeFormat(this.locale, { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: this.timeZone }).format(new Date(inputDate));
 	}
 	return fuzzyDateString;
 };
