@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "D2L internationalization APIs for number, date and time formatting and parsing.",
   "main": "dist/index.js",
+  "types": "src/index.d.ts",
   "module": "src/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --plugins=add-module-exports --presets=es2015",
