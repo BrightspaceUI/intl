@@ -3,6 +3,7 @@ export default function merge(obj1, obj2) {
 		return;
 	}
 	for (var i in obj2) {
+		// eslint-disable-next-line no-prototype-builtins
 		if (obj1.hasOwnProperty(i)) {
 			if (typeof(obj2[i]) === 'object' && typeof(obj1[i]) === 'object') {
 				merge(obj1[i], obj2[i]);
