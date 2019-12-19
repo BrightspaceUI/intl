@@ -16,7 +16,7 @@ const observer = new MutationObserver((mutations) => {
 	for (let i = 0; i < mutations.length; i++) {
 		const mutation = mutations[i];
 		if (mutation.attributeName === 'lang') {
-			documentLocaleSettings.language = normalize(htmlElem.getAttribute('lang'));
+			setDocumentLanguage(htmlElem.getAttribute('lang'));
 		} else if (mutation.attributeName === 'data-lang-default') {
 			documentLocaleSettings.fallbackLanguage = normalize(htmlElem.getAttribute('data-lang-default'));
 		} else if (mutation.attributeName === 'data-intl-overrides') {
@@ -33,7 +33,7 @@ function init() {
 	hasInit = true;
 
 	htmlElem = window.document.getElementsByTagName('html')[0];
-	documentLocaleSettings.language = normalize(htmlElem.getAttribute('lang'));
+	setDocumentLanguage(htmlElem.getAttribute('lang'));
 	documentLocaleSettings.fallbackLanguage = normalize(htmlElem.getAttribute('data-lang-default'));
 	documentLocaleSettings.overrides = tryParseHtmlElemAttr('data-intl-overrides', {});
 	documentLocaleSettings.timezone = tryParseHtmlElemAttr('data-timezone', {name: '', identifier: ''});
@@ -109,6 +109,11 @@ export function getDocumentLocaleSettings() {
 export function setDocumentLocaleOverrides(overrides) {
 	init();
 	documentLocaleSettings.overrides = overrides;
+}
+
+export function setDocumentLanguage(language) {
+	init();
+	documentLocaleSettings.language = normalize(language);
 }
 
 export function getLanguage() {

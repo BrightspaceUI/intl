@@ -1,5 +1,5 @@
 import {getDocumentLocaleSettings, getLanguage} from './documentSettings.js';
-import {merge, validateInteger} from './common.js';
+import {merge, validateInteger, validateFormatValue} from './common.js';
 
 function formatPositiveInteger(value, descriptor) {
 	value = Math.floor(value);
@@ -49,19 +49,6 @@ function formatExponentialDecimal(value) {
 		ret = '0' + ret;
 	}
 	return ret;
-}
-
-function validateFormatValue(value) {
-	if (value === undefined || value === null) {
-		return 0;
-	}
-	if (typeof value === 'string') {
-		value = parseFloat(value);
-	}
-	if (isNaN(value) || typeof value !== 'number') {
-		throw new RangeError('value is out of range.');
-	}
-	return value;
 }
 
 function validateFormatOptions(options) {

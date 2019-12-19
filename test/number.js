@@ -1,4 +1,5 @@
-import {setDocumentLocaleOverrides} from '../src/documentSettings.js';
+import {defaultLocale} from '../src/common.js';
+import {setDocumentLocaleOverrides, setDocumentLanguage} from '../src/documentSettings.js';
 import {formatNumber, formatPercent, parseNumber} from '../src/number.js';
 
 var expect = chai.expect;
@@ -10,6 +11,7 @@ describe('number', () => {
 	}
 
 	beforeEach(async() => {
+		setDocumentLanguage(defaultLocale);
 		setDocumentLocaleOverrides({});
 	});
 
