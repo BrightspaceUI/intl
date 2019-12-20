@@ -14,6 +14,9 @@ function getTimeFormat(hour24, language, baseLanguage) {
 	if (baseLanguage === 'fr') {
 		timeFormat = 'HH\' h \'mm';
 	}
+	if (baseLanguage === 'ko') {
+		timeFormat = 'tt h:mm';
+	}
 	return timeFormat;
 }
 
