@@ -111,6 +111,11 @@ export function setDocumentLocaleOverrides(overrides) {
 	documentLocaleSettings.overrides = overrides;
 }
 
+export function setDocumentLocaleTimezone(timezone) {
+	init();
+	documentLocaleSettings.timezone = timezone;
+}
+
 export function setDocumentLanguage(language) {
 	init();
 	documentLocaleSettings.language = normalize(language);
