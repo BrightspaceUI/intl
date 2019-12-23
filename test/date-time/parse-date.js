@@ -81,6 +81,36 @@ describe('DateTimeParse', function() {
 			expect(value.getDate()).to.equal(29);
 		});
 
+		describe('all locales', () => {
+			[
+				{locale: 'ar-SA', date: '29/05/2025'},
+				{locale: 'da-DK', date: /*'29/05/2025'*/'5/29/2025'},
+				{locale: 'de-DE', date: /*'29-05-2025'*/'5/29/2025'},
+				{locale: 'en-CA', date: '5/29/2025'},
+				{locale: 'en-GB', date: /*'29/05/2025'*/'5/29/2025'},
+				{locale: 'en-US', date: '5/29/2025'},
+				{locale: 'es-MX', date: '29/05/2025'},
+				{locale: 'fr-FR', date: /*'29/05/2025'*/'2025-05-29'},
+				{locale: 'fr-CA', date: '2025-05-29'},
+				{locale: 'ja-JP', date: '2025/05/29'},
+				{locale: 'ko-KR', date: '2025-05-29'},
+				{locale: 'nl-NL', date: /*'29-05-2025'*/'5/29/2025'},
+				{locale: 'pt-BR', date: '29/5/2025'},
+				{locale: 'sv-SE', date: '2025-05-29'},
+				{locale: 'tr-TR', date: '29.05.2025'},
+				{locale: 'zh-CN', date: '2025/5/29'},
+				{locale: 'zh-TW', date: '2025/5/29'}
+			].forEach((input) => {
+				it(`should parse date in locale ${input.locale}`, () => {
+					const parser = new DateTimeParse(input.locale);
+					const date = parser.parseDate(input.date);
+					expect(date.getFullYear()).to.equal(2025);
+					expect(date.getMonth()).to.equal(4);
+					expect(date.getDate()).to.equal(29);
+				});
+			});
+		});
+
 	});
 
 });
