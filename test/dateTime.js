@@ -1,6 +1,6 @@
 import {defaultLocale} from '../src/common.js';
 import {setDocumentLanguage, setDocumentLocaleOverrides, setDocumentLocaleTimezone} from '../src/documentSettings.js';
-import {formatDate, formatTime, parseTime} from '../src/dateTime.js';
+import {formatDate, formatTime, parseDate, parseTime} from '../src/dateTime.js';
 
 var expect = chai.expect;
 
@@ -406,6 +406,109 @@ describe('dateTime', () => {
 					const date = new Date(2019, 5, 4);
 					const value = formatDate(date, {format: format});
 					expect(value).to.equal(input.expect[index]);
+				});
+			});
+		});
+
+	});
+
+	describe('parseDate', () => {
+
+		it('should use "m/d/yyyy" as a default pattern', () => {
+			setDocumentLocaleOverrides({date:{formats:{dateFormats:{short:'abc'}}}});
+			const value = parseDate('12/13/2003');
+			expect(value.getFullYear()).to.equal(2003);
+			expect(value.getMonth()).to.equal(11);
+			expect(value.getDate()).to.equal(13);
+		});
+
+		[
+			undefined,
+			null,
+			'',
+			'  	',
+			'4',
+			'4/14'
+		].forEach((input) => {
+			it(`should throw for insufficient input "${input}"`, () => {
+				expect(() => {
+					parseDate(input);
+				}).to.throw(Error, 'Invalid input date: not enough parts');
+			});
+		});
+
+		[
+			'4/14/c',
+			'4/b/1981',
+			'a/14/1981',
+			'a/b/c'
+		].forEach((input) => {
+			it(`should throw for invalid part number input "${input}"`, () => {
+				expect(() => {
+					parseDate(input);
+				}).to.throw(Error, 'Invalid input date: part number value');
+			});
+		});
+
+		[
+			{format: 'd/M/yyyy', val: '9/4/1958'},
+			{format: 'dd.MM.yyyy', val: '09.04.1958'},
+			{format: 'dd/MM/yyyy', val: '09/04/1958'},
+			{format: 'M/d/yyyy', val: '4/9/1958'},
+			{format: 'MM/dd/yyyy', val: '04/09/1958'},
+			{format: 'yyyy/M/d', val: '1958/4/09'},
+			{format: 'yyyy/MM/dd', val: '1958/04/09'},
+			{format: 'yyyy-MM-dd', val: '1958-04-09'}
+		].forEach((input) => {
+			it(`should parse format "${input.format}"`, () => {
+				setDocumentLocaleOverrides({date:{formats:{dateFormats:{short:input.format}}}});
+				const value = parseDate(input.val);
+				expect(value.getFullYear()).to.equal(1958);
+				expect(value.getMonth()).to.equal(3);
+				expect(value.getDate()).to.equal(9);
+			});
+		});
+
+		it('should throw "part range value" for invalid date', () => {
+			expect(() => {
+				parseDate('2/30/2015');
+			}).to.throw(Error, 'Invalid input date: part range value');
+		});
+
+		it('should ignore invalid format parts', () => {
+			setDocumentLocaleOverrides({date:{formats:{dateFormats:{short:'yyyy|M|d|w'}}}});
+			const value = parseDate('2025|5|29');
+			expect(value.getFullYear()).to.equal(2025);
+			expect(value.getMonth()).to.equal(4);
+			expect(value.getDate()).to.equal(29);
+		});
+
+		describe('all locales', () => {
+			[
+				{locale: 'ar-SA', date: '29/05/2025'},
+				{locale: 'da-DK', date: '29/05/2025'},
+				{locale: 'de-DE', date: '29-05-2025'},
+				{locale: 'en-CA', date: '5/29/2025'},
+				{locale: 'en-GB', date: '29/05/2025'},
+				{locale: 'en-US', date: '5/29/2025'},
+				{locale: 'es-MX', date: '29/05/2025'},
+				{locale: 'fr-FR', date: '29/05/2025'},
+				{locale: 'fr-CA', date: '2025-05-29'},
+				{locale: 'ja-JP', date: '2025/05/29'},
+				{locale: 'ko-KR', date: '2025-05-29'},
+				{locale: 'nl-NL', date: '29-05-2025'},
+				{locale: 'pt-BR', date: '29/5/2025'},
+				{locale: 'sv-SE', date: '2025-05-29'},
+				{locale: 'tr-TR', date: '29.05.2025'},
+				{locale: 'zh-CN', date: '2025/5/29'},
+				{locale: 'zh-TW', date: '2025/5/29'}
+			].forEach((input) => {
+				it(`should parse date in locale ${input.locale}`, () => {
+					setDocumentLanguage(input.locale);
+					const date = parseDate(input.date);
+					expect(date.getFullYear()).to.equal(2025);
+					expect(date.getMonth()).to.equal(4);
+					expect(date.getDate()).to.equal(29);
 				});
 			});
 		});

@@ -7,13 +7,57 @@ const numericMonthsNarrow = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 
 const numericMonthsLong = ['M01', 'M02', 'M03', 'M04', 'M05', 'M06', 'M07', 'M08', 'M09', 'M10', 'M11', 'M12'];
 
 function buildDayPeriodRe(part) {
-	var re = '';
-	var or = '';
-	for (var i = 0; i < part.length; i++) {
+	let re = '';
+	let or = '';
+	for (let i = 0; i < part.length; i++) {
 		re += or + part.substr(0, i + 1);
 		or = '|';
 	}
 	return new RegExp(re, 'i');
+}
+
+function getParts() {
+
+	const descriptor = getDateTimeDescriptor();
+
+	const result = [];
+	const separator = getSeparator();
+	const parts = descriptor.formats.dateFormats.short.split(separator);
+
+	for (var i = 0; i < parts.length; i++) {
+		var part = parts[i].trim();
+		switch (part) {
+			case 'dd':
+			case 'd':
+				result.push('d');
+				break;
+			case 'MM':
+			case 'M':
+				result.push('M');
+				break;
+			case 'yyyy':
+				result.push('yyyy');
+				break;
+		}
+	}
+
+	if (result.length !== 3) {
+		return ['M', 'd', 'yyyy'];
+	}
+
+	return result;
+
+}
+
+const reSeparator = new RegExp('\\W');
+
+function getSeparator() {
+	const descriptor = getDateTimeDescriptor();
+	const match = reSeparator.exec(descriptor.formats.dateFormats.short);
+	if (match !== null) {
+		return match[0];
+	}
+	return '/';
 }
 
 function getTimeFormat(hour24, language, baseLanguage) {
@@ -31,6 +75,37 @@ function getTimeFormat(hour24, language, baseLanguage) {
 		timeFormat = 'tt h:mm';
 	}
 	return timeFormat;
+}
+
+function isDateValid(year, month, day) {
+
+	if (isNaN(year) || year < 1753 || year > 9999) {
+		return false;
+	}
+	if (isNaN(month) || month < 1 || month > 12) {
+		return false;
+	}
+	if (isNaN(day) || day < 1 || day > 31) {
+		return false;
+	}
+
+	let allowedDays = 31;
+	if (month === 2) {
+		if ((year % 4 === 0) && ((year % 100 !== 0) || (year % 400 === 0))) {
+			allowedDays = 29;
+		} else {
+			allowedDays = 28;
+		}
+	} else if (month === 4 || month === 6 || month === 9 || month === 11) {
+		allowedDays = 30;
+	}
+
+	if (day > allowedDays) {
+		return false;
+	}
+
+	return true;
+
 }
 
 function prePadByZero(input, maxNum) {
@@ -422,5 +497,54 @@ export function formatDate(date, options) {
 
 	const value = processPattern(format, replacements);
 	return value;
+
+}
+
+export function parseDate(input) {
+
+	if (input === undefined || input === null) {
+		input = '';
+	}
+	input = input.toString().trim();
+
+	let year = null;
+	let month = null;
+	let day = null;
+	const separator = getSeparator();
+	const dateFormatParts = getParts();
+
+	const dateParts = input.split(separator);
+	if (dateParts.length !== dateFormatParts.length) {
+		throw new Error('Invalid input date: not enough parts');
+	}
+
+	for (let i = 0; i < dateFormatParts.length; i++) {
+
+		const dateFormatPart = dateFormatParts[i];
+		const partValue = parseInt(dateParts[i]);
+		if (isNaN(partValue)) {
+			throw new Error('Invalid input date: part number value');
+		}
+
+		switch (dateFormatPart) {
+			case 'yyyy':
+				year = partValue;
+				break;
+			case 'M':
+				month = partValue;
+				break;
+			case 'd':
+				day = partValue;
+				break;
+		}
+
+	}
+
+	if (!isDateValid(year, month, day)) {
+		throw new Error('Invalid input date: part range value');
+	}
+
+	const date = new Date(year, month - 1, day, 0, 0, 0);
+	return date;
 
 }
