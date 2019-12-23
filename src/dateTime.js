@@ -2,6 +2,9 @@ import {getDocumentLocaleSettings, getLanguage} from './documentSettings.js';
 import {merge} from './common.js';
 
 const hour24locales = ['da', 'de', 'es', 'fr', 'nl', 'sv', 'tr', 'zh'];
+const mondayFirstDayLocales = ['da', 'de', 'fr', 'nl', 'sv', 'tr'];
+const numericMonthsNarrow = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+const numericMonthsLong = ['M01', 'M02', 'M03', 'M04', 'M05', 'M06', 'M07', 'M08', 'M09', 'M10', 'M11', 'M12'];
 
 function buildDayPeriodRe(part) {
 	var re = '';
@@ -91,59 +94,176 @@ export function getDateTimeDescriptor() {
 
 	const timeFormat = getTimeFormat(hour24, language, baseLanguage);
 
+	let dateFormats = ['dddd, MMMM d, yyyy', 'MMM d, yyyy', 'M/d/yyyy', 'MMMM yyyy', 'MMMM d'];
 	let fullTimeFormat = `${timeFormat} ZZZ`;
-	if (language === 'zh-cn') {
-		fullTimeFormat = `ZZZ ${timeFormat}`;
-	}
-
-	let dayPeriodAM = 'AM';
-	let dayPeriodPM = 'PM';
+	let dayPeriods = ['AM', 'PM'];
+	let months = [
+		['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+		['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+	];
+	let days = [
+		['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+		['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+		['S', 'M', 'T', 'W', 'T', 'F', 'S']
+	];
+	let firstDayOfWeek = (mondayFirstDayLocales.indexOf(baseLanguage) > -1) ? 1 : 0;
+	let weekendStartDay = 6;
+	let weekendEndDay = 0;
 
 	switch (baseLanguage) {
 		case 'ar':
-			dayPeriodAM = 'ص';
-			dayPeriodPM = 'م';
+			dateFormats = ['dddd, d MMMM, yyyy', 'dd MMMM, yyyy', 'dd/MM/yyyy', 'MMMM, yyyy', 'd MMMM'];
+			dayPeriods = ['ص', 'م'];
+			months[0] = months[1] = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+			days = [
+				['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+				['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'],
+				['أ', 'إ', 'ث', 'أر', 'خ', 'ج', 'س']
+			];
+			firstDayOfWeek = 6;
+			weekendStartDay = 4;
+			weekendEndDay = 5;
+			break;
+		case 'da':
+			dateFormats = ['dddd \'den\' d. MMMM yyyy', 'd. MMM. yyyy', 'dd/MM/yyyy', 'MMMM yyyy', 'd. MMMM'];
+			months = [numericMonthsLong, numericMonthsLong, numericMonthsNarrow];
+			days = [
+				['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'],
+				['søn.', 'man.', 'tir.', 'ons.', 'tor.', 'fre.', 'lør.'],
+				['S', 'M', 'T', 'O', 'T', 'F', 'L']
+			];
+			break;
+		case 'de':
+			dateFormats = ['dddd d. MMMM yyyy', 'd. MMMM yyyy', 'dd-MM-yyyy', 'MMMM yyyy', 'd. MMMM'];
+			months = [numericMonthsLong, numericMonthsLong, numericMonthsNarrow];
+			days = [
+				['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+				['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'],
+				['S', 'M', 'D', 'M', 'D', 'F', 'S']
+			];
+			break;
+		case 'en':
 			break;
 		case 'es':
-			dayPeriodAM = 'a. m.';
-			dayPeriodPM = 'p. m.';
+			dateFormats = ['dddd d\' de \'MMMM\' de \'yyyy', 'd\' de \'MMMM\' de \'yyyy', 'dd/MM/yyyy', 'MMMM yyyy', 'd\' de \'MMMM'];
+			dayPeriods = ['a. m.', 'p. m.'];
+			months = [
+				['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+				['ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.']
+			];
+			days = [
+				['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+				['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.'],
+				['D', 'L', 'M', 'M', 'J', 'V', 'S']
+			];
+			break;
+		case 'fr':
+			dateFormats = ['dddd d MMMM yyyy', 'd MMM yyyy', 'dd/MM/yyyy', 'MMMM yyyy', 'd MMMM'];
+			months = [
+				['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+				['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
+			];
+			days = [
+				['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+				['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+				['D', 'L', 'M', 'M', 'J', 'V', 'S']
+			];
 			break;
 		case 'ja':
-			dayPeriodAM = '午前';
-			dayPeriodPM = '午後';
+			dateFormats = ['yyyy年M月d日', 'yyyy年M月d日', 'yyyy/MM/dd', 'yyyy年M月', 'M月d日'];
+			dayPeriods = ['午前', '午後'];
+			months[0] = months[1] = ['1 月', '2 月', '3 月', '4 月', '5 月', '6 月', '7 月', '8 月', '9 月', '10 月', '11 月', '12 月'];
+			days[0] = days[1] = days[2] = ['日', '月', '火', '水', '木', '金', '土'];
 			break;
 		case 'ko':
-			dayPeriodAM = '오전';
-			dayPeriodPM = '오후';
+			dateFormats = ['yyyy년 M월 d일 dddd', 'yyyy년 M월 d일', 'yyyy-MM-dd', 'yyyy년 M월', 'M월 d일'];
+			dayPeriods = ['오전', '오후'];
+			months[0] = months[1] = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+			days[0] = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+			days[1] = days[2] = ['일', '월', '화', '수', '목', '금', '토'];
 			break;
 		case 'nl':
-			dayPeriodAM = 'a.m.';
-			dayPeriodPM = 'p.m.';
+			dateFormats = ['dddd d MMMM yyyy', 'd MMMM yyyy', 'dd-MM-yyyy', 'MMMM yyyy', 'd MMMM'];
+			dayPeriods = ['a.m.', 'p.m.'];
+			months = [numericMonthsLong, numericMonthsLong, numericMonthsNarrow];
+			days = [
+				['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+				['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
+				['Z', 'M', 'D', 'W', 'D', 'V', 'Z']
+			];
+			break;
+		case 'pt':
+			dateFormats = ['dddd, d\' de \'MMMM\' de \'yyyy', 'd\' de  \'MMMM\' de \'yyyy', 'd/M/yyyy', 'MMMM\' de \'yyyy', 'dd\' de \'MMMM'];
+			months = [
+				['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
+				['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
+			];
+			days = [
+				['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'],
+				['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'],
+				['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+			];
 			break;
 		case 'sv':
-			dayPeriodAM = 'fm';
-			dayPeriodPM = 'em';
+			dateFormats = ['dddd \'den\' d MMMM yyyy', 'd MMMM yyyy', 'yyyy-MM-dd', 'MMMM yyyy', 'dd MMMM'];
+			dayPeriods = ['fm', 'em'];
+			months = [
+				['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+				['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec']
+			];
+			days = [
+				['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+				['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'],
+				['S', 'M', 'T', 'O', 'T', 'F', 'L']
+			];
 			break;
 		case 'tr':
-			dayPeriodAM = 'ÖÖ';
-			dayPeriodPM = 'ÖS';
+			dateFormats = ['dd MMMM yyyy dddd', 'dd MMMM yyyy', 'dd.MM.yyyy', 'MMMM yyyy', 'dd MMMM'];
+			dayPeriods = ['ÖÖ', 'ÖS'];
+			months = [
+				['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+				['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Ek', 'Kas', 'Ara']
+			];
+			days = [
+				['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
+				['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
+				['P', 'P', 'S', 'Ç', 'P', 'C', 'C']
+			];
 			break;
 		case 'zh':
-			dayPeriodAM = '上午';
-			dayPeriodPM = '下午';
+			dateFormats = ['yyyy年M月d日', 'yyyy年M月d日', 'yyyy/M/d', 'yyyy年M月', 'M月d日'];
+			dayPeriods = ['上午', '下午'];
+			months[0] = months[1] = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+			days[0] = days[1] = ['週日', '週一', '週二', '週三', '週四', '週五', '週六'];
+			days[2] = ['日', '一', '二', '三', '四', '五', '六'];
+			break;
+	}
+
+	switch (language) {
+		case 'en-gb':
+			dateFormats = ['dddd, d MMMM yyyy', 'dd MMMM yyyy', 'dd/MM/yyyy', 'MMMM yyyy', 'd MMMM'];
+			break;
+		case 'fr-ca':
+			dateFormats[1] = 'MMM d yyyy';
+			dateFormats[2] = 'yyyy-MM-dd';
+			dateFormats[4] = 'MMMM d';
+			firstDayOfWeek = 0;
+			break;
+		case 'zh-cn':
+			fullTimeFormat = `ZZZ ${timeFormat}`;
 			break;
 	}
 
 	const descriptor = {
 		hour24: hour24,
 		formats: {
-			/*dateFormats: {
-				'full': 'dddd, MMMM d, yyyy',
-				'medium': 'MMM d, yyyy',
-				'short': 'M/d/yyyy',
-				'monthYear': 'MMMM yyyy',
-				'monthDay': 'MMMM d'
-			},*/
+			dateFormats: {
+				'full': dateFormats[0],
+				'medium': dateFormats[1],
+				'short': dateFormats[2],
+				'monthYear': dateFormats[3],
+				'monthDay': dateFormats[4]
+			},
 			timeFormats: {
 				'full': fullTimeFormat,
 				'medium': timeFormat,
@@ -151,19 +271,19 @@ export function getDateTimeDescriptor() {
 			}
 		},
 		calendar: {
-			/*firstDayOfWeek: 0,
-			weekendStartDay: 6,
-			weekendEndDay: 0,
+			firstDayOfWeek: firstDayOfWeek,
+			weekendStartDay: weekendStartDay,
+			weekendEndDay: weekendEndDay,
 			months: {
-				short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-				long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+				short: months[1],
+				long: months[0]
 			},
 			days: {
-				narrow: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-				short: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-				long: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-			},*/
-			dayPeriods: {am: dayPeriodAM, pm: dayPeriodPM}
+				narrow: days[2],
+				short: days[1],
+				long: days[0]
+			},
+			dayPeriods: {am: dayPeriods[0], pm: dayPeriods[1]}
 		}
 	};
 
@@ -273,5 +393,34 @@ export function parseTime(input, options) {
 
 	const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 0);
 	return time;
+
+}
+
+export function formatDate(date, options) {
+
+	const descriptor = getDateTimeDescriptor();
+
+	options = options || {};
+	options.format = options.format || 'short';
+
+	let format = descriptor.formats.dateFormats[options.format];
+	if (format === undefined) {
+		format = options.format;
+	}
+
+	const replacements = {
+		'dddd': descriptor.calendar.days.long[date.getDay()],
+		'ddd': descriptor.calendar.days.short[date.getDay()],
+		'dd': prePadByZero(date.getDate(), 2),
+		'd': date.getDate().toString(),
+		'MMMM': descriptor.calendar.months.long[date.getMonth()],
+		'MMM': descriptor.calendar.months.short[date.getMonth()],
+		'MM': prePadByZero((date.getMonth() + 1), 2),
+		'M': (date.getMonth() + 1).toString(),
+		'yyyy': date.getFullYear().toString()
+	};
+
+	const value = processPattern(format, replacements);
+	return value;
 
 }
