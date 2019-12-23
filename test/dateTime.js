@@ -1,6 +1,6 @@
 import {defaultLocale} from '../src/common.js';
 import {setDocumentLanguage, setDocumentLocaleOverrides, setDocumentLocaleTimezone} from '../src/documentSettings.js';
-import {formatTime} from '../src/dateTime.js';
+import {formatTime, parseTime} from '../src/dateTime.js';
 
 var expect = chai.expect;
 
@@ -100,6 +100,235 @@ describe('dateTime', () => {
 							const value = formatTime(time, {format: format, timezone: 'EST'});
 							expect(value).to.equal(input.expect[index]);
 						});
+					});
+				});
+			});
+		});
+
+	});
+
+	describe('parseTime', () => {
+
+		const nowMorning = new Date(2015, 7, 26, 2, 5);
+		const nowAfternoon = new Date(2015, 7, 26, 13, 15);
+		let now;
+		const timeOptions = {
+			nowProvider: () => now
+		};
+
+		function assertTime(time, expectedHour, expectedMinute) {
+			expect(time.getHours()).to.equal(expectedHour);
+			expect(time.getMinutes()).to.equal(expectedMinute);
+		}
+
+		beforeEach(() => {
+			now = nowMorning;
+		});
+
+		[
+			undefined,
+			null,
+			'',
+			'  	',
+			'abcd'
+		].forEach(function(input) {
+			it(`should return "null" for input "${input}"`, () => {
+				const time = parseTime(input, timeOptions);
+				expect(time).to.be.null;
+			});
+		});
+
+		it('should use today as default "nowProvider"', () => {
+			const now = new Date();
+			const time = parseTime('3:01 PM');
+			expect(time.getFullYear()).to.equal(now.getFullYear());
+			expect(time.getMonth()).to.equal(now.getMonth());
+			expect(time.getDate()).to.equal(now.getDate());
+		});
+
+		describe('morning', () => {
+
+			it('should interpret a single digit as the hour', () => {
+				const time = parseTime('5', timeOptions);
+				assertTime(time, 5, 0);
+			});
+
+			it('should treat leading zeros in 1-digit input as midnight', () => {
+				const time = parseTime('0', timeOptions);
+				assertTime(time, 0, 0);
+			});
+
+			it('should interpret two digits as the hour', () => {
+				const time = parseTime('18', timeOptions);
+				assertTime(time, 18, 0);
+			});
+
+			it('should treat leading zeros in 2-digit input as 0h', () => {
+				const time = parseTime('08', timeOptions);
+				assertTime(time, 8, 0);
+			});
+
+			it('should round hour down to 23', () => {
+				const time = parseTime('39', timeOptions);
+				assertTime(time, 23, 0);
+			});
+
+			it('should interpret three digits as hmm', () => {
+				const time = parseTime('231', timeOptions);
+				assertTime(time, 2, 31);
+			});
+
+			it('should treat leading zeros in 3-digit inputs as 0mm', () => {
+				const time = parseTime('023', timeOptions);
+				assertTime(time, 0, 23);
+			});
+
+			it('should round minute down to 59', () => {
+				const time = parseTime('299', timeOptions);
+				assertTime(time, 2, 59);
+			});
+
+			it('should interpret four digits as hhmm', () => {
+				const time = parseTime('1439', timeOptions);
+				assertTime(time, 14, 39);
+			});
+
+			it('should treat leading zeros in four-digit inputs as 0hmm', () => {
+				const time = parseTime('0439', timeOptions);
+				assertTime(time, 4, 39);
+			});
+
+			it('should ignore digits beyond 4', () => {
+				const time = parseTime('11345678', timeOptions);
+				assertTime(time, 11, 34);
+			});
+
+			it('should treat "12" hour as midnight in the morning', () => {
+				const time = parseTime('12', timeOptions);
+				assertTime(time, 0, 0);
+			});
+
+			it('should support custom PM day period', () => {
+				setDocumentLocaleOverrides({date:{calendar:{dayPeriods:{'pm':'vw'}}}});
+				const time = parseTime('5 vw', timeOptions);
+				assertTime(time, 17, 0);
+			});
+
+			[
+				{val: '1:01', hour: 1, minute: 1},
+				{val: '1:01 PM', hour: 13, minute: 1},
+				{val: '1:01 pm', hour: 13, minute: 1},
+				{val: '1:01 P.M.', hour: 13, minute: 1},
+				{val: '11 h 29', hour: 11, minute: 29},
+				{val: '22 h 56', hour: 22, minute: 56},
+				{val: 'pm 9:29', hour: 21, minute: 29}
+			].forEach((input) => {
+				it(`should parse time "${input.val}"`, () => {
+					const time = parseTime(input.val, timeOptions);
+					assertTime(time, input.hour, input.minute);
+				});
+			});
+
+		});
+
+		describe('afternoon', () => {
+
+			beforeEach(() => {
+				now = nowAfternoon;
+			});
+
+			it('should treat leading zeros in 1-digit input as midnight', () => {
+				const time = parseTime('0', timeOptions);
+				assertTime(time, 0, 0);
+			});
+
+			it('should treat hour as PM if now is afternoon', () => {
+				const time = parseTime('5', timeOptions);
+				assertTime(time, 17, 0);
+			});
+
+			it('should treat leading zeros in 2-digit input as 0h', () => {
+				const time = parseTime('05', timeOptions);
+				assertTime(time, 5, 0);
+			});
+
+			it('should treat leading zeros in 3-digit input as 0mm', () => {
+				const time = parseTime('029', timeOptions);
+				assertTime(time, 0, 29);
+			});
+
+			it('should treat leading zeros in 4-digit input as 0hmm', () => {
+				const time = parseTime('0420', timeOptions);
+				assertTime(time, 4, 20);
+			});
+
+			it('should not treat hour as PM if using 24-hour clock', () => {
+				setDocumentLocaleOverrides({date:{hour24: true}});
+				const time = parseTime('5', timeOptions);
+				assertTime(time, 5, 0);
+			});
+
+			it('should treat "12" as noon', () => {
+				const time = parseTime('12', timeOptions);
+				assertTime(time, 12, 0);
+			});
+
+			it('should support custom AM day period', () => {
+				setDocumentLocaleOverrides({date:{calendar:{dayPeriods:{'am':'zy'}}}});
+				const time = parseTime('3 zy', timeOptions);
+				assertTime(time, 3, 0);
+			});
+
+			[
+				{val: '1:01', hour: 13, minute: 1},
+				{val: '1:01 am', hour: 1, minute: 1},
+				{val: '1:01 am', hour: 1, minute: 1},
+				{val: '1:01 A.M.', hour: 1, minute: 1},
+				{val: '11 h 29', hour: 23, minute: 29},
+				{val: '22 h 56', hour: 22, minute: 56},
+				{val: 'am 9:29', hour: 9, minute: 29}
+			].forEach((input) => {
+				it(`should parse time "${input.val}"`, () => {
+					const time = parseTime(input.val, timeOptions);
+					assertTime(time, input.hour, input.minute);
+				});
+			});
+		});
+
+		describe('all locales', () => {
+			const expects = [
+				{hour: 1, minute: 28},
+				{hour: 1, minute: 28},
+				{hour: 13, minute: 52},
+				{hour: 13, minute: 52}
+			];
+			[
+				{locale: 'ar-SA', inputs: ['1:28 ص', '1:28', '1:52 م', '13:52']},
+				{locale: 'da-DK', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'de-DE', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'en-CA', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'en-GB', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'en-US', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'es-MX', inputs: ['01:28 a.m.', '01:28', '01:52 p.m.', '13:52']},
+				{locale: 'fr-FR', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52']},
+				{locale: 'fr-CA', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52']},
+				{locale: 'ja-JP', inputs: [/*'1:28 午前'*/'01:28', '1:28', '1:52 午後', '13:52']},
+				{locale: 'ko-KR', inputs: [/*'오전 1:28'*/'01:28', '1:28', '오후 1:52', '13:52']},
+				{locale: 'nl-NL', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'pt-BR', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'sv-SE', inputs: ['01:28 FM', '01:28', '1:52 EM', '13:52']},
+				{locale: 'tr-TR', inputs: [/*'01:28 ÖÖ'*/'01:28', '01:28', '1:52 ÖS', '13:52']},
+				{locale: 'zh-CN', inputs: ['上午 1:28', '1:28', '下午 1:52', '13:52']},
+				{locale: 'zh-TW', inputs: ['上午 01:28', '01:28', '下午 01:52', '13:52']}
+			].forEach((input) => {
+				let index = -1;
+				input.inputs.forEach((value) => {
+					it(`should parse "${value}" in locale ${input.locale}`, () => {
+						setDocumentLanguage(input.locale);
+						index++;
+						setDocumentLocaleOverrides({date: {hour24: index % 2 === 1}});
+						const time = parseTime(value, timeOptions);
+						assertTime(time, expects[index].hour, expects[index].minute);
 					});
 				});
 			});
