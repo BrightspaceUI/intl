@@ -198,7 +198,45 @@ describe('DateTimeParse', function() {
 					assert(time, input.hour, input.minute);
 				});
 			});
+		});
 
+		describe('all locales', () => {
+			const expects = [
+				{hour: 1, minute: 28},
+				{hour: 1, minute: 28},
+				{hour: 13, minute: 52},
+				{hour: 13, minute: 52}
+			];
+			[
+				{locale: 'ar-SA', inputs: ['1:28 ص', '1:28', '1:52 م', '13:52']},
+				{locale: 'da-DK', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'de-DE', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'en-CA', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'en-GB', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'en-US', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'es-MX', inputs: ['01:28 a.m.', '01:28', '01:52 p.m.', '13:52']},
+				{locale: 'fr-FR', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52']},
+				{locale: 'fr-CA', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52']},
+				{locale: 'ja-JP', inputs: [/*'1:28 午前'*/'01:28', '1:28', '1:52 午後', '13:52']},
+				{locale: 'ko-KR', inputs: [/*'오전 1:28'*/'01:28', '1:28', '오후 1:52', '13:52']},
+				{locale: 'nl-NL', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'pt-BR', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
+				{locale: 'sv-SE', inputs: ['01:28 FM', '01:28', '1:52 EM', '13:52']},
+				{locale: 'tr-TR', inputs: [/*'01:28 ÖÖ'*/'01:28', '01:28', '1:52 ÖS', '13:52']},
+				{locale: 'zh-CN', inputs: ['上午 1:28', '1:28', '下午 1:52', '13:52']},
+				{locale: 'zh-TW', inputs: ['上午 01:28', '01:28', '下午 01:52', '13:52']}
+			].forEach((input) => {
+				let index = -1;
+				input.inputs.forEach((value) => {
+					it(`should parse "${value}" in locale ${input.locale}`, () => {
+						index++;
+						const options = {locale: {date: {hour24: index % 2 === 1}}};
+						const parser = new DateTimeParse(input.locale, options);
+						const time = parser.parseTime(value);
+						assert(time, expects[index].hour, expects[index].minute);
+					});
+				});
+			});
 		});
 
 	});

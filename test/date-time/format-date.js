@@ -48,6 +48,40 @@ describe('DateTimeFormat', function() {
 			});
 		});
 
+		[
+			{locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو']},
+			{locale: 'da-DK', expect: [/*'tirsdag \'den\' 4. M06 2019'*/'Tuesday, June 4, 2019', /*'4. M06. 2019'*/'Jun 4, 2019', /*'04/06/2019'*/'6/4/2019', /*'M06 2019'*/'June 2019', /*'4. M06'*/'June 4']},
+			{locale: 'de-DE', expect: [/*'Dienstag 4. M06 2019'*/'Tuesday, June 4, 2019', /*'4. M06 2019'*/'Jun 4, 2019', /*'04-06-2019'*/'6/4/2019', /*'M06 2019'*/'June 2019', /*'4. M06'*/'June 4']},
+			{locale: 'en-CA', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4']},
+			{locale: 'en-GB', expect: [/*'Tuesday, 4 June 2019'*/'Tuesday, June 4, 2019', /*'04 June 2019'*/'Jun 4, 2019', /*'04/06/2019'*/'6/4/2019', 'June 2019', /*'4 June'*/'June 4']},
+			{locale: 'en-US', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4']},
+			{locale: 'es-MX', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '04/06/2019', 'junio 2019', '4 de junio']},
+			{locale: 'fr-FR', expect: ['mardi 4 juin 2019', /*'4 juin 2019'*/'juin 4 2019', /*'04/06/2019'*/'2019-06-04', 'juin 2019', /*'4 juin'*/'juin 4']},
+			{locale: 'fr-CA', expect: ['mardi 4 juin 2019', 'juin 4 2019', '2019-06-04', 'juin 2019', 'juin 4']},
+			{locale: 'ja-JP', expect: ['2019年6月4日', '2019年6月4日', '2019/06/04', '2019年6月', '6月4日']},
+			{locale: 'ko-KR', expect: ['2019년 6월 4일 화요일', '2019년 6월 4일', '2019-06-04', '2019년 6월', '6월 4일']},
+			{locale: 'nl-NL', expect: [/*'dinsdag 4 M06 2019'*/'Tuesday, June 4, 2019', /*'4 M06 2019'*/'Jun 4, 2019', /*'04-06-2019'*/'6/4/2019', /*'M06 2019'*/'June 2019', /*'4 M06'*/'June 4']},
+			{locale: 'pt-BR', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '4/6/2019', /*'junho de 2019'*/'junho 2019', /*'04 de junho'*/'junho 4']},
+			{locale: 'sv-SE', expect: ['Tisdag den 4 Juni 2019', '4 Juni 2019', '2019-06-04', 'Juni 2019', /*'04 Juni'*/'Juni 4']},
+			{locale: 'tr-TR', expect: ['04 Haziran 2019 Salı', '04 Haziran 2019', '04.06.2019', 'Haziran 2019', '04 Haziran']},
+			{locale: 'zh-CN', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日']},
+			{locale: 'zh-TW', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日']}
+		].forEach((input) => {
+			let index = -1;
+			['full', 'medium', 'short', 'monthYear', 'monthDay'].forEach((format) => {
+				it(`should format ${input.locale}/${format}`, () => {
+					index++;
+					const date = new Date(2019, 5, 4);
+					const dtFormat = new DateTimeFormat(
+						input.locale,
+						{format: format}
+					);
+					const value = dtFormat.formatDate(date);
+					expect(value).to.equal(input.expect[index]);
+				});
+			});
+		});
+
 	});
 
 });
