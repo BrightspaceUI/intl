@@ -10,6 +10,9 @@
     "test:unit": "concurrently -p name -n serve,test -s first -k \"http-server -p 8080 . -s\" \"mocha-headless-chrome -f http://localhost:8080/test/index.html -a no-sandbox -a disable-setuid-sandbox\"",
     "test": "npm run lint -s && npm run test:unit -s"
   },
+  "files": [
+    "/src"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Brightspace/intl.git"
