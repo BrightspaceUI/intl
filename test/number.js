@@ -1,26 +1,13 @@
-import {
-	defaultLocale,
-	setDocumentLocaleOverrides,
-	setDocumentLanguage
-} from '../lib/common.js';
-import {
-	formatNumber,
-	formatPercent,
-	parseNumber
-} from '../lib/number.js';
+import {getDocumentLocaleSettings} from '../lib/common.js';
+import {formatNumber, formatPercent, parseNumber} from '../lib/number.js';
 
 var expect = chai.expect;
 
 describe('number', () => {
 
-	function setOverrides(overrides) {
-		setDocumentLocaleOverrides({number: overrides});
-	}
+	const documentLocaleSettings = getDocumentLocaleSettings();
 
-	beforeEach(async() => {
-		setDocumentLanguage(defaultLocale);
-		setDocumentLocaleOverrides({});
-	});
+	afterEach(() => documentLocaleSettings.reset());
 
 	describe('formatNumber', () => {
 
@@ -88,19 +75,19 @@ describe('number', () => {
 			});
 
 			it('should use custom negative symbol', () => {
-				setOverrides({symbols: {negative: '|@|'}});
+				documentLocaleSettings.overrides = {number: {symbols: {negative: '|@|'}}};
 				const value = formatNumber(-42);
 				expect(value).to.equal('|@|42');
 			});
 
 			it('should use custom decimal symbol', () => {
-				setOverrides({symbols: {decimal: '|@|'}});
+				documentLocaleSettings.overrides = {number: {symbols: {decimal: '|@|'}}};
 				const value = formatNumber(3.14);
 				expect(value).to.equal('3|@|14');
 			});
 
 			it('should use custom positive pattern', () => {
-				setOverrides({patterns: {decimal: {positivePattern: 'foo{number}bar'}}});
+				documentLocaleSettings.overrides = {number: {patterns: {decimal: {positivePattern: 'foo{number}bar'}}}};
 				const value = formatNumber(3.14);
 				expect(value).to.equal('foo3.14bar');
 			});
@@ -122,7 +109,7 @@ describe('number', () => {
 				{pattern: '-{number}', expected: '-4.0', min: 1}
 			].forEach(function(input) {
 				it(`should apply negative pattern "${input.pattern}"`, async() => {
-					setOverrides({patterns: {decimal: {negativePattern: input.pattern}}});
+					documentLocaleSettings.overrides = {number: {patterns: {decimal: {negativePattern: input.pattern}}}};
 					const options = {minimumFractionDigits: input.min};
 					const value = formatNumber(-4, options);
 					expect(value).to.equal(input.expected);
@@ -130,7 +117,7 @@ describe('number', () => {
 			});
 
 			it('should use custom negative pattern', async() => {
-				setOverrides({patterns: {decimal: {negativePattern: 'foo{number}bar-'}}});
+				documentLocaleSettings.overrides = {number: {patterns: {decimal: {negativePattern: 'foo{number}bar-'}}}};
 				const value = formatNumber(-3.14);
 				expect(value).to.equal('foo3.14bar-');
 			});
@@ -155,7 +142,7 @@ describe('number', () => {
 			});
 
 			it('should use custom group symbol', () => {
-				setOverrides({symbols: {group: '|@|'}});
+				documentLocaleSettings.overrides = {number: {symbols: {group: '|@|'}}};
 				const value = formatNumber(1000000);
 				expect(value).to.equal('1|@|000|@|000');
 			});
@@ -190,7 +177,7 @@ describe('number', () => {
 				['+', '-'].forEach((sign) => {
 					const signedValue = (sign === '-') ? value * -1 : value;
 					it(`should format "${signedValue}" as a decimal in locale ${input.locale}`, () => {
-						setDocumentLanguage(input.locale);
+						documentLocaleSettings.language = input.locale;
 						index++;
 						const value = formatNumber(signedValue);
 						expect(value).to.equal(input.expect[index]);
@@ -239,7 +226,7 @@ describe('number', () => {
 				{pattern: 'foo{number}bar|%', expected: 'foo76bar|%'}
 			].forEach(function(input) {
 				it('should apply positive pattern "' + input.pattern + '"', () => {
-					setOverrides({patterns: {percent: {positivePattern: input.pattern}}});
+					documentLocaleSettings.overrides = {number: {patterns: {percent: {positivePattern: input.pattern}}}};
 					const value = formatPercent(0.76);
 					expect(value).to.equal(input.expected);
 				});
@@ -262,7 +249,7 @@ describe('number', () => {
 				{pattern: 'foo-|{number}bar|%', expected: 'foo-|76bar|%'}
 			].forEach((input) => {
 				it(`should apply negative pattern "${input.pattern}"`, () => {
-					setOverrides({patterns: {percent: {negativePattern: input.pattern}}});
+					documentLocaleSettings.overrides = {number: {patterns: {percent: {negativePattern: input.pattern}}}};
 					const value = formatPercent(-0.76);
 					expect(value).to.equal(input.expected);
 				});
@@ -273,13 +260,13 @@ describe('number', () => {
 		describe('custom symbols', () => {
 
 			it('should use custom symbols for positive numbers', () => {
-				setOverrides({symbols: {percent: '&', group: '|', decimal: '$'}});
+				documentLocaleSettings.overrides = {number: {symbols: {percent: '&', group: '|', decimal: '$'}}};
 				const value = formatPercent(38.287257);
 				expect(value).to.equal('3|828$726 &');
 			});
 
 			it('should use custom symbols for negative numbers', () => {
-				setOverrides({symbols: {percent: '&', negative: '=', group: '|', decimal: '$'}});
+				documentLocaleSettings.overrides = {number: {symbols: {percent: '&', negative: '=', group: '|', decimal: '$'}}};
 				const value = formatPercent(-1029.382912);
 				expect(value).to.equal('=102|938$291 &');
 			});
@@ -323,7 +310,7 @@ describe('number', () => {
 			['+', '-'].forEach((sign) => {
 				const signedValue = (sign === '-') ? -0.42 : 0.42;
 				it(`should format "${signedValue}" as a percent in locale ${input.locale}`, () => {
-					setDocumentLanguage(input.locale);
+					documentLocaleSettings.language = input.locale;
 					index++;
 					const value = formatPercent(signedValue);
 					expect(value).to.equal(input.expect[index]);
@@ -386,7 +373,7 @@ describe('number', () => {
 			});
 
 			it('should handle custom decimal symbol', () => {
-				setOverrides({symbols: {decimal: '@'}});
+				documentLocaleSettings.overrides = {number: {symbols: {decimal: '@'}}};
 				const value = parseNumber('0@2194');
 				expect(value).to.equal(0.2194);
 			});
@@ -412,7 +399,7 @@ describe('number', () => {
 
 			['|', ' '].forEach((sep) => {
 				it(`should handle "${sep}" as a group separator`, () => {
-					setOverrides({symbols: {group: sep}});
+					documentLocaleSettings.overrides = {number: {symbols: {group: sep}}};
 					const value = parseNumber(`4${sep}193${sep}018.2028`);
 					expect(value).to.equal(4193018.2028);
 				});
@@ -442,7 +429,7 @@ describe('number', () => {
 			});
 
 			it('should parse with custom negative symbol', () => {
-				setOverrides({symbols: {negative: '^'}});
+				documentLocaleSettings.overrides = {number: {symbols: {negative: '^'}}};
 				const value = parseNumber('^ 42');
 				expect(value).to.equal(-42);
 			});
@@ -473,7 +460,7 @@ describe('number', () => {
 				let index = -1;
 				input.inputs.forEach((value) => {
 					it(`should parse "${value}" in locale ${input.locale}`, () => {
-						setDocumentLanguage(input.locale);
+						documentLocaleSettings.language = input.locale;
 						index++;
 						const parsedValue = parseNumber(value);
 						expect(parsedValue).to.equal(expects[index]);

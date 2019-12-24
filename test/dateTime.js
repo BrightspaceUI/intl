@@ -1,9 +1,4 @@
-import {
-	defaultLocale,
-	setDocumentLanguage,
-	setDocumentLocaleOverrides,
-	setDocumentLocaleTimezone
-} from '../lib/common.js';
+import {getDocumentLocaleSettings} from '../lib/common.js';
 import {
 	formatDate,
 	formatDateTime,
@@ -16,11 +11,9 @@ var expect = chai.expect;
 
 describe('dateTime', () => {
 
-	beforeEach(async() => {
-		setDocumentLanguage(defaultLocale);
-		setDocumentLocaleOverrides({});
-		setDocumentLocaleTimezone({name: 'EST'});
-	});
+	const documentLocaleSettings = getDocumentLocaleSettings();
+
+	afterEach(() => documentLocaleSettings.reset());
 
 	describe('formatTime', () => {
 
@@ -58,25 +51,27 @@ describe('dateTime', () => {
 		});
 
 		it('should apply custom AM day period', () => {
-			setDocumentLocaleOverrides({date:{calendar:{dayPeriods:{am: 'ante meridiem'}}}});
+			documentLocaleSettings.overrides = {date:{calendar:{dayPeriods:{am: 'ante meridiem'}}}};
 			const value = formatTime(new Date(2015, 7, 25, 6, 21));
 			expect(value).to.equal('6:21 ante meridiem');
 		});
 
 		it('should apply custom PM day period', () => {
-			setDocumentLocaleOverrides({date:{calendar:{dayPeriods:{pm: 'post meridiem'}}}});
+			documentLocaleSettings.overrides = {date:{calendar:{dayPeriods:{pm: 'post meridiem'}}}};
 			const value = formatTime(new Date(2015, 7, 25, 23, 59));
 			expect(value).to.equal('11:59 post meridiem');
 		});
 
 		it('should uise timezone name from document settings', () => {
+			documentLocaleSettings.timezone.name = 'SettingsZone';
 			const value = formatTime(earlyTime, {format: 'full'});
-			expect(value).to.equal('1:28 AM EST');
+			expect(value).to.equal('1:28 AM SettingsZone');
 		});
 
 		it('should override timezone name from options', () => {
-			const value = formatTime(earlyTime, {format: 'full', timezone: 'FunZone'});
-			expect(value).to.equal('1:28 AM FunZone');
+			documentLocaleSettings.timezone.name = 'SettingsZone';
+			const value = formatTime(earlyTime, {format: 'full', timezone: 'OptionsZone'});
+			expect(value).to.equal('1:28 AM OptionsZone');
 		});
 
 		[
@@ -103,8 +98,8 @@ describe('dateTime', () => {
 				['short', 'full'].forEach((format) => {
 					[true, false].forEach((hour24) => {
 						it(`should format ${input.locale}/${timeOfDay}/${format}/${hour24}`, () => {
-							setDocumentLanguage(input.locale);
-							setDocumentLocaleOverrides({date: {hour24: hour24}});
+							documentLocaleSettings.language = input.locale;
+							documentLocaleSettings.overrides = {date: {hour24: hour24}};
 							index++;
 							const time = timeOfDay === 'early' ? earlyTime : lateTime;
 							const value = formatTime(time, {format: format, timezone: 'EST'});
@@ -219,7 +214,7 @@ describe('dateTime', () => {
 			});
 
 			it('should support custom PM day period', () => {
-				setDocumentLocaleOverrides({date:{calendar:{dayPeriods:{'pm':'vw'}}}});
+				documentLocaleSettings.overrides = {date:{calendar:{dayPeriods:{'pm':'vw'}}}};
 				const time = parseTime('5 vw', timeOptions);
 				assertTime(time, 17, 0);
 			});
@@ -273,7 +268,7 @@ describe('dateTime', () => {
 			});
 
 			it('should not treat hour as PM if using 24-hour clock', () => {
-				setDocumentLocaleOverrides({date:{hour24: true}});
+				documentLocaleSettings.overrides = {date:{hour24: true}};
 				const time = parseTime('5', timeOptions);
 				assertTime(time, 5, 0);
 			});
@@ -284,7 +279,7 @@ describe('dateTime', () => {
 			});
 
 			it('should support custom AM day period', () => {
-				setDocumentLocaleOverrides({date:{calendar:{dayPeriods:{'am':'zy'}}}});
+				documentLocaleSettings.overrides = {date:{calendar:{dayPeriods:{'am':'zy'}}}};
 				const time = parseTime('3 zy', timeOptions);
 				assertTime(time, 3, 0);
 			});
@@ -334,9 +329,9 @@ describe('dateTime', () => {
 				let index = -1;
 				input.inputs.forEach((value) => {
 					it(`should parse "${value}" in locale ${input.locale}`, () => {
-						setDocumentLanguage(input.locale);
 						index++;
-						setDocumentLocaleOverrides({date: {hour24: index % 2 === 1}});
+						documentLocaleSettings.language = input.locale;
+						documentLocaleSettings.overrides = {date: {hour24: index % 2 === 1}};
 						const time = parseTime(value, timeOptions);
 						assertTime(time, expects[index].hour, expects[index].minute);
 					});
@@ -415,7 +410,7 @@ describe('dateTime', () => {
 			let index = -1;
 			['full', 'medium', 'short', 'monthYear', 'monthDay'].forEach((format) => {
 				it(`should format ${input.locale}/${format}`, () => {
-					setDocumentLanguage(input.locale);
+					documentLocaleSettings.language = input.locale;
 					index++;
 					const date = new Date(2019, 5, 4);
 					const value = formatDate(date, {format: format});
@@ -429,7 +424,7 @@ describe('dateTime', () => {
 	describe('parseDate', () => {
 
 		it('should use "m/d/yyyy" as a default pattern', () => {
-			setDocumentLocaleOverrides({date:{formats:{dateFormats:{short:'abc'}}}});
+			documentLocaleSettings.overrides = {date:{formats:{dateFormats:{short:'abc'}}}};
 			const value = parseDate('12/13/2003');
 			expect(value.getFullYear()).to.equal(2003);
 			expect(value.getMonth()).to.equal(11);
@@ -475,7 +470,7 @@ describe('dateTime', () => {
 			{format: 'yyyy-MM-dd', val: '1958-04-09'}
 		].forEach((input) => {
 			it(`should parse format "${input.format}"`, () => {
-				setDocumentLocaleOverrides({date:{formats:{dateFormats:{short:input.format}}}});
+				documentLocaleSettings.overrides = {date:{formats:{dateFormats:{short:input.format}}}};
 				const value = parseDate(input.val);
 				expect(value.getFullYear()).to.equal(1958);
 				expect(value.getMonth()).to.equal(3);
@@ -490,7 +485,7 @@ describe('dateTime', () => {
 		});
 
 		it('should ignore invalid format parts', () => {
-			setDocumentLocaleOverrides({date:{formats:{dateFormats:{short:'yyyy|M|d|w'}}}});
+			documentLocaleSettings.overrides = {date:{formats:{dateFormats:{short:'yyyy|M|d|w'}}}};
 			const value = parseDate('2025|5|29');
 			expect(value.getFullYear()).to.equal(2025);
 			expect(value.getMonth()).to.equal(4);
@@ -518,7 +513,7 @@ describe('dateTime', () => {
 				{locale: 'zh-TW', date: '2025/5/29'}
 			].forEach((input) => {
 				it(`should parse date in locale ${input.locale}`, () => {
-					setDocumentLanguage(input.locale);
+					documentLocaleSettings.language = input.locale;
 					const date = parseDate(input.date);
 					expect(date.getFullYear()).to.equal(2025);
 					expect(date.getMonth()).to.equal(4);

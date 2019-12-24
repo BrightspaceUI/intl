@@ -1,13 +1,13 @@
-import {defaultLocale, setDocumentLanguage} from '../lib/common.js';
+import {getDocumentLocaleSettings} from '../lib/common.js';
 import {formatFileSize} from '../lib/fileSize.js';
 
 var expect = chai.expect;
 
 describe('formatFileSize', () => {
 
-	beforeEach(async() => {
-		setDocumentLanguage(defaultLocale);
-	});
+	const documentLocaleSettings = getDocumentLocaleSettings();
+
+	afterEach(() => documentLocaleSettings.reset());
 
 	[
 		{value: 0, expect: '0 bytes'},
@@ -55,7 +55,7 @@ describe('formatFileSize', () => {
 		[1, 2, 1024, 1048576, 1073741824].forEach((size) => {
 			it(`should format "${size}" bytes for locale "${input.locale}"`, () => {
 				index++;
-				setDocumentLanguage(input.locale);
+				documentLocaleSettings.language = input.locale;
 				const value = formatFileSize(size);
 				expect(value).to.equal(input.expect[index]);
 			});
