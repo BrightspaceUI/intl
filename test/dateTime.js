@@ -1,6 +1,6 @@
 import {defaultLocale} from '../src/common.js';
 import {setDocumentLanguage, setDocumentLocaleOverrides, setDocumentLocaleTimezone} from '../src/documentSettings.js';
-import {formatDate, formatTime, parseDate, parseTime} from '../src/dateTime.js';
+import {formatDate, formatDateTime, formatTime, parseDate, parseTime} from '../src/dateTime.js';
 
 var expect = chai.expect;
 
@@ -368,6 +368,10 @@ describe('dateTime', () => {
 			{format: 'short', expect: '8/3/2015'},
 			{format: 'monthYear', expect: 'August 2015'},
 			{format: 'monthDay', expect: 'August 3'},
+			{format: 'longDayOfWeek', expect: 'Monday'},
+			{format: 'shortDayOfWeek', expect: 'Mon'},
+			{format: 'longMonth', expect: 'August'},
+			{format: 'shortMonth', expect: 'Aug'},
 			{format: 'dddd', expect: 'Monday'},
 			{format: 'ddd', expect: 'Mon'},
 			{format: 'MMMM', expect: 'August'},
@@ -510,6 +514,35 @@ describe('dateTime', () => {
 					expect(date.getMonth()).to.equal(4);
 					expect(date.getDate()).to.equal(29);
 				});
+			});
+		});
+
+	});
+
+	describe('formatDateTime', () => {
+
+		it('should default "format" to "short"', () => {
+			const value = formatDateTime(new Date(1981, 3, 14, 10, 3));
+			expect(value).to.equal('4/14/1981 10:03 AM');
+		});
+
+		[
+			{format: 'full', expect: 'Monday, August 3, 2015 1:44 PM EST'},
+			{format: 'medium', expect: 'Aug 3, 2015 1:44 PM'},
+			{format: 'short', expect: '8/3/2015 1:44 PM'},
+			{format: 'monthYear', expect: 'August 2015'},
+			{format: 'monthDay', expect: 'August 3'},
+			{format: 'longDayOfWeek', expect: 'Monday'},
+			{format: 'shortDayOfWeek', expect: 'Mon'},
+			{format: 'longMonth', expect: 'August'},
+			{format: 'shortMonth', expect: 'Aug'}
+		].forEach(function(input) {
+			it(`should apply format "${input.format}"`, () => {
+				const value = formatDateTime(
+					new Date(2015, 7, 3, 13, 44),
+					{format: input.format, timezone: 'EST'}
+				);
+				expect(value).to.equal(input.expect);
 			});
 		});
 

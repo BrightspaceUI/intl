@@ -483,6 +483,21 @@ export function formatDate(date, options) {
 		format = options.format;
 	}
 
+	switch (format) {
+		case 'longDayOfWeek':
+			format = 'dddd';
+			break;
+		case 'shortDayOfWeek':
+			format = 'ddd';
+			break;
+		case 'longMonth':
+			format = 'MMMM';
+			break;
+		case 'shortMonth':
+			format = 'MMM';
+			break;
+	}
+
 	const replacements = {
 		'dddd': descriptor.calendar.days.long[date.getDay()],
 		'ddd': descriptor.calendar.days.short[date.getDay()],
@@ -546,5 +561,21 @@ export function parseDate(input) {
 
 	const date = new Date(year, month - 1, day, 0, 0, 0);
 	return date;
+
+}
+
+export function formatDateTime(date, options) {
+
+	options = options || {};
+	const format = options.format || 'short';
+
+	switch (format) {
+		case 'full':
+		case 'medium':
+		case 'short':
+			return `${formatDate(date, options)} ${formatTime(date, options)}`;
+	}
+
+	return formatDate(date, options);
 
 }
