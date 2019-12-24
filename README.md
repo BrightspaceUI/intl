@@ -7,15 +7,15 @@
 
 ## Overview
 
-This library consists of four sets of APIs to format and parse numbers, dates, times and file sizes in JavaScript for use in Brightspace applications.
-
-Why not just use the standard [ECMAScript Internationalization API (ECMA-402)](http://www.ecma-international.org/ecma-402/1.0/#sec-8) and [related polyfills](https://github.com/andyearnshaw/Intl.js)? Firstly, the standard doesn't include any parsing functionality. Additionally, Brightspace supports fine-grained locale customization at the organization and user levels -- a level of configuration that simply isn't present in the native APIs.
+This library consists of APIs to format and parse numbers, dates, times and file sizes for use in D2L Brightspace.
 
 > Looking for the older `d2l-intl` library? It's still here [in the `v2.x` branch](https://github.com/BrightspaceUI/intl/tree/v2.x).
 
+Why not just use the standard [ECMAScript Internationalization API (ECMA-402)](http://www.ecma-international.org/ecma-402/1.0/#sec-8) and [related polyfills](https://github.com/andyearnshaw/Intl.js)? Firstly, the standard doesn't include any parsing functionality. Additionally, Brightspace supports fine-grained locale customization at the organization and user levels -- configuration that simply isn't present in the native APIs.
+
 ## Installation & Usage
 
-Install from [NPM]([npm-url]):
+Install from NPM:
 
 ```shell
 npm install @brightspace-ui/intl
