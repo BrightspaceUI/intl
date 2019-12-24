@@ -1,6 +1,13 @@
-import {defaultLocale} from '../lib/common.js';
-import {setDocumentLocaleOverrides, setDocumentLanguage} from '../lib/documentSettings.js';
-import {formatNumber, formatPercent, parseNumber} from '../lib/number.js';
+import {
+	defaultLocale,
+	setDocumentLocaleOverrides,
+	setDocumentLanguage
+} from '../lib/common.js';
+import {
+	formatNumber,
+	formatPercent,
+	parseNumber
+} from '../lib/number.js';
 
 var expect = chai.expect;
 
