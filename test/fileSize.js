@@ -1,6 +1,6 @@
-import {defaultLocale} from '../src/common.js';
-import {setDocumentLanguage} from '../src/documentSettings.js';
-import {formatFileSize} from '../src/fileSize.js';
+import {defaultLocale} from '../lib/common.js';
+import {setDocumentLanguage} from '../lib/documentSettings.js';
+import {formatFileSize} from '../lib/fileSize.js';
 
 var expect = chai.expect;
 

@@ -1,6 +1,6 @@
-import {defaultLocale} from '../src/common.js';
-import {setDocumentLanguage, setDocumentLocaleOverrides, setDocumentLocaleTimezone} from '../src/documentSettings.js';
-import {formatDate, formatDateTime, formatTime, parseDate, parseTime} from '../src/dateTime.js';
+import {defaultLocale} from '../lib/common.js';
+import {setDocumentLanguage, setDocumentLocaleOverrides, setDocumentLocaleTimezone} from '../lib/documentSettings.js';
+import {formatDate, formatDateTime, formatTime, parseDate, parseTime} from '../lib/dateTime.js';
 
 var expect = chai.expect;
 
