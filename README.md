@@ -103,8 +103,8 @@ To format a **date only** (without the time portion), use `formatDate`:
 import {formatDate} from '@brightspace-ui/intl/lib/dateTime.js';
 
 const value = formatDate(
-	ew Date(2015, 8, 23),
-	{format: 'full}
+	new Date(2015, 8, 23),
+	{format: 'full'}
 ); // -> 'miércoles 23 de septiembre de 2015' in es-MX
 ```
 
