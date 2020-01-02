@@ -425,7 +425,7 @@ describe('dateTime', () => {
 			{locale: 'en-CA', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4']},
 			{locale: 'en-GB', expect: ['Tuesday, 4 June 2019', '04 June 2019', '04/06/2019', 'June 2019', '4 June']},
 			{locale: 'en-US', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4']},
-			{locale: 'es', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '04/06/2019', 'junio 2019', '4 de junio']},
+			{locale: 'es', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '4/6/2019', 'junio 2019', '4 de junio']},
 			{locale: 'es-MX', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '04/06/2019', 'junio 2019', '4 de junio']},
 			{locale: 'fr', expect: ['mardi 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin']},
 			{locale: 'fr-FR', expect: ['mardi 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin']},
