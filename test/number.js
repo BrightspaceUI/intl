@@ -311,7 +311,7 @@ describe('number', () => {
 			{locale: 'en-CA', expect: ['42 %', '-42 %']},
 			{locale: 'en-GB', expect: ['42 %', '-42 %']},
 			{locale: 'en-US', expect: ['42 %', '-42 %']},
-			{locale: 'es', expect: ['42%', '-42%']},
+			{locale: 'es', expect: ['42 %', '-42 %']},
 			{locale: 'es-MX', expect: ['42%', '-42%']},
 			{locale: 'fr', expect: ['42 %', '-42 %']},
 			{locale: 'fr-FR', expect: ['42 %', '-42 %']},
