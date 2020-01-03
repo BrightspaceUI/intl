@@ -174,7 +174,8 @@ const fileSize = formatFileSize(100); // -> '100 bytes' in en-US
 
 Contributions are welcome, please submit a pull request!
 
-### Code Style
+## Versioning, Releasing & Deploying
 
-This repository is configured with [EditorConfig](http://editorconfig.org) rules and
-contributions should make use of them.
+All version changes should obey [semantic versioning](https://semver.org/) rules.
+
+Include either `[increment major]`, `[increment minor]` or `[increment patch]` in your merge commit message to automatically increment the `package.json` version, create a tag and trigger a deployment to NPM.
