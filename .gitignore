@@ -1,5 +1,2 @@
-coverage/
-dist
-node_modules/
-*.log
+node_modules
 package-lock.json
