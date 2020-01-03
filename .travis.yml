@@ -2,6 +2,12 @@ language: node_js
 node_js: node
 after_success:
 - frauci-update-version -d=skip && export TRAVIS_TAG=$(frauci-get-version)
+env:
+  global:
+  - REPO_NAME=intl
+  - OWNER_NAME=BrightspaceUI
+  # GITHUB_RELEASE_TOKEN (a0d3......2011)
+  - secure: bsQXygJ03mTuXPej1LRdv0BZQ/S/S7lvh6E2R12jbKlwLz6nVWWfNiVjcxFAHsX0FXVfIkjjctoQzmnh5uqO1STM/DQ3exgdf+kXDwlhXjqj7QxqQc+U6/PNhPvbcxf7bgipF3f4gFUDWOv40qOAG5S4y7d5OOQ3drqFz/ciyRdJG35fKcIjQ0B08uyb7N/UnNcTmqbCtJB34q9yQJMkN6mtC4F+hJ8nXVMH8JcmymcRNwuRH02HARs189dVicosc+uF1BdDojEw+G6KL7YWuUTG005Wgfk+Rl3KEWfkaXrWVcCwDSXvkyNHjeQqQ4JNAbZ52lT6VRb2FJtvZqrPbsDTs2Y+wJQy1+k2cH6RNuEI1gkFjrWEyhRq4L26PaHqJ/t8O7fu5ed8LSGz3J7fuGvBGLF5IKzBaIuJQ5Nzjukc7IzxzIDMGV31cn2Tab4wpS6H71VJQBS0zv3gDxPGQ7en8bzvviu3EOcI8NJXgYjXCPpEox8ERwYv6IMQoPRHPAIxa7hcpPq0GImy2/TZ45CobsdqBC/+Fl4SHsqIy8pDTNiv54VqTA0Fj5cPiNoVxEhY6NKOlf11qLBZGGpEaSwlwkA57ZXkPDSLAiRDV4mYllY1NmSTrqIvQ6ICHe/NaTCPxKGzQct8rFlrFChz2GYNMon/DJroH6Po6226eu4=
 deploy:
   provider: npm
   email: d2ltravisdeploy@d2l.com
