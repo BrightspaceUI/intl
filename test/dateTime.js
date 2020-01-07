@@ -158,7 +158,7 @@ describe('dateTime', () => {
 
 			describe('Daylight Savings', () => {
 				[
-					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, day: 8, hours: 4, minutes: '00'},
+					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, day: 8, hours: 10, minutes: '00'},
 					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, day: 8, hours: 1, minutes: '59'},
 					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, day: 1, hours: 1, minutes: '59'},
 					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, day: 1, hours: 3, minutes: '00'},
@@ -171,9 +171,12 @@ describe('dateTime', () => {
 						const daylightSavingsDate = new Date(2015, test.month - 1, test.day, test.hours, test.minutes);
 						documentLocaleSettings.timezone.identifier = test.timezone;
 						const result = convertLocalToUTCDateTime(daylightSavingsDate);
-						const expectedHour = test.hours + test.expectedGMTOffset;
+						let expectedHour = test.hours + test.expectedGMTOffset;
 						const expectedMonth = test.month === 3 ? 'Mar' : 'Nov';
-						expect(result.toUTCString()).to.contain(`0${test.day} ${expectedMonth} 2015 0${expectedHour}:${test.minutes}:00`);
+						if (expectedHour < 10) {
+							expectedHour = `0${expectedHour}`;
+						}
+						expect(result.toUTCString()).to.contain(`0${test.day} ${expectedMonth} 2015 ${expectedHour}:${test.minutes}:00`);
 					});
 				});
 			});
