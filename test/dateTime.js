@@ -158,14 +158,14 @@ describe('dateTime', () => {
 
 			describe('Daylight Savings', () => {
 				[
-					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, day: 8, hours: 3, minutes: '01'},
+					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, day: 8, hours: 4, minutes: '00'},
 					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, day: 8, hours: 1, minutes: '59'},
 					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, day: 1, hours: 1, minutes: '59'},
-					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, day: 1, hours: 2, minutes: '01'},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, day: 8, hours: 3, minutes: '01'},
+					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, day: 1, hours: 3, minutes: '00'},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, day: 8, hours: 4, minutes: '00'},
 					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, day: 8, hours: 1, minutes: '59'},
 					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, day: 1, hours: 1, minutes: '59'},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, day: 1, hours: 2, minutes: '01'}
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, day: 1, hours: 3, minutes: '00'}
 				].forEach((test) => {
 					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.day} at ${test.hours}:${test.minutes} AM `, () => {
 						const daylightSavingsDate = new Date(2015, test.month - 1, test.day, test.hours, test.minutes);
