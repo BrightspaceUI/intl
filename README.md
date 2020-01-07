@@ -160,6 +160,34 @@ date.getHours(); // -> 14
 date.getMinutes(); // -> 5
 ```
 
+## Date/Time Conversion based on user timezone
+
+These can be used to convert the date/time to the user's timezone (based on `data-timezone` attribute) and back to UTC prior to using date/time formatting.
+
+To convert a UTC date to local timezone and get a `Date` with the year/month/day/hours/minutes/seconds corresponding to the `data-timezone` attribute:
+```javascript
+import {convertUTCToLocalDateTime} from '@brightspace-ui/intl/lib/dateTime.js';
+
+const localDateTime = convertUTCToLocalDateTime(
+	new Date(Date.UTC(2015, 8, 23, 14, 5))
+); // -> new Date(2015, 8, 23, 10, 5) in America/Toronto; new Date(2015, 8, 23, 4, 5) in Pacific/Rarotonga
+```
+
+Notes:
+- The result will be different depending on if `Date` vs. `Date.UTC` is used as input, since `Date` will be adjusted for the timezone offset of the location of the user.
+	- For example, with `data-timezone` set to `America/Toronto` and a user located within that timezone:
+		- `convertUTCToLocalDateTime(new Date(2015, 7, 23, 14, 5))` result will be `Date(2015, 7, 23, 14, 5, 0)`
+		- `convertUTCToLocalDateTime(new Date(Date.UTC(2015, 7, 23, 14, 5)))` result will be `Date(2015, 7, 23, 10, 5, 0)` (Toronto has a -4 offset in August)
+
+To convert a `Date` representative of the local timezone (from `data-timezone` attribute) into a UTC `Date`:
+```javascript
+import {convertLocalToUTCDateTime} from '@brightspace-ui/intl/lib/dateTime.js';
+
+const UTCDateTime = convertLocalToUTCDateTime(
+	new Date(2015, 8, 23, 14, 5)
+); // -> UTC Date(2015, 8, 23, 18, 5) in America/Toronto; UTC Date(2015, 8, 24, 0, 5) in Pacific/Rarotonga
+```
+
 ## File Size Formatting
 
 Use `formatFileSize` to format a file size appropriately for the user's locale.
