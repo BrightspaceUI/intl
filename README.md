@@ -160,6 +160,44 @@ date.getHours(); // -> 14
 date.getMinutes(); // -> 5
 ```
 
+## Date/Time Conversion based on user timezone
+
+**These are a work in progress and are not ready for usage yet**
+
+To convert an object containing a UTC date to an object containing a local date corresponding to the `data-timezone` attribute:
+```javascript
+import {convertUTCToLocalDateTime} from '@brightspace-ui/intl/lib/dateTime.js';
+
+const UTCDateTime =  {
+	month: 12,
+	date: 1,
+	year: 2015,
+	hours: 8,
+	minutes: 0,
+	seconds: 0
+};
+const localDateTime = convertUTCToLocalDateTime(
+	UTCDateTime
+); // -> { month: 12, date: 1, year: 2015, hours: 3, minutes: 0, seconds: 0 } in America/Toronto
+```
+
+To convert an object containing a local date corresponding to the `data-timezone` attribute to an object containing a UTC date:
+```javascript
+import {convertLocalToUTCDateTime} from '@brightspace-ui/intl/lib/dateTime.js';
+
+const localDateTime =  {
+	month: 12,
+	date: 1,
+	year: 2015,
+	hours: 8,
+	minutes: 0,
+	seconds: 0
+};
+const UTCDateTime = convertLocalToUTCDateTime(
+	localDateTime
+); // -> { month: 12, date: 1, year: 2015, hours: 13, minutes: 0, seconds: 0 } in America/Toronto
+```
+
 ## File Size Formatting
 
 Use `formatFileSize` to format a file size appropriately for the user's locale.

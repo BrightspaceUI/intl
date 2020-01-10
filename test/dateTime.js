@@ -1,5 +1,7 @@
 import {getDocumentLocaleSettings} from '../lib/common.js';
 import {
+	convertLocalToUTCDateTime,
+	convertUTCToLocalDateTime,
 	formatDate,
 	formatDateTime,
 	formatTime,
@@ -14,6 +16,224 @@ describe('dateTime', () => {
 	const documentLocaleSettings = getDocumentLocaleSettings();
 
 	afterEach(() => documentLocaleSettings.reset());
+
+	describe('converting date/time', () => {
+
+		function getExpectedResult(input, offset) {
+			let hours = input.hours;
+			let minutes = input.minutes;
+			let date = input.date;
+
+			// calculate what expected hours and minutes should be based on offset
+			const offsetHours = Math.floor(Math.abs(offset));
+			if (offset < 0) {
+				hours -= offsetHours;
+			} else {
+				hours += offsetHours;
+			}
+			if ((offset % 1) !== 0) {
+				minutes = minutes + 60 * (offset % 1);
+				if (minutes > 60) {
+					minutes -= 60;
+					hours += 1;
+				}
+				hours = Math.floor(hours);
+			}
+
+			// adjust date based on number of hours
+			if (hours < 0) {
+				hours = 24 + hours;
+				date--;
+			} else if (hours >= 24) {
+				hours -= 24;
+				date++;
+			}
+
+			return {
+				month: input.month,
+				date: date,
+				year: input.year,
+				hours: hours,
+				minutes: minutes,
+				seconds: input.seconds
+			};
+		}
+
+		describe('convertUTCToLocalDateTime', () => {
+			const hours = 12;
+			const minutes = 28;
+			const date = 25;
+			const UTCDateTime = {
+				month: 8,
+				date: date,
+				year: 2015,
+				hours: hours,
+				minutes: minutes,
+				seconds: 0
+			};
+
+			it('should return original date if timezone identifier is blank', () => {
+				documentLocaleSettings.timezone.identifier = '';
+				const result = convertUTCToLocalDateTime(UTCDateTime);
+				expect(result).to.deep.equal(UTCDateTime);
+			});
+
+			it('should throw if timezone identifier is invalid', () => {
+				documentLocaleSettings.timezone.identifier = 'FAKE';
+				expect(() => {
+					convertUTCToLocalDateTime(UTCDateTime);
+				}).to.throw();
+			});
+
+			[
+				{timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10},
+				{timezone: 'America/Santa_Isabel', expectedGMTOffset: -7},
+				{timezone: 'America/Toronto', expectedGMTOffset: -4},
+				{timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0},
+				{timezone: 'Australia/Eucla', expectedGMTOffset: 8.75},
+				{timezone: 'Australia/Darwin', expectedGMTOffset: 9.5},
+				{timezone: 'Pacific/Apia', expectedGMTOffset: 13}
+			].forEach((test) => {
+				it(`should have expected GMT offset of ${test.expectedGMTOffset} for timezone ${test.timezone}`, () => {
+					documentLocaleSettings.timezone.identifier = test.timezone;
+					const result = convertUTCToLocalDateTime(UTCDateTime);
+					const expectedResult = getExpectedResult(UTCDateTime, test.expectedGMTOffset);
+					expect(result).to.deep.equal(expectedResult);
+				});
+			});
+
+			describe('Daylight Savings', () => {
+				[
+					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, date: 8, hours: 7, minutes: 0},
+					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, date: 8, hours: 6, minutes: 59},
+					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, date: 1, hours: 5, minutes: 59},
+					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, date: 1, hours: 7, minutes: 0},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 8, minutes: 0},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 7, minutes: 59},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 6, minutes: 59},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 8, minutes: 0}
+				].forEach((test) => {
+					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.date} at ${test.hours}:${test.minutes} AM UTC `, () => {
+						const dateTime = {
+							month: test.month,
+							date: test.date,
+							year: 2015,
+							hours: test.hours,
+							minutes: test.minutes,
+							seconds: 0
+						};
+						documentLocaleSettings.timezone.identifier = test.timezone;
+						const result = convertUTCToLocalDateTime(dateTime);
+						const expectedResult = getExpectedResult(dateTime, -1 * test.expectedGMTOffset);
+						expect(result).to.deep.equal(expectedResult);
+					});
+				});
+			});
+		});
+
+		describe('convertLocalToUTCDateTime', () => {
+			const hours = 8;
+			const minutes = 52;
+			const date = 10;
+			const localDateTime = {
+				month: 2,
+				date: date,
+				year: 2015,
+				hours: hours,
+				minutes: minutes,
+				seconds: 0
+			};
+
+			it('should return original date if timezone identifier is blank', () => {
+				documentLocaleSettings.timezone.identifier = '';
+				const result = convertLocalToUTCDateTime(localDateTime);
+				expect(result).to.deep.equal(localDateTime);
+			});
+
+			it('should throw if timezone identifier is invalid', () => {
+				documentLocaleSettings.timezone.identifier = 'FAKE';
+				expect(() => {
+					convertLocalToUTCDateTime(localDateTime);
+				}).to.throw();
+			});
+
+			[
+				{timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10},
+				{timezone: 'America/Santa_Isabel', expectedGMTOffset: -8},
+				{timezone: 'America/Toronto', expectedGMTOffset: -5},
+				{timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0},
+				{timezone: 'Australia/Eucla', expectedGMTOffset: 8.75},
+				{timezone: 'Australia/Darwin', expectedGMTOffset: 9.5},
+				{timezone: 'Pacific/Apia', expectedGMTOffset: 14}
+			].forEach((test) => {
+				it(`should have expected GMT offset of ${test.expectedGMTOffset} for timezone ${test.timezone}`, () => {
+					documentLocaleSettings.timezone.identifier = test.timezone;
+					const result = convertLocalToUTCDateTime(localDateTime);
+					const expectedResult = getExpectedResult(localDateTime, -1 * test.expectedGMTOffset);
+					expect(result).to.deep.equal(expectedResult);
+				});
+			});
+
+			describe('Daylight Savings', () => {
+				[
+					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, date: 8, hours: 3, minutes: 0},
+					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, date: 8, hours: 1, minutes: 59},
+					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, date: 1, hours: 1, minutes: 59},
+					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, date: 1, hours: 3, minutes: 0},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 3, minutes: 0},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 1, minutes: 59},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 1, minutes: 59},
+					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 3, minutes: 0}
+				].forEach((test) => {
+					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.date} at ${test.hours}:${test.minutes} AM `, () => {
+						const dateTime = {
+							month: test.month,
+							date: test.date,
+							year: 2015,
+							hours: test.hours,
+							minutes: test.minutes,
+							seconds: 0
+						};
+						documentLocaleSettings.timezone.identifier = test.timezone;
+						const result = convertLocalToUTCDateTime(dateTime);
+						const expectedResult = getExpectedResult(dateTime, test.expectedGMTOffset);
+						expect(result).to.deep.equal(expectedResult);
+					});
+				});
+			});
+
+		});
+
+		describe('UTC -> Local -> UTC', () => {
+			[
+				{timezone: 'Pacific/Rarotonga', expect: {month: 12, date: 31, year: 2015, hours: 9, minutes: 3, seconds: 0}},
+				{timezone: 'America/Santa_Isabel', expect: {month: 12, date: 31, year: 2015, hours: 11, minutes: 3, seconds: 0}},
+				{timezone: 'America/Toronto', expect: {month: 12, date: 31, year: 2015, hours: 14, minutes: 3, seconds: 0}},
+				{timezone: 'Atlantic/Reykjavik', expect: {month: 12, date: 31, year: 2015, hours: 19, minutes: 3, seconds: 0}},
+				{timezone: 'Australia/Eucla', expect: {month: 1, date: 1, year: 2016, hours: 3, minutes: 48, seconds: 0}},
+				{timezone: 'Australia/Darwin', expect: {month: 1, date: 1, year: 2016, hours: 4, minutes: 33, seconds: 0}},
+				{timezone: 'Pacific/Apia', expect: {month: 1, date: 1, year: 2016, hours: 9, minutes: 3, seconds: 0}}
+			].forEach((test) => {
+				it(`should have expected GMT offset of ${test.expectedGMTOffset} for timezone ${test.timezone}`, () => {
+					const UTCDateTime = {
+						month: 12,
+						date: 31,
+						year: 2015,
+						hours: 19,
+						minutes: 3,
+						seconds: 0
+					};
+					documentLocaleSettings.timezone.identifier = test.timezone;
+
+					const localDateTimeResult = convertUTCToLocalDateTime(UTCDateTime);
+					expect(localDateTimeResult).to.deep.equal(test.expect);
+
+					const UTCDateTimeResult = convertLocalToUTCDateTime(localDateTimeResult);
+					expect(UTCDateTimeResult).to.deep.equal(UTCDateTime);
+				});
+			});
+		});
+	});
 
 	describe('formatTime', () => {
 
