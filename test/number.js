@@ -134,17 +134,22 @@ describe('number', () => {
 				{val: 1234567.98, max: 1, expected: '1,234,568'},
 				{val: 1234567.8915, max: 1, expected: '1,234,567.9'},
 				{val: -1234567.8915, max: 1, expected: '-1,234,567.9'}
-			].forEach(function(input) {
-				it('should use group separator ' + input.val, () => {
+			].forEach((input) => {
+				it(`should use group separator ${input.val}`, () => {
 					const value = formatNumber(input.val, {maximumFractionDigits: input.max});
 					expect(value).to.equal(input.expected);
 				});
 			});
 
-			it('should use custom group symbol', () => {
-				documentLocaleSettings.overrides = {number: {symbols: {group: '|@|'}}};
-				const value = formatNumber(1000000);
-				expect(value).to.equal('1|@|000|@|000');
+			[
+				{symbol: '|@|', expected: '1|@|000|@|000'},
+				{symbol: '\'', expected: '1\'000\'000'}
+			].forEach((input) => {
+				it(`should use custom group symbol "${input.symbol}"`, () => {
+					documentLocaleSettings.overrides = {number: {symbols: {group: input.symbol}}};
+					const value = formatNumber(1000000);
+					expect(value).to.equal(input.expected);
+				});
 			});
 
 		});
