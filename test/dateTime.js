@@ -270,19 +270,7 @@ describe('dateTime', () => {
 			expect(value).to.equal('12:01 AM');
 		});
 
-		it('should apply custom AM day period', () => {
-			documentLocaleSettings.overrides = {date:{calendar:{dayPeriods:{am: 'ante meridiem'}}}};
-			const value = formatTime(new Date(2015, 7, 25, 6, 21));
-			expect(value).to.equal('6:21 ante meridiem');
-		});
-
-		it('should apply custom PM day period', () => {
-			documentLocaleSettings.overrides = {date:{calendar:{dayPeriods:{pm: 'post meridiem'}}}};
-			const value = formatTime(new Date(2015, 7, 25, 23, 59));
-			expect(value).to.equal('11:59 post meridiem');
-		});
-
-		it('should uise timezone name from document settings', () => {
+		it('should use timezone name from document settings', () => {
 			documentLocaleSettings.timezone.name = 'SettingsZone';
 			const value = formatTime(earlyTime, {format: 'full'});
 			expect(value).to.equal('1:28 AM SettingsZone');
@@ -305,26 +293,26 @@ describe('dateTime', () => {
 			{locale: 'en-CA', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
 			{locale: 'en-GB', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
 			{locale: 'en-US', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'es', expect: ['1:28'/*01:28*/, '1:28'/*1:28 a. m.*/, '1:28 EST'/*01:28 EST*/, '1:28 EST'/*1:28 a. m. EST*/, '13:52', '13:52'/*1:52 p. m.*/, '13:52 EST', '13:52 EST'/*1:52 p. m. EST*/]},
+			{locale: 'es', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST']},
 			{locale: 'es-MX', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST']},
-			{locale: 'fr', expect: ['01 h 28', '01 h 28', '01 h 28 EST', '01 h 28 EST', '13 h 52', '13 h 52', '13 h 52 EST', '13 h 52 EST']},
-			{locale: 'fr-FR', expect: ['01 h 28', '01 h 28', '01 h 28 EST', '01 h 28 EST', '13 h 52', '13 h 52', '13 h 52 EST', '13 h 52 EST']},
-			{locale: 'fr-CA', expect: ['01 h 28', '01 h 28', '01 h 28 EST', '01 h 28 EST', '13 h 52', '13 h 52', '13 h 52 EST', '13 h 52 EST']},
-			{locale: 'ja', expect: ['1:28', '1:28'/*1:28 午前*/, '1:28 EST', '1:28 EST'/*1:28 午前 EST*/, '13:52', '13:52'/*1:52 午後*/, '13:52 EST', '13:52 EST'/*1:52 午後 EST*/]},
-			{locale: 'ja-JP', expect: ['1:28', '1:28'/*1:28 午前*/, '1:28 EST', '1:28 EST'/*1:28 午前 EST*/, '13:52', '13:52'/*1:52 午後*/, '13:52 EST', '13:52 EST'/*1:52 午後 EST*/]},
-			{locale: 'ko', expect: ['오전 1:28'/*01:28*/, '오전 1:28', '오전 1:28 EST'/*01:28 EST*/, '오전 1:28 EST', '오후 1:52'/*13:52*/, '오후 1:52', '오후 1:52 EST'/*13:52 EST*/, '오후 1:52 EST']},
-			{locale: 'ko-KR', expect: ['오전 1:28'/*01:28*/, '오전 1:28', '오전 1:28 EST'/*01:28 EST*/, '오전 1:28 EST', '오후 1:52'/*13:52*/, '오후 1:52', '오후 1:52 EST'/*13:52 EST*/, '오후 1:52 EST']},
+			{locale: 'fr', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST']},
+			{locale: 'fr-FR', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST']},
+			{locale: 'fr-CA', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST']},
+			{locale: 'ja', expect: ['1:28', '1:28 午前', '1:28 EST', '1:28 午前 EST', '13:52', '1:52 午後', '13:52 EST', '1:52 午後 EST']},
+			{locale: 'ja-JP', expect: ['1:28', '1:28 午前', '1:28 EST', '1:28 午前 EST', '13:52', '1:52 午後', '13:52 EST', '1:52 午後 EST']},
+			{locale: 'ko', expect: ['01:28', '오전 1:28', '01:28 EST', '오전 1:28 EST', '13:52', '오후 1:52', '13:52 EST', '오후 1:52 EST']},
+			{locale: 'ko-KR', expect: ['01:28', '오전 1:28', '01:28 EST', '오전 1:28 EST', '13:52', '오후 1:52', '13:52 EST', '오후 1:52 EST']},
 			{locale: 'nl', expect: ['01:28', '1:28 a.m.', '01:28 EST', '1:28 a.m. EST', '13:52', '1:52 p.m.', '13:52 EST', '1:52 p.m. EST']},
 			{locale: 'nl-NL', expect: ['01:28', '1:28 a.m.', '01:28 EST', '1:28 a.m. EST', '13:52', '1:52 p.m.', '13:52 EST', '1:52 p.m. EST']},
 			{locale: 'pt', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'pt-BR', expect: ['1:28', '1:28'/*1:28 AM*/, '1:28 EST', '1:28 EST'/*1:28 AM EST*/, '13:52', '13:52'/*1:52 PM*/, '13:52 EST', '13:52 EST'/*1:52 PM EST*/]},
+			{locale: 'pt-BR', expect: ['1:28', '1:28 AM', '1:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
 			{locale: 'sv', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST']},
 			{locale: 'sv-SE', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST']},
 			{locale: 'tr', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST']},
 			{locale: 'tr-TR', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST']},
-			{locale: 'zh', expect: ['1:28', '1:28'/*上午 1:28*/, 'EST 1:28', 'EST 1:28'/*EST 上午 1:28*/, '13:52', '13:52'/*下午 1:52*/, 'EST 13:52', 'EST 13:52'/*EST 下午 1:52*/]},
-			{locale: 'zh-CN', expect: ['1:28', '1:28'/*上午 1:28*/, 'EST 1:28', 'EST 1:28'/*EST 上午 1:28*/, '13:52', '13:52'/*下午 1:52*/, 'EST 13:52', 'EST 13:52'/*EST 下午 1:52*/]},
-			{locale: 'zh-TW', expect: ['上午 01:28'/*01:28*/, '上午 01:28', '上午 01:28 EST'/*01:28 EST*/, '上午 01:28 EST', '下午 01:52'/*13:52*/, '下午 01:52', '下午 01:52 EST'/*13:52 EST*/, '下午 01:52 EST']}
+			{locale: 'zh', expect: ['1:28', '上午 1:28', 'EST 1:28', 'EST 上午 1:28', '13:52', '下午 1:52', 'EST 13:52', 'EST 下午 1:52']},
+			{locale: 'zh-CN', expect: ['1:28', '上午 1:28', 'EST 1:28', 'EST 上午 1:28', '13:52', '下午 1:52', 'EST 13:52', 'EST 下午 1:52']},
+			{locale: 'zh-TW', expect: ['01:28', '上午 01:28', '01:28 EST', '上午 01:28 EST', '13:52', '下午 01:52', '13:52 EST', '下午 01:52 EST']}
 		].forEach((input) => {
 			let index = -1;
 			['early', 'late'].forEach((timeOfDay) => {
@@ -446,12 +434,6 @@ describe('dateTime', () => {
 				assertTime(time, 0, 0);
 			});
 
-			it('should support custom PM day period', () => {
-				documentLocaleSettings.overrides = {date:{calendar:{dayPeriods:{'pm':'vw'}}}};
-				const time = parseTime('5 vw', timeOptions);
-				assertTime(time, 17, 0);
-			});
-
 			[
 				{val: '1:01', hour: 1, minute: 1},
 				{val: '1:01 PM', hour: 13, minute: 1},
@@ -511,19 +493,15 @@ describe('dateTime', () => {
 				assertTime(time, 12, 0);
 			});
 
-			it('should support custom AM day period', () => {
-				documentLocaleSettings.overrides = {date:{calendar:{dayPeriods:{'am':'zy'}}}};
-				const time = parseTime('3 zy', timeOptions);
-				assertTime(time, 3, 0);
-			});
-
 			[
 				{val: '1:01', hour: 13, minute: 1},
 				{val: '1:01 am', hour: 1, minute: 1},
 				{val: '1:01 am', hour: 1, minute: 1},
 				{val: '1:01 A.M.', hour: 1, minute: 1},
 				{val: '11 h 29', hour: 23, minute: 29},
+				{val: '11h29', hour: 23, minute: 29},
 				{val: '22 h 56', hour: 22, minute: 56},
+				{val: '22h56', hour: 22, minute: 56},
 				{val: 'am 9:29', hour: 9, minute: 29}
 			].forEach((input) => {
 				it(`should parse time "${input.val}"`, () => {
