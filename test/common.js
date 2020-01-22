@@ -212,4 +212,30 @@ describe('common', () => {
 
 	});
 
+	describe('overrides', () => {
+
+		it('should remove overridden day periods', () => {
+			documentLocaleSettings.overrides = {
+				date: {
+					calendar: {
+						dayPeriods: 'foo'
+					}
+				}
+			};
+			expect(documentLocaleSettings.overrides.date.calendar.dayPeriods).to.be.undefined;
+		});
+
+		it('should remove overridden time formats', () => {
+			documentLocaleSettings.overrides = {
+				date: {
+					formats: {
+						timeFormats: 'foo'
+					}
+				}
+			};
+			expect(documentLocaleSettings.overrides.date.formats.timeFormats).to.be.undefined;
+		});
+
+	});
+
 });
