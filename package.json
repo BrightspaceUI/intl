@@ -41,7 +41,7 @@
     "eslint-config-brightspace": "^0.6",
     "frau-ci": "^1",
     "http-server": "^0.12",
-    "mocha": "^6",
+    "mocha": "^7",
     "mocha-headless-chrome": "^2"
   }
 }
