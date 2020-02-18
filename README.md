@@ -135,6 +135,52 @@ Options:
   - **full**: includes timezone. e.g. `'1:25 PM EST'`
   - **medium** or **short**: excludes timezone e.g. `'1:25 PM'`
 
+## Fuzzy Date/Time Formatting
+
+Dates and times can be "fuzzy" formatted in the user's locale using `formatFuzzyDate` and `formatFuzzyDateTime`. Here we define fuzzy formatting as automatically choosing a relative or absolute formatting based on the difference in time to another date called the `origin` (which is by default the current datetime).
+
+- Relative formatting is used within 3 days of the origin. The [Intl.RelativeTimeFormat][] web standard is used if available, otherwise the fuzzy functions default to absolute formatting. Some examples of relative formatting are:
+  * `2 seconds ago`
+  * `yesterday`
+  * `tomorrow`
+  * `in 3 days`
+- Absolute formatting is used beyond 3 days from the origin. Options are forwarded to `formatDate` and `formatDateTime` in this case. See [Date/Time Formatting](#datetime-formatting) for details.
+
+The `formatFuzzyDate` and `formatFuzzyDateTime` differ only in how they format absolutely. Relative formatting is the same for each.
+
+```javascript
+import {formatFuzzyDateTime} from '@brightspace-ui/intl/lib/fuzzyDateTime.js';
+
+const origin = new Date(2015, 8, 23, 14, 5, 30);
+
+formatFuzzyDateTime(
+	new Date(2015, 8, 23, 14, 5, 18),
+	{ origin } // omit for current datetime
+); // -> '12 seconds ago' in en
+```
+
+Since relatively formatted values become incorrect as time passes, an optional callback `onUpdate` can be provided to get notified when the value should be changed.
+
+```javascript
+formatFuzzyDate(
+	new Date(2015, 8, 23, 14, 5, 25),
+	{ origin, onUpdate }
+);
+// onUpdate() gets invoked with:
+// - '5 second ago'
+// - 'this minute'
+// - '1 minute ago'
+// - '2 minutes ago'
+// ...
+// - '3 days ago'
+// - '9/23/2015'
+```
+
+Options:
+- **absoluteFormat**: forwarded to `formatFuzzyDate` or `formatFuzzyDateTime` as `format` option.
+- **origin**: a reference `Date` used to determine the relative time. By default `new Date()` is used (i.e. the current date/time)
+- **onUpdate**: if provided, this callback will be invoked whenever the relative formatting needs to change
+
 ## Date Parsing
 
 To parse a date written in the user's locale, use `parseDate`:
@@ -217,3 +263,6 @@ Contributions are welcome, please submit a pull request!
 All version changes should obey [semantic versioning](https://semver.org/) rules.
 
 Include either `[increment major]`, `[increment minor]` or `[increment patch]` in your merge commit message to automatically increment the `package.json` version, create a tag and trigger a deployment to NPM.
+
+
+[Intl.RelativeTimeFormat]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RelativeTimeFormat
