@@ -19,6 +19,7 @@ describe('common', () => {
 		htmlElem.removeAttribute('data-lang-default');
 		htmlElem.removeAttribute('data-intl-overrides');
 		htmlElem.removeAttribute('data-timezone');
+		htmlElem.removeAttribute('data-oslo');
 		documentLocaleSettings.reset();
 	});
 
@@ -104,6 +105,20 @@ describe('common', () => {
 				const value = getLanguage();
 				expect(value).to.equal(baseLocale);
 			});
+		});
+	});
+
+	describe('oslo', () => {
+		it('should default to null config', () => {
+			documentLocaleSettings.sync();
+			const value = documentLocaleSettings.oslo;
+			expect(value).to.deep.equal({ collection: null, batch: null });
+		});
+		it('should parse json config', () => {
+			htmlElem.setAttribute('data-oslo', '{"collection":"/path/to/1","batch":"/path/to/2"}');
+			documentLocaleSettings.sync();
+			const value = documentLocaleSettings.oslo;
+			expect(value).to.deep.equal({ collection: '/path/to/1', batch: '/path/to/2' });
 		});
 	});
 
