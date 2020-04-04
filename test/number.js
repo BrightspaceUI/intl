@@ -152,6 +152,29 @@ describe('number', () => {
 				});
 			});
 
+			it('should use custom group size', () => {
+				documentLocaleSettings.overrides = {number: {groupSize: 5}};
+				const value = formatNumber(1000000);
+				expect(value).to.equal('10,00000');
+			});
+
+			it('should handle group size of 0', () => {
+				documentLocaleSettings.overrides = {number: {groupSize: 0}};
+				const value = formatNumber(1000000.01, {maximumFractionDigits: 2});
+				expect(value).to.equal('1000000.01');
+			});
+
+			[
+				{ val: 1000000000.01, groupSize:[3, 2, 1, 0], expected: '1000,0,00,000.01' },
+				{ val: 123456789.123, groupSize:[4, 2], expected: '1,23,45,6789.12' }
+			].forEach(function(input) {
+				it('should handle variable group sizes', () => {
+					documentLocaleSettings.overrides = {number: {groupSize: input.groupSize}};
+					const value = formatNumber(input.val, {maximumFractionDigits: 2});
+					expect(value).to.equal(input.expected);
+				});
+			});
+
 		});
 
 		[
