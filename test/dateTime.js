@@ -159,6 +159,7 @@ describe('dateTime', () => {
 
 			[
 				{timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10},
+				{timezone: 'Pacific/Marquesas', expectedGMTOffset: -9.5},
 				{timezone: 'America/Santa_Isabel', expectedGMTOffset: -8},
 				{timezone: 'America/Toronto', expectedGMTOffset: -5},
 				{timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0},
