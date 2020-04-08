@@ -112,13 +112,13 @@ describe('common', () => {
 		it('should default to null config', () => {
 			documentLocaleSettings.sync();
 			const value = documentLocaleSettings.oslo;
-			expect(value).to.deep.equal({ collection: null, batch: null });
+			expect(value).to.deep.equal({ collection: null, batch: null, version: null });
 		});
 		it('should parse json config', () => {
-			htmlElem.setAttribute('data-oslo', '{"collection":"/path/to/1","batch":"/path/to/2"}');
+			htmlElem.setAttribute('data-oslo', '{"collection":"/path/to/1","batch":"/path/to/2","version":"abc123"}');
 			documentLocaleSettings.sync();
 			const value = documentLocaleSettings.oslo;
-			expect(value).to.deep.equal({ collection: '/path/to/1', batch: '/path/to/2' });
+			expect(value).to.deep.equal({ collection: '/path/to/1', batch: '/path/to/2', version: 'abc123' });
 		});
 	});
 
