@@ -42,6 +42,6 @@
     "frau-ci": "^1",
     "http-server": "^0.12",
     "mocha": "^7",
-    "mocha-headless-chrome": "^2"
+    "mocha-headless-chrome": "^3"
   }
 }
