@@ -38,7 +38,7 @@
     "chai": "^4",
     "concurrently": "^5",
     "eslint": "^6",
-    "eslint-config-brightspace": "^0.6",
+    "eslint-config-brightspace": "^0.7",
     "frau-ci": "^1",
     "http-server": "^0.12",
     "mocha": "^7",
