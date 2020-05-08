@@ -35,10 +35,13 @@
   },
   "homepage": "https://github.com/BrightspaceUI/intl",
   "devDependencies": {
+    "babel-eslint": "^10",
     "chai": "^4",
     "concurrently": "^5",
     "eslint": "^6",
     "eslint-config-brightspace": "^0.7",
+    "eslint-plugin-html": "^6",
+    "eslint-plugin-sort-class-members": "^1",
     "frau-ci": "^1",
     "http-server": "^0.12",
     "mocha": "^7",
