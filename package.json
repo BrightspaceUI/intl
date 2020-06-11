@@ -44,7 +44,7 @@
     "eslint-plugin-sort-class-members": "^1",
     "frau-ci": "^1",
     "http-server": "^0.12",
-    "mocha": "^7",
+    "mocha": "^8",
     "mocha-headless-chrome": "^3"
   }
 }
