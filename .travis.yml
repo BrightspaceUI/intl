@@ -1,19 +1,18 @@
 language: node_js
 node_js: node
-after_success:
-- frauci-update-version -d=skip && export TRAVIS_TAG=$(frauci-get-version)
-env:
-  global:
-  - REPO_NAME=intl
-  - OWNER_NAME=BrightspaceUI
-  # GITHUB_RELEASE_TOKEN (a0d3......2011)
-  - secure: bsQXygJ03mTuXPej1LRdv0BZQ/S/S7lvh6E2R12jbKlwLz6nVWWfNiVjcxFAHsX0FXVfIkjjctoQzmnh5uqO1STM/DQ3exgdf+kXDwlhXjqj7QxqQc+U6/PNhPvbcxf7bgipF3f4gFUDWOv40qOAG5S4y7d5OOQ3drqFz/ciyRdJG35fKcIjQ0B08uyb7N/UnNcTmqbCtJB34q9yQJMkN6mtC4F+hJ8nXVMH8JcmymcRNwuRH02HARs189dVicosc+uF1BdDojEw+G6KL7YWuUTG005Wgfk+Rl3KEWfkaXrWVcCwDSXvkyNHjeQqQ4JNAbZ52lT6VRb2FJtvZqrPbsDTs2Y+wJQy1+k2cH6RNuEI1gkFjrWEyhRq4L26PaHqJ/t8O7fu5ed8LSGz3J7fuGvBGLF5IKzBaIuJQ5Nzjukc7IzxzIDMGV31cn2Tab4wpS6H71VJQBS0zv3gDxPGQ7en8bzvviu3EOcI8NJXgYjXCPpEox8ERwYv6IMQoPRHPAIxa7hcpPq0GImy2/TZ45CobsdqBC/+Fl4SHsqIy8pDTNiv54VqTA0Fj5cPiNoVxEhY6NKOlf11qLBZGGpEaSwlwkA57ZXkPDSLAiRDV4mYllY1NmSTrqIvQ6ICHe/NaTCPxKGzQct8rFlrFChz2GYNMon/DJroH6Po6226eu4=
-deploy:
-  provider: npm
-  email: d2ltravisdeploy@d2l.com
-  api_key:
-    # d2l-travis-deploy: 9cf3......9f6d
-    secure: IjW3nZzoG5q6lGw/RERgH6A8xUM6UYBHr1ZznBiwErSXx3hi6DIpmhMylUS8LeLh6PPlEmFZtPm9o2kUmG1T/zKkET7AKk8adtGCRbmnjCdOejX7AbpsQERkE7eW2JN0a80Tf/ohTkE8ipFL2VtpRwsrtJBI5xTVAWHtOsnT2HJsidq+b0NPaCFIY3gRdqcqD4sISDxGLkrc+9Xc4ENbYM40w58ge6KqN4wKJu4YFHKN6VB/hKuJpq/43InT0WuzgY0HQvISoQLCREqB9TlNnU5rBHhfGQpPY99vPAgffP7Or2JJOcQHHxjSkvQunOA4t8mvU34ZEQyMJYv/ifF42JnI9eBgxylp6dMIX2e1IOZQzu4pym1uwFqQ8XUlsO5GRbwiOpfUuzOrvAXavyrvNMSyJBmkFe0GwMyZ3vzqivXHxa69MbjokVqu/x+Z4mF3Q2ufLZUOLXNaZjcs98UyoG8GHILLI3hC6VhFD4cpQaP/cT/jrsQOmFmUIQ3KIJkh2IRPkAk+DSxJxBanEtLITepJ2fJfxyiMoJamXK1wquzhxj1HaQr5+k1KSZyYa8IeEyKNV2HByL+UfR4wqiOnT6dQXIFjsipc1x28+lmf3keO5i4espi3oTXSMWPAKm6vuMt6Fz6RJJ+NbhyQ7yVs5PN2/gA8LV1Q8SI/Uc2vTCo=
-  on:
-    tags: true
-    repo: BrightspaceUI/intl
+jobs:
+  include:
+    - stage: test
+      script: npm test
+    - stage: release
+      script: skip
+      env:
+        # GITHUB_TOKEN brightspace-ui-intl
+        secure: IWxGb9VFjYPzO4YewM66+tEofRNfFY9BROZbYau9zeCDl22gXO+Exv3+mAXbjN0AplXT2cm4mdy0XEcri2zCBulXp8zUcp5ecvxp5em4HA1xfr+i8asmBHt5/N6bn7Bn/g5NjlOxZS5ZgSxDNokh6XftyjK62qVf0TZlyB2FL2wMjjIterWtwB+Cw+gI9zieENmRMMbpYHwsDXvkDrd9jbkuetZjjAqjnbBD7rlIzEa6g1J+VUT+rIBKDH21P6yQuipC4EXc1Q5fUDRbGF6wvIVanWLHVmsqNqPkxMUO6L7FlL0hF/SFBSpsAVE2rpSdWW2BDnfYhNJ15tMV1R9f6SXAdFdt0oo4/vz+CbRIW/y7bwx/HUUrLx2PVB7V82chL+DxSQ4yG2Myq1rM2+sYrqUpBc770th0bdXIwpft9IwdHNyGeAaEN+jkqPe2Zor928VJpeIzEpHADn8nue29VahiCezVCc7aIvd9w1TdwyoTYMyTt2tnKh3UDx+eW1G9SVYoKkHJuKyUfkuiGzks7yxc11GcVdHgE/D3OVC20rXVKwk+Q5GGKdk7QW4YgDPRQEsp+22ANTHLb6IW2IbIVjDeYF4PtlK6G3pPBUAorDlutEYl6gBDBsm0OLPZ/HwaDtZu8Hu+4jPN6AuccvT7IDz4rRj7J8hIJOKpbjdpxxI=
+        # NPM_TOKEN 372f......9cf9
+        secure: W1tlMt1xHJv+D/43lv58eUOV/uKPX4P5VdvZJbYwB5O4bQ5BO4QeySl4wVvJ+dvRIoUskr+X01+ZQHamCNt7jvPr8jn+xfH/q1RsiDxhUcqFievl6cUYzCawrjRgSqFf1kQ2k7tbn2LPKazAX+kok9sx0UWSCNte+8yDSOOmMmP6JAbYUPJ+gSTSkuGf2R7Rv/CucEwRS7xvcoSZGu8GABMDIgxM4Mtkw1Ww8q+fmH70wYGMGXjWvDb+FMpD/tiAqd3G9Pdt29AfIsiRDrtBrMnczBn59aIcDu/Z36EvP2ZQLR4NFx+Hmt+azRcIWzgAZh6Nz8kHGBiVyWCcLhpHayM4T4zyzpq/JF8lgI/UIL7irAEpdkxq9uq5biSpYQW7eDGEJgWWuTmfDdxnWpno5t0/IeWSYu1uMpPAlUfZXFLzw/xFMOLAc6OM+4lsyi6k3/5xfgJyax50XPLijZsNOIAoAaOkvDzmSCrOJuEb4xjCVsZmFwCr1s8VOCO3l+ihwe2TSqN218y+yNWyjKgA2TB1q5NrBJtCPAdv/ysdPUL+QTYBJqhpEccOD9l3HBfn5bErL5GYMEIoE00CF5dI7basrX21fOMruUrKQUW4JTMQeVa3XaPBwpoeBfcN4fMuymG23SnpLgSwCo5bYpzkruscgE7MWGI2gp0EzfAoCJ0=
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+        - npx semantic-release
