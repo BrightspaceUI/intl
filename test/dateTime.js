@@ -85,6 +85,21 @@ describe('dateTime', () => {
 				}).to.throw();
 			});
 
+			it('should have expected GMT offset of -5 for timezone America/Toronto at midnight', () => {
+				documentLocaleSettings.timezone.identifier = 'America/Toronto';
+				const UTCDateTime2 = {
+					month: 2,
+					date: 27,
+					year: 2015,
+					hours: 5,
+					minutes: 0,
+					seconds: 0
+				};
+				const result = convertUTCToLocalDateTime(UTCDateTime2);
+				const expectedResult = getExpectedResult(UTCDateTime2, -5);
+				expect(result).to.deep.equal(expectedResult);
+			});
+
 			[
 				{timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10},
 				{timezone: 'America/Santa_Isabel', expectedGMTOffset: -7},
