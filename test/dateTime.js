@@ -1,4 +1,4 @@
-import {getDocumentLocaleSettings} from '../lib/common.js';
+import { getDocumentLocaleSettings } from '../lib/common.js';
 import {
 	convertLocalToUTCDateTime,
 	convertUTCToLocalDateTime,
@@ -101,13 +101,13 @@ describe('dateTime', () => {
 			});
 
 			[
-				{timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10},
-				{timezone: 'America/Santa_Isabel', expectedGMTOffset: -7},
-				{timezone: 'America/Toronto', expectedGMTOffset: -4},
-				{timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0},
-				{timezone: 'Australia/Eucla', expectedGMTOffset: 8.75},
-				{timezone: 'Australia/Darwin', expectedGMTOffset: 9.5},
-				{timezone: 'Pacific/Apia', expectedGMTOffset: 13}
+				{ timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10 },
+				{ timezone: 'America/Santa_Isabel', expectedGMTOffset: -7 },
+				{ timezone: 'America/Toronto', expectedGMTOffset: -4 },
+				{ timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0 },
+				{ timezone: 'Australia/Eucla', expectedGMTOffset: 8.75 },
+				{ timezone: 'Australia/Darwin', expectedGMTOffset: 9.5 },
+				{ timezone: 'Pacific/Apia', expectedGMTOffset: 13 }
 			].forEach((test) => {
 				it(`should have expected GMT offset of ${test.expectedGMTOffset} for timezone ${test.timezone}`, () => {
 					documentLocaleSettings.timezone.identifier = test.timezone;
@@ -119,14 +119,14 @@ describe('dateTime', () => {
 
 			describe('Daylight Savings', () => {
 				[
-					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, date: 8, hours: 7, minutes: 0},
-					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, date: 8, hours: 6, minutes: 59},
-					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, date: 1, hours: 5, minutes: 59},
-					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, date: 1, hours: 7, minutes: 0},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 8, minutes: 0},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 7, minutes: 59},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 6, minutes: 59},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 8, minutes: 0}
+					{ timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, date: 8, hours: 7, minutes: 0 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, date: 8, hours: 6, minutes: 59 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, date: 1, hours: 5, minutes: 59 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, date: 1, hours: 7, minutes: 0 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 8, minutes: 0 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 7, minutes: 59 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 6, minutes: 59 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 8, minutes: 0 }
 				].forEach((test) => {
 					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.date} at ${test.hours}:${test.minutes} AM UTC `, () => {
 						const dateTime = {
@@ -173,14 +173,14 @@ describe('dateTime', () => {
 			});
 
 			[
-				{timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10},
-				{timezone: 'Pacific/Marquesas', expectedGMTOffset: -9.5},
-				{timezone: 'America/Santa_Isabel', expectedGMTOffset: -8},
-				{timezone: 'America/Toronto', expectedGMTOffset: -5},
-				{timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0},
-				{timezone: 'Australia/Eucla', expectedGMTOffset: 8.75},
-				{timezone: 'Australia/Darwin', expectedGMTOffset: 9.5},
-				{timezone: 'Pacific/Apia', expectedGMTOffset: 14}
+				{ timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10 },
+				{ timezone: 'Pacific/Marquesas', expectedGMTOffset: -9.5 },
+				{ timezone: 'America/Santa_Isabel', expectedGMTOffset: -8 },
+				{ timezone: 'America/Toronto', expectedGMTOffset: -5 },
+				{ timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0 },
+				{ timezone: 'Australia/Eucla', expectedGMTOffset: 8.75 },
+				{ timezone: 'Australia/Darwin', expectedGMTOffset: 9.5 },
+				{ timezone: 'Pacific/Apia', expectedGMTOffset: 14 }
 			].forEach((test) => {
 				it(`should have expected GMT offset of ${test.expectedGMTOffset} for timezone ${test.timezone}`, () => {
 					documentLocaleSettings.timezone.identifier = test.timezone;
@@ -192,14 +192,14 @@ describe('dateTime', () => {
 
 			describe('Daylight Savings', () => {
 				[
-					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, date: 8, hours: 3, minutes: 0},
-					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, date: 8, hours: 1, minutes: 59},
-					{timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, date: 1, hours: 1, minutes: 59},
-					{timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, date: 1, hours: 3, minutes: 0},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 3, minutes: 0},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 1, minutes: 59},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 1, minutes: 59},
-					{timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 3, minutes: 0}
+					{ timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, date: 8, hours: 3, minutes: 0 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, date: 8, hours: 1, minutes: 59 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, date: 1, hours: 1, minutes: 59 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, date: 1, hours: 3, minutes: 0 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 3, minutes: 0 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 1, minutes: 59 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 1, minutes: 59 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 3, minutes: 0 }
 				].forEach((test) => {
 					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.date} at ${test.hours}:${test.minutes} AM `, () => {
 						const dateTime = {
@@ -222,13 +222,13 @@ describe('dateTime', () => {
 
 		describe('UTC -> Local -> UTC', () => {
 			[
-				{timezone: 'Pacific/Rarotonga', expect: {month: 12, date: 31, year: 2015, hours: 9, minutes: 3, seconds: 0}},
-				{timezone: 'America/Santa_Isabel', expect: {month: 12, date: 31, year: 2015, hours: 11, minutes: 3, seconds: 0}},
-				{timezone: 'America/Toronto', expect: {month: 12, date: 31, year: 2015, hours: 14, minutes: 3, seconds: 0}},
-				{timezone: 'Atlantic/Reykjavik', expect: {month: 12, date: 31, year: 2015, hours: 19, minutes: 3, seconds: 0}},
-				{timezone: 'Australia/Eucla', expect: {month: 1, date: 1, year: 2016, hours: 3, minutes: 48, seconds: 0}},
-				{timezone: 'Australia/Darwin', expect: {month: 1, date: 1, year: 2016, hours: 4, minutes: 33, seconds: 0}},
-				{timezone: 'Pacific/Apia', expect: {month: 1, date: 1, year: 2016, hours: 9, minutes: 3, seconds: 0}}
+				{ timezone: 'Pacific/Rarotonga', expect: { month: 12, date: 31, year: 2015, hours: 9, minutes: 3, seconds: 0 } },
+				{ timezone: 'America/Santa_Isabel', expect: { month: 12, date: 31, year: 2015, hours: 11, minutes: 3, seconds: 0 } },
+				{ timezone: 'America/Toronto', expect: { month: 12, date: 31, year: 2015, hours: 14, minutes: 3, seconds: 0 } },
+				{ timezone: 'Atlantic/Reykjavik', expect: { month: 12, date: 31, year: 2015, hours: 19, minutes: 3, seconds: 0 } },
+				{ timezone: 'Australia/Eucla', expect: { month: 1, date: 1, year: 2016, hours: 3, minutes: 48, seconds: 0 } },
+				{ timezone: 'Australia/Darwin', expect: { month: 1, date: 1, year: 2016, hours: 4, minutes: 33, seconds: 0 } },
+				{ timezone: 'Pacific/Apia', expect: { month: 1, date: 1, year: 2016, hours: 9, minutes: 3, seconds: 0 } }
 			].forEach((test) => {
 				it(`should have expected GMT offset of ${test.expectedGMTOffset} for timezone ${test.timezone}`, () => {
 					const UTCDateTime = {
@@ -262,18 +262,18 @@ describe('dateTime', () => {
 		});
 
 		[
-			{format: 'H:mm', expect1: '1:28', expect2: '13:52'},
-			{format: 'h:mm tt', expect1: '1:28 AM', expect2: '1:52 PM'},
-			{format: 'HH\' h \'mm', expect1: '01 h 28', expect2: '13 h 52'},
-			{format: 'HH:mm', expect1: '01:28', expect2: '13:52'},
-			{format: 'tt h:mm', expect1: 'AM 1:28', expect2: 'PM 1:52'},
-			{format: 'tt hh:mm', expect1: 'AM 01:28', expect2: 'PM 01:52'},
-			{format: 'short', expect1: '1:28 AM', expect2: '1:52 PM'},
-			{format: 'medium', expect1: '1:28 AM', expect2: '1:52 PM'},
-			{format: 'full', expect1: '1:28 AM EST', expect2: '1:52 PM EST'}
+			{ format: 'H:mm', expect1: '1:28', expect2: '13:52' },
+			{ format: 'h:mm tt', expect1: '1:28 AM', expect2: '1:52 PM' },
+			{ format: 'HH\' h \'mm', expect1: '01 h 28', expect2: '13 h 52' },
+			{ format: 'HH:mm', expect1: '01:28', expect2: '13:52' },
+			{ format: 'tt h:mm', expect1: 'AM 1:28', expect2: 'PM 1:52' },
+			{ format: 'tt hh:mm', expect1: 'AM 01:28', expect2: 'PM 01:52' },
+			{ format: 'short', expect1: '1:28 AM', expect2: '1:52 PM' },
+			{ format: 'medium', expect1: '1:28 AM', expect2: '1:52 PM' },
+			{ format: 'full', expect1: '1:28 AM EST', expect2: '1:52 PM EST' }
 		].forEach(function(input) {
 			it(`should apply custom format "${input.format}" for 1-digit and 2-digit times`, () => {
-				const options = {format: input.format, timezone: 'EST'};
+				const options = { format: input.format, timezone: 'EST' };
 				const value1 = formatTime(earlyTime, options);
 				expect(value1).to.equal(input.expect1);
 				const value2 = formatTime(lateTime, options);
@@ -288,47 +288,47 @@ describe('dateTime', () => {
 
 		it('should use timezone name from document settings', () => {
 			documentLocaleSettings.timezone.name = 'SettingsZone';
-			const value = formatTime(earlyTime, {format: 'full'});
+			const value = formatTime(earlyTime, { format: 'full' });
 			expect(value).to.equal('1:28 AM SettingsZone');
 		});
 
 		it('should override timezone name from options', () => {
 			documentLocaleSettings.timezone.name = 'SettingsZone';
-			const value = formatTime(earlyTime, {format: 'full', timezone: 'OptionsZone'});
+			const value = formatTime(earlyTime, { format: 'full', timezone: 'OptionsZone' });
 			expect(value).to.equal('1:28 AM OptionsZone');
 		});
 
 		[
-			{locale: 'ar', expect: ['01:28', '1:28 ص', '01:28 EST', '1:28 ص EST', '13:52', '1:52 م', '13:52 EST', '1:52 م EST']},
-			{locale: 'ar-SA', expect: ['01:28', '1:28 ص', '01:28 EST', '1:28 ص EST', '13:52', '1:52 م', '13:52 EST', '1:52 م EST']},
-			{locale: 'da', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'da-DK', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'de', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'de-DE', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'en', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'en-CA', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'en-GB', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'en-US', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'es', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST']},
-			{locale: 'es-MX', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST']},
-			{locale: 'fr', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST']},
-			{locale: 'fr-FR', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST']},
-			{locale: 'fr-CA', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST']},
-			{locale: 'ja', expect: ['1:28', '1:28 午前', '1:28 EST', '1:28 午前 EST', '13:52', '1:52 午後', '13:52 EST', '1:52 午後 EST']},
-			{locale: 'ja-JP', expect: ['1:28', '1:28 午前', '1:28 EST', '1:28 午前 EST', '13:52', '1:52 午後', '13:52 EST', '1:52 午後 EST']},
-			{locale: 'ko', expect: ['01:28', '오전 1:28', '01:28 EST', '오전 1:28 EST', '13:52', '오후 1:52', '13:52 EST', '오후 1:52 EST']},
-			{locale: 'ko-KR', expect: ['01:28', '오전 1:28', '01:28 EST', '오전 1:28 EST', '13:52', '오후 1:52', '13:52 EST', '오후 1:52 EST']},
-			{locale: 'nl', expect: ['01:28', '1:28 a.m.', '01:28 EST', '1:28 a.m. EST', '13:52', '1:52 p.m.', '13:52 EST', '1:52 p.m. EST']},
-			{locale: 'nl-NL', expect: ['01:28', '1:28 a.m.', '01:28 EST', '1:28 a.m. EST', '13:52', '1:52 p.m.', '13:52 EST', '1:52 p.m. EST']},
-			{locale: 'pt', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'pt-BR', expect: ['1:28', '1:28 AM', '1:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST']},
-			{locale: 'sv', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST']},
-			{locale: 'sv-SE', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST']},
-			{locale: 'tr', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST']},
-			{locale: 'tr-TR', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST']},
-			{locale: 'zh', expect: ['1:28', '上午 1:28', 'EST 1:28', 'EST 上午 1:28', '13:52', '下午 1:52', 'EST 13:52', 'EST 下午 1:52']},
-			{locale: 'zh-CN', expect: ['1:28', '上午 1:28', 'EST 1:28', 'EST 上午 1:28', '13:52', '下午 1:52', 'EST 13:52', 'EST 下午 1:52']},
-			{locale: 'zh-TW', expect: ['01:28', '上午 01:28', '01:28 EST', '上午 01:28 EST', '13:52', '下午 01:52', '13:52 EST', '下午 01:52 EST']}
+			{ locale: 'ar', expect: ['01:28', '1:28 ص', '01:28 EST', '1:28 ص EST', '13:52', '1:52 م', '13:52 EST', '1:52 م EST'] },
+			{ locale: 'ar-SA', expect: ['01:28', '1:28 ص', '01:28 EST', '1:28 ص EST', '13:52', '1:52 م', '13:52 EST', '1:52 م EST'] },
+			{ locale: 'da', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'da-DK', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'de', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'de-DE', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'en', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'en-CA', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'en-GB', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'en-US', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'es', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
+			{ locale: 'es-MX', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
+			{ locale: 'fr', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
+			{ locale: 'fr-FR', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
+			{ locale: 'fr-CA', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
+			{ locale: 'ja', expect: ['1:28', '1:28 午前', '1:28 EST', '1:28 午前 EST', '13:52', '1:52 午後', '13:52 EST', '1:52 午後 EST'] },
+			{ locale: 'ja-JP', expect: ['1:28', '1:28 午前', '1:28 EST', '1:28 午前 EST', '13:52', '1:52 午後', '13:52 EST', '1:52 午後 EST'] },
+			{ locale: 'ko', expect: ['01:28', '오전 1:28', '01:28 EST', '오전 1:28 EST', '13:52', '오후 1:52', '13:52 EST', '오후 1:52 EST'] },
+			{ locale: 'ko-KR', expect: ['01:28', '오전 1:28', '01:28 EST', '오전 1:28 EST', '13:52', '오후 1:52', '13:52 EST', '오후 1:52 EST'] },
+			{ locale: 'nl', expect: ['01:28', '1:28 a.m.', '01:28 EST', '1:28 a.m. EST', '13:52', '1:52 p.m.', '13:52 EST', '1:52 p.m. EST'] },
+			{ locale: 'nl-NL', expect: ['01:28', '1:28 a.m.', '01:28 EST', '1:28 a.m. EST', '13:52', '1:52 p.m.', '13:52 EST', '1:52 p.m. EST'] },
+			{ locale: 'pt', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'pt-BR', expect: ['1:28', '1:28 AM', '1:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'sv', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST'] },
+			{ locale: 'sv-SE', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST'] },
+			{ locale: 'tr', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST'] },
+			{ locale: 'tr-TR', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST'] },
+			{ locale: 'zh', expect: ['1:28', '上午 1:28', 'EST 1:28', 'EST 上午 1:28', '13:52', '下午 1:52', 'EST 13:52', 'EST 下午 1:52'] },
+			{ locale: 'zh-CN', expect: ['1:28', '上午 1:28', 'EST 1:28', 'EST 上午 1:28', '13:52', '下午 1:52', 'EST 13:52', 'EST 下午 1:52'] },
+			{ locale: 'zh-TW', expect: ['01:28', '上午 01:28', '01:28 EST', '上午 01:28 EST', '13:52', '下午 01:52', '13:52 EST', '下午 01:52 EST'] }
 		].forEach((input) => {
 			let index = -1;
 			['early', 'late'].forEach((timeOfDay) => {
@@ -336,10 +336,10 @@ describe('dateTime', () => {
 					[true, false].forEach((hour24) => {
 						it(`should format ${input.locale}/${timeOfDay}/${format}/${hour24}`, () => {
 							documentLocaleSettings.language = input.locale;
-							documentLocaleSettings.overrides = {date: {hour24: hour24}};
+							documentLocaleSettings.overrides = { date: { hour24: hour24 } };
 							index++;
 							const time = timeOfDay === 'early' ? earlyTime : lateTime;
-							const value = formatTime(time, {format: format, timezone: 'EST'});
+							const value = formatTime(time, { format: format, timezone: 'EST' });
 							expect(value).to.equal(input.expect[index]);
 						});
 					});
@@ -451,13 +451,13 @@ describe('dateTime', () => {
 			});
 
 			[
-				{val: '1:01', hour: 1, minute: 1},
-				{val: '1:01 PM', hour: 13, minute: 1},
-				{val: '1:01 pm', hour: 13, minute: 1},
-				{val: '1:01 P.M.', hour: 13, minute: 1},
-				{val: '11 h 29', hour: 11, minute: 29},
-				{val: '22 h 56', hour: 22, minute: 56},
-				{val: 'pm 9:29', hour: 21, minute: 29}
+				{ val: '1:01', hour: 1, minute: 1 },
+				{ val: '1:01 PM', hour: 13, minute: 1 },
+				{ val: '1:01 pm', hour: 13, minute: 1 },
+				{ val: '1:01 P.M.', hour: 13, minute: 1 },
+				{ val: '11 h 29', hour: 11, minute: 29 },
+				{ val: '22 h 56', hour: 22, minute: 56 },
+				{ val: 'pm 9:29', hour: 21, minute: 29 }
 			].forEach((input) => {
 				it(`should parse time "${input.val}"`, () => {
 					const time = parseTime(input.val, timeOptions);
@@ -499,7 +499,7 @@ describe('dateTime', () => {
 			});
 
 			it('should not treat hour as PM if using 24-hour clock', () => {
-				documentLocaleSettings.overrides = {date:{hour24: true}};
+				documentLocaleSettings.overrides = { date:{ hour24: true } };
 				const time = parseTime('5', timeOptions);
 				assertTime(time, 5, 0);
 			});
@@ -510,15 +510,15 @@ describe('dateTime', () => {
 			});
 
 			[
-				{val: '1:01', hour: 13, minute: 1},
-				{val: '1:01 am', hour: 1, minute: 1},
-				{val: '1:01 am', hour: 1, minute: 1},
-				{val: '1:01 A.M.', hour: 1, minute: 1},
-				{val: '11 h 29', hour: 23, minute: 29},
-				{val: '11h29', hour: 23, minute: 29},
-				{val: '22 h 56', hour: 22, minute: 56},
-				{val: '22h56', hour: 22, minute: 56},
-				{val: 'am 9:29', hour: 9, minute: 29}
+				{ val: '1:01', hour: 13, minute: 1 },
+				{ val: '1:01 am', hour: 1, minute: 1 },
+				{ val: '1:01 am', hour: 1, minute: 1 },
+				{ val: '1:01 A.M.', hour: 1, minute: 1 },
+				{ val: '11 h 29', hour: 23, minute: 29 },
+				{ val: '11h29', hour: 23, minute: 29 },
+				{ val: '22 h 56', hour: 22, minute: 56 },
+				{ val: '22h56', hour: 22, minute: 56 },
+				{ val: 'am 9:29', hour: 9, minute: 29 }
 			].forEach((input) => {
 				it(`should parse time "${input.val}"`, () => {
 					const time = parseTime(input.val, timeOptions);
@@ -529,49 +529,49 @@ describe('dateTime', () => {
 
 		describe('all locales', () => {
 			const expects = [
-				{hour: 1, minute: 28},
-				{hour: 1, minute: 28},
-				{hour: 13, minute: 52},
-				{hour: 13, minute: 52}
+				{ hour: 1, minute: 28 },
+				{ hour: 1, minute: 28 },
+				{ hour: 13, minute: 52 },
+				{ hour: 13, minute: 52 }
 			];
 			[
-				{locale: 'ar', inputs: ['1:28 ص', '01:28', '1:52 م', '13:52']},
-				{locale: 'ar-SA', inputs: ['1:28 ص', '01:28', '1:52 م', '13:52']},
-				{locale: 'da', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'da-DK', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'de', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'de-DE', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'en', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'en-CA', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'en-GB', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'en-US', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'es', inputs: ['01:28 a. m.', '01:28', '01:52 p. m.', '13:52']},
-				{locale: 'es-MX', inputs: ['01:28 a. m.', '01:28', '01:52 p. m.', '13:52']},
-				{locale: 'fr', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52']},
-				{locale: 'fr-FR', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52']},
-				{locale: 'fr-CA', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52']},
-				{locale: 'ja', inputs: [/*'1:28 午前'*/'1:28', '1:28', '1:52 午後', '13:52']},
-				{locale: 'ja-JP', inputs: [/*'1:28 午前'*/'1:28', '1:28', '1:52 午後', '13:52']},
-				{locale: 'ko', inputs: [/*'오전 1:28'*/'1:28', '01:28', '오후 1:52', '13:52']},
-				{locale: 'ko-KR', inputs: [/*'오전 1:28'*/'1:28', '01:28', '오후 1:52', '13:52']},
-				{locale: 'nl', inputs: ['1:28 a.m.', '01:28', '1:52 p.m.', '13:52']},
-				{locale: 'nl-NL', inputs: ['1:28 a.m.', '01:28', '1:52 p.m.', '13:52']},
-				{locale: 'pt', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52']},
-				{locale: 'pt-BR', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52']},
-				{locale: 'sv', inputs: ['1:28 fm', '01:28', '1:52 em', '13:52']},
-				{locale: 'sv-SE', inputs: ['1:28 fm', '01:28', '1:52 em', '13:52']},
-				{locale: 'tr', inputs: [/*'1:28 ÖÖ'*/'1:28', '01:28', '1:52 ÖS', '13:52']},
-				{locale: 'tr-TR', inputs: [/*'1:28 ÖÖ'*/'1:28', '01:28', '1:52 ÖS', '13:52']},
-				{locale: 'zh', inputs: ['上午 1:28', '1:28', '下午 1:52', '13:52']},
-				{locale: 'zh-CN', inputs: ['上午 1:28', '1:28', '下午 1:52', '13:52']},
-				{locale: 'zh-TW', inputs: ['上午 01:28', '01:28', '下午 01:52', '13:52']}
+				{ locale: 'ar', inputs: ['1:28 ص', '01:28', '1:52 م', '13:52'] },
+				{ locale: 'ar-SA', inputs: ['1:28 ص', '01:28', '1:52 م', '13:52'] },
+				{ locale: 'da', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'da-DK', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'de', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'de-DE', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'en', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'en-CA', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'en-GB', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'en-US', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'es', inputs: ['01:28 a. m.', '01:28', '01:52 p. m.', '13:52'] },
+				{ locale: 'es-MX', inputs: ['01:28 a. m.', '01:28', '01:52 p. m.', '13:52'] },
+				{ locale: 'fr', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
+				{ locale: 'fr-FR', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
+				{ locale: 'fr-CA', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
+				{ locale: 'ja', inputs: [/*'1:28 午前'*/'1:28', '1:28', '1:52 午後', '13:52'] },
+				{ locale: 'ja-JP', inputs: [/*'1:28 午前'*/'1:28', '1:28', '1:52 午後', '13:52'] },
+				{ locale: 'ko', inputs: [/*'오전 1:28'*/'1:28', '01:28', '오후 1:52', '13:52'] },
+				{ locale: 'ko-KR', inputs: [/*'오전 1:28'*/'1:28', '01:28', '오후 1:52', '13:52'] },
+				{ locale: 'nl', inputs: ['1:28 a.m.', '01:28', '1:52 p.m.', '13:52'] },
+				{ locale: 'nl-NL', inputs: ['1:28 a.m.', '01:28', '1:52 p.m.', '13:52'] },
+				{ locale: 'pt', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'pt-BR', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52'] },
+				{ locale: 'sv', inputs: ['1:28 fm', '01:28', '1:52 em', '13:52'] },
+				{ locale: 'sv-SE', inputs: ['1:28 fm', '01:28', '1:52 em', '13:52'] },
+				{ locale: 'tr', inputs: [/*'1:28 ÖÖ'*/'1:28', '01:28', '1:52 ÖS', '13:52'] },
+				{ locale: 'tr-TR', inputs: [/*'1:28 ÖÖ'*/'1:28', '01:28', '1:52 ÖS', '13:52'] },
+				{ locale: 'zh', inputs: ['上午 1:28', '1:28', '下午 1:52', '13:52'] },
+				{ locale: 'zh-CN', inputs: ['上午 1:28', '1:28', '下午 1:52', '13:52'] },
+				{ locale: 'zh-TW', inputs: ['上午 01:28', '01:28', '下午 01:52', '13:52'] }
 			].forEach((input) => {
 				let index = -1;
 				input.inputs.forEach((value) => {
 					it(`should parse "${value}" in locale ${input.locale}`, () => {
 						index++;
 						documentLocaleSettings.language = input.locale;
-						documentLocaleSettings.overrides = {date: {hour24: index % 2 === 1}};
+						documentLocaleSettings.overrides = { date: { hour24: index % 2 === 1 } };
 						const time = parseTime(value, timeOptions);
 						assertTime(time, expects[index].hour, expects[index].minute);
 					});
@@ -584,84 +584,84 @@ describe('dateTime', () => {
 	describe('formatDate', () => {
 
 		[
-			{format: 'd/M/yyyy', expect: '3/8/2015'},
-			{format: 'dd.MM.yyyy', expect: '03.08.2015'},
-			{format: 'dd/MM/yyyy', expect: '03/08/2015'},
-			{format: 'M/d/yyyy', expect: '8/3/2015'},
-			{format: 'M/d/yyyy', expect: '8/3/2015'},
-			{format: 'yyyy/M/d', expect: '2015/8/3'},
-			{format: 'yyyy/MM/dd', expect: '2015/08/03'},
-			{format: 'yyyy-MM-dd', expect: '2015-08-03'},
-			{format: 'dd MMMM yyyy dddd', expect: '03 August 2015 Monday'},
-			{format: 'dddd d\' de \'MMMM\' de \'yyyy', expect: 'Monday 3 de August de 2015'},
-			{format: 'dddd d MMMM yyyy', expect: 'Monday 3 August 2015'},
-			{format: 'dddd \'den\' d MMMM yyyy', expect: 'Monday den 3 August 2015'},
-			{format: 'dddd, d\' de \'MMMM\' de \'yyyy', expect: 'Monday, 3 de August de 2015'},
-			{format: 'dddd, d MMMM, yyyy', expect: 'Monday, 3 August, 2015'},
-			{format: 'yyyy년 M월 d일 dddd', expect: '2015년 8월 3일 Monday'},
-			{format: 'dddd, dd. MMMM yyyy', expect: 'Monday, 03. August 2015'},
-			{format: 'yyyy年M月d日', expect: '2015年8月3日'},
-			{format: 'd\' de \'MMMM\' de \'yyyy', expect: '3 de August de 2015'},
-			{format: 'd MMMM yyyy', expect: '3 August 2015'},
-			{format: 'dd MMMM yyyy', expect: '03 August 2015'},
-			{format: 'dd MMMM, yyyy', expect: '03 August, 2015'},
-			{format: 'MMM d yyyy', expect: 'Aug 3 2015'},
-			{format: 'MMM d, yyyy', expect: 'Aug 3, 2015'},
-			{format: 'yyyy년 M월 d일', expect: '2015년 8월 3일'},
-			{format: 'yyyy年M月d日', expect: '2015年8月3日'},
-			{format: 'dd. MMMM yyyy', expect: '03. August 2015'},
-			{format: 'd. MMMM', expect: '3. August'},
-			{format: 'full', expect: 'Monday, August 3, 2015'},
-			{format: 'medium', expect: 'Aug 3, 2015'},
-			{format: 'short', expect: '8/3/2015'},
-			{format: 'monthYear', expect: 'August 2015'},
-			{format: 'monthDay', expect: 'August 3'},
-			{format: 'longDayOfWeek', expect: 'Monday'},
-			{format: 'shortDayOfWeek', expect: 'Mon'},
-			{format: 'longMonth', expect: 'August'},
-			{format: 'shortMonth', expect: 'Aug'},
-			{format: 'dddd', expect: 'Monday'},
-			{format: 'ddd', expect: 'Mon'},
-			{format: 'MMMM', expect: 'August'},
-			{format: 'MMM', expect: 'Aug'}
+			{ format: 'd/M/yyyy', expect: '3/8/2015' },
+			{ format: 'dd.MM.yyyy', expect: '03.08.2015' },
+			{ format: 'dd/MM/yyyy', expect: '03/08/2015' },
+			{ format: 'M/d/yyyy', expect: '8/3/2015' },
+			{ format: 'M/d/yyyy', expect: '8/3/2015' },
+			{ format: 'yyyy/M/d', expect: '2015/8/3' },
+			{ format: 'yyyy/MM/dd', expect: '2015/08/03' },
+			{ format: 'yyyy-MM-dd', expect: '2015-08-03' },
+			{ format: 'dd MMMM yyyy dddd', expect: '03 August 2015 Monday' },
+			{ format: 'dddd d\' de \'MMMM\' de \'yyyy', expect: 'Monday 3 de August de 2015' },
+			{ format: 'dddd d MMMM yyyy', expect: 'Monday 3 August 2015' },
+			{ format: 'dddd \'den\' d MMMM yyyy', expect: 'Monday den 3 August 2015' },
+			{ format: 'dddd, d\' de \'MMMM\' de \'yyyy', expect: 'Monday, 3 de August de 2015' },
+			{ format: 'dddd, d MMMM, yyyy', expect: 'Monday, 3 August, 2015' },
+			{ format: 'yyyy년 M월 d일 dddd', expect: '2015년 8월 3일 Monday' },
+			{ format: 'dddd, dd. MMMM yyyy', expect: 'Monday, 03. August 2015' },
+			{ format: 'yyyy年M月d日', expect: '2015年8月3日' },
+			{ format: 'd\' de \'MMMM\' de \'yyyy', expect: '3 de August de 2015' },
+			{ format: 'd MMMM yyyy', expect: '3 August 2015' },
+			{ format: 'dd MMMM yyyy', expect: '03 August 2015' },
+			{ format: 'dd MMMM, yyyy', expect: '03 August, 2015' },
+			{ format: 'MMM d yyyy', expect: 'Aug 3 2015' },
+			{ format: 'MMM d, yyyy', expect: 'Aug 3, 2015' },
+			{ format: 'yyyy년 M월 d일', expect: '2015년 8월 3일' },
+			{ format: 'yyyy年M月d日', expect: '2015年8月3日' },
+			{ format: 'dd. MMMM yyyy', expect: '03. August 2015' },
+			{ format: 'd. MMMM', expect: '3. August' },
+			{ format: 'full', expect: 'Monday, August 3, 2015' },
+			{ format: 'medium', expect: 'Aug 3, 2015' },
+			{ format: 'short', expect: '8/3/2015' },
+			{ format: 'monthYear', expect: 'August 2015' },
+			{ format: 'monthDay', expect: 'August 3' },
+			{ format: 'longDayOfWeek', expect: 'Monday' },
+			{ format: 'shortDayOfWeek', expect: 'Mon' },
+			{ format: 'longMonth', expect: 'August' },
+			{ format: 'shortMonth', expect: 'Aug' },
+			{ format: 'dddd', expect: 'Monday' },
+			{ format: 'ddd', expect: 'Mon' },
+			{ format: 'MMMM', expect: 'August' },
+			{ format: 'MMM', expect: 'Aug' }
 		].forEach((input) => {
 			it(`should apply locale format "${input.format}"`, () => {
-				const value = formatDate(new Date(2015, 7, 3), {format: input.format});
+				const value = formatDate(new Date(2015, 7, 3), { format: input.format });
 				expect(value).to.equal(input.expect);
 			});
 		});
 
 		[
-			{locale: 'ar', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو']},
-			{locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو']},
-			{locale: 'da', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', 'tirsdag', 'tir.', 'juni', 'jun.']},
-			{locale: 'da-DK', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', 'tirsdag', 'tir.', 'juni', 'jun.']},
-			{locale: 'de', expect: ['Dienstag 4. Juni 2019', '4. Juni 2019', '04.06.2019', 'Juni 2019', '4. Juni', 'Dienstag', 'Di.', 'Juni', 'Juni']},
-			{locale: 'de-DE', expect: ['Dienstag 4. Juni 2019', '4. Juni 2019', '04.06.2019', 'Juni 2019', '4. Juni', 'Dienstag', 'Di.', 'Juni', 'Juni']},
-			{locale: 'en', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4', 'Tuesday', 'Tue', 'June', 'Jun']},
-			{locale: 'en-CA', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4', 'Tuesday', 'Tue', 'June', 'Jun']},
-			{locale: 'en-GB', expect: ['Tuesday, 4 June 2019', '04 June 2019', '04/06/2019', 'June 2019', '4 June', 'Tuesday', 'Tue', 'June', 'Jun']},
-			{locale: 'en-US', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4', 'Tuesday', 'Tue', 'June', 'Jun']},
-			{locale: 'es', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '4/6/2019', 'junio 2019', '4 de junio', 'martes', 'mar.', 'junio', 'jun.']},
-			{locale: 'es-MX', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '04/06/2019', 'junio 2019', '4 de junio', 'martes', 'mar.', 'junio', 'jun.']},
-			{locale: 'fr', expect: ['mardi le 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin', 'mardi', 'mar.', 'juin', 'juin']},
-			{locale: 'fr-FR', expect: ['mardi le 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin', 'mardi', 'mar.', 'juin', 'juin']},
-			{locale: 'fr-CA', expect: ['mardi le 4 juin 2019', 'juin 4 2019', '2019-06-04', 'juin 2019', 'juin 4', 'mardi', 'mar.', 'juin', 'juin']},
-			{locale: 'ja', expect: ['2019年6月4日', '2019年6月4日', '2019/06/04', '2019年6月', '6月4日', '火', '火', '6 月', '6 月']},
-			{locale: 'ja-JP', expect: ['2019年6月4日', '2019年6月4日', '2019/06/04', '2019年6月', '6月4日', '火', '火', '6 月', '6 月']},
-			{locale: 'ko', expect: ['2019년 6월 4일 화요일', '2019년 6월 4일', '2019-06-04', '2019년 6월', '6월 4일', '화요일', '화', '6월', '6월']},
-			{locale: 'ko-KR', expect: ['2019년 6월 4일 화요일', '2019년 6월 4일', '2019-06-04', '2019년 6월', '6월 4일', '화요일', '화', '6월', '6월']},
-			{locale: 'nl', expect: ['dinsdag 4 juni 2019', '4 juni 2019', '04-06-2019', 'juni 2019', '4 juni', 'dinsdag', 'di', 'juni', 'jun.']},
-			{locale: 'nl-NL', expect: ['dinsdag 4 juni 2019', '4 juni 2019', '04-06-2019', 'juni 2019', '4 juni', 'dinsdag', 'di', 'juni', 'jun.']},
-			{locale: 'pt', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', 'terça-feira', 'ter', 'junho', 'jun']},
-			{locale: 'pt-BR', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', 'terça-feira', 'ter', 'junho', 'jun']},
-			{locale: 'sv', expect: ['Tisdag den 4 juni 2019', '4 juni 2019', '2019-06-04', 'juni 2019', '04 juni', 'Tisdag', 'Tis', 'juni', 'juni']},
-			{locale: 'sv-SE', expect: ['Tisdag den 4 juni 2019', '4 juni 2019', '2019-06-04', 'juni 2019', '04 juni', 'Tisdag', 'Tis', 'juni', 'juni']},
-			{locale: 'tr', expect: ['04 Haziran 2019 Salı', '04 Haziran 2019', '04.06.2019', 'Haziran 2019', '04 Haziran', 'Salı', 'Sal', 'Haziran', 'Haz']},
-			{locale: 'tr-TR', expect: ['04 Haziran 2019 Salı', '04 Haziran 2019', '04.06.2019', 'Haziran 2019', '04 Haziran', 'Salı', 'Sal', 'Haziran', 'Haz']},
-			{locale: 'zh', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '週二', '週二', '六月', '六月']},
-			{locale: 'zh-CN', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '週二', '週二', '六月', '六月']},
-			{locale: 'zh-TW', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '星期二', '週二', '六月', '六月']}
+			{ locale: 'ar', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
+			{ locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
+			{ locale: 'da', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', 'tirsdag', 'tir.', 'juni', 'jun.'] },
+			{ locale: 'da-DK', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', 'tirsdag', 'tir.', 'juni', 'jun.'] },
+			{ locale: 'de', expect: ['Dienstag 4. Juni 2019', '4. Juni 2019', '04.06.2019', 'Juni 2019', '4. Juni', 'Dienstag', 'Di.', 'Juni', 'Juni'] },
+			{ locale: 'de-DE', expect: ['Dienstag 4. Juni 2019', '4. Juni 2019', '04.06.2019', 'Juni 2019', '4. Juni', 'Dienstag', 'Di.', 'Juni', 'Juni'] },
+			{ locale: 'en', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4', 'Tuesday', 'Tue', 'June', 'Jun'] },
+			{ locale: 'en-CA', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4', 'Tuesday', 'Tue', 'June', 'Jun'] },
+			{ locale: 'en-GB', expect: ['Tuesday, 4 June 2019', '04 June 2019', '04/06/2019', 'June 2019', '4 June', 'Tuesday', 'Tue', 'June', 'Jun'] },
+			{ locale: 'en-US', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4', 'Tuesday', 'Tue', 'June', 'Jun'] },
+			{ locale: 'es', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '4/6/2019', 'junio 2019', '4 de junio', 'martes', 'mar.', 'junio', 'jun.'] },
+			{ locale: 'es-MX', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '04/06/2019', 'junio 2019', '4 de junio', 'martes', 'mar.', 'junio', 'jun.'] },
+			{ locale: 'fr', expect: ['mardi le 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin', 'mardi', 'mar.', 'juin', 'juin'] },
+			{ locale: 'fr-FR', expect: ['mardi le 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin', 'mardi', 'mar.', 'juin', 'juin'] },
+			{ locale: 'fr-CA', expect: ['mardi le 4 juin 2019', 'juin 4 2019', '2019-06-04', 'juin 2019', 'juin 4', 'mardi', 'mar.', 'juin', 'juin'] },
+			{ locale: 'ja', expect: ['2019年6月4日', '2019年6月4日', '2019/06/04', '2019年6月', '6月4日', '火', '火', '6 月', '6 月'] },
+			{ locale: 'ja-JP', expect: ['2019年6月4日', '2019年6月4日', '2019/06/04', '2019年6月', '6月4日', '火', '火', '6 月', '6 月'] },
+			{ locale: 'ko', expect: ['2019년 6월 4일 화요일', '2019년 6월 4일', '2019-06-04', '2019년 6월', '6월 4일', '화요일', '화', '6월', '6월'] },
+			{ locale: 'ko-KR', expect: ['2019년 6월 4일 화요일', '2019년 6월 4일', '2019-06-04', '2019년 6월', '6월 4일', '화요일', '화', '6월', '6월'] },
+			{ locale: 'nl', expect: ['dinsdag 4 juni 2019', '4 juni 2019', '04-06-2019', 'juni 2019', '4 juni', 'dinsdag', 'di', 'juni', 'jun.'] },
+			{ locale: 'nl-NL', expect: ['dinsdag 4 juni 2019', '4 juni 2019', '04-06-2019', 'juni 2019', '4 juni', 'dinsdag', 'di', 'juni', 'jun.'] },
+			{ locale: 'pt', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', 'terça-feira', 'ter', 'junho', 'jun'] },
+			{ locale: 'pt-BR', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', 'terça-feira', 'ter', 'junho', 'jun'] },
+			{ locale: 'sv', expect: ['Tisdag den 4 juni 2019', '4 juni 2019', '2019-06-04', 'juni 2019', '04 juni', 'Tisdag', 'Tis', 'juni', 'juni'] },
+			{ locale: 'sv-SE', expect: ['Tisdag den 4 juni 2019', '4 juni 2019', '2019-06-04', 'juni 2019', '04 juni', 'Tisdag', 'Tis', 'juni', 'juni'] },
+			{ locale: 'tr', expect: ['04 Haziran 2019 Salı', '04 Haziran 2019', '04.06.2019', 'Haziran 2019', '04 Haziran', 'Salı', 'Sal', 'Haziran', 'Haz'] },
+			{ locale: 'tr-TR', expect: ['04 Haziran 2019 Salı', '04 Haziran 2019', '04.06.2019', 'Haziran 2019', '04 Haziran', 'Salı', 'Sal', 'Haziran', 'Haz'] },
+			{ locale: 'zh', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '週二', '週二', '六月', '六月'] },
+			{ locale: 'zh-CN', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '週二', '週二', '六月', '六月'] },
+			{ locale: 'zh-TW', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '星期二', '週二', '六月', '六月'] }
 		].forEach((input) => {
 			let index = -1;
 			['full', 'medium', 'short', 'monthYear', 'monthDay', 'longDayOfWeek', 'shortDayOfWeek', 'longMonth', 'shortMonth'].forEach((format) => {
@@ -669,7 +669,7 @@ describe('dateTime', () => {
 					documentLocaleSettings.language = input.locale;
 					index++;
 					const date = new Date(2019, 5, 4);
-					const value = formatDate(date, {format: format});
+					const value = formatDate(date, { format: format });
 					expect(value).to.equal(input.expect[index]);
 				});
 			});
@@ -680,7 +680,7 @@ describe('dateTime', () => {
 	describe('parseDate', () => {
 
 		it('should use "m/d/yyyy" as a default pattern', () => {
-			documentLocaleSettings.overrides = {date:{formats:{dateFormats:{short:'abc'}}}};
+			documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:'abc' } } } };
 			const value = parseDate('12/13/2003');
 			expect(value.getFullYear()).to.equal(2003);
 			expect(value.getMonth()).to.equal(11);
@@ -716,17 +716,17 @@ describe('dateTime', () => {
 		});
 
 		[
-			{format: 'd/M/yyyy', val: '9/4/1958'},
-			{format: 'dd.MM.yyyy', val: '09.04.1958'},
-			{format: 'dd/MM/yyyy', val: '09/04/1958'},
-			{format: 'M/d/yyyy', val: '4/9/1958'},
-			{format: 'MM/dd/yyyy', val: '04/09/1958'},
-			{format: 'yyyy/M/d', val: '1958/4/09'},
-			{format: 'yyyy/MM/dd', val: '1958/04/09'},
-			{format: 'yyyy-MM-dd', val: '1958-04-09'}
+			{ format: 'd/M/yyyy', val: '9/4/1958' },
+			{ format: 'dd.MM.yyyy', val: '09.04.1958' },
+			{ format: 'dd/MM/yyyy', val: '09/04/1958' },
+			{ format: 'M/d/yyyy', val: '4/9/1958' },
+			{ format: 'MM/dd/yyyy', val: '04/09/1958' },
+			{ format: 'yyyy/M/d', val: '1958/4/09' },
+			{ format: 'yyyy/MM/dd', val: '1958/04/09' },
+			{ format: 'yyyy-MM-dd', val: '1958-04-09' }
 		].forEach((input) => {
 			it(`should parse format "${input.format}"`, () => {
-				documentLocaleSettings.overrides = {date:{formats:{dateFormats:{short:input.format}}}};
+				documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:input.format } } } };
 				const value = parseDate(input.val);
 				expect(value.getFullYear()).to.equal(1958);
 				expect(value.getMonth()).to.equal(3);
@@ -741,7 +741,7 @@ describe('dateTime', () => {
 		});
 
 		it('should ignore invalid format parts', () => {
-			documentLocaleSettings.overrides = {date:{formats:{dateFormats:{short:'yyyy|M|d|w'}}}};
+			documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:'yyyy|M|d|w' } } } };
 			const value = parseDate('2025|5|29');
 			expect(value.getFullYear()).to.equal(2025);
 			expect(value.getMonth()).to.equal(4);
@@ -750,36 +750,36 @@ describe('dateTime', () => {
 
 		describe('all locales', () => {
 			[
-				{locale: 'ar', date: '29/05/2025'},
-				{locale: 'ar-SA', date: '29/05/2025'},
-				{locale: 'da', date: '29.05.2025'},
-				{locale: 'da-DK', date: '29.05.2025'},
-				{locale: 'de', date: '29.05.2025'},
-				{locale: 'de-DE', date: '29.05.2025'},
-				{locale: 'en', date: '5/29/2025'},
-				{locale: 'en-CA', date: '5/29/2025'},
-				{locale: 'en-GB', date: '29/05/2025'},
-				{locale: 'en-US', date: '5/29/2025'},
-				{locale: 'es', date: '29/05/2025'},
-				{locale: 'es-MX', date: '29/05/2025'},
-				{locale: 'fr', date: '29/05/2025'},
-				{locale: 'fr-FR', date: '29/05/2025'},
-				{locale: 'fr-CA', date: '2025-05-29'},
-				{locale: 'ja', date: '2025/05/29'},
-				{locale: 'ja-JP', date: '2025/05/29'},
-				{locale: 'ko', date: '2025-05-29'},
-				{locale: 'ko-KR', date: '2025-05-29'},
-				{locale: 'nl', date: '29-05-2025'},
-				{locale: 'nl-NL', date: '29-05-2025'},
-				{locale: 'pt', date: '29/05/2025'},
-				{locale: 'pt-BR', date: '29/05/2025'},
-				{locale: 'sv', date: '2025-05-29'},
-				{locale: 'sv-SE', date: '2025-05-29'},
-				{locale: 'tr', date: '29.05.2025'},
-				{locale: 'tr-TR', date: '29.05.2025'},
-				{locale: 'zh', date: '2025/5/29'},
-				{locale: 'zh-CN', date: '2025/5/29'},
-				{locale: 'zh-TW', date: '2025/5/29'}
+				{ locale: 'ar', date: '29/05/2025' },
+				{ locale: 'ar-SA', date: '29/05/2025' },
+				{ locale: 'da', date: '29.05.2025' },
+				{ locale: 'da-DK', date: '29.05.2025' },
+				{ locale: 'de', date: '29.05.2025' },
+				{ locale: 'de-DE', date: '29.05.2025' },
+				{ locale: 'en', date: '5/29/2025' },
+				{ locale: 'en-CA', date: '5/29/2025' },
+				{ locale: 'en-GB', date: '29/05/2025' },
+				{ locale: 'en-US', date: '5/29/2025' },
+				{ locale: 'es', date: '29/05/2025' },
+				{ locale: 'es-MX', date: '29/05/2025' },
+				{ locale: 'fr', date: '29/05/2025' },
+				{ locale: 'fr-FR', date: '29/05/2025' },
+				{ locale: 'fr-CA', date: '2025-05-29' },
+				{ locale: 'ja', date: '2025/05/29' },
+				{ locale: 'ja-JP', date: '2025/05/29' },
+				{ locale: 'ko', date: '2025-05-29' },
+				{ locale: 'ko-KR', date: '2025-05-29' },
+				{ locale: 'nl', date: '29-05-2025' },
+				{ locale: 'nl-NL', date: '29-05-2025' },
+				{ locale: 'pt', date: '29/05/2025' },
+				{ locale: 'pt-BR', date: '29/05/2025' },
+				{ locale: 'sv', date: '2025-05-29' },
+				{ locale: 'sv-SE', date: '2025-05-29' },
+				{ locale: 'tr', date: '29.05.2025' },
+				{ locale: 'tr-TR', date: '29.05.2025' },
+				{ locale: 'zh', date: '2025/5/29' },
+				{ locale: 'zh-CN', date: '2025/5/29' },
+				{ locale: 'zh-TW', date: '2025/5/29' }
 			].forEach((input) => {
 				it(`should parse date in locale ${input.locale}`, () => {
 					documentLocaleSettings.language = input.locale;
@@ -801,20 +801,20 @@ describe('dateTime', () => {
 		});
 
 		[
-			{format: 'full', expect: 'Monday, August 3, 2015 1:44 PM EST'},
-			{format: 'medium', expect: 'Aug 3, 2015 1:44 PM'},
-			{format: 'short', expect: '8/3/2015 1:44 PM'},
-			{format: 'monthYear', expect: 'August 2015'},
-			{format: 'monthDay', expect: 'August 3'},
-			{format: 'longDayOfWeek', expect: 'Monday'},
-			{format: 'shortDayOfWeek', expect: 'Mon'},
-			{format: 'longMonth', expect: 'August'},
-			{format: 'shortMonth', expect: 'Aug'}
+			{ format: 'full', expect: 'Monday, August 3, 2015 1:44 PM EST' },
+			{ format: 'medium', expect: 'Aug 3, 2015 1:44 PM' },
+			{ format: 'short', expect: '8/3/2015 1:44 PM' },
+			{ format: 'monthYear', expect: 'August 2015' },
+			{ format: 'monthDay', expect: 'August 3' },
+			{ format: 'longDayOfWeek', expect: 'Monday' },
+			{ format: 'shortDayOfWeek', expect: 'Mon' },
+			{ format: 'longMonth', expect: 'August' },
+			{ format: 'shortMonth', expect: 'Aug' }
 		].forEach(function(input) {
 			it(`should apply format "${input.format}"`, () => {
 				const value = formatDateTime(
 					new Date(2015, 7, 3, 13, 44),
-					{format: input.format, timezone: 'EST'}
+					{ format: input.format, timezone: 'EST' }
 				);
 				expect(value).to.equal(input.expect);
 			});
