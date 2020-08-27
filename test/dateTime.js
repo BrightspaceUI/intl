@@ -102,6 +102,7 @@ describe('dateTime', () => {
 
 			[
 				{ timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10 },
+				{ timezone: 'America/Yakutat', expectedGMTOffset: -8 },
 				{ timezone: 'America/Santa_Isabel', expectedGMTOffset: -7 },
 				{ timezone: 'America/Toronto', expectedGMTOffset: -4 },
 				{ timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0 },
@@ -126,7 +127,8 @@ describe('dateTime', () => {
 					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 8, minutes: 0 },
 					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 7, minutes: 59 },
 					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 6, minutes: 59 },
-					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 8, minutes: 0 }
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 8, minutes: 0 },
+					{ timezone: 'America/Yakutat', expectedGMTOffset: 9, month: 11, date: 1, hours: 15, minutes: 0 }
 				].forEach((test) => {
 					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.date} at ${test.hours}:${test.minutes} AM UTC `, () => {
 						const dateTime = {
@@ -175,6 +177,7 @@ describe('dateTime', () => {
 			[
 				{ timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10 },
 				{ timezone: 'Pacific/Marquesas', expectedGMTOffset: -9.5 },
+				{ timezone: 'America/Yakutat', expectedGMTOffset: -9 },
 				{ timezone: 'America/Santa_Isabel', expectedGMTOffset: -8 },
 				{ timezone: 'America/Toronto', expectedGMTOffset: -5 },
 				{ timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0 },
@@ -199,7 +202,8 @@ describe('dateTime', () => {
 					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 3, minutes: 0 },
 					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 1, minutes: 59 },
 					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 1, minutes: 59 },
-					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 3, minutes: 0 }
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 3, minutes: 0 },
+					{ timezone: 'America/Yakutat', expectedGMTOffset: 9, month: 11, date: 1, hours: 15, minutes: 0 },
 				].forEach((test) => {
 					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.date} at ${test.hours}:${test.minutes} AM `, () => {
 						const dateTime = {
