@@ -44,7 +44,7 @@
     "eslint-plugin-html": "^6",
     "eslint-plugin-sort-class-members": "^1",
     "http-server": "^0.12",
-    "mocha": "~8.0.1",
+    "mocha": "^8",
     "mocha-headless-chrome": "^3",
     "semantic-release": "^17"
   },
