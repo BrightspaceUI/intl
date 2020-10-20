@@ -115,6 +115,7 @@ Options:
   - **short**: abbreviated date format. e.g. `'9/23/2015'`
   - **monthYear**: month and year only. e.g. `'September 2015'`
   - **monthDay**: month and day only. e.g. `'September 23'`
+  - **shortMonthDay**: short month and day only. e.g. `'Sep 23'`
   - **longDayOfWeek**: long weekday only. e.g. `'Wednesday'`
   - **shortDayOfWeek**: short weekday only. e.g. `'Wed'`
   - **longMonth**: long month only. e.g. `'September'`
