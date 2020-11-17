@@ -45,9 +45,5 @@
     "http-server": "^0.12",
     "mocha": "^8",
     "mocha-headless-chrome": "^3"
-  },
-  "dependencies": {
-    "@semantic-release/git": "^9.0.0",
-    "semantic-release": "^17.2.3"
   }
 }
