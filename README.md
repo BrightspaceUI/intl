@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/@brightspace-ui/intl.svg)](https://www.npmjs.org/package/@brightspace-ui/intl)
 [![NPM downloads](https://img.shields.io/npm/dt/@brightspace-ui/intl.svg)](https://www.npmjs.com/package/@brightspace-ui/intl)
-![Build status](https://github.com/BrightspaceUI/intl/workflows/ci/badge.svg)
+![Build status](https://github.com/BrightspaceUI/intl/workflows/CI/badge.svg)
 
 ## Overview
 
