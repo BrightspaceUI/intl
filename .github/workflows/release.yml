@@ -18,8 +18,6 @@ jobs:
           persist-credentials: false
       - name: Setup Node
         uses: Brightspace/third-party-actions@actions/setup-node
-      - name: Install dependencies
-        run: npm install
       - name: Semantic Release
         uses: BrightspaceUI/actions/semantic-release@master
         with:
