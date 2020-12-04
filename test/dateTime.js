@@ -4,8 +4,8 @@ import {
 	convertUTCToLocalDateTime,
 	formatDate,
 	formatDateTime,
-	formatTime,
 	formatDateTimeFromTimestamp,
+	formatTime,
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
@@ -59,6 +59,87 @@ describe('dateTime', () => {
 				seconds: input.seconds
 			};
 		}
+
+		describe('convertLocalToUTCDateTime', () => {
+			const hours = 8;
+			const minutes = 52;
+			const date = 10;
+			const localDateTime = {
+				month: 2,
+				date: date,
+				year: 2015,
+				hours: hours,
+				minutes: minutes,
+				seconds: 0
+			};
+
+			it('should return original date if timezone identifier is blank', () => {
+				documentLocaleSettings.timezone.identifier = '';
+				const result = convertLocalToUTCDateTime(localDateTime);
+				expect(result).to.deep.equal(localDateTime);
+			});
+
+			it('should throw if timezone identifier is invalid', () => {
+				documentLocaleSettings.timezone.identifier = 'FAKE';
+				expect(() => {
+					convertLocalToUTCDateTime(localDateTime);
+				}).to.throw();
+			});
+
+			[
+				{ timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10 },
+				{ timezone: 'Pacific/Marquesas', expectedGMTOffset: -9.5 },
+				{ timezone: 'America/Yakutat', expectedGMTOffset: -9 },
+				{ timezone: 'America/Santa_Isabel', expectedGMTOffset: -8 },
+				{ timezone: 'America/Toronto', expectedGMTOffset: -5 },
+				{ timezone: 'America/Halifax', expectedGMTOffset: -4 },
+				{ timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0 },
+				{ timezone: 'Australia/Eucla', expectedGMTOffset: 8.75 },
+				{ timezone: 'Australia/Darwin', expectedGMTOffset: 9.5 },
+				{ timezone: 'Pacific/Apia', expectedGMTOffset: 14 }
+			].forEach((test) => {
+				it(`should have expected GMT offset of ${test.expectedGMTOffset} for timezone ${test.timezone}`, () => {
+					documentLocaleSettings.timezone.identifier = test.timezone;
+					const result = convertLocalToUTCDateTime(localDateTime);
+					const expectedResult = getExpectedResult(localDateTime, -1 * test.expectedGMTOffset);
+					expect(result).to.deep.equal(expectedResult);
+				});
+			});
+
+			describe('Daylight Savings', () => {
+				[
+					{ timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, date: 8, hours: 3, minutes: 0 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, date: 8, hours: 1, minutes: 59 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, date: 1, hours: 1, minutes: 59 },
+					{ timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, date: 1, hours: 3, minutes: 0 },
+					{ timezone: 'America/Halifax', expectedGMTOffset: 3, month: 3, date: 8, hours: 3, minutes: 0 },
+					{ timezone: 'America/Halifax', expectedGMTOffset: 4, month: 3, date: 8, hours: 1, minutes: 59 },
+					{ timezone: 'America/Halifax', expectedGMTOffset: 3, month: 11, date: 1, hours: 0, minutes: 59 }, // Intl.DateTimeFormat is returning AST at 1:59 AM instead of ADT
+					{ timezone: 'America/Halifax', expectedGMTOffset: 4, month: 11, date: 1, hours: 3, minutes: 0 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 3, minutes: 0 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 1, minutes: 59 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 1, minutes: 59 },
+					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 3, minutes: 0 },
+					{ timezone: 'America/Yakutat', expectedGMTOffset: 9, month: 11, date: 1, hours: 15, minutes: 0 }
+				].forEach((test) => {
+					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.date} at ${test.hours}:${test.minutes} AM `, () => {
+						const dateTime = {
+							month: test.month,
+							date: test.date,
+							year: 2015,
+							hours: test.hours,
+							minutes: test.minutes,
+							seconds: 0
+						};
+						documentLocaleSettings.timezone.identifier = test.timezone;
+						const result = convertLocalToUTCDateTime(dateTime);
+						const expectedResult = getExpectedResult(dateTime, test.expectedGMTOffset);
+						expect(result).to.deep.equal(expectedResult);
+					});
+				});
+			});
+
+		});
 
 		describe('convertUTCToLocalDateTime', () => {
 			const hours = 12;
@@ -147,87 +228,6 @@ describe('dateTime', () => {
 					});
 				});
 			});
-		});
-
-		describe('convertLocalToUTCDateTime', () => {
-			const hours = 8;
-			const minutes = 52;
-			const date = 10;
-			const localDateTime = {
-				month: 2,
-				date: date,
-				year: 2015,
-				hours: hours,
-				minutes: minutes,
-				seconds: 0
-			};
-
-			it('should return original date if timezone identifier is blank', () => {
-				documentLocaleSettings.timezone.identifier = '';
-				const result = convertLocalToUTCDateTime(localDateTime);
-				expect(result).to.deep.equal(localDateTime);
-			});
-
-			it('should throw if timezone identifier is invalid', () => {
-				documentLocaleSettings.timezone.identifier = 'FAKE';
-				expect(() => {
-					convertLocalToUTCDateTime(localDateTime);
-				}).to.throw();
-			});
-
-			[
-				{ timezone: 'Pacific/Rarotonga', expectedGMTOffset: -10 },
-				{ timezone: 'Pacific/Marquesas', expectedGMTOffset: -9.5 },
-				{ timezone: 'America/Yakutat', expectedGMTOffset: -9 },
-				{ timezone: 'America/Santa_Isabel', expectedGMTOffset: -8 },
-				{ timezone: 'America/Toronto', expectedGMTOffset: -5 },
-				{ timezone: 'America/Halifax', expectedGMTOffset: -4 },
-				{ timezone: 'Atlantic/Reykjavik', expectedGMTOffset: 0 },
-				{ timezone: 'Australia/Eucla', expectedGMTOffset: 8.75 },
-				{ timezone: 'Australia/Darwin', expectedGMTOffset: 9.5 },
-				{ timezone: 'Pacific/Apia', expectedGMTOffset: 14 }
-			].forEach((test) => {
-				it(`should have expected GMT offset of ${test.expectedGMTOffset} for timezone ${test.timezone}`, () => {
-					documentLocaleSettings.timezone.identifier = test.timezone;
-					const result = convertLocalToUTCDateTime(localDateTime);
-					const expectedResult = getExpectedResult(localDateTime, -1 * test.expectedGMTOffset);
-					expect(result).to.deep.equal(expectedResult);
-				});
-			});
-
-			describe('Daylight Savings', () => {
-				[
-					{ timezone: 'America/Toronto', expectedGMTOffset: 4, month: 3, date: 8, hours: 3, minutes: 0 },
-					{ timezone: 'America/Toronto', expectedGMTOffset: 5, month: 3, date: 8, hours: 1, minutes: 59 },
-					{ timezone: 'America/Toronto', expectedGMTOffset: 4, month: 11, date: 1, hours: 1, minutes: 59 },
-					{ timezone: 'America/Toronto', expectedGMTOffset: 5, month: 11, date: 1, hours: 3, minutes: 0 },
-					{ timezone: 'America/Halifax', expectedGMTOffset: 3, month: 3, date: 8, hours: 3, minutes: 0 },
-					{ timezone: 'America/Halifax', expectedGMTOffset: 4, month: 3, date: 8, hours: 1, minutes: 59 },
-					{ timezone: 'America/Halifax', expectedGMTOffset: 3, month: 11, date: 1, hours: 0, minutes: 59 }, // Intl.DateTimeFormat is returning AST at 1:59 AM instead of ADT
-					{ timezone: 'America/Halifax', expectedGMTOffset: 4, month: 11, date: 1, hours: 3, minutes: 0 },
-					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 3, date: 8, hours: 3, minutes: 0 },
-					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 3, date: 8, hours: 1, minutes: 59 },
-					{ timezone: 'America/Winnipeg', expectedGMTOffset: 5, month: 11, date: 1, hours: 1, minutes: 59 },
-					{ timezone: 'America/Winnipeg', expectedGMTOffset: 6, month: 11, date: 1, hours: 3, minutes: 0 },
-					{ timezone: 'America/Yakutat', expectedGMTOffset: 9, month: 11, date: 1, hours: 15, minutes: 0 }
-				].forEach((test) => {
-					it(`${test.timezone}: should have expected GMT offset of ${test.expectedGMTOffset} hours on ${test.month}/${test.date} at ${test.hours}:${test.minutes} AM `, () => {
-						const dateTime = {
-							month: test.month,
-							date: test.date,
-							year: 2015,
-							hours: test.hours,
-							minutes: test.minutes,
-							seconds: 0
-						};
-						documentLocaleSettings.timezone.identifier = test.timezone;
-						const result = convertLocalToUTCDateTime(dateTime);
-						const expectedResult = getExpectedResult(dateTime, test.expectedGMTOffset);
-						expect(result).to.deep.equal(expectedResult);
-					});
-				});
-			});
-
 		});
 
 		describe('UTC -> Local -> UTC', () => {
@@ -835,7 +835,7 @@ describe('dateTime', () => {
 
 	});
 
-	describe('formatTimestamp', () => {
+	describe('formatDateTimeFromTimestamp', () => {
 		const options = { format: 'medium' };
 		const timestamp = Date.UTC(2015, 7, 25, 12, 28, 0);
 
