@@ -106,7 +106,7 @@ const dateString = formatTimestamp(
 );
 ```
 
-Options are the same as for formatDateTime: this method is converts the timestamp to a `Date` in the user's
+Options are the same as for `formatDateTime`; this method converts the timestamp to a `Date` in the user's
 configured time zone, then returns the results of passing this date to `formatDateTime`.
 
 To format a **date only** (without the time portion), use `formatDate`:
