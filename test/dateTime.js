@@ -5,7 +5,7 @@ import {
 	formatDate,
 	formatDateTime,
 	formatTime,
-	formatTimestamp,
+	formatDateTimeFromTimestamp,
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
@@ -841,21 +841,21 @@ describe('dateTime', () => {
 
 		it('should return original date if timezone identifier is blank', () => {
 			documentLocaleSettings.timezone.identifier = '';
-			const result = formatTimestamp(timestamp, options);
+			const result = formatDateTimeFromTimestamp(timestamp, options);
 			expect(result).to.deep.equal(formatDateTime(new Date(timestamp), options));
 		});
 
 		it('should throw if timezone identifier is invalid', () => {
 			documentLocaleSettings.timezone.identifier = 'FAKE';
 			expect(() => {
-				formatTimestamp(timestamp);
+				formatDateTimeFromTimestamp(timestamp);
 			}).to.throw();
 		});
 
 		it('should have expected GMT offset of -5 for timezone America/Toronto at midnight', () => {
 			documentLocaleSettings.timezone.identifier = 'America/Toronto';
 			const timestamp2 = Date.UTC(2015, 1, 27, 5, 0, 0);
-			const result = formatTimestamp(timestamp2);
+			const result = formatDateTimeFromTimestamp(timestamp2);
 			expect(result).to.deep.equal(formatDateTime(new Date(2015, 1, 27, 0, 0, 0)));
 		});
 
@@ -871,7 +871,7 @@ describe('dateTime', () => {
 		].forEach((test) => {
 			it(`should produce date ${test.expectedDate} for timezone ${test.timezone}`, () => {
 				documentLocaleSettings.timezone.identifier = test.timezone;
-				const result = formatTimestamp(timestamp, options);
+				const result = formatDateTimeFromTimestamp(timestamp, options);
 				expect(result).to.deep.equal(formatDateTime(test.expectedDate, options));
 			});
 		});

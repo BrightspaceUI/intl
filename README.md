@@ -78,7 +78,7 @@ const value = parseNumber('-8 942,39'); // -> -8942.39 in fr-CA
 
 Dates and times can be formatted in the user's locale using `formatDate`, `formatTime` and `formatDateTime`.
 
-Timestamps (milliseconds since the epoch) can be formatted in the user's locale and timezone using `formatTimestamp`.
+Timestamps (milliseconds since the epoch) can be formatted in the user's locale and timezone using `formatDateTimeFromTimestamp`.
 
 Combined dates and times are formatted using `formatDateTime`:
 
@@ -100,7 +100,7 @@ Options:
 To format a **timestamp** as a date and time:
 
 ```javascript
-const dateString = formatTimestamp(
+const dateString = formatDateTimeFromTimestamp(
 	1607097863123,
 	[options]
 );
