@@ -175,8 +175,6 @@ date.getMinutes(); // -> 5
 
 ## Date/Time Conversion based on user timezone
 
-**These are a work in progress and are not ready for usage yet**
-
 To convert an object containing a UTC date to an object containing a local date corresponding to the `data-timezone` attribute:
 ```javascript
 import {convertUTCToLocalDateTime} from '@brightspace-ui/intl/lib/dateTime.js';
