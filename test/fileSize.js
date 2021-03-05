@@ -35,6 +35,7 @@ describe('formatFileSize', () => {
 	[
 		{ locale: 'ar', expect: ['1 بايت', '2 بايت', '1 كيلو بايت', '1 ميغا بايت', '1 غيغا بايت'] },
 		{ locale: 'ar-SA', expect: ['1 بايت', '2 بايت', '1 كيلو بايت', '1 ميغا بايت', '1 غيغا بايت'] },
+		{ locale: 'cy-GB', expect: ['1 beit', '2 beit', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'da', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'da-DK', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'de', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
@@ -44,6 +45,7 @@ describe('formatFileSize', () => {
 		{ locale: 'en-GB', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'en-US', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'es', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
+		{ locale: 'es-ES', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'es-MX', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'fr', expect: ['1 octet', '2 octets', '1 Ko', '1 Mo', '1 Go'] },
 		{ locale: 'fr-CA', expect: ['1 octet', '2 octets', '1 Ko', '1 Mo', '1 Go'] },
