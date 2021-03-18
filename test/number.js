@@ -63,7 +63,10 @@ describe('number', () => {
 				{ val: 6.845e13, expect: '68,450,000,000,000' },
 				{ val: 12345678901.123456789, max: 3, expect: '12,345,678,901.123' },
 				{ val: -12345678901.123456789, max: 3, expect: '-12,345,678,901.123' },
-				{ val: 5.2, max: 20, expect: '5.2' }
+				{ val: 5.2, max: 20, expect: '5.2' },
+				{ val: -5.2, max: 20, expect: '-5.2' },
+				{ val: 9999999999.1, max: 20, expect: '9,999,999,999.1' },
+				{ val: 99999.133, max: 20, expect: '99,999.133' }
 			].forEach(function(input) {
 				it(`should format ${input.val}, max:${input.max}, min:${input.min}`, () => {
 					const options = {
