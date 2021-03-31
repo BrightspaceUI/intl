@@ -50,6 +50,7 @@ describe('formatFileSize', () => {
 		{ locale: 'fr', expect: ['1 octet', '2 octets', '1 Ko', '1 Mo', '1 Go'] },
 		{ locale: 'fr-CA', expect: ['1 octet', '2 octets', '1 Ko', '1 Mo', '1 Go'] },
 		{ locale: 'fr-FR', expect: ['1 octet', '2 octets', '1 Ko', '1 Mo', '1 Go'] },
+		{ locale: 'fr-ON', expect: ['1 octet', '2 octets', '1 Ko', '1 Mo', '1 Go'] },
 		{ locale: 'ja', expect: ['1 バイト', '2 バイト', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'ja-JP', expect: ['1 バイト', '2 バイト', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'ko', expect: ['1 바이트', '2 바이트', '1 KB', '1 MB', '1 GB'] },
