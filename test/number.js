@@ -145,6 +145,11 @@ describe('number', () => {
 				});
 			});
 
+			it('should not include group separators when "useGrouping" is false', () => {
+				const value = formatNumber(1234567.891, { useGrouping: false });
+				expect(value).to.equal('1234567.891');
+			});
+
 			[
 				{ symbol: '|@|', expected: '1|@|000|@|000' },
 				{ symbol: '\'', expected: '1\'000\'000' }
