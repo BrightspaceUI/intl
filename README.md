@@ -42,6 +42,7 @@ const percent = formatPercent(0.333, [options]); // -> '33.3 %' in en-US
 Options:
 - **minimumFractionDigits**: Minimum number of fraction digits to use. Possible values range from `0` to `20`; the default is `0`.
 - **maximumFractionDigits**: Maximum number of fraction digits to use. Possible values range from `0` to `20`; the default is the larger of `minimumFractionDigits` and `3`.
+- **useGrouping**: Whether to use grouping separators, such as thousands separators; the default is `true`.
 
 Formatting as an integer (rounded to 0 decimal places):
 
