@@ -1,0 +1,12 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10
+  versioning-strategy: widen
+  ignore:
+  - dependency-name: mocha
+    versions:
+    - ">= 8.1.a, < 8.2"
