@@ -95,7 +95,7 @@ const date = formatDateTime(
 Options:
 - **format**: pattern to use when rendering the date-time; default is `'short'`.
   - **full**: long weekday, month names and timezone. e.g. `'Wednesday, September 23, 2015 1:25 PM EST'`
-  - **medium**: long month names. e.g. `'September 23, 2015 1:25 PM'`
+  - **medium**: short month names. e.g. `'Sept 23, 2015 1:25 PM'`
   - **short**: abbreviated date format. e.g. `'9/23/2015 1:25 PM'`
 
 To format a **timestamp** as a date and time:
