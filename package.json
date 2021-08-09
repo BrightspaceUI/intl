@@ -43,7 +43,7 @@
     "eslint-config-brightspace": "^0.14",
     "eslint-plugin-html": "^6",
     "eslint-plugin-sort-class-members": "^1",
-    "http-server": "^0.12",
+    "http-server": "^13.0",
     "mocha": "^9",
     "mocha-headless-chrome": "^3"
   }
