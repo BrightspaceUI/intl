@@ -124,60 +124,97 @@ describe('common', () => {
 
 	describe('document mutations', () => {
 		it('should update language if "lang" gets set', (done) => {
-			documentLocaleSettings.addChangeListener(() => {
+			const cb = () => {
 				expect(getLanguage()).to.equal('fr');
+				documentLocaleSettings.removeChangeListener(cb);
 				done();
-			});
+			};
+			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('lang', 'fr');
 		});
 		it('should update language if "lang" is not set and "fallback" gets set', (done) => {
-			documentLocaleSettings.addChangeListener(() => {
+			const cb = () => {
 				expect(getLanguage()).to.equal('de');
+				documentLocaleSettings.removeChangeListener(cb);
 				done();
-			});
+			};
+			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('data-lang-default', 'de');
 		});
 		it('should not update language if "lang" is set and "fallback" gets set', (done) => {
 			let count = 0;
-			documentLocaleSettings.addChangeListener(() => {
+			const cb = () => {
 				count++;
 				if (count === 1) {
 					expect(getLanguage()).to.equal('fr');
 					htmlElem.setAttribute('data-lang-default', 'de');
 				} else if (count === 2) {
 					expect(getLanguage()).to.equal('fr');
+					documentLocaleSettings.removeChangeListener(cb);
 					done();
 				}
-			});
+			};
+			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('lang', 'fr');
 		});
 		it('should use default if "lang" is removed', (done) => {
 			let count = 0;
-			documentLocaleSettings.addChangeListener(() => {
+			const cb = () => {
 				count++;
 				if (count === 1) {
 					expect(getLanguage()).to.equal('es');
 					htmlElem.removeAttribute('lang');
 				} else if (count === 2) {
 					expect(getLanguage()).to.equal(defaultLocale);
+					documentLocaleSettings.removeChangeListener(cb);
 					done();
 				}
-			});
+			};
+			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('lang', 'es');
 		});
 		it('should use default if "fallback" is removed', (done) => {
 			let count = 0;
-			documentLocaleSettings.addChangeListener(() => {
+			const cb = () => {
 				count++;
 				if (count === 1) {
 					expect(getLanguage()).to.equal('es');
 					htmlElem.removeAttribute('data-lang-default');
 				} else if (count === 2) {
 					expect(getLanguage()).to.equal(defaultLocale);
+					documentLocaleSettings.removeChangeListener(cb);
 					done();
 				}
-			});
+			};
+			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('data-lang-default', 'es');
+		});
+		it('should update timezone if "timezone" gets changed', (done) => {
+			const cb = () => {
+				expect(documentLocaleSettings.timezone).to.deep.equal({ name: 'Canada - Vancouver', identifier: 'America/Vancouver' });
+				documentLocaleSettings.removeChangeListener(cb);
+				done();
+			};
+			documentLocaleSettings.addChangeListener(cb);
+			htmlElem.setAttribute('data-timezone', '{"name":"Canada - Vancouver", "identifier":"America/Vancouver"}');
+		});
+		it('should update oslo if "oslo" gets changed', (done) => {
+			const cb = () => {
+				expect(documentLocaleSettings.oslo).to.deep.equal({ batch: '/path/to/2', collection: '/path/to/1', version: 'abc123' });
+				documentLocaleSettings.removeChangeListener(cb);
+				done();
+			};
+			documentLocaleSettings.addChangeListener(cb);
+			htmlElem.setAttribute('data-oslo', '{"collection":"/path/to/1","batch":"/path/to/2","version":"abc123"}');
+		});
+		it('should update overrides if "intl-overrides" gets changed', (done) => {
+			const cb = () => {
+				expect(documentLocaleSettings.overrides).to.deep.equal({ 'date': { 'hour24': true } });
+				documentLocaleSettings.removeChangeListener(cb);
+				done();
+			};
+			documentLocaleSettings.addChangeListener(cb);
+			htmlElem.setAttribute('data-intl-overrides', '{"date": {"hour24": true}}');
 		});
 	});
 
@@ -189,19 +226,23 @@ describe('common', () => {
 		});
 
 		it('should trigger change listeners', (done) => {
-			documentLocaleSettings.addChangeListener(() => {
+			const cb = () => {
 				expect(documentLocaleSettings.language).to.equal('fr-ca');
+				documentLocaleSettings.removeChangeListener(cb);
 				done();
-			});
+			};
+			documentLocaleSettings.addChangeListener(cb);
 			documentLocaleSettings.language = 'fr-ca';
 		});
 
 		it('should not trigger change listeners if normalized value does not change', (done) => {
 			documentLocaleSettings.language = 'en';
-			documentLocaleSettings.addChangeListener(() => {
+			const cb = () => {
 				expect(documentLocaleSettings.language).to.equal('fr-fr');
+				documentLocaleSettings.removeChangeListener(cb);
 				done();
-			});
+			};
+			documentLocaleSettings.addChangeListener(cb);
 			documentLocaleSettings.language = 'EN ';
 			documentLocaleSettings.language = 'fr-fr';
 		});
