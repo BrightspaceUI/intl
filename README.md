@@ -110,6 +110,30 @@ const dateString = formatDateTimeFromTimestamp(
 Options are the same as for `formatDateTime`; this method converts the timestamp to a `Date` in the user's
 configured time zone, then returns the results of passing this date to `formatDateTime`.
 
+To format a **timestamp** as a date only:
+
+```javascript
+const dateString = formatDateFromTimestamp(
+	1607097863123,
+	[options]
+);
+```
+
+Options are the same as for `formatDate`; this method converts the timestamp to a `Date` in the user's
+configured time zone, then returns the results of passing this date to `formatDate`.
+
+To format a **timestamp** as a time only:
+
+```javascript
+const timeString = formatTimeFromTimestamp(
+	1607097863123,
+	[options]
+);
+```
+
+Options are the same as for `formatTime`; this method converts the timestamp to a `Date` in the user's
+configured time zone, then returns the results of passing this date to `formatTime`.
+
 To format a **date only** (without the time portion), use `formatDate`:
 
 ```javascript
