@@ -5,6 +5,8 @@ import {
 	formatDate,
 	formatDateTime,
 	formatDateTimeFromTimestamp,
+	formatDateFromTimestamp,
+	formatTimeFromTimestamp,
 	formatTime,
 	parseDate,
 	parseTime
@@ -889,4 +891,87 @@ describe('dateTime', () => {
 		});
 	});
 
+	describe('formatDateFromTimestamp', () => {
+		const options = { format: 'medium' };
+		const timestamp = Date.UTC(2015, 7, 25, 12, 28, 0);
+
+		it('should return original date if timezone identifier is blank', () => {
+			documentLocaleSettings.timezone.identifier = '';
+			const result = formatDateFromTimestamp(timestamp, options);
+			expect(result).to.deep.equal(formatDate(new Date(timestamp), options));
+		});
+
+		it('should throw if timezone identifier is invalid', () => {
+			documentLocaleSettings.timezone.identifier = 'FAKE';
+			expect(() => {
+				formatDateFromTimestamp(timestamp);
+			}).to.throw();
+		});
+
+		it('should have expected GMT offset of -5 for timezone America/Toronto at midnight', () => {
+			documentLocaleSettings.timezone.identifier = 'America/Toronto';
+			const timestamp2 = Date.UTC(2015, 1, 27, 5, 0, 0);
+			const result = formatDateFromTimestamp(timestamp2);
+			expect(result).to.deep.equal(formatDate(new Date(2015, 1, 27, 0, 0, 0)));
+		});
+
+		[
+			{ timezone: 'Pacific/Rarotonga', expectedDate: new Date(2015, 7, 25, 2, 28) },
+			{ timezone: 'America/Yakutat', expectedDate: new Date(2015, 7, 25, 4, 28) },
+			{ timezone: 'America/Santa_Isabel', expectedDate: new Date(2015, 7, 25, 5, 28) },
+			{ timezone: 'America/Toronto', expectedDate: new Date(2015, 7, 25, 8, 28) },
+			{ timezone: 'Atlantic/Reykjavik', expectedDate: new Date(2015, 7, 25, 12, 28) },
+			{ timezone: 'Australia/Eucla', expectedDate: new Date(2015, 7, 25, 21, 13) },
+			{ timezone: 'Australia/Darwin', expectedDate: new Date(2015, 7, 25, 21, 58) },
+			{ timezone: 'Pacific/Apia', expectedDate: new Date(2015, 7, 26, 1, 28) }
+		].forEach((test) => {
+			it(`should produce date ${test.expectedDate} for timezone ${test.timezone}`, () => {
+				documentLocaleSettings.timezone.identifier = test.timezone;
+				const result = formatDateFromTimestamp(timestamp, options);
+				expect(result).to.deep.equal(formatDate(test.expectedDate, options));
+			});
+		});
+	});
+
+	describe('formatTimeFromTimestamp', () => {
+		const options = { format: 'medium' };
+		const timestamp = Date.UTC(2015, 7, 25, 12, 28, 0);
+
+		it('should return original date if timezone identifier is blank', () => {
+			documentLocaleSettings.timezone.identifier = '';
+			const result = formatTimeFromTimestamp(timestamp, options);
+			expect(result).to.deep.equal(formatTime(new Date(timestamp), options));
+		});
+
+		it('should throw if timezone identifier is invalid', () => {
+			documentLocaleSettings.timezone.identifier = 'FAKE';
+			expect(() => {
+				formatTimeFromTimestamp(timestamp);
+			}).to.throw();
+		});
+
+		it('should have expected GMT offset of -5 for timezone America/Toronto at midnight', () => {
+			documentLocaleSettings.timezone.identifier = 'America/Toronto';
+			const timestamp2 = Date.UTC(2015, 1, 27, 5, 0, 0);
+			const result = formatTimeFromTimestamp(timestamp2);
+			expect(result).to.deep.equal(formatTime(new Date(2015, 1, 27, 0, 0, 0)));
+		});
+
+		[
+			{ timezone: 'Pacific/Rarotonga', expectedDate: new Date(2015, 7, 25, 2, 28) },
+			{ timezone: 'America/Yakutat', expectedDate: new Date(2015, 7, 25, 4, 28) },
+			{ timezone: 'America/Santa_Isabel', expectedDate: new Date(2015, 7, 25, 5, 28) },
+			{ timezone: 'America/Toronto', expectedDate: new Date(2015, 7, 25, 8, 28) },
+			{ timezone: 'Atlantic/Reykjavik', expectedDate: new Date(2015, 7, 25, 12, 28) },
+			{ timezone: 'Australia/Eucla', expectedDate: new Date(2015, 7, 25, 21, 13) },
+			{ timezone: 'Australia/Darwin', expectedDate: new Date(2015, 7, 25, 21, 58) },
+			{ timezone: 'Pacific/Apia', expectedDate: new Date(2015, 7, 26, 1, 28) }
+		].forEach((test) => {
+			it(`should produce date ${test.expectedDate} for timezone ${test.timezone}`, () => {
+				documentLocaleSettings.timezone.identifier = test.timezone;
+				const result = formatTimeFromTimestamp(timestamp, options);
+				expect(result).to.deep.equal(formatTime(test.expectedDate, options));
+			});
+		});
+	});
 });
