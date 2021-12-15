@@ -666,7 +666,7 @@ describe('dateTime', () => {
 			{ locale: 'es', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '04/06/2019', 'junio 2019', '4 de junio', '4 de jun.', 'martes', 'mar.', 'junio', 'jun.'] },
 			{ locale: 'es-ES', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '04/06/2019', 'junio 2019', '4 de junio', '4 de jun.', 'martes', 'mar.', 'junio', 'jun.'] },
 			{ locale: 'es-MX', expect: ['martes 4 de junio de 2019', '4 de junio de 2019', '04/06/2019', 'junio 2019', '4 de junio', '4 de jun.', 'martes', 'mar.', 'junio', 'jun.'] },
-			{ locale: 'fr', expect: ['mardi le 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin', '4 juin', 'mardi', 'mar.', 'juin', 'juin'] },
+			{ locale: 'fr', expect: ['mardi 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin', '4 juin', 'mardi', 'mar.', 'juin', 'juin'] },
 			{ locale: 'fr-CA', expect: ['mardi 4 juin 2019', 'juin 4 2019', '2019-06-04', 'juin 2019', 'juin 4', 'juin 4', 'mardi', 'mar.', 'juin', 'juin'] },
 			{ locale: 'fr-FR', expect: ['mardi 4 juin 2019', '4 juin 2019', '04/06/2019', 'juin 2019', '4 juin', '4 juin', 'mardi', 'mar.', 'juin', 'juin'] },
 			{ locale: 'fr-ON', expect: ['mardi le 4 juin 2019', 'juin 4 2019', '2019-06-04', 'juin 2019', '4 juin', '4 juin', 'mardi', 'mar.', 'juin', 'juin'] },
