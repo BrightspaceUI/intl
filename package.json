@@ -40,7 +40,7 @@
     "chai": "^4",
     "concurrently": "^7",
     "eslint": "^8",
-    "eslint-config-brightspace": "^0.16",
+    "eslint-config-brightspace": "^0.17",
     "eslint-plugin-html": "^6",
     "eslint-plugin-sort-class-members": "^1",
     "http-server": "^14.0",
