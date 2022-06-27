@@ -1,18 +1,18 @@
-import { getDocumentLocaleSettings } from '../lib/common.js';
 import {
 	convertLocalToUTCDateTime,
 	convertUTCToLocalDateTime,
 	formatDate,
+	formatDateFromTimestamp,
 	formatDateTime,
 	formatDateTimeFromTimestamp,
-	formatDateFromTimestamp,
-	formatTimeFromTimestamp,
 	formatTime,
+	formatTimeFromTimestamp,
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
+import { getDocumentLocaleSettings } from '../lib/common.js';
 
-var expect = chai.expect;
+const expect = chai.expect;
 
 describe('dateTime', () => {
 
@@ -284,7 +284,7 @@ describe('dateTime', () => {
 			{ format: 'short', expect1: '1:28 AM', expect2: '1:52 PM' },
 			{ format: 'medium', expect1: '1:28 AM', expect2: '1:52 PM' },
 			{ format: 'full', expect1: '1:28 AM EST', expect2: '1:52 PM EST' }
-		].forEach(function(input) {
+		].forEach((input) => {
 			it(`should apply custom format "${input.format}" for 1-digit and 2-digit times`, () => {
 				const options = { format: input.format, timezone: 'EST' };
 				const value1 = formatTime(earlyTime, options);
@@ -391,7 +391,7 @@ describe('dateTime', () => {
 			'',
 			'  	',
 			'abcd'
-		].forEach(function(input) {
+		].forEach((input) => {
 			it(`should return "null" for input "${input}"`, () => {
 				const time = parseTime(input, timeOptions);
 				expect(time).to.be.null;
@@ -845,7 +845,7 @@ describe('dateTime', () => {
 			{ format: 'shortDayOfWeek', expect: 'Mon' },
 			{ format: 'longMonth', expect: 'August' },
 			{ format: 'shortMonth', expect: 'Aug' }
-		].forEach(function(input) {
+		].forEach((input) => {
 			it(`should apply format "${input.format}"`, () => {
 				const value = formatDateTime(
 					new Date(2015, 7, 3, 13, 44),

@@ -1,7 +1,7 @@
-import { getDocumentLocaleSettings } from '../lib/common.js';
 import { formatNumber, formatPercent, parseNumber } from '../lib/number.js';
+import { getDocumentLocaleSettings } from '../lib/common.js';
 
-var expect = chai.expect;
+const expect = chai.expect;
 
 describe('number', () => {
 
@@ -67,7 +67,7 @@ describe('number', () => {
 				{ val: -5.2, max: 20, expect: '-5.2' },
 				{ val: 9999999999.1, max: 20, expect: '9,999,999,999.1' },
 				{ val: 99999.133, max: 20, expect: '99,999.133' }
-			].forEach(function(input) {
+			].forEach((input) => {
 				it(`should format ${input.val}, max:${input.max}, min:${input.min}`, () => {
 					const options = {
 						maximumFractionDigits: input.max,
@@ -111,7 +111,7 @@ describe('number', () => {
 				{ pattern: '{number}-', expected: '4.0-', min: 1 },
 				{ pattern: '{number} -', expected: '4.0 -', min: 1 },
 				{ pattern: '-{number}', expected: '-4.0', min: 1 }
-			].forEach(function(input) {
+			].forEach((input) => {
 				it(`should apply negative pattern "${input.pattern}"`, async() => {
 					documentLocaleSettings.overrides = { number: { patterns: { decimal: { negativePattern: input.pattern } } } };
 					const options = { minimumFractionDigits: input.min };
@@ -176,7 +176,7 @@ describe('number', () => {
 			[
 				{ val: 1000000000.01, groupSize:[3, 2, 1, 0], expected: '1000,0,00,000.01' },
 				{ val: 123456789.123, groupSize:[4, 2], expected: '1,23,45,6789.12' }
-			].forEach(function(input) {
+			].forEach((input) => {
 				it('should handle variable group sizes', () => {
 					documentLocaleSettings.overrides = { number: { groupSize: input.groupSize } };
 					const value = formatNumber(input.val, { maximumFractionDigits: 2 });
@@ -279,8 +279,8 @@ describe('number', () => {
 				{ pattern: '% {number}', expected: '% 76' },
 				{ pattern: 'unknown', expected: 'unknown' },
 				{ pattern: 'foo{number}bar|%', expected: 'foo76bar|%' }
-			].forEach(function(input) {
-				it('should apply positive pattern "' + input.pattern + '"', () => {
+			].forEach((input) => {
+				it(`should apply positive pattern "${input.pattern}"`, () => {
 					documentLocaleSettings.overrides = { number: { patterns: { percent: { positivePattern: input.pattern } } } };
 					const value = formatPercent(0.76);
 					expect(value).to.equal(input.expected);
@@ -417,7 +417,7 @@ describe('number', () => {
 				'abc',
 				'a3',
 				'-D4'
-			].forEach(function(input) {
+			].forEach((input) => {
 				it(`should return NaN for invalid input "${input}"`, () => {
 					const value = parseNumber(input);
 					expect(isNaN(value)).to.be.true;
@@ -429,7 +429,7 @@ describe('number', () => {
 				{ val: '1.44e', expected: 1.44 },
 				{ val: ' - 0.2ab09', expected: -0.2 },
 				{ val: '4,593  	329.2b392-', expected: 4593329.2 }
-			].forEach(function(input) {
+			].forEach((input) => {
 				it(`should stop on first invalid char "${input.val}"`, () => {
 					const value = parseNumber(input.val);
 					expect(value).to.equal(input.expected);
@@ -493,7 +493,7 @@ describe('number', () => {
 				'{number}-',
 				'{number} -',
 				'-{number}'
-			].forEach(function(pattern) {
+			].forEach((pattern) => {
 				it(`should handle negative pattern "${pattern}"`, () => {
 					const input = pattern.replace('{number}', '3.14');
 					const value = parseNumber(input);
