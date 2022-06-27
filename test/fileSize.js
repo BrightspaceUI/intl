@@ -1,7 +1,7 @@
-import { getDocumentLocaleSettings } from '../lib/common.js';
 import { formatFileSize } from '../lib/fileSize.js';
+import { getDocumentLocaleSettings } from '../lib/common.js';
 
-var expect = chai.expect;
+const expect = chai.expect;
 
 describe('formatFileSize', () => {
 
