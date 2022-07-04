@@ -244,6 +244,20 @@ import {formatFileSize} from '@brightspace-ui/intl/lib/fileSize.js';
 const fileSize = formatFileSize(100); // -> '100 bytes' in en-US
 ```
 
+## List Formatting
+
+Use `getSeparator` to get the appropriate list separator for the current locale. This is a separator that would be used in spoken language; note that the separator includes a space, for locales where it is appropriate.
+
+```javascript
+import {getSeparator} from '@brightspace-ui/intl/lib/list.js';
+
+const separator = getSeparator(); // -> ', ' in en-US
+const separator = getSeparator({ nonBreaking: true }); // -> ',\xa0' in en-US
+```
+
+Options:
+- **nonBreaking**: a Boolean flag, whether to use non-breaking spaces instead of standard spaces; default is `false`
+
 ## Contributing
 
 Contributions are welcome, please submit a pull request!
