@@ -22,8 +22,8 @@ npm install @brightspace-ui/intl
 Then `import` only the functionality you need:
 
 ```javascript
-import {formatDate, formatTime} from '@brightspace-ui/intl/lib/dateTime.js';
-import {formatNumber, formatPercent} from '@brightspace-ui/intl/lib/number.js';
+import { formatDate, formatTime } from '@brightspace-ui/intl/lib/dateTime.js';
+import { formatNumber, formatPercent } from '@brightspace-ui/intl/lib/number.js';
 ```
 
 All of the APIs will automatically detect the document's language via the `lang` attribute on the `<html>` element. They'll also look for various `data-` attributes that will be present in Brightspace pages to access override and timezone information.
@@ -33,7 +33,7 @@ All of the APIs will automatically detect the document's language via the `lang`
 Integer and decimal numbers can be formatted in the user's locale using `formatNumber`. Percentages can be formatted using `formatPercent`. Use the optional `options` parameter for rounding.
 
 ```javascript
-import {formatNumber, formatPercent} from '@brightspace-ui/intl/lib/number.js';
+import { formatNumber, formatPercent } from '@brightspace-ui/intl/lib/number.js';
 
 const number = formatNumber(8902.72, [options]); // -> '8,902.72' in en-US
 const percent = formatPercent(0.333, [options]); // -> '33.3 %' in en-US
@@ -47,7 +47,7 @@ Options:
 Formatting as an integer (rounded to 0 decimal places):
 
 ```javascript
-import {formatNumber} from '@brightspace-ui/intl/lib/number.js';
+import { formatNumber } from '@brightspace-ui/intl/lib/number.js';
 
 const value = formatNumber(89.72, {
 	maximumFractionDigits: 0
@@ -57,7 +57,7 @@ const value = formatNumber(89.72, {
 Formatting as a percentage (rounded to 2 decimal places, but always showing at least 2 decimals):
 
 ```javascript
-import {formatPercent} from '@brightspace-ui/intl/lib/number.js';
+import { formatPercent } from '@brightspace-ui/intl/lib/number.js';
 
 const value = formatPercent(0.333, {
 	minimumFractionDigits: 2,
@@ -70,7 +70,7 @@ const value = formatPercent(0.333, {
 The `parseNumber` method can be used to parse an integer or decimal number written in the user's locale.
 
 ```javascript
-import {parseNumber} from '@brightspace-ui/intl/lib/number.js';
+import { parseNumber } from '@brightspace-ui/intl/lib/number.js';
 
 const value = parseNumber('-8 942,39'); // -> -8942.39 in fr-CA
 ```
@@ -84,7 +84,7 @@ Timestamps (milliseconds since the epoch) can be formatted in the user's locale 
 Combined dates and times are formatted using `formatDateTime`:
 
 ```javascript
-import {formatDateTime} from '@brightspace-ui/intl/lib/dateTime.js';
+import { formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 
 const date = formatDateTime(
 	new Date(2015, 8, 23, 14, 5),
@@ -137,7 +137,7 @@ configured time zone, then returns the results of passing this date to `formatTi
 To format a **date only** (without the time portion), use `formatDate`:
 
 ```javascript
-import {formatDate} from '@brightspace-ui/intl/lib/dateTime.js';
+import { formatDate } from '@brightspace-ui/intl/lib/dateTime.js';
 
 const value = formatDate(
 	new Date(2015, 8, 23),
@@ -161,7 +161,7 @@ Options:
 To format a **time only** (without the date portion), use `formatTime`:
 
 ```javascript
-import {formatTime} from '@brightspace-ui/intl/lib/dateTime.js';
+import { formatTime } from '@brightspace-ui/intl/lib/dateTime.js';
 
 const time = formatTime(
 	new Date(2015, 8, 23, 14, 5)
@@ -178,7 +178,7 @@ Options:
 To parse a date written in the user's locale, use `parseDate`:
 
 ```javascript
-import {parseDate} from '@brightspace-ui/intl/lib/dateTime.js';
+import { parseDate } from '@brightspace-ui/intl/lib/dateTime.js';
 
 const date = parseDate('2015-09-23'); // in fr-CA
 date.getFullYear(); // -> 2015
@@ -191,7 +191,7 @@ date.getDate(); // -> 23
 To parse a time written in the user's locale, use `parseTime`:
 
 ```javascript
-import {parseTime} from '@brightspace-ui/intl/lib/dateTime.js';
+import { parseTime } from '@brightspace-ui/intl/lib/dateTime.js';
 
 const date = parseTime('14 h 05'); // in fr-CA
 date.getHours(); // -> 14
@@ -202,7 +202,7 @@ date.getMinutes(); // -> 5
 
 To convert an object containing a UTC date to an object containing a local date corresponding to the `data-timezone` attribute:
 ```javascript
-import {convertUTCToLocalDateTime} from '@brightspace-ui/intl/lib/dateTime.js';
+import { convertUTCToLocalDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 
 const UTCDateTime =  {
 	month: 12,
@@ -219,7 +219,7 @@ const localDateTime = convertUTCToLocalDateTime(
 
 To convert an object containing a local date corresponding to the `data-timezone` attribute to an object containing a UTC date:
 ```javascript
-import {convertLocalToUTCDateTime} from '@brightspace-ui/intl/lib/dateTime.js';
+import { convertLocalToUTCDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 
 const localDateTime =  {
 	month: 12,
@@ -239,10 +239,24 @@ const UTCDateTime = convertLocalToUTCDateTime(
 Use `formatFileSize` to format a file size appropriately for the user's locale.
 
 ```javascript
-import {formatFileSize} from '@brightspace-ui/intl/lib/fileSize.js';
+import { formatFileSize } from '@brightspace-ui/intl/lib/fileSize.js';
 
 const fileSize = formatFileSize(100); // -> '100 bytes' in en-US
 ```
+
+## List Formatting
+
+Use `getSeparator` to get the appropriate list separator for the current locale. This is a separator that would be used in spoken language; note that the separator includes a space, for locales where it is appropriate.
+
+```javascript
+import { getSeparator } from '@brightspace-ui/intl/lib/list.js';
+
+const separator = getSeparator(); // -> ', ' in en-US
+const separator = getSeparator({ nonBreaking: true }); // -> ',\xa0' in en-US
+```
+
+Options:
+- **nonBreaking**: a Boolean flag, whether to use non-breaking spaces instead of standard spaces; default is `false`
 
 ## Contributing
 
