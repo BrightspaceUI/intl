@@ -1,7 +1,7 @@
 import { getDocumentLocaleSettings } from '../lib/common.js';
 import { getSeparator } from '../lib/list.js';
 
-var expect = chai.expect;
+const expect = chai.expect;
 
 describe('getSeparator', () => {
 
