@@ -8,11 +8,13 @@
 	<div id="mocha"></div>
 		<script src="../node_modules/chai/chai.js"></script>
 		<script src="../node_modules/mocha/mocha.js"></script>
-		<script>mocha.setup('bdd')</script>
+		<script>mocha.setup('bdd');
+</script>
 		<script type="module" src="common.js"></script>
 		<script type="module" src="dateTime.js"></script>
 		<script type="module" src="fileSize.js"></script>
 		<script type="module" src="number.js"></script>
+		<script type="module" src="list.js"></script>
 		<script type="module">
 			mocha.checkLeaks();
 			mocha.run();
