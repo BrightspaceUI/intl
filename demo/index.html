@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<title>BrightspaceUI/intl Test Harness</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<style>
+		body {
+			font-family: sans-serif;
+		}
+		.settings {
+			border: 1px solid black;
+			padding: 20px;
+		}
+		.settings h2 {
+			margin-top: 0;
+		}
+	</style>
+	<script type="module">
+		import * as common from '../lib/common.js';
+		import * as dateTime from '../lib/dateTime.js';
+		import * as fileSize from '../lib/fileSize.js';
+		import * as list from '../lib/list.js';
+		import * as number from '../lib/number.js';
+
+		window.intl = { ...common, ...dateTime, ...fileSize, ...list, ...number };
+	</script>
+</head>
+<body>
+
+	<h1>BrightspaceUI/intl Test Harness</h1>
+
+	<div class="settings">
+		<h2>Settings</h2>
+		<label>HTML lang attribute: <input id="html-lang" type="text"></label>
+		<button id="apply-lang">Apply</button>
+	</div>
+
+	<h2>Usage</h2>
+	<ul>
+		<li>All intl exports have been imported and are available on the <code>window.intl</code> object (not to be confused with the native <code>window.Intl</code>)</li>
+		<li>Use the browser console to test any exports</li>
+		<li>The HTML lang attribute can be changed in the settings block above</li>
+	</ul>
+
+	<script>
+		const htmlElement = document.getElementsByTagName('html')[0];
+		const htmlLangInput = document.getElementById('html-lang');
+
+		document.getElementById('apply-lang').onclick = () => {
+			htmlElement.lang = htmlLangInput.value;
+		};
+	</script>
+
+</body>
+</html>

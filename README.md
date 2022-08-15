@@ -258,6 +258,16 @@ const separator = getSeparator({ nonBreaking: true }); // -> ',\xa0' in en-US
 Options:
 - **nonBreaking**: a Boolean flag, whether to use non-breaking spaces instead of standard spaces; default is `false`
 
+## Running the test harness
+
+Start a [@web/dev-server](https://modern-web.dev/docs/dev-server/overview/) that hosts the test harness:
+
+```shell
+npm start
+```
+
+This will let you test the intl library in a browser, and will update live with any changes.
+
 ## Contributing
 
 Contributions are welcome, please submit a pull request!
