@@ -5,6 +5,7 @@ import {
 	formatDateFromTimestamp,
 	formatDateTime,
 	formatDateTimeFromTimestamp,
+	formatRelativeDateTime,
 	formatTime,
 	formatTimeFromTimestamp,
 	parseDate,
@@ -980,6 +981,128 @@ describe('dateTime', () => {
 				const result = formatTimeFromTimestamp(timestamp, options);
 				expect(result).to.deep.equal(formatTime(test.expectedDate, options));
 			});
+		});
+	});
+
+	describe('formatRelativeDateTime', () => {
+		let result;
+
+		it('should format relative date-times correctly', () => {
+			let timestamp;
+			const secondsAgo = secs => Date.now() - secs * 1000;
+			const minutesAgo = mins => secondsAgo(mins * 60);
+			const hoursAgo = hours => minutesAgo(hours * 60);
+			const daysAgo = days => hoursAgo(days * 24);
+
+			timestamp = secondsAgo(-10);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('in 10 seconds');
+
+			timestamp = secondsAgo(1);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('1 second ago');
+
+			timestamp = secondsAgo(59);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('59 seconds ago');
+
+			timestamp = secondsAgo(60);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('1 minute ago');
+
+			timestamp = secondsAgo(90);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('1 minute ago');
+
+			timestamp = secondsAgo(91);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('2 minutes ago');
+
+			timestamp = minutesAgo(5);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('5 minutes ago');
+
+			timestamp = minutesAgo(59);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('59 minutes ago');
+
+			timestamp = minutesAgo(60);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('1 hour ago');
+
+			timestamp = minutesAgo(119);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('2 hours ago');
+
+			timestamp = hoursAgo(23);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('23 hours ago');
+
+			timestamp = hoursAgo(47);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('2 days ago');
+
+			timestamp = daysAgo(330);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('11 months ago');
+
+			timestamp = daysAgo(351);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('1 year ago');
+
+			timestamp = daysAgo(3650);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('10 years ago');
+		});
+
+		it('should format relative date-times from string input', () => {
+			const d = new Date();
+			d.setMinutes(d.getMinutes() - 1);
+
+			result = formatRelativeDateTime(d.toGMTString());
+			expect(result).to.equal('1 minute ago');
+
+			d.setMinutes(d.getMinutes() - 1);
+			result = formatRelativeDateTime(d.toISOString());
+			expect(result).to.equal('2 minutes ago');
+
+			d.setMinutes(d.getMinutes() - 1);
+			result = formatRelativeDateTime(d.toLocaleString());
+			expect(result).to.equal('3 minutes ago');
+		});
+
+		it('should respect the document locale', () => {
+			documentLocaleSettings.language = 'fr';
+
+			result = formatRelativeDateTime(Date.now() - 3600 * 1000);
+			expect(result).to.equal('il y a 1 heure');
+		});
+
+		it('should respect options.numeric', () => {
+			result = formatRelativeDateTime(Date.now() - 3600 * 24 * 8 * 1000, { numeric: 'auto' });
+			expect(result).to.equal('last week');
+		});
+
+		it('should respect options.style', () => {
+			result = formatRelativeDateTime(Date.now() - 3600 * 1000, { style: 'short' });
+			expect(result).to.equal('1 hr. ago');
+		});
+
+		it('should return the short time without Intl.RelativeTimeFormat on the same date', () => {
+			delete Intl.RelativeTimeFormat;
+
+			const d = new Date().toLocaleDateString();
+			result = formatRelativeDateTime(d);
+			expect(result).to.equal('12:00 AM');
+		});
+
+		it('should return the short date without Intl.RelativeTimeFormat on a different date', () => {
+			delete Intl.RelativeTimeFormat;
+			documentLocaleSettings.language = 'fr';
+
+			const d = new Date('12/1/2020');
+			result = formatRelativeDateTime(d);
+			expect(result).to.equal('01/12/2020');
 		});
 	});
 });
