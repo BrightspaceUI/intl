@@ -987,7 +987,7 @@ describe('dateTime', () => {
 	describe('formatRelativeDateTime', () => {
 		let result;
 
-		it.only('should format relative date-times correctly', () => {
+		it('should format relative date-times correctly', () => {
 			let timestamp;
 			const secondsAgo = secs => Date.now() - secs * 1000;
 			const minutesAgo = mins => secondsAgo(mins * 60);
@@ -1005,7 +1005,6 @@ describe('dateTime', () => {
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('1 second ago');
 
-
 			timestamp = secondsAgo(59.49);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('59 seconds ago');
@@ -1022,7 +1021,6 @@ describe('dateTime', () => {
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 minutes ago');
 
-
 			timestamp = minutesAgo(59.49);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('59 minutes ago');
@@ -1030,7 +1028,7 @@ describe('dateTime', () => {
 			timestamp = minutesAgo(59.51);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('1 hour ago');
-			
+
 			timestamp = hoursAgo(1.49);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('1 hour ago');
@@ -1038,7 +1036,6 @@ describe('dateTime', () => {
 			timestamp = hoursAgo(1.51);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 hours ago');
-
 
 			timestamp = hoursAgo(23.49);
 			result = formatRelativeDateTime(timestamp);
@@ -1056,7 +1053,6 @@ describe('dateTime', () => {
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 days ago');
 
-
 			timestamp = daysAgo(6.49);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('6 days ago');
@@ -1072,7 +1068,6 @@ describe('dateTime', () => {
 			timestamp = weeksAgo(1.51);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 weeks ago');
-
 
 			timestamp = weeksAgo(3.49);
 			result = formatRelativeDateTime(timestamp);
@@ -1090,7 +1085,6 @@ describe('dateTime', () => {
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 months ago');
 
-
 			timestamp = monthsAgo(11.49); // weeksAgo()?
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('11 months ago');
@@ -1107,7 +1101,6 @@ describe('dateTime', () => {
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 years ago');
 
-
 			timestamp = yearsAgo(9.51);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('10 years ago');
@@ -1115,8 +1108,8 @@ describe('dateTime', () => {
 
 		it('should format relative date-times from string input', () => {
 			const d = new Date();
-			d.setMinutes(d.getMinutes() - 1);
 
+			d.setMinutes(d.getMinutes() - 1);
 			result = formatRelativeDateTime(d.toGMTString());
 			expect(result).to.equal('1 minute ago');
 
