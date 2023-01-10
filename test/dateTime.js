@@ -1085,7 +1085,7 @@ describe('dateTime', () => {
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 months ago');
 
-			timestamp = monthsAgo(11.49); // weeksAgo()?
+			timestamp = monthsAgo(11.49);
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('11 months ago');
 
