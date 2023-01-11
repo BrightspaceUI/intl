@@ -986,16 +986,16 @@ describe('dateTime', () => {
 
 	describe('formatRelativeDateTime', () => {
 		let result;
+
 		const _Date = Date;
-		const now = new Date('1/1/2023');
 
 		before(() => {
 			class Date extends _Date {
 				static now() {
-					return now.getTime();
+					return new Date('1/1/2023').getTime();
 				}
-				constructor(input) {
-					return input ? new _Date(input) : now;
+				constructor(input = '1/1/23') {
+					super(input);
 				}
 			}
 			window.Date = Date;
@@ -1005,7 +1005,7 @@ describe('dateTime', () => {
 			expect(new Date().toDateString()).to.equal(new _Date().toDateString());
 		});
 
-		it.only('should format relative date-times correctly', () => {
+		it('should format relative date-times correctly', () => {
 			let timestamp;
 			const secondsAgo = secs => Date.now() - secs * 1000;
 			const minutesAgo = mins => secondsAgo(mins * 60);
