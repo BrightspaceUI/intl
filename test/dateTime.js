@@ -988,13 +988,14 @@ describe('dateTime', () => {
 		let result;
 
 		const _Date = Date;
+		const mockNow = '1/1/2023';
 
 		before(() => {
 			class Date extends _Date {
 				static now() {
-					return new Date('1/1/2023').getTime();
+					return new Date(mockNow).getTime();
 				}
-				constructor(input = '1/1/23') {
+				constructor(input = mockNow) {
 					super(input);
 				}
 			}
