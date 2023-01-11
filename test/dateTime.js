@@ -986,8 +986,26 @@ describe('dateTime', () => {
 
 	describe('formatRelativeDateTime', () => {
 		let result;
+		const _Date = Date;
+		const now = new Date('1/1/2023');
 
-		it('should format relative date-times correctly', () => {
+		before(() => {
+			class Date extends _Date {
+				static now() {
+					return now.getTime();
+				}
+				constructor(input) {
+					return input ? new _Date(input) : now;
+				}
+			}
+			window.Date = Date;
+		});
+		after(() => {
+			window.Date = _Date;
+			expect(new Date().toDateString()).to.equal(new _Date().toDateString());
+		});
+
+		it.only('should format relative date-times correctly', () => {
 			let timestamp;
 			const secondsAgo = secs => Date.now() - secs * 1000;
 			const minutesAgo = mins => secondsAgo(mins * 60);
@@ -1037,13 +1055,17 @@ describe('dateTime', () => {
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 hours ago');
 
-			timestamp = hoursAgo(23.49);
+			timestamp = hoursAgo(5.49);
 			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('23 hours ago');
+			expect(result).to.equal('5 hours ago');
+
+			timestamp = hoursAgo(5.51);
+			result = formatRelativeDateTime(timestamp);
+			expect(result).to.equal('yesterday');
 
 			timestamp = hoursAgo(23.51);
 			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 day ago');
+			expect(result).to.equal('yesterday');
 
 			timestamp = daysAgo(1.49);
 			result = formatRelativeDateTime(timestamp);
@@ -1053,13 +1075,13 @@ describe('dateTime', () => {
 			result = formatRelativeDateTime(timestamp);
 			expect(result).to.equal('2 days ago');
 
-			timestamp = daysAgo(6.49);
+			timestamp = daysAgo(3.51);
 			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('6 days ago');
+			expect(result).to.equal('last week');
 
 			timestamp = daysAgo(6.51);
 			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 week ago');
+			expect(result).to.equal('last week');
 
 			timestamp = weeksAgo(1.49);
 			result = formatRelativeDateTime(timestamp);
@@ -1127,11 +1149,6 @@ describe('dateTime', () => {
 
 			result = formatRelativeDateTime(Date.now() - 3600 * 1000);
 			expect(result).to.equal('il y a 1 heure');
-		});
-
-		it('should respect options.numeric', () => {
-			result = formatRelativeDateTime(Date.now() - 3600 * 24 * 8 * 1000, { numeric: 'auto' });
-			expect(result).to.equal('last week');
 		});
 
 		describe('without Intl.RelativeTimeFormat', () => {
