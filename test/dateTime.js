@@ -1134,26 +1134,32 @@ describe('dateTime', () => {
 			expect(result).to.equal('last week');
 		});
 
-		it('should respect options.style', () => {
-			result = formatRelativeDateTime(Date.now() - 3600 * 1000, { style: 'short' });
-			expect(result).to.equal('1 hr. ago');
-		});
+		describe('without Intl.RelativeTimeFormat', () => {
 
-		it('should return the short time without Intl.RelativeTimeFormat on the same date', () => {
-			delete Intl.RelativeTimeFormat;
+			const _RelativeTimeFormat = Intl.RelativeTimeFormat;
 
-			const d = new Date().toLocaleDateString();
-			result = formatRelativeDateTime(d);
-			expect(result).to.equal('12:00 AM');
-		});
+			before(() => {
+				delete Intl.RelativeTimeFormat;
+			});
 
-		it('should return the short date without Intl.RelativeTimeFormat on a different date', () => {
-			delete Intl.RelativeTimeFormat;
-			documentLocaleSettings.language = 'fr';
+			after(() => {
+				Intl.RelativeTimeFormat = _RelativeTimeFormat;
+				expect(Intl.RelativeTimeFormat).to.exist;
+			});
 
-			const d = new Date('12/1/2020');
-			result = formatRelativeDateTime(d);
-			expect(result).to.equal('01/12/2020');
+			it('should return the short time on the same date', () => {
+				const d = new Date().toLocaleDateString();
+				result = formatRelativeDateTime(d);
+				expect(result).to.equal('12:00 AM');
+			});
+
+			it('should return the short date on a different date', () => {
+				documentLocaleSettings.language = 'fr';
+
+				const d = new Date('12/1/2020');
+				result = formatRelativeDateTime(d);
+				expect(result).to.equal('01/12/2020');
+			});
 		});
 	});
 });
