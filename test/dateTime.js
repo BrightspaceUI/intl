@@ -1073,9 +1073,9 @@ describe('dateTime', () => {
 			});
 
 			it('should return the short time on the same date', () => {
-				const date = new Date().toLocaleDateString();
+				const date = minutesAgo(2);
 				const result = formatRelativeDateTime(date);
-				expect(result).to.equal('12:00 AM');
+				expect(result).to.equal('3:58 AM');
 			});
 
 			it('should return the short date on a different date', () => {
