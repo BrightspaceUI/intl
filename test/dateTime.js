@@ -988,7 +988,7 @@ describe('dateTime', () => {
 		let result;
 
 		const _Date = Date;
-		const mockNow = '1/1/2023';
+		const mockNow = '1/1/2023 4:00:00 AM';
 
 		before(() => {
 			class Date extends _Date {
