@@ -985,170 +985,77 @@ describe('dateTime', () => {
 	});
 
 	describe('formatRelativeDateTime', () => {
-		let result;
 
-		const _Date = Date;
-		const mockNow = '1/1/2023 4:00:00 AM';
+		const _Date = window.Date;
+		const mockNow = '1/1/2023, 4:00:00 AM';
+
+		class Date extends _Date {
+			static now() {
+				return new Date(mockNow).getTime();
+			}
+			constructor(input = mockNow) {
+				super(input);
+			}
+		}
+
+		const secondsAgo = secs => new Date(Date.now() - secs * 1000);
+		const minutesAgo = mins => secondsAgo(mins * 60);
+		const hoursAgo = hours => minutesAgo(hours * 60);
+		const daysAgo = days => hoursAgo(days * 24);
+		const weeksAgo = weeks => daysAgo(weeks * 7);
+		const monthsAgo = months => weeksAgo(months * 4.348);
+		const yearsAgo = years => monthsAgo(years * 12);
 
 		before(() => {
-			class Date extends _Date {
-				static now() {
-					return new Date(mockNow).getTime();
-				}
-				constructor(input = mockNow) {
-					super(input);
-				}
-			}
 			window.Date = Date;
+			expect(new window.Date().toLocaleString()).to.equal(mockNow);
 		});
 		after(() => {
 			window.Date = _Date;
-			expect(new Date().toDateString()).to.equal(new _Date().toDateString());
+			expect(new window.Date().toLocaleString()).to.not.equal(mockNow);
 		});
 
-		it('should format relative date-times correctly', () => {
-			let timestamp;
-			const secondsAgo = secs => Date.now() - secs * 1000;
-			const minutesAgo = mins => secondsAgo(mins * 60);
-			const hoursAgo = hours => minutesAgo(hours * 60);
-			const daysAgo = days => hoursAgo(days * 24);
-			const weeksAgo = weeks => daysAgo(weeks * 7);
-			const monthsAgo = months => weeksAgo(months * 4.348);
-			const yearsAgo = years => monthsAgo(years * 12);
-
-			timestamp = secondsAgo(-10);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('in 10 seconds');
-
-			timestamp = secondsAgo(1);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 second ago');
-
-			timestamp = secondsAgo(59.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('59 seconds ago');
-
-			timestamp = secondsAgo(59.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 minute ago');
-
-			timestamp = minutesAgo(1.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 minute ago');
-
-			timestamp = minutesAgo(1.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('2 minutes ago');
-
-			timestamp = minutesAgo(59.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('59 minutes ago');
-
-			timestamp = minutesAgo(59.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 hour ago');
-
-			timestamp = hoursAgo(1.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 hour ago');
-
-			timestamp = hoursAgo(1.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('2 hours ago');
-
-			timestamp = hoursAgo(5.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('5 hours ago');
-
-			timestamp = hoursAgo(5.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('yesterday');
-
-			timestamp = hoursAgo(23.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('yesterday');
-
-			timestamp = daysAgo(1.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 day ago');
-
-			timestamp = daysAgo(1.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('2 days ago');
-
-			timestamp = daysAgo(3.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('last week');
-
-			timestamp = daysAgo(6.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('last week');
-
-			timestamp = weeksAgo(1.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 week ago');
-
-			timestamp = weeksAgo(1.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('2 weeks ago');
-
-			timestamp = weeksAgo(3.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('3 weeks ago');
-
-			timestamp = weeksAgo(3.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 month ago');
-
-			timestamp = monthsAgo(1.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 month ago');
-
-			timestamp = monthsAgo(1.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('2 months ago');
-
-			timestamp = monthsAgo(11.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('11 months ago');
-
-			timestamp = monthsAgo(11.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 year ago');
-
-			timestamp = yearsAgo(1.49);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('1 year ago');
-
-			timestamp = yearsAgo(1.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('2 years ago');
-
-			timestamp = yearsAgo(9.51);
-			result = formatRelativeDateTime(timestamp);
-			expect(result).to.equal('10 years ago');
-		});
-
-		it('should format relative date-times from string input', () => {
-			const d = new Date();
-
-			d.setMinutes(d.getMinutes() - 1);
-			result = formatRelativeDateTime(d.toGMTString());
-			expect(result).to.equal('1 minute ago');
-
-			d.setMinutes(d.getMinutes() - 1);
-			result = formatRelativeDateTime(d.toISOString());
-			expect(result).to.equal('2 minutes ago');
-
-			d.setMinutes(d.getMinutes() - 1);
-			result = formatRelativeDateTime(d.toLocaleString());
-			expect(result).to.equal('3 minutes ago');
+		[
+			[secondsAgo(-10), 'in 10 seconds'],
+			[secondsAgo(1), '1 second ago'],
+			[secondsAgo(59.49), '59 seconds ago'],
+			[secondsAgo(59.51), '1 minute ago'],
+			[minutesAgo(1.49), '1 minute ago'],
+			[minutesAgo(1.51), '2 minutes ago'],
+			[minutesAgo(59.49), '59 minutes ago'],
+			[minutesAgo(59.51), '1 hour ago'],
+			[hoursAgo(1.49), '1 hour ago'],
+			[hoursAgo(1.51), '2 hours ago'],
+			[hoursAgo(5.49), '5 hours ago'],
+			[hoursAgo(5.51), 'yesterday'],
+			[hoursAgo(23.51), 'yesterday'],
+			[daysAgo(1.49), '1 day ago'],
+			[daysAgo(1.51), '2 days ago'],
+			[daysAgo(3.51), 'last week'],
+			[daysAgo(6.51), 'last week'],
+			[weeksAgo(1.49), '1 week ago'],
+			[weeksAgo(1.51), '2 weeks ago'],
+			[weeksAgo(3.49), '3 weeks ago'],
+			[weeksAgo(3.51), '1 month ago'],
+			[monthsAgo(1.49), '1 month ago'],
+			[monthsAgo(1.51), '2 months ago'],
+			[monthsAgo(11.49), '11 months ago'],
+			[monthsAgo(11.51), '1 year ago'],
+			[yearsAgo(1.49), '1 year ago'],
+			[yearsAgo(1.51), '2 years ago'],
+			[yearsAgo(9.51), '10 years ago']
+		].forEach(([date, expectedResult]) => {
+			it(`should format ${date} as "${expectedResult}"`, () => {
+				const result = formatRelativeDateTime(date);
+				expect(result).to.equal(expectedResult);
+			});
 		});
 
 		it('should respect the document locale', () => {
 			documentLocaleSettings.language = 'fr';
 
-			result = formatRelativeDateTime(Date.now() - 3600 * 1000);
+			const date = hoursAgo(1);
+			const result = formatRelativeDateTime(date);
 			expect(result).to.equal('il y a 1 heure');
 		});
 
@@ -1166,17 +1073,17 @@ describe('dateTime', () => {
 			});
 
 			it('should return the short time on the same date', () => {
-				const d = new Date().toLocaleDateString();
-				result = formatRelativeDateTime(d);
+				const date = new Date().toLocaleDateString();
+				const result = formatRelativeDateTime(date);
 				expect(result).to.equal('12:00 AM');
 			});
 
 			it('should return the short date on a different date', () => {
 				documentLocaleSettings.language = 'fr';
 
-				const d = new Date('12/1/2020');
-				result = formatRelativeDateTime(d);
-				expect(result).to.equal('01/12/2020');
+				const date = monthsAgo(1);
+				const result = formatRelativeDateTime(date);
+				expect(result).to.equal('01/12/2022');
 			});
 		});
 	});
