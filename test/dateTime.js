@@ -986,8 +986,8 @@ describe('dateTime', () => {
 
 	describe('formatRelativeDateTime', () => {
 
+		let mockNow = '1/1/2023, 4:00:00 AM';
 		const _Date = window.Date;
-		const mockNow = '1/1/2023, 4:00:00 AM';
 
 		class Date extends _Date {
 			static now() {
@@ -1010,6 +1010,11 @@ describe('dateTime', () => {
 			window.Date = Date;
 			expect(new window.Date().toLocaleString()).to.equal(mockNow);
 		});
+
+		afterEach(() => {
+			mockNow = '1/1/2023, 4:00:00 AM';
+		});
+
 		after(() => {
 			window.Date = _Date;
 			expect(new window.Date().toLocaleString()).to.not.equal(mockNow);
@@ -1057,6 +1062,16 @@ describe('dateTime', () => {
 			const date = hoursAgo(1);
 			const result = formatRelativeDateTime(date);
 			expect(result).to.equal('il y a 1 heure');
+		});
+
+		it('should respect different starting days of the week', () => {
+			documentLocaleSettings.language = 'fr';
+
+			mockNow = '1/6/2023, 4:00:00 AM';
+
+			const date2 = daysAgo(5);
+			const result2 = formatRelativeDateTime(date2);
+			expect(result2).to.equal('la semaine dernière');
 		});
 
 		describe('without Intl.RelativeTimeFormat', () => {
