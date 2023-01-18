@@ -1034,6 +1034,7 @@ describe('dateTime', () => {
 			[hoursAgo(5.49), '5 hours ago'],
 			[hoursAgo(5.51), 'yesterday'],
 			[hoursAgo(23.51), 'yesterday'],
+			[hoursAgo(28), 'yesterday'],
 			[daysAgo(1.49), '1 day ago'],
 			[daysAgo(1.51), '2 days ago'],
 			[daysAgo(3.51), 'last week'],
