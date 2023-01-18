@@ -1069,9 +1069,9 @@ describe('dateTime', () => {
 
 			mockNow = '1/6/2023, 4:00:00 AM';
 
-			const date2 = daysAgo(5);
-			const result2 = formatRelativeDateTime(date2);
-			expect(result2).to.equal('la semaine dernière');
+			const date = daysAgo(5);
+			const result = formatRelativeDateTime(date);
+			expect(result).to.equal('la semaine dernière');
 		});
 
 		describe('without Intl.RelativeTimeFormat', () => {
