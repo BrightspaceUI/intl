@@ -5,6 +5,7 @@ import {
 	formatDateFromTimestamp,
 	formatDateTime,
 	formatDateTimeFromTimestamp,
+	formatRelativeDateTime,
 	formatTime,
 	formatTimeFromTimestamp,
 	parseDate,
@@ -979,6 +980,125 @@ describe('dateTime', () => {
 				documentLocaleSettings.timezone.identifier = test.timezone;
 				const result = formatTimeFromTimestamp(timestamp, options);
 				expect(result).to.deep.equal(formatTime(test.expectedDate, options));
+			});
+		});
+	});
+
+	describe('formatRelativeDateTime', () => {
+
+		let mockNow = '1/1/2023, 4:00:00 AM';
+		const _Date = window.Date;
+
+		class Date extends _Date {
+			static now() {
+				return new Date(mockNow).getTime();
+			}
+			constructor(input = mockNow) {
+				super(input);
+			}
+		}
+
+		const secondsAgo = secs => new Date(Date.now() - secs * 1000);
+		const minutesAgo = mins => secondsAgo(mins * 60);
+		const hoursAgo = hours => minutesAgo(hours * 60);
+		const daysAgo = days => hoursAgo(days * 24);
+		const weeksAgo = weeks => daysAgo(weeks * 7);
+		const monthsAgo = months => weeksAgo(months * 4.348);
+		const yearsAgo = years => monthsAgo(years * 12);
+
+		before(() => {
+			window.Date = Date;
+			expect(new window.Date().toLocaleString()).to.equal(mockNow);
+		});
+
+		afterEach(() => {
+			mockNow = '1/1/2023, 4:00:00 AM';
+		});
+
+		after(() => {
+			window.Date = _Date;
+			expect(new window.Date().toLocaleString()).to.not.equal(mockNow);
+		});
+
+		[
+			[secondsAgo(-10), 'in 10 seconds'],
+			[secondsAgo(1), '1 second ago'],
+			[secondsAgo(59.49), '59 seconds ago'],
+			[secondsAgo(59.51), '1 minute ago'],
+			[minutesAgo(1.49), '1 minute ago'],
+			[minutesAgo(1.51), '2 minutes ago'],
+			[minutesAgo(59.49), '59 minutes ago'],
+			[minutesAgo(59.51), '1 hour ago'],
+			[hoursAgo(1.49), '1 hour ago'],
+			[hoursAgo(1.51), '2 hours ago'],
+			[hoursAgo(5.49), '5 hours ago'],
+			[hoursAgo(5.51), 'yesterday'],
+			[hoursAgo(23.51), 'yesterday'],
+			[daysAgo(1.49), '1 day ago'],
+			[daysAgo(1.51), '2 days ago'],
+			[daysAgo(3.51), 'last week'],
+			[daysAgo(6.51), 'last week'],
+			[weeksAgo(1.49), '1 week ago'],
+			[weeksAgo(1.51), '2 weeks ago'],
+			[weeksAgo(3.49), '3 weeks ago'],
+			[weeksAgo(3.51), '1 month ago'],
+			[monthsAgo(1.49), '1 month ago'],
+			[monthsAgo(1.51), '2 months ago'],
+			[monthsAgo(11.49), '11 months ago'],
+			[monthsAgo(11.51), '1 year ago'],
+			[yearsAgo(1.49), '1 year ago'],
+			[yearsAgo(1.51), '2 years ago'],
+			[yearsAgo(9.51), '10 years ago']
+		].forEach(([date, expectedResult]) => {
+			it(`should format ${date} as "${expectedResult}"`, () => {
+				const result = formatRelativeDateTime(date);
+				expect(result).to.equal(expectedResult);
+			});
+		});
+
+		it('should respect the document locale', () => {
+			documentLocaleSettings.language = 'fr';
+
+			const date = hoursAgo(1);
+			const result = formatRelativeDateTime(date);
+			expect(result).to.equal('il y a 1 heure');
+		});
+
+		it('should respect different starting days of the week', () => {
+			documentLocaleSettings.language = 'fr';
+
+			mockNow = '1/6/2023, 4:00:00 AM';
+
+			const date = daysAgo(5);
+			const result = formatRelativeDateTime(date);
+			expect(result).to.equal('la semaine dernière');
+		});
+
+		describe('without Intl.RelativeTimeFormat', () => {
+
+			const _RelativeTimeFormat = Intl.RelativeTimeFormat;
+
+			before(() => {
+				delete Intl.RelativeTimeFormat;
+			});
+
+			after(() => {
+				Intl.RelativeTimeFormat = _RelativeTimeFormat;
+				expect(Intl.RelativeTimeFormat).to.exist;
+			});
+
+			it('should return the short time on the same date', () => {
+				const date = minutesAgo(2);
+				const result = formatRelativeDateTime(date);
+				expect(result).to.equal('3:58 AM');
+			});
+
+			it('should return the short date on a different date', () => {
+				documentLocaleSettings.language = 'fr';
+
+				const date = monthsAgo(1);
+				const result = formatRelativeDateTime(date);
+				expect(result).to.equal('01/12/2022');
 			});
 		});
 	});
