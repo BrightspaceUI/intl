@@ -38,7 +38,7 @@
   "devDependencies": {
     "@babel/core": "^7",
     "@babel/eslint-parser": "^7",
-    "@web/dev-server": "^0.2.1",
+    "@web/dev-server": "^0.2",
     "chai": "^4",
     "concurrently": "^8",
     "eslint": "^8",
