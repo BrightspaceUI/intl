@@ -294,4 +294,46 @@ describe('common', () => {
 
 	});
 
+	describe('cache', () => {
+
+		let called;
+		const provider = () => {
+			called++;
+			return 'foo';
+		};
+
+		beforeEach(() => called = 0);
+
+		it('should call provider to get value', () => {
+			const value = documentLocaleSettings.getCacheItem('key', provider);
+			expect(value).to.equal('foo');
+			expect(called).to.equal(1);
+		});
+
+		it('should only call provider once', () => {
+			const val1 = documentLocaleSettings.getCacheItem('key', provider);
+			const val2 = documentLocaleSettings.getCacheItem('key', provider);
+			expect(val1).to.equal('foo');
+			expect(val2).to.equal('foo');
+			expect(called).to.equal(1);
+		});
+
+		['language', 'fallbackLanguage', 'overrides'].forEach(prop => {
+			it(`should invalidate cache when ${prop} is set`, () => {
+				documentLocaleSettings.getCacheItem('key', provider);
+				documentLocaleSettings[prop] = 'zz';
+				documentLocaleSettings.getCacheItem('key', provider);
+				expect(called).to.equal(2);
+			});
+		});
+
+		it('should invalidate cache when reset is called', () => {
+			documentLocaleSettings.getCacheItem('key', provider);
+			documentLocaleSettings.reset();
+			documentLocaleSettings.getCacheItem('key', provider);
+			expect(called).to.equal(2);
+		});
+
+	});
+
 });
