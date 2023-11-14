@@ -1,12 +1,11 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-  open-pull-requests-limit: 10
-  versioning-strategy: widen
-  ignore:
-  - dependency-name: mocha
-    versions:
-    - ">= 8.1.a, < 8.2"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    ignore:
+      # update-package-lock workflow already handles minor/patch updates
+      - dependency-name: "*"
+        update-types: ["version-update:semver-minor", "version-update:semver-patch"]
