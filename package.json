@@ -42,7 +42,7 @@
     "@web/dev-server": "^0.4",
     "chai": "^5",
     "concurrently": "^8",
-    "eslint": "^8",
+    "eslint": "^9",
     "eslint-config-brightspace": "^1.0",
     "http-server": "^14.0",
     "mocha": "^10",
