@@ -1,7 +1,6 @@
+import { expect } from '@brightspace-ui/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 import { getSeparator } from '../lib/list.js';
-
-const expect = chai.expect;
 
 describe('getSeparator', () => {
 

@@ -5,8 +5,7 @@ import {
 	supportedBaseLocales,
 	supportedLocales
 } from '../lib/common.js';
-
-const expect = chai.expect;
+import { expect } from '@brightspace-ui/testing';
 
 describe('common', () => {
 
@@ -138,6 +137,9 @@ describe('common', () => {
 				documentLocaleSettings.removeChangeListener(cb);
 				done();
 			};
+			htmlElem.removeAttribute('lang');
+			documentLocaleSettings._languageInitial = null;
+			documentLocaleSettings.reset();
 			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('data-lang-default', 'de');
 		});
@@ -173,7 +175,7 @@ describe('common', () => {
 			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('lang', 'es');
 		});
-		it('should use default if "fallback" is removed', (done) => {
+		it('should use default if "lang" is not set and "fallback" is removed', (done) => {
 			let count = 0;
 			const cb = () => {
 				count++;
@@ -186,6 +188,9 @@ describe('common', () => {
 					done();
 				}
 			};
+			htmlElem.removeAttribute('lang');
+			documentLocaleSettings._languageInitial = null;
+			documentLocaleSettings.reset();
 			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('data-lang-default', 'es');
 		});

@@ -1,7 +1,6 @@
+import { expect } from '@brightspace-ui/testing';
 import { formatFileSize } from '../lib/fileSize.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
-
-const expect = chai.expect;
 
 describe('formatFileSize', () => {
 

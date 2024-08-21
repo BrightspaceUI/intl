@@ -1,7 +1,6 @@
 import { formatNumber, formatPercent, parseNumber } from '../lib/number.js';
+import { expect } from '@brightspace-ui/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
-
-const expect = chai.expect;
 
 describe('number', () => {
 
