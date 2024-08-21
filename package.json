@@ -11,7 +11,8 @@
     "test": "npm run lint && npm run test:unit"
   },
   "files": [
-    "/lib"
+    "/lib",
+    "/helpers"
   ],
   "publishConfig": {
     "access": "public"
@@ -40,5 +41,9 @@
     "@brightspace-ui/testing": "^1",
     "eslint": "^8",
     "eslint-config-brightspace": "^1"
+  },
+  "dependencies": {
+    "@formatjs/intl-pluralrules": "^1",
+    "intl-messageformat": "^10"
   }
 }
