@@ -37,8 +37,6 @@
   },
   "homepage": "https://github.com/BrightspaceUI/intl",
   "devDependencies": {
-    "@babel/core": "^7",
-    "@babel/eslint-parser": "^7",
     "@brightspace-ui/testing": "^1",
     "eslint": "^8",
     "eslint-config-brightspace": "^1"
