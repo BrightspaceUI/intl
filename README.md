@@ -340,15 +340,37 @@ Similarly `<em>` *emphasizes* a particular piece of text (browsers show this vis
 
 Example:
 
-```json
+```javascript
 {
-  "myMessage": "This is <b>bold</b> but <em>not</em> all that <strong>important</strong>."
+  myMessage: "This is <b>bold</b> but <em>not</em> all that <strong>important</strong>."
 }
 ```
 
+#### Advanced Formatting
+
+More advanced formatting can be achieved by providing replacement methods for custom tags, which are similar to arguments:
+
 ```javascript
-localizer.localizeHTML('myMessage');
+{
+  goHome: "Go <homeLink>home</homeLink>"
+}
 ```
+
+Then, import `localizeMarkup`:
+```javascript
+import { localizeMarkup } from '@brightspace-ui/intl/lib/localize.js';
+```
+
+and provide a tag replacement method:
+```javascript
+localizer.localizeHTML('goHome', {
+	homeLink: chunks => localizeMarkup`<d2l-link href="/home">${chunks}</d2l-link>`
+});
+```
+In addition to the Basic Formatting elements, these additional elements may also be used in replacement methods:
+
+* `<d2l-link>`
+* `<d2l-tooltip-help>`
 
 ### `onResourcesChange`
 Provide an `onResourcesChange` callback function to perform tasks when the document language is changed and updated resources are available:
