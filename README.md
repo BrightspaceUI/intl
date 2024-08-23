@@ -77,7 +77,7 @@ const value = parseNumber('-8 942,39'); // -> -8942.39 in fr-CA
 
 ## Date/Time Formatting
 
-Dates and times can be formatted in the user's locale using `formatDate`, `formatTime` and `formatDateTime`.
+Dates and times can be formatted in the user's locale using `formatDate`, `formatTime`, `formatDateTime`, and `formatRelativeDateTime`.
 
 Timestamps (milliseconds since the epoch) can be formatted in the user's locale and timezone using `formatDateTimeFromTimestamp`.
 
@@ -173,6 +173,16 @@ Options:
   - **full**: includes timezone. e.g. `'1:25 PM EST'`
   - **medium** or **short**: excludes timezone e.g. `'1:25 PM'`
 
+To format a date/time in relative time, use `formatRelativeDateTime`:
+
+```javascript
+import { formatRelativeDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
+
+const relativeDateTime = formatRelativeDateTime(
+	new Date(2024, 8, 18)
+); // If today is 2024-08-22, -> 'last week' in en-US
+```
+
 ## Date Parsing
 
 To parse a date written in the user's locale, use `parseDate`:
@@ -257,6 +267,102 @@ const separator = getSeparator({ nonBreaking: true }); // -> ',\xa0' in en-US
 
 Options:
 - **nonBreaking**: a Boolean flag, whether to use non-breaking spaces instead of standard spaces; default is `false`
+
+## Language Localization
+
+The `Localize` class allows text to be displayed in the user's preferred language.
+
+### Resources
+
+Each resource is comprised of a name and a message, which must be provided as a key-value pair in a JavaScript object:
+
+```javascript
+{ myMessage: "This is my message" }
+```
+
+#### Name
+
+Names should succinctly and uniquely describe the text being localized. `camelCase` is recommended, although `snake_case` and `kebab-case` are also supported.
+
+For large projects, resources may be grouped using the `:` character. For example: `parentGroup:subGroup:messageName`.
+
+#### Message
+
+Messages must conform to the [ICU Message Syntax](https://formatjs.io/docs/core-concepts/icu-syntax/) format. It supports features such as: [simple arguments](https://formatjs.io/docs/core-concepts/icu-syntax/#simple-argument), the [`select` format](https://formatjs.io/docs/core-concepts/icu-syntax/#select-format) and [pluralization](https://formatjs.io/docs/core-concepts/icu-syntax/#plural-format).
+
+> **Note:** Avoid using the ICU Message Syntax number, date and time formatting functionality. Brightspace allows customization of how these are localized, so use `formatNumber`, `formatDate` and `formatTime` instead.
+
+### Using `Localize`
+
+Import `Localize` and create a new instance. The `importFunc` option is required. It will be passed a language tag which can be used to fetch resources:
+
+```javascript
+import { Localize } from '@brightspace-ui/intl/lib/localize.js';
+
+const localizer = new Localize({
+	importFunc: async lang => (await import(`../lang/${lang}.js`)).default
+});
+```
+
+Wait for resources to be available before attempting to use them:
+```javascript
+await localizer.ready;
+```
+
+### `localize()`
+
+The `localize()` method is used to localize a message.
+
+If the message contains arguments, provide replacement values in the second parameter:
+
+```javascript
+const helloText = localizer.localize('hello', { firstName: 'Mary' });
+```
+
+### `localizeHTML()`
+
+Rich formatting can be included in messages and safely converted to HTML with the `localizeHTML()` method.
+
+#### Basic Formatting
+
+The following formatting elements are supported out-of-the-box:
+
+* `<p>paragraphs</p>`
+* `line<br></br>breaks` (note the end tag is required)
+* `<b>bold</b>`
+* `<strong>strong</strong>`
+* `<i>italic</i>`
+* `<em>emphasis</em>`
+
+Remember that `<strong>` is for content of greater importance (browsers show this visually using bold), while `<b>` only bolds the text visually without increasing its importance.
+
+Similarly `<em>` *emphasizes* a particular piece of text (browsers show this visually using italics), whereas `<i>` only italicizes the text visually without emphasis.
+
+Example:
+
+```json
+{
+  "myMessage": "This is <b>bold</b> but <em>not</em> all that <strong>important</strong>."
+}
+```
+
+```javascript
+localizer.localizeHTML('myMessage');
+```
+
+### `onResourcesChange`
+Provide an `onResourcesChange` callback function to perform tasks when the document language is changed and updated resources are available:
+
+```javascript
+const localizer = new Localize({
+	onResourcesChange: () => document.title = localizer.localize('pageTitle')
+});
+```
+
+To stop listening for changes, disconnect the instance:
+```javascript
+localizer.disconnect()
+```
 
 ## Developing and Contributing
 
