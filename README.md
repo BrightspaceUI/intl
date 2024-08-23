@@ -356,9 +356,15 @@ More advanced formatting can be achieved by providing replacement methods for cu
 }
 ```
 
+Then, import `localizeMarkup`:
+```javascript
+import { localizeMarkup } from '@brightspace-ui/intl/lib/localize.js';
+```
+
+and provide a tag replacement method:
 ```javascript
 localizer.localizeHTML('goHome', {
-	homeLink: chunks => `<d2l-link href="/home">${chunks}</d2l-link>`
+	homeLink: chunks => localizeMarkup`<d2l-link href="/home">${chunks}</d2l-link>`
 });
 ```
 In addition to the Basic Formatting elements, these additional elements may also be used in replacement methods:
