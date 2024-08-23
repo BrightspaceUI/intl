@@ -316,8 +316,7 @@ The `localize()` method is used to localize a message.
 If the message contains arguments, provide replacement values in the second parameter:
 
 ```javascript
-  const message = localizer.localize('hello', { firstName: 'Mary' });
-}
+const helloText = localizer.localize('hello', { firstName: 'Mary' });
 ```
 
 ### `localizeHTML()`
