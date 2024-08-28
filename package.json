@@ -44,7 +44,7 @@
     "sinon": "^18.0.0"
   },
   "dependencies": {
-    "@formatjs/intl-pluralrules": "^1",
+    "@formatjs/intl-pluralrules": "^5",
     "intl-messageformat": "^10"
   }
 }
