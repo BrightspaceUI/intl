@@ -41,7 +41,7 @@
     "@brightspace-ui/testing": "^1",
     "eslint": "^8",
     "eslint-config-brightspace": "^1",
-    "sinon": "^18.0.0"
+    "sinon": "^19.0.2"
   },
   "dependencies": {
     "@formatjs/intl-pluralrules": "^1",
