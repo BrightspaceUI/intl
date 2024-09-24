@@ -19,6 +19,7 @@ describe('PluralRules', () => {
 		const shim = new Intl.PluralRules('cy');
 		const native = new (Object.getPrototypeOf(Intl.PluralRules))('cy');
 		expect(shim.resolvedOptions()).to.deep.equal(native.resolvedOptions());
+		expect(shim.select(2)).to.equal('two');
 	});
 
 	it('resolves to canonical locales', () => {
