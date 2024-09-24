@@ -9,6 +9,10 @@ const resources = {
 	},
 	'en-gb': {
 		basic: '{employerName} is my employer, but British!'
+	},
+	mi: {
+		plural: '{a, plural, one {one} other {other}}',
+		ordinal: '{a, selectordinal, one {one} other {other}}'
 	}
 };
 
@@ -77,6 +81,24 @@ describe('Localize', () => {
 			await localizer.ready;
 			const localized = localizer.localize('many', 'type', 'message', 'count', 2);
 			expect(localized).to.equal('This message has 2 arguments');
+		});
+
+		it('should select the correct category for shimmed locales', async() => {
+			await localizer.ready;
+			document.documentElement.lang = 'mi';
+			await updatePromise;
+
+			const pluralOne = localizer.localize('plural', { a: 1 });
+			expect(pluralOne).to.equal('one');
+
+			const pluralTwo = localizer.localize('plural', { a: 2 });
+			expect(pluralTwo).to.equal('other');
+
+			const ordinalOne = localizer.localize('ordinal', { a: 1 });
+			expect(ordinalOne).to.equal('other');
+
+			const ordinalTwo = localizer.localize('ordinal', { a: 2 });
+			expect(ordinalTwo).to.equal('other');
 		});
 
 	});
