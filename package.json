@@ -5,7 +5,7 @@
   "main": "lib/number.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint . --ext .js",
+    "lint:eslint": "eslint .",
     "start": "web-dev-server --node-resolve --watch --open /demo/",
     "test:unit": "d2l-test-runner",
     "test": "npm run lint && npm run test:unit"
@@ -39,9 +39,12 @@
   "homepage": "https://github.com/BrightspaceUI/intl",
   "devDependencies": {
     "@brightspace-ui/testing": "^1",
-    "eslint": "^8",
-    "eslint-config-brightspace": "^1",
-    "sinon": "^19.0.2"
+    "eslint": "^9",
+    "eslint-config-brightspace": "^1.2.1",
+    "sinon": "^19.0.2",
+    "@eslint/compat": "^1",
+    "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9"
   },
   "dependencies": {
     "intl-messageformat": "^10"
