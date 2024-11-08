@@ -118,18 +118,36 @@ describe('Localize', () => {
 
 	});
 
-	describe('localizeCharacter', () => {
+	describe('common', () => {
 
-		it('should localize "&"', async() => {
-			await localizer.ready;
-			const localized = localizer.localizeCharacter('&');
-			expect(localized).to.equal('ampersand');
+		let localizerCommon;
+		beforeEach(async() => {
+			localizerCommon = new Localize({
+				loadCommon: true
+			});
+			await localizerCommon.ready;
 		});
 
-		it('should throw an error for unknown characters', async() => {
-			await localizer.ready;
-			expect(() => localizer.localizeCharacter('$'))
-				.to.throw('localizeCharacter() does not support character: "$"');
+		afterEach(() => localizerCommon.disconnect());
+
+		describe('localizeCharacter', () => {
+
+			it('should localize "&"', async() => {
+				const localized = localizerCommon.localizeCharacter('&');
+				expect(localized).to.equal('ampersand');
+			});
+
+			it('should throw an error for unknown characters', async() => {
+				expect(() => localizerCommon.localizeCharacter('$'))
+					.to.throw('localizeCharacter() does not support character: "$"');
+			});
+
+			it('should throw an error if common resources are not loaded', async() => {
+				await localizer.ready;
+				expect(() => localizerCommon.localizeCharacter(':'))
+					.to.throw('localizeCharacter() cannot be used unless loadCommon in localizeConfig is enabled');
+			});
+
 		});
 
 	});
