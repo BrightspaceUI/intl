@@ -118,6 +118,22 @@ describe('Localize', () => {
 
 	});
 
+	describe('localizeCharacter', () => {
+
+		it('should localize "&"', async() => {
+			await localizer.ready;
+			const localized = localizer.localizeCharacter('&');
+			expect(localized).to.equal('ampersand');
+		});
+
+		it('should throw an error for unknown characters', async() => {
+			await localizer.ready;
+			expect(() => localizer.localizeCharacter('$'))
+				.to.throw('localizeCharacter() does not support character: "$"');
+		});
+
+	});
+
 	describe('localizeHTML()', () => {
 
 		it('should localize, replacing tags with HTML', async() => {
