@@ -13,9 +13,9 @@
     }
   },
   {
-		"files": "./lang/*.js",
-		"rules": {
-			"quotes": 0
-		}
-	}]
+    "files": "./lang/*.js",
+    "rules": {
+      "quotes": 0
+    }
+  }]
 }
