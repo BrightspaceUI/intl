@@ -1,5 +1,5 @@
 import { expect, fixture } from '@brightspace-ui/testing';
-import { Localize, localizeMarkup } from '../lib/localize.js';
+import { commonResourcesImportCount, Localize, localizeMarkup } from '../lib/localize.js';
 
 const resources = {
 	en: {
@@ -129,6 +129,15 @@ describe('Localize', () => {
 		});
 
 		afterEach(() => localizerCommon.disconnect());
+
+		it('should only load common resources once', async() => {
+			const localizer1 = new Localize({ loadCommon: true });
+			const localizer2 = new Localize({ loadCommon: true });
+			await Promise.all([localizer1.ready, localizer2.ready]);
+			expect(commonResourcesImportCount).to.equal(1);
+			localizer1.disconnect();
+			localizer2.disconnect();
+		});
 
 		describe('localizeCharacter', () => {
 
