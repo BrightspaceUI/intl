@@ -153,7 +153,7 @@ describe('Localize', () => {
 
 			it('should throw an error if common resources are not loaded', async() => {
 				await localizer.ready;
-				expect(() => localizerCommon.localizeCharacter(':'))
+				expect(() => localizer.localizeCharacter(':'))
 					.to.throw('localizeCharacter() cannot be used unless loadCommon in localizeConfig is enabled');
 			});
 
