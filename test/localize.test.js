@@ -1,5 +1,5 @@
-import { expect, fixture } from '@brightspace-ui/testing';
 import { commonResourcesImportCount, Localize, localizeMarkup } from '../lib/localize.js';
+import { expect, fixture } from '@brightspace-ui/testing';
 
 const resources = {
 	en: {
