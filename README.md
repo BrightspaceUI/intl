@@ -378,14 +378,12 @@ In addition to the Basic Formatting elements, these additional elements may also
 
 ### Common Resources
 
-Some localization resources are common and shared across D2L applications. To use these resources, set the `loadCommon` option:
+Some localization resources are common and shared across D2L applications. To use these resources, use the `LocalizeCommon` implemenation:
 
 ```javascript
-import { Localize } from '@brightspace-ui/intl/lib/localize.js';
+import { LocalizeCommon } from '@brightspace-ui/intl/lib/localize-commmon.js';
 
-const localizer = new Localize({
-  loadCommon: true
-});
+const localizerCommon = new LocalizeCommon();
 ```
 
 #### localizeCharacter
@@ -406,7 +404,7 @@ The localized value of the following characters can be accessed using `localizeC
 * `"` (quotation mark)
 
 ```javascript
-const value = localizer.localizeCharacter('&'); // -> 'ampersand' in en-US
+const value = localizerCommon.localizeCharacter('&'); // -> 'ampersand' in en-US
 ```
 
 ### `onResourcesChange`
