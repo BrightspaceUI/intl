@@ -18,7 +18,7 @@ const resources = {
 
 describe('Localize', () => {
 
-	let localizer, runCount, updatePromise;
+	let config, localizer, runCount, updatePromise;
 	beforeEach(async() => {
 		await fixture('<div></div>');
 		runCount = 0;
@@ -26,14 +26,14 @@ describe('Localize', () => {
 		let resolve;
 		updatePromise = new Promise(r => resolve = r);
 
-		localizer = {};
-		localizer = new Localize({
+		config = {
 			importFunc: async lang => await new Promise(r => setTimeout(() => r(resources[lang]), 1)),
 			onResourcesChange: () => {
 				if (runCount) resolve();
 				runCount++;
 			}
-		});
+		};
+		localizer = new Localize(config);
 		expect(runCount).to.equal(0);
 	});
 
@@ -54,6 +54,21 @@ describe('Localize', () => {
 		expect(localizer.localize.resources).to.be.an('object');
 		expect(localizer.localize.resolvedLocale).to.equal('en');
 		expect(localizer.pristine).to.be.false;
+	});
+
+	it('should have its own localize method', async() => {
+		await localizer.ready;
+		expect(Object.hasOwn(localizer, 'localize')).to.be.true;
+	});
+
+	it('should not share resources between instances', async() => {
+		await localizer.ready;
+		const localizer2 = new Localize({ importFunc: config.importFunc });
+		expect(localizer2.localize.resources).to.be.undefined;
+		await localizer2.ready;
+		expect(localizer2.localize.resources).to.be.an('object');
+		expect(localizer.localize.resources).to.not.equal(localizer2.localize.resources);
+		expect(localizer.localize.resources).to.deep.equal(localizer2.localize.resources);
 	});
 
 	describe('onResourcesChange', () => {
