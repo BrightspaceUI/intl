@@ -1,0 +1,15 @@
+export default {
+	"intl-common:characters:apostrophe": "apostrophe",
+	"intl-common:characters:ampersand": "ampersand",
+	"intl-common:characters:asterisk": "asterisk",
+	"intl-common:characters:backslash": "backslash",
+	"intl-common:characters:colon": "colon",
+	"intl-common:characters:comma": "comma",
+	"intl-common:characters:greaterThan": "greater-than sign",
+	"intl-common:characters:lessThan": "less-than sign",
+	"intl-common:characters:numberSign": "number sign",
+	"intl-common:characters:percentSign": "percent sign",
+	"intl-common:characters:pipe": "pipe",
+	"intl-common:characters:questionMark": "question mark",
+	"intl-common:characters:quotationMark": "quotation mark",
+};
