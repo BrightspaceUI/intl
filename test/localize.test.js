@@ -71,6 +71,28 @@ describe('Localize', () => {
 		expect(localizer.localize.resources).to.deep.equal(localizer2.localize.resources);
 	});
 
+	it('should handle static resources with no importFunc', async() => {
+		class StaticLocalizer extends Localize {
+			static async getLocalizeResources(langs) {
+				for (let i = 0; i < langs.length; i++) {
+					if (resources[langs[i]]) {
+						return {
+							language: langs[i],
+							resources: resources[langs[i]]
+						};
+					}
+				}
+			}
+			constructor() {
+				super({});
+			}
+		}
+		const staticLocalizer = new StaticLocalizer();
+		await staticLocalizer.ready;
+		const localized = staticLocalizer.localize('basic', { employerName: 'D2L' });
+		expect(localized).to.equal('D2L is my employer');
+	});
+
 	describe('onResourcesChange', () => {
 
 		it('runs when the document locale changes', async() => {
