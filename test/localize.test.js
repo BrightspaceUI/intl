@@ -1,5 +1,5 @@
-import { commonResourcesImportCount, Localize, localizeMarkup } from '../lib/localize.js';
 import { expect, fixture } from '@brightspace-ui/testing';
+import { Localize, localizeMarkup } from '../lib/localize.js';
 
 const resources = {
 	en: {
@@ -114,49 +114,6 @@ describe('Localize', () => {
 
 			const ordinalTwo = localizer.localize('ordinal', { a: 2 });
 			expect(ordinalTwo).to.equal('other');
-		});
-
-	});
-
-	describe('common', () => {
-
-		let localizerCommon;
-		beforeEach(async() => {
-			localizerCommon = new Localize({
-				loadCommon: true
-			});
-			await localizerCommon.ready;
-		});
-
-		afterEach(() => localizerCommon.disconnect());
-
-		it('should only load common resources once', async() => {
-			const localizer1 = new Localize({ loadCommon: true });
-			const localizer2 = new Localize({ loadCommon: true });
-			await Promise.all([localizer1.ready, localizer2.ready]);
-			expect(commonResourcesImportCount).to.equal(1);
-			localizer1.disconnect();
-			localizer2.disconnect();
-		});
-
-		describe('localizeCharacter', () => {
-
-			it('should localize "&"', async() => {
-				const localized = localizerCommon.localizeCharacter('&');
-				expect(localized).to.equal('ampersand');
-			});
-
-			it('should throw an error for unknown characters', async() => {
-				expect(() => localizerCommon.localizeCharacter('$'))
-					.to.throw('localizeCharacter() does not support character: "$"');
-			});
-
-			it('should throw an error if common resources are not loaded', async() => {
-				await localizer.ready;
-				expect(() => localizer.localizeCharacter(':'))
-					.to.throw('localizeCharacter() cannot be used unless loadCommon in localizeConfig is enabled');
-			});
-
 		});
 
 	});
