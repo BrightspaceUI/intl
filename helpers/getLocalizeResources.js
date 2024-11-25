@@ -234,7 +234,7 @@ async function shouldUseBatchFetch() {
 		// subsequent page navigation.
 
 		return Boolean(documentLocaleSettings.oslo.batch) && 'CacheStorage' in window;
-	} catch (err) {
+	} catch {
 		return false;
 	}
 
