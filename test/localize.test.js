@@ -1,5 +1,5 @@
+import { commonResourcesImportCount, Localize, localizeMarkup } from '../lib/localize.js';
 import { expect, fixture } from '@brightspace-ui/testing';
-import { Localize, localizeMarkup } from '../lib/localize.js';
 
 const resources = {
 	en: {
@@ -18,7 +18,7 @@ const resources = {
 
 describe('Localize', () => {
 
-	let localizer, runCount, updatePromise;
+	let config, localizer, runCount, updatePromise;
 	beforeEach(async() => {
 		await fixture('<div></div>');
 		runCount = 0;
@@ -26,14 +26,14 @@ describe('Localize', () => {
 		let resolve;
 		updatePromise = new Promise(r => resolve = r);
 
-		localizer = {};
-		localizer = new Localize({
+		config = {
 			importFunc: async lang => await new Promise(r => setTimeout(() => r(resources[lang]), 1)),
 			onResourcesChange: () => {
 				if (runCount) resolve();
 				runCount++;
 			}
-		});
+		};
+		localizer = new Localize(config);
 		expect(runCount).to.equal(0);
 	});
 
@@ -54,6 +54,43 @@ describe('Localize', () => {
 		expect(localizer.localize.resources).to.be.an('object');
 		expect(localizer.localize.resolvedLocale).to.equal('en');
 		expect(localizer.pristine).to.be.false;
+	});
+
+	it('should have its own localize method', async() => {
+		await localizer.ready;
+		expect(Object.hasOwn(localizer, 'localize')).to.be.true;
+	});
+
+	it('should not share resources between instances', async() => {
+		await localizer.ready;
+		const localizer2 = new Localize({ importFunc: config.importFunc });
+		expect(localizer2.localize.resources).to.be.undefined;
+		await localizer2.ready;
+		expect(localizer2.localize.resources).to.be.an('object');
+		expect(localizer.localize.resources).to.not.equal(localizer2.localize.resources);
+		expect(localizer.localize.resources).to.deep.equal(localizer2.localize.resources);
+	});
+
+	it('should handle static resources with no importFunc', async() => {
+		class StaticLocalizer extends Localize {
+			static async getLocalizeResources(langs) {
+				for (let i = 0; i < langs.length; i++) {
+					if (resources[langs[i]]) {
+						return {
+							language: langs[i],
+							resources: resources[langs[i]]
+						};
+					}
+				}
+			}
+			constructor() {
+				super({});
+			}
+		}
+		const staticLocalizer = new StaticLocalizer();
+		await staticLocalizer.ready;
+		const localized = staticLocalizer.localize('basic', { employerName: 'D2L' });
+		expect(localized).to.equal('D2L is my employer');
 	});
 
 	describe('onResourcesChange', () => {
@@ -99,6 +136,49 @@ describe('Localize', () => {
 
 			const ordinalTwo = localizer.localize('ordinal', { a: 2 });
 			expect(ordinalTwo).to.equal('other');
+		});
+
+	});
+
+	describe('common', () => {
+
+		let localizerCommon;
+		beforeEach(async() => {
+			localizerCommon = new Localize({
+				loadCommon: true
+			});
+			await localizerCommon.ready;
+		});
+
+		afterEach(() => localizerCommon.disconnect());
+
+		it('should only load common resources once', async() => {
+			const localizer1 = new Localize({ loadCommon: true });
+			const localizer2 = new Localize({ loadCommon: true });
+			await Promise.all([localizer1.ready, localizer2.ready]);
+			expect(commonResourcesImportCount).to.equal(1);
+			localizer1.disconnect();
+			localizer2.disconnect();
+		});
+
+		describe('localizeCharacter', () => {
+
+			it('should localize "&"', async() => {
+				const localized = localizerCommon.localizeCharacter('&');
+				expect(localized).to.equal('ampersand');
+			});
+
+			it('should throw an error for unknown characters', async() => {
+				expect(() => localizerCommon.localizeCharacter('$'))
+					.to.throw('localizeCharacter() does not support character: "$"');
+			});
+
+			it('should throw an error if common resources are not loaded', async() => {
+				await localizer.ready;
+				expect(() => localizer.localizeCharacter(':'))
+					.to.throw('localizeCharacter() cannot be used unless loadCommon in localizeConfig is enabled');
+			});
+
 		});
 
 	});

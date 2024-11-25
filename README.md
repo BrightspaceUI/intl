@@ -5,7 +5,7 @@
 
 ## Overview
 
-This library consists of APIs to format and parse numbers, dates, times and file sizes for use in D2L Brightspace.
+This library consists of APIs to format and parse numbers, dates, times and file sizes for use in D2L Brightspace. It also provides localization for common terms.
 
 > Looking for the older `d2l-intl` library? It's still here [in the `v2.x` branch](https://github.com/BrightspaceUI/intl/tree/v2.x).
 
@@ -28,7 +28,9 @@ import { formatNumber, formatPercent } from '@brightspace-ui/intl/lib/number.js'
 
 All of the APIs will automatically detect the document's language via the `lang` attribute on the `<html>` element. They'll also look for various `data-` attributes that will be present in Brightspace pages to access override and timezone information.
 
-## Number Formatting
+## Numbers
+
+### Number Formatting
 
 Integer and decimal numbers can be formatted in the user's locale using `formatNumber`. Percentages can be formatted using `formatPercent`. Use the optional `options` parameter for rounding.
 
@@ -65,7 +67,7 @@ const value = formatPercent(0.333, {
 }); // -> '33.30 %' in en-US
 ```
 
-## Number Parsing
+### Number Parsing
 
 The `parseNumber` method can be used to parse an integer or decimal number written in the user's locale.
 
@@ -75,7 +77,9 @@ import { parseNumber } from '@brightspace-ui/intl/lib/number.js';
 const value = parseNumber('-8 942,39'); // -> -8942.39 in fr-CA
 ```
 
-## Date/Time Formatting
+## Dates & Times
+
+### Date & Time Formatting
 
 Dates and times can be formatted in the user's locale using `formatDate`, `formatTime`, `formatDateTime`, and `formatRelativeDateTime`.
 
@@ -183,7 +187,7 @@ const relativeDateTime = formatRelativeDateTime(
 ); // If today is 2024-08-22, -> 'last week' in en-US
 ```
 
-## Date Parsing
+### Date Parsing
 
 To parse a date written in the user's locale, use `parseDate`:
 
@@ -196,7 +200,7 @@ date.getMonth(); // -> 8 (months are 0-11)
 date.getDate(); // -> 23
 ```
 
-## Time Parsing
+### Time Parsing
 
 To parse a time written in the user's locale, use `parseTime`:
 
@@ -208,7 +212,7 @@ date.getHours(); // -> 14
 date.getMinutes(); // -> 5
 ```
 
-## Date/Time Conversion based on user timezone
+### Date/Time Conversion based on user timezone
 
 To convert an object containing a UTC date to an object containing a local date corresponding to the `data-timezone` attribute:
 ```javascript
@@ -372,7 +376,41 @@ In addition to the Basic Formatting elements, these additional elements may also
 * `<d2l-link>`
 * `<d2l-tooltip-help>`
 
+### Common Resources
+
+Some localization resources are common and shared across D2L applications. To use these resources, set the `loadCommon` option:
+
+```javascript
+import { Localize } from '@brightspace-ui/intl/lib/localize.js';
+
+const localizer = new Localize({
+  loadCommon: true
+});
+```
+
+#### localizeCharacter
+
+The localized value of the following characters can be accessed using `localizeCharacter(char)`:
+* `'` (apostrophe)
+* `&` (ampersand)
+* `*` (asterisk)
+* `\` (backslash)
+* `:` (colon)
+* `,` (comma)
+* `>` (greater-than sign)
+* `<` (less-than sign)
+* `#` (number sign)
+* `%` (percent sign)
+* `|` (pipe)
+* `?` (question mark)
+* `"` (quotation mark)
+
+```javascript
+const value = localizer.localizeCharacter('&'); // -> 'ampersand' in en-US
+```
+
 ### `onResourcesChange`
+
 Provide an `onResourcesChange` callback function to perform tasks when the document language is changed and updated resources are available:
 
 ```javascript

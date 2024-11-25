@@ -1,0 +1,9 @@
+{
+	"name": "intl",
+	"parser_plugin": {
+	  "plugin": "parse_js"
+	},
+	"source_match": "en\\.js$",
+	"source_dir": "lang",
+	"output_file_path": "lang/%LANG%.js"
+  }
