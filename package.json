@@ -40,11 +40,8 @@
   "devDependencies": {
     "@brightspace-ui/testing": "^1",
     "eslint": "^9",
-    "eslint-config-brightspace": "^1.2.1",
-    "sinon": "^19.0.2",
-    "@eslint/compat": "^1",
-    "@eslint/eslintrc": "^3",
-    "@eslint/js": "^9"
+    "eslint-config-brightspace": "^2",
+    "sinon": "^19.0.2"
   },
   "dependencies": {
     "intl-messageformat": "^10"
