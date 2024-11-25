@@ -14,4 +14,10 @@ export default [
 			'no-console': 0,
 		},
 	},
+	{
+		files: ['lang/*.js'],
+		rules: {
+			'quotes': 0
+		}
+	}
 ];
