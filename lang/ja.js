@@ -1,15 +1,15 @@
 export default {
-	"intl-common:characters:apostrophe": "apostrophe",
-	"intl-common:characters:ampersand": "ampersand",
-	"intl-common:characters:asterisk": "asterisk",
-	"intl-common:characters:backslash": "backslash",
-	"intl-common:characters:colon": "colon",
-	"intl-common:characters:comma": "comma",
-	"intl-common:characters:greaterThan": "greater-than sign",
-	"intl-common:characters:lessThan": "less-than sign",
-	"intl-common:characters:numberSign": "number sign",
-	"intl-common:characters:percentSign": "percent sign",
-	"intl-common:characters:pipe": "pipe",
-	"intl-common:characters:questionMark": "question mark",
-	"intl-common:characters:quotationMark": "quotation mark",
+	"intl-common:characters:apostrophe": "アポストロフィ", // short name or description of the "'" character
+	"intl-common:characters:ampersand": "アンパサンド", // short name or description of the "&" character
+	"intl-common:characters:asterisk": "星印", // short name or description of the "*" character
+	"intl-common:characters:backslash": "逆斜線", // short name or description of the "\" character
+	"intl-common:characters:colon": "コロン", // short name or description of the ":" character
+	"intl-common:characters:comma": "カンマ", // short name or description of the "," character
+	"intl-common:characters:greaterThan": "大なり記号", // short name or description of the ">" character
+	"intl-common:characters:lessThan": "小なり記号", // short name or description of the "<" character
+	"intl-common:characters:numberSign": "ナンバー記号", // short name or description of the "#" character
+	"intl-common:characters:percentSign": "パーセント記号", // short name or description of the "%" character
+	"intl-common:characters:pipe": "縦棒", // short name or description of the "|" character
+	"intl-common:characters:questionMark": "疑問符", // short name or description of the "?" character
+	"intl-common:characters:quotationMark": "引用符", // short name or description of the '"' character
 };

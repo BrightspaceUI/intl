@@ -1,15 +1,15 @@
 export default {
-	"intl-common:characters:apostrophe": "apostrophe",
-	"intl-common:characters:ampersand": "ampersand",
-	"intl-common:characters:asterisk": "asterisk",
-	"intl-common:characters:backslash": "backslash",
-	"intl-common:characters:colon": "colon",
-	"intl-common:characters:comma": "comma",
-	"intl-common:characters:greaterThan": "greater-than sign",
-	"intl-common:characters:lessThan": "less-than sign",
-	"intl-common:characters:numberSign": "number sign",
-	"intl-common:characters:percentSign": "percent sign",
-	"intl-common:characters:pipe": "pipe",
-	"intl-common:characters:questionMark": "question mark",
-	"intl-common:characters:quotationMark": "quotation mark",
+	"intl-common:characters:apostrophe": "apostrof", // short name or description of the "'" character
+	"intl-common:characters:ampersand": "en-teken", // short name or description of the "&" character
+	"intl-common:characters:asterisk": "sterretje", // short name or description of the "*" character
+	"intl-common:characters:backslash": "schuine streep", // short name or description of the "\" character
+	"intl-common:characters:colon": "dubbele punt", // short name or description of the ":" character
+	"intl-common:characters:comma": "komma", // short name or description of the "," character
+	"intl-common:characters:greaterThan": "groter-dan-teken", // short name or description of the ">" character
+	"intl-common:characters:lessThan": "kleiner-dan-teken", // short name or description of the "<" character
+	"intl-common:characters:numberSign": "nummerteken", // short name or description of the "#" character
+	"intl-common:characters:percentSign": "procentuele teken", // short name or description of the "%" character
+	"intl-common:characters:pipe": "sluisteken", // short name or description of the "|" character
+	"intl-common:characters:questionMark": "vraagteken", // short name or description of the "?" character
+	"intl-common:characters:quotationMark": "aanhalingsteken", // short name or description of the '"' character
 };

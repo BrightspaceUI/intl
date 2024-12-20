@@ -1,15 +1,15 @@
 export default {
-	"intl-common:characters:apostrophe": "apostrophe",
-	"intl-common:characters:ampersand": "ampersand",
-	"intl-common:characters:asterisk": "asterisk",
-	"intl-common:characters:backslash": "backslash",
-	"intl-common:characters:colon": "colon",
-	"intl-common:characters:comma": "comma",
-	"intl-common:characters:greaterThan": "greater-than sign",
-	"intl-common:characters:lessThan": "less-than sign",
-	"intl-common:characters:numberSign": "number sign",
-	"intl-common:characters:percentSign": "percent sign",
-	"intl-common:characters:pipe": "pipe",
-	"intl-common:characters:questionMark": "question mark",
-	"intl-common:characters:quotationMark": "quotation mark",
+	"intl-common:characters:apostrophe": "아포스트로피", // short name or description of the "'" character
+	"intl-common:characters:ampersand": "앰퍼샌드", // short name or description of the "&" character
+	"intl-common:characters:asterisk": "별표", // short name or description of the "*" character
+	"intl-common:characters:backslash": "백슬래시", // short name or description of the "\" character
+	"intl-common:characters:colon": "콜론", // short name or description of the ":" character
+	"intl-common:characters:comma": "쉼표", // short name or description of the "," character
+	"intl-common:characters:greaterThan": "보다 큼 기호", // short name or description of the ">" character
+	"intl-common:characters:lessThan": "보다 작음 기호", // short name or description of the "<" character
+	"intl-common:characters:numberSign": "숫자 기호", // short name or description of the "#" character
+	"intl-common:characters:percentSign": "퍼센트 기호", // short name or description of the "%" character
+	"intl-common:characters:pipe": "수직선", // short name or description of the "|" character
+	"intl-common:characters:questionMark": "물음표", // short name or description of the "?" character
+	"intl-common:characters:quotationMark": "따옴표", // short name or description of the '"' character
 };
