@@ -17,6 +17,7 @@
 		}
 	</style>
 	<script type="module">
+		import { html, render } from 'lit';
 		import * as common from '../lib/common.js';
 		import * as dateTime from '../lib/dateTime.js';
 		import * as fileSize from '../lib/fileSize.js';
@@ -25,6 +26,11 @@
 		import * as localize from '../lib/localize.js';
 
 		window.intl = { ...common, ...dateTime, ...fileSize, ...list, ...number, ...localize };
+
+		render(
+			common.supportedLocalesDetails.map(({ code, localName }) => html`<option value="${code}">${localName}</option>`),
+			document.querySelector('#languages')
+		);
 	</script>
 </head>
 <body>
@@ -33,7 +39,11 @@
 
 	<div class="settings">
 		<h2>Settings</h2>
-		<label>HTML lang attribute: <input id="html-lang" type="text"></label>
+		<label>
+			HTML lang attribute:
+			<input id="html-lang" type="text" list="languages">
+			<datalist id="languages"></datalist>
+		</label>
 		<button id="apply-lang">Apply</button>
 	</div>
 
