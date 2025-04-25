@@ -1,5 +1,19 @@
 import { commonResourcesImportCount, Localize, localizeMarkup } from '../lib/localize.js';
 import { expect, fixture } from '@brightspace-ui/testing';
+import { getDocumentLocaleSettings } from '../lib/common.js';
+
+const documentLocaleSettings = getDocumentLocaleSettings();
+
+const pseudoLocalizationOn = () => {
+	let resolve;
+	const dlsChange = new Promise(r => resolve = r);
+	documentLocaleSettings.addChangeListener(resolve);
+	document.documentElement.dataset.pseudoLocalization = JSON.stringify({
+		isAvailable: true,
+		textFormat: '{0} | {1}',
+	});
+	return dlsChange;
+};
 
 const resources = {
 	en: {
@@ -39,6 +53,7 @@ describe('Localize', () => {
 
 	afterEach(() => {
 		localizer.disconnect();
+		documentLocaleSettings.reset();
 	});
 
 	it('should not be set up before ready', async() => {
@@ -61,14 +76,17 @@ describe('Localize', () => {
 		expect(Object.hasOwn(localizer, 'localize')).to.be.true;
 	});
 
-	it('should not share resources between instances', async() => {
-		await localizer.ready;
-		const localizer2 = new Localize({ importFunc: config.importFunc });
-		expect(localizer2.localize.resources).to.be.undefined;
-		await localizer2.ready;
-		expect(localizer2.localize.resources).to.be.an('object');
-		expect(localizer.localize.resources).to.not.equal(localizer2.localize.resources);
-		expect(localizer.localize.resources).to.deep.equal(localizer2.localize.resources);
+	[true, false].forEach(pseudoLocalization => {
+		it(`should not share resources between instances, pseudoLocalization ${pseudoLocalization ? 'on' : 'off'}`, async() => {
+			pseudoLocalization && await pseudoLocalizationOn();
+			await localizer.ready;
+			const localizer2 = new Localize({ importFunc: config.importFunc });
+			expect(localizer2.localize.resources).to.be.undefined;
+			await localizer2.ready;
+			expect(localizer2.localize.resources).to.be.an('object');
+			expect(localizer.localize.resources).to.not.equal(localizer2.localize.resources);
+			expect(localizer.localize.resources).to.deep.equal(localizer2.localize.resources);
+		});
 	});
 
 	it('should handle static resources with no importFunc', async() => {
@@ -138,6 +156,17 @@ describe('Localize', () => {
 			expect(ordinalTwo).to.equal('other');
 		});
 
+	});
+
+	describe('pseudoLocalize', () => {
+
+		it('should localize text with pseudoLocalization', async() => {
+			await pseudoLocalizationOn();
+			localizer = new Localize({ importFunc: lang => resources[lang] });
+			await localizer.ready;
+			const localized = localizer.localize('basic', { employerName: 'D2L' });
+			expect(localized).to.equal('D2L is my employer | basic');
+		});
 	});
 
 	describe('common', () => {
