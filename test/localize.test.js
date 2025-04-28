@@ -1,6 +1,7 @@
 import { commonResourcesImportCount, Localize, localizeMarkup } from '../lib/localize.js';
 import { expect, fixture } from '@brightspace-ui/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
+import { spy } from 'sinon';
 
 const documentLocaleSettings = getDocumentLocaleSettings();
 
@@ -159,11 +160,28 @@ describe('Localize', () => {
 
 	describe('pseudoLocalize', () => {
 
+		let pseudoLocalizeSpy;
+		beforeEach(() => {
+			pseudoLocalizeSpy = spy(Object.getPrototypeOf(Localize), 'pseudoLocalize');
+		});
+
+		afterEach(() => {
+			pseudoLocalizeSpy.restore();
+		});
+
+		it('should not run by default', async() => {
+			localizer = new Localize({ importFunc: lang => resources[lang] });
+			await localizer.ready;
+			localizer.localize('basic', { employerName: 'D2L' });
+			expect(pseudoLocalizeSpy).to.not.have.been.called;
+		})
+
 		it('should localize text with pseudoLocalization', async() => {
 			await pseudoLocalizationOn();
 			localizer = new Localize({ importFunc: lang => resources[lang] });
 			await localizer.ready;
 			const localized = localizer.localize('basic', { employerName: 'D2L' });
+			expect(pseudoLocalizeSpy).to.have.been.calledOnce;
 			expect(localized).to.equal('D2L is my employer | basic');
 		});
 	});
