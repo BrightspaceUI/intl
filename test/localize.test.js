@@ -174,7 +174,7 @@ describe('Localize', () => {
 			await localizer.ready;
 			localizer.localize('basic', { employerName: 'D2L' });
 			expect(pseudoLocalizeSpy).to.not.have.been.called;
-		})
+		});
 
 		it('should localize text with pseudoLocalization', async() => {
 			await pseudoLocalizationOn();
