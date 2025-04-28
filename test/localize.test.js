@@ -9,8 +9,7 @@ const pseudoLocalizationOn = () => {
 	const dlsChange = new Promise(r => resolve = r);
 	documentLocaleSettings.addChangeListener(resolve);
 	document.documentElement.dataset.pseudoLocalization = JSON.stringify({
-		isAvailable: true,
-		textFormat: '{0} | {1}',
+		textFormat: '{0} | {1}'
 	});
 	return dlsChange;
 };
