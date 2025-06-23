@@ -26,6 +26,14 @@ describe('common', () => {
 		expect(defaultLocale).to.equal('en');
 	});
 
+	it('should deep copy the default locale settings', () => {
+		documentLocaleSettings.timezone.name = 'Foo';
+		documentLocaleSettings.timezone.identifier = 'bar';
+		documentLocaleSettings.reset();
+		expect(documentLocaleSettings.timezone.name).to.equal('');
+		expect(documentLocaleSettings.timezone.identifier).to.equal('');
+	});
+
 	describe('getLanguage', () => {
 		it('should use "fallback" if no "lang" is present', async() => {
 			htmlElem.setAttribute('data-lang-default', 'fr');
