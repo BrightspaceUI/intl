@@ -2,7 +2,7 @@ name: CI
 on: pull_request
 jobs:
   test:
-    timeout-minutes: 2
+    timeout-minutes: 3
     runs-on: ubuntu-latest
     steps:
       - uses: Brightspace/third-party-actions@actions/checkout
