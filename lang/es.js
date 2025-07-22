@@ -12,5 +12,7 @@ export default {
 	"intl-common:characters:pipe": "Barra vertical", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "signo de interrogación", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "comilla", // short name or description of the '"' character
-	"intl-common:navigation:back:title": "Anterior", // term for navigating back to the previous page in Title Case
+	"intl-common:navigation:back:title": "Anterior", // term for navigating back to the previous page (in Title Case)
+	"intl-common:navigation:next:title": "Siguiente", // term for navigating to the next page or item (in Title Case)
+	"intl-common:navigation:previous:title": "Anterior", // term for navigating to the previous page or item (in Title Case)
 };

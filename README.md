@@ -393,7 +393,9 @@ const localizer = new Localize({
 The localized value of the following common terms can be accessed using `localizeCommon(name)`:
 
 Navigation
-* `navigation:back:title` (Back) 
+* `navigation:back:title` (Back)
+* `navigation:next:title` (Next)
+* `navigation:previous:title` (Previous)
 
 #### localizeCharacter
 

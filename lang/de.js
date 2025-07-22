@@ -12,5 +12,7 @@ export default {
 	"intl-common:characters:pipe": "Senkrechter Strich", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "Fragezeichen", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "Anführungszeichen", // short name or description of the '"' character
-	"intl-common:navigation:back:title": "Zurück", // term for navigating back to the previous page in Title Case
+	"intl-common:navigation:back:title": "Zurück", // term for navigating back to the previous page (in Title Case)
+	"intl-common:navigation:next:title": "Weiter", // term for navigating to the next page or item (in Title Case)
+	"intl-common:navigation:previous:title": "Zurück", // term for navigating to the previous page or item (in Title Case)
 };

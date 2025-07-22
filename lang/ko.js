@@ -12,5 +12,7 @@ export default {
 	"intl-common:characters:pipe": "수직선", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "물음표", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "따옴표", // short name or description of the '"' character
-	"intl-common:navigation:back:title": "뒤로", // term for navigating back to the previous page in Title Case
+	"intl-common:navigation:back:title": "뒤로", // term for navigating back to the previous page (in Title Case)
+	"intl-common:navigation:next:title": "다음", // term for navigating to the next page or item (in Title Case)
+	"intl-common:navigation:previous:title": "이전", // term for navigating to the previous page or item (in Title Case)
 };

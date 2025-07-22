@@ -12,5 +12,7 @@ export default {
 	"intl-common:characters:pipe": "sluisteken", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "vraagteken", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "aanhalingsteken", // short name or description of the '"' character
-	"intl-common:navigation:back:title": "Terug", // term for navigating back to the previous page in Title Case
+	"intl-common:navigation:back:title": "Terug", // term for navigating back to the previous page (in Title Case)
+	"intl-common:navigation:next:title": "Volgende", // term for navigating to the next page or item (in Title Case)
+	"intl-common:navigation:previous:title": "Vorige", // term for navigating to the previous page or item (in Title Case)
 };
