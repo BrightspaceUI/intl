@@ -12,4 +12,5 @@ export default {
 	"intl-common:characters:pipe": "paipu", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "kaha ninau", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "kaha puana'i", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "Ke kua", // term for navigating back to the previous page in Title Case
 };

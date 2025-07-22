@@ -12,4 +12,5 @@ export default {
 	"intl-common:characters:pipe": "pibell", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "gofynnod", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "dyfynnod", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "Yn ôl", // term for navigating back to the previous page in Title Case
 };

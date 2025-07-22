@@ -12,4 +12,5 @@ export default {
 	"intl-common:characters:pipe": "lodstreck", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "frågetecken", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "citattecken", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "Tillbaka", // term for navigating back to the previous page in Title Case
 };

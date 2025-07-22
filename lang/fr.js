@@ -12,4 +12,5 @@ export default {
 	"intl-common:characters:pipe": "barre verticale", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "point d'interrogation", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "guillemet", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "Retour", // term for navigating back to the previous page in Title Case
 };

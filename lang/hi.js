@@ -12,4 +12,5 @@ export default {
 	"intl-common:characters:pipe": "पाइप", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "प्रश्नवाचक चिह्न", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "उद्धरण चिह्न", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "वापस जाएँ", // term for navigating back to the previous page in Title Case
 };

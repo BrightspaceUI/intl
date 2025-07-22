@@ -12,4 +12,5 @@ export default {
 	"intl-common:characters:pipe": "düz çizgi", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "soru işareti", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "tırnak işareti", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "Geri", // term for navigating back to the previous page in Title Case
 };

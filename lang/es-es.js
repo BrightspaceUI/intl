@@ -12,4 +12,5 @@ export default {
 	"intl-common:characters:pipe": "pleca", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "signo de interrogación", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "comillas", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "Anterior", // term for navigating back to the previous page in Title Case
 };
