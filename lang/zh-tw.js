@@ -12,4 +12,7 @@ export default {
 	"intl-common:characters:pipe": "豎線", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "問號", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "英文雙引號", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "返回", // term for navigating back to the previous page (in Title Case)
+	"intl-common:navigation:next:title": "下一個", // term for navigating to the next page or item (in Title Case)
+	"intl-common:navigation:previous:title": "上一個", // term for navigating to the previous page or item (in Title Case)
 };

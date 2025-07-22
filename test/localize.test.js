@@ -227,6 +227,26 @@ describe('Localize', () => {
 
 		});
 
+		describe('localizeCommon', () => {
+
+			it('should localize "Back"', async() => {
+				const localized = localizerCommon.localizeCommon('navigation:back:title');
+				expect(localized).to.equal('Back');
+			});
+
+			it('should throw an error for unknown terms', async() => {
+				expect(() => localizerCommon.localizeCommon('unknown'))
+					.to.throw('localizeCommon() term not found: "unknown"');
+			});
+
+			it('should throw an error if common resources are not loaded', async() => {
+				await localizer.ready;
+				expect(() => localizer.localizeCommon('navigation:back:title'))
+					.to.throw('localizeCommon() cannot be used unless loadCommon in localizeConfig is enabled');
+			});
+
+		});
+
 	});
 
 	describe('localizeHTML()', () => {

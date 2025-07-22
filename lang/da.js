@@ -12,4 +12,7 @@ export default {
 	"intl-common:characters:pipe": "lodret streg", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "spørgsmålstegn", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "anførselstegn", // short name or description of the '"' character
+	"intl-common:navigation:back:title": "Tilbage", // term for navigating back to the previous page (in Title Case)
+	"intl-common:navigation:next:title": "Næste", // term for navigating to the next page or item (in Title Case)
+	"intl-common:navigation:previous:title": "Forrige", // term for navigating to the previous page or item (in Title Case)
 };
