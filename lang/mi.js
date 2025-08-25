@@ -13,6 +13,6 @@ export default {
 	"intl-common:characters:questionMark": "tohu pātai", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "tohu whakatikatika", // short name or description of the '"' character
 	"intl-common:navigation:back:title": "Whakamuri", // term for navigating back to the previous page (in Title Case)
-	"intl-common:navigation:next:title": "Panuku", // term for navigating to the next page or item (in Title Case)
+	"intl-common:navigation:next:title": "Whai Ake", // term for navigating to the next page or item (in Title Case)
 	"intl-common:navigation:previous:title": "Tōmua", // term for navigating to the previous page or item (in Title Case)
 };
