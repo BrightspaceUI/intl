@@ -22,9 +22,9 @@ describe('timeZones', () => {
 
 		it('should respect region parameter', () => {
 			const timeZones = getTimeZonesData('US');
-			expect(timeZones.length).to.equal(new Intl.Locale('ar-US').getTimeZones().length)
+			expect(timeZones.length).to.equal(new Intl.Locale('ar-US').getTimeZones().length);
 			expect(timeZones[0]).to.have.all.keys('abbreviation', 'city', 'friendlyName', 'localName', 'offset');
-		})
+		});
 
 	});
 });
