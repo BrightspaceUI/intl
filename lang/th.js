@@ -2,7 +2,7 @@ export default {
 	"intl-common:characters:ampersand": "&", // short name or description of the "&" character
 	"intl-common:characters:apostrophe": "‘", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "*", // short name or description of the "*" character
-	"intl-common:characters:backslash": "\\", // short name or description of the"\" character
+	"intl-common:characters:backslash": "“, // short name or description of the"\" character
 	"intl-common:characters:colon": ":", // short name or description of the ":" character
 	"intl-common:characters:comma": ",", // short name or description of the "," character
 	"intl-common:characters:greaterThan": ">", // short name or description of the ">" character
