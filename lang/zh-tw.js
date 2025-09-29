@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "撇號", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "& 符號", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "撇號", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "星號", // short name or description of the "*" character
 	"intl-common:characters:backslash": "反斜線", // short name or description of the "\" character
 	"intl-common:characters:colon": "冒號", // short name or description of the ":" character

@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "Apostroph", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "Kaufmännisches Und", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "Apostroph", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "Sternchen", // short name or description of the "*" character
 	"intl-common:characters:backslash": "Umgekehrter Schrägstrich", // short name or description of the "\" character
 	"intl-common:characters:colon": "Doppelpunkt", // short name or description of the ":" character

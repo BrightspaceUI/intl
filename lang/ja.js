@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "アポストロフィ", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "アンパサンド", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "アポストロフィ", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "星印", // short name or description of the "*" character
 	"intl-common:characters:backslash": "逆斜線", // short name or description of the "\" character
 	"intl-common:characters:colon": "コロン", // short name or description of the ":" character

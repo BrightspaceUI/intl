@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "apostrof", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "og-tegn", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "apostrof", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "stjerne", // short name or description of the "*" character
 	"intl-common:characters:backslash": "omvendt skråstreg", // short name or description of the "\" character
 	"intl-common:characters:colon": "kolon", // short name or description of the ":" character
