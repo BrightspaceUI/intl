@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "collnod", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "ampersand", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "collnod", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "seren", // short name or description of the "*" character
 	"intl-common:characters:backslash": "ôl-slaes", // short name or description of the "\" character
 	"intl-common:characters:colon": "colon", // short name or description of the ":" character

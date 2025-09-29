@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "dấu nháy đơn", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "dấu và", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "dấu nháy đơn", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "dấu hoa thị", // short name or description of the "*" character
 	"intl-common:characters:backslash": "dấu gạch chéo ngược", // short name or description of the "\" character
 	"intl-common:characters:colon": "dấu hai chấm", // short name or description of the ":" character

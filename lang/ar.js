@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "الفاصلة العليا", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "علامة العطف ”&“", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "الفاصلة العليا", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "العلامة النجمية", // short name or description of the "*" character
 	"intl-common:characters:backslash": "الشرطة المائلة", // short name or description of the "\" character
 	"intl-common:characters:colon": "النقطتان", // short name or description of the ":" character
