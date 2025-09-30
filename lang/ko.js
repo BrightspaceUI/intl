@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "아포스트로피", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "앰퍼샌드", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "아포스트로피", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "별표", // short name or description of the "*" character
 	"intl-common:characters:backslash": "백슬래시", // short name or description of the "\" character
 	"intl-common:characters:colon": "콜론", // short name or description of the ":" character

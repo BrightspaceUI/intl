@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "apóstrofo", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "E comercial", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "apóstrofo", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "asterisco", // short name or description of the "*" character
 	"intl-common:characters:backslash": "barra invertida", // short name or description of the "\" character
 	"intl-common:characters:colon": "dois-pontos", // short name or description of the ":" character
