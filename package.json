@@ -1,6 +1,6 @@
 {
   "name": "@brightspace-ui/intl",
-  "version": "3.30.2",
+  "version": "3.30.3",
   "description": "Internationalization APIs for number, date, time and file size formatting and parsing in D2L Brightspace.",
   "main": "lib/number.js",
   "type": "module",
