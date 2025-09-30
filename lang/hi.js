@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "एपोस्ट्रॉफी", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "ऐंपरसैंड", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "एपोस्ट्रॉफी", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "एस्टरिक", // short name or description of the "*" character
 	"intl-common:characters:backslash": "बैकस्लेश", // short name or description of the "\" character
 	"intl-common:characters:colon": "कॉलन", // short name or description of the ":" character

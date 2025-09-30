@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "tohutō", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "me", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "tohutō", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "whetu-riki", // short name or description of the "*" character
 	"intl-common:characters:backslash": "Rarapa whakahoki", // short name or description of the "\" character
 	"intl-common:characters:colon": "kopirua", // short name or description of the ":" character

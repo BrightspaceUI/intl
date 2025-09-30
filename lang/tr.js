@@ -1,6 +1,6 @@
 export default {
-	"intl-common:characters:apostrophe": "kesme işareti", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "ve işareti", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "kesme işareti", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "yıldız işareti", // short name or description of the "*" character
 	"intl-common:characters:backslash": "ters eğik çizgi", // short name or description of the "\" character
 	"intl-common:characters:colon": "iki nokta üst üste", // short name or description of the ":" character

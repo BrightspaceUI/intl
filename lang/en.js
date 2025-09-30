@@ -20,8 +20,8 @@ export default {
 	"intl-common:actions:search": "Search", // search action (in Title Case)
 	"intl-common:actions:submit": "Submit", // submit action (in Title Case)
 	"intl-common:actions:update": "Update", // update action (in Title Case)
-	"intl-common:characters:apostrophe": "apostrophe", // short name or description of the "'" character
 	"intl-common:characters:ampersand": "ampersand", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "apostrophe", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "asterisk", // short name or description of the "*" character
 	"intl-common:characters:backslash": "backslash", // short name or description of the "\" character
 	"intl-common:characters:colon": "colon", // short name or description of the ":" character
