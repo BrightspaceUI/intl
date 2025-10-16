@@ -20,7 +20,7 @@ export default {
 	"intl-common:actions:search": "البحث", // search action (in Title Case)
 	"intl-common:actions:submit": "تسليم", // submit action (in Title Case)
 	"intl-common:actions:update": "تحديث", // update action (in Title Case)
-	"intl-common:characters:ampersand": "علامة العطف \"&\"", // short name or description of the "&" character
+	"intl-common:characters:ampersand": "علامة العطف ”&“", // short name or description of the "&" character
 	"intl-common:characters:apostrophe": "الفاصلة العليا", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "العلامة النجمية", // short name or description of the "*" character
 	"intl-common:characters:backslash": "الشرطة المائلة", // short name or description of the "\" character
