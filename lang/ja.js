@@ -16,7 +16,7 @@ export default {
 	"intl-common:actions:remove": "削除", // remove action (in Title Case)
 	"intl-common:actions:save": "保存", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "保存して閉じる", // save and close action (in Title Case)
-	"intl-common:actions:saveAndNew": "保存と新規", // save and new action (in Title Case)
+	"intl-common:actions:saveAndNew": "保存して新規作成", // save and new action (in Title Case)
 	"intl-common:actions:search": "検索", // search action (in Title Case)
 	"intl-common:actions:submit": "送信", // submit action (in Title Case)
 	"intl-common:actions:update": "更新", // update action (in Title Case)

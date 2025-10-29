@@ -15,7 +15,7 @@ export default {
 	"intl-common:actions:print": "列印", // print action (in Title Case)
 	"intl-common:actions:remove": "移除", // remove action (in Title Case)
 	"intl-common:actions:save": "儲存", // save action (in Title Case)
-	"intl-common:actions:saveAndClose": "儲存與關閉", // save and close action (in Title Case)
+	"intl-common:actions:saveAndClose": "儲存並關閉", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "儲存並新增", // save and new action (in Title Case)
 	"intl-common:actions:search": "搜尋", // search action (in Title Case)
 	"intl-common:actions:submit": "提交", // submit action (in Title Case)

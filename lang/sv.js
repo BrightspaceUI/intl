@@ -1,6 +1,6 @@
 export default {
 	"intl-common:actions:add": "Lägg till", // add action (in Title Case)
-	"intl-common:actions:apply": "Verkställ", // apply action (in Title Case)
+	"intl-common:actions:apply": "Tillämpa", // apply action (in Title Case)
 	"intl-common:actions:browse": "Bläddra", // browse action (in Title Case)
 	"intl-common:actions:cancel": "Avbryt", // cancel action (in Title Case)
 	"intl-common:actions:clear": "Rensa", // clear action (in Title Case)
@@ -17,8 +17,8 @@ export default {
 	"intl-common:actions:save": "Spara", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Spara och stäng", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Spara och ny", // save and new action (in Title Case)
-	"intl-common:actions:search": "Sökning", // search action (in Title Case)
-	"intl-common:actions:submit": "Skicka", // submit action (in Title Case)
+	"intl-common:actions:search": "Sök", // search action (in Title Case)
+	"intl-common:actions:submit": "Skicka in", // submit action (in Title Case)
 	"intl-common:actions:update": "Uppdatera", // update action (in Title Case)
 	"intl-common:characters:ampersand": "et-tecken", // short name or description of the "&" character
 	"intl-common:characters:apostrophe": "apostrof", // short name or description of the "'" character
@@ -34,7 +34,7 @@ export default {
 	"intl-common:characters:questionMark": "frågetecken", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "citattecken", // short name or description of the '"' character
 	"intl-common:confirm:no": "Nej", // no response to a question (in Title Case)
-	"intl-common:confirm:ok": "Ok", // okay response to a question
+	"intl-common:confirm:ok": "OK", // okay response to a question
 	"intl-common:confirm:yes": "Ja", // yes response to a question (in Title Case)
 	"intl-common:navigation:back:title": "Tillbaka", // term for navigating back to the previous page (in Title Case)
 	"intl-common:navigation:continue:title": "Fortsätt", // continue action (in Title Case)

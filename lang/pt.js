@@ -1,7 +1,7 @@
 export default {
 	"intl-common:actions:add": "Adicionar", // add action (in Title Case)
 	"intl-common:actions:apply": "Aplicar", // apply action (in Title Case)
-	"intl-common:actions:browse": "Navegar", // browse action (in Title Case)
+	"intl-common:actions:browse": "Procurar", // browse action (in Title Case)
 	"intl-common:actions:cancel": "Cancelar", // cancel action (in Title Case)
 	"intl-common:actions:clear": "Limpar", // clear action (in Title Case)
 	"intl-common:actions:close": "Fechar", // close action (in Title Case)

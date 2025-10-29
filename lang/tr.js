@@ -1,7 +1,7 @@
 export default {
 	"intl-common:actions:add": "Ekle", // add action (in Title Case)
 	"intl-common:actions:apply": "Uygula", // apply action (in Title Case)
-	"intl-common:actions:browse": "Gözat", // browse action (in Title Case)
+	"intl-common:actions:browse": "Göz at", // browse action (in Title Case)
 	"intl-common:actions:cancel": "İptal", // cancel action (in Title Case)
 	"intl-common:actions:clear": "Temizle", // clear action (in Title Case)
 	"intl-common:actions:close": "Kapat", // close action (in Title Case)
@@ -33,7 +33,7 @@ export default {
 	"intl-common:characters:pipe": "düz çizgi", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "soru işareti", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "tırnak işareti", // short name or description of the '"' character
-	"intl-common:confirm:no": "Yok", // no response to a question (in Title Case)
+	"intl-common:confirm:no": "Hayır", // no response to a question (in Title Case)
 	"intl-common:confirm:ok": "Tamam", // okay response to a question
 	"intl-common:confirm:yes": "Evet", // yes response to a question (in Title Case)
 	"intl-common:navigation:back:title": "Geri", // term for navigating back to the previous page (in Title Case)
