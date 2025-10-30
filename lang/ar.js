@@ -17,7 +17,7 @@ export default {
 	"intl-common:actions:save": "حفظ", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "حفظ وإغلاق", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "حفظ وجديد", // save and new action (in Title Case)
-	"intl-common:actions:search": "البحث", // search action (in Title Case)
+	"intl-common:actions:search": "بحث", // search action (in Title Case)
 	"intl-common:actions:submit": "تسليم", // submit action (in Title Case)
 	"intl-common:actions:update": "تحديث", // update action (in Title Case)
 	"intl-common:characters:ampersand": "علامة العطف ”&“", // short name or description of the "&" character
