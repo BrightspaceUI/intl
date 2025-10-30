@@ -34,7 +34,7 @@ export default {
 	"intl-common:characters:questionMark": "علامة الاستفهام", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "علامة الاقتباس", // short name or description of the '"' character
 	"intl-common:confirm:no": "لا", // no response to a question (in Title Case)
-	"intl-common:confirm:ok": "OK", // okay response to a question
+	"intl-common:confirm:ok": "حسنًا", // okay response to a question
 	"intl-common:confirm:yes": "نعم", // yes response to a question (in Title Case)
 	"intl-common:navigation:back:title": "العودة", // term for navigating back to the previous page (in Title Case)
 	"intl-common:navigation:continue:title": "متابعة", // continue action (in Title Case)
