@@ -1,7 +1,7 @@
 export default {
 	"intl-common:actions:add": "Tilføj", // add action (in Title Case)
 	"intl-common:actions:apply": "Anvend", // apply action (in Title Case)
-	"intl-common:actions:browse": "Gennemse", // browse action (in Title Case)
+	"intl-common:actions:browse": "Søg", // browse action (in Title Case)
 	"intl-common:actions:cancel": "Annuller", // cancel action (in Title Case)
 	"intl-common:actions:clear": "Ryd", // clear action (in Title Case)
 	"intl-common:actions:close": "Luk", // close action (in Title Case)
@@ -18,7 +18,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Gem og luk", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Gem og ny", // save and new action (in Title Case)
 	"intl-common:actions:search": "Søg", // search action (in Title Case)
-	"intl-common:actions:submit": "Aflever", // submit action (in Title Case)
+	"intl-common:actions:submit": "Indsend", // submit action (in Title Case)
 	"intl-common:actions:update": "Opdater", // update action (in Title Case)
 	"intl-common:characters:ampersand": "og-tegn", // short name or description of the "&" character
 	"intl-common:characters:apostrophe": "apostrof", // short name or description of the "'" character

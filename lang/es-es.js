@@ -1,7 +1,7 @@
 export default {
-	"intl-common:actions:add": "Agregar", // add action (in Title Case)
+	"intl-common:actions:add": "Añadir", // add action (in Title Case)
 	"intl-common:actions:apply": "Aplicar", // apply action (in Title Case)
-	"intl-common:actions:browse": "Examinar", // browse action (in Title Case)
+	"intl-common:actions:browse": "Buscar", // browse action (in Title Case)
 	"intl-common:actions:cancel": "Cancelar", // cancel action (in Title Case)
 	"intl-common:actions:clear": "Borrar", // clear action (in Title Case)
 	"intl-common:actions:close": "Cerrar", // close action (in Title Case)
@@ -9,7 +9,7 @@ export default {
 	"intl-common:actions:copy": "Copiar", // copy action (in Title Case)
 	"intl-common:actions:create": "Crear", // create action (in Title Case)
 	"intl-common:actions:delete": "Eliminar", // delete action (in Title Case)
-	"intl-common:actions:done": "Listo", // done action (in Title Case)
+	"intl-common:actions:done": "Hecho", // done action (in Title Case)
 	"intl-common:actions:edit": "Editar", // edit action (in Title Case)
 	"intl-common:actions:finish": "Finalizar", // finish action (in Title Case)
 	"intl-common:actions:print": "Imprimir", // print action (in Title Case)
@@ -34,7 +34,7 @@ export default {
 	"intl-common:characters:questionMark": "signo de interrogación", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "comillas", // short name or description of the '"' character
 	"intl-common:confirm:no": "No", // no response to a question (in Title Case)
-	"intl-common:confirm:ok": "OK", // okay response to a question
+	"intl-common:confirm:ok": "Aceptar", // okay response to a question
 	"intl-common:confirm:yes": "Sí", // yes response to a question (in Title Case)
 	"intl-common:navigation:back:title": "Anterior", // term for navigating back to the previous page (in Title Case)
 	"intl-common:navigation:continue:title": "Continuar", // continue action (in Title Case)

@@ -13,7 +13,7 @@ export default {
 	"intl-common:actions:edit": "Golygu", // edit action (in Title Case)
 	"intl-common:actions:finish": "Gorffen", // finish action (in Title Case)
 	"intl-common:actions:print": "Argraffu", // print action (in Title Case)
-	"intl-common:actions:remove": "Dileu", // remove action (in Title Case)
+	"intl-common:actions:remove": "Tynnu", // remove action (in Title Case)
 	"intl-common:actions:save": "Cadw", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Cadw a Chau", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Cadw a Newydd", // save and new action (in Title Case)
@@ -34,8 +34,8 @@ export default {
 	"intl-common:characters:questionMark": "gofynnod", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "dyfynnod", // short name or description of the '"' character
 	"intl-common:confirm:no": "Na", // no response to a question (in Title Case)
-	"intl-common:confirm:ok": "IAWN", // okay response to a question
-	"intl-common:confirm:yes": "Oes", // yes response to a question (in Title Case)
+	"intl-common:confirm:ok": "Iawn", // okay response to a question
+	"intl-common:confirm:yes": "Ie", // yes response to a question (in Title Case)
 	"intl-common:navigation:back:title": "Yn ôl", // term for navigating back to the previous page (in Title Case)
 	"intl-common:navigation:continue:title": "Parhau", // continue action (in Title Case)
 	"intl-common:navigation:next:title": "Nesaf", // term for navigating to the next page or item (in Title Case)

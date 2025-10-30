@@ -16,7 +16,7 @@ export default {
 	"intl-common:actions:remove": "Eliminar", // remove action (in Title Case)
 	"intl-common:actions:save": "Guardar", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Guardar y cerrar", // save and close action (in Title Case)
-	"intl-common:actions:saveAndNew": "Guardar y nuevo", // save and new action (in Title Case)
+	"intl-common:actions:saveAndNew": "Guardar y nuevo/a", // save and new action (in Title Case)
 	"intl-common:actions:search": "Buscar", // search action (in Title Case)
 	"intl-common:actions:submit": "Enviar", // submit action (in Title Case)
 	"intl-common:actions:update": "Actualizar", // update action (in Title Case)
@@ -34,7 +34,7 @@ export default {
 	"intl-common:characters:questionMark": "signo de interrogación", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "comilla", // short name or description of the '"' character
 	"intl-common:confirm:no": "No", // no response to a question (in Title Case)
-	"intl-common:confirm:ok": "OK", // okay response to a question
+	"intl-common:confirm:ok": "Aceptar", // okay response to a question
 	"intl-common:confirm:yes": "Sí", // yes response to a question (in Title Case)
 	"intl-common:navigation:back:title": "Anterior", // term for navigating back to the previous page (in Title Case)
 	"intl-common:navigation:continue:title": "Continuar", // continue action (in Title Case)

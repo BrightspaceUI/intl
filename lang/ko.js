@@ -11,7 +11,7 @@ export default {
 	"intl-common:actions:delete": "삭제", // delete action (in Title Case)
 	"intl-common:actions:done": "완료", // done action (in Title Case)
 	"intl-common:actions:edit": "편집", // edit action (in Title Case)
-	"intl-common:actions:finish": "완료", // finish action (in Title Case)
+	"intl-common:actions:finish": "마침", // finish action (in Title Case)
 	"intl-common:actions:print": "인쇄", // print action (in Title Case)
 	"intl-common:actions:remove": "제거", // remove action (in Title Case)
 	"intl-common:actions:save": "저장", // save action (in Title Case)
