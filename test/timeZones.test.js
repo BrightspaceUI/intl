@@ -41,18 +41,18 @@ describe('timeZones', () => {
 
 	describe('getTimeZoneData', () => {
 		it('should return valid time zone data', async() => {
-			const timeZoneId = 'America/Los_Angeles';
+			const timeZoneId = 'Pacific/Honolulu';
 
 			const timeZones = await getTimeZoneData(timeZoneId);
 			expect(timeZones).to.deep.equal({
-				abbreviation: 'PDT',
-				city: 'Los Angeles',
+				abbreviation: 'HST',
+				city: 'Honolulu',
 				country: 'United States',
-				friendlyName: 'United States - Los Angeles',
-				identifier: 'America/Los_Angeles',
-				localName: 'Pacific Daylight Time',
-				offset: 'GMT-07:00',
-				inputName: '(GMT-07:00) Los Angeles - Pacific Daylight Time'
+				friendlyName: 'United States - Honolulu',
+				identifier: 'Pacific/Honolulu',
+				localName: 'Hawaii-Aleutian Standard Time',
+				offset: 'GMT-10:00',
+				inputName: '(GMT-10:00) Honolulu - Hawaii-Aleutian Standard Time'
 			});
 		});
 	});
