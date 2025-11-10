@@ -12,12 +12,12 @@ describe('terminology', () => {
 	describe('getTerminology', () => {
 		describe('without key parameter', () => {
 			it('should throw an error', () => {
-				expect(() => getTerminology()).to.throw('Terminology key is required.');
+				expect(() => getTerminology()).to.throw(TypeError, 'Terminology key is required.');
 			});
 		});
 		describe('with invalid key parameter', () => {
 			it('should throw an error', () => {
-				expect(() => getTerminology('invalidKey')).to.throw('Invalid terminology key "invalidKey".');
+				expect(() => getTerminology('invalidKey')).to.throw(TypeError, 'Invalid terminology key "invalidKey".');
 			});
 		});
 		describe('with valid key parameter', () => {
