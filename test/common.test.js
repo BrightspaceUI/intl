@@ -6,6 +6,7 @@ import {
 	supportedLocales
 } from '../lib/common.js';
 import { expect } from '@brightspace-ui/testing';
+import { TerminologyKey } from '../lib/terminology.js';
 
 describe('common', () => {
 
@@ -17,6 +18,7 @@ describe('common', () => {
 		htmlElem.removeAttribute('lang');
 		htmlElem.removeAttribute('data-lang-default');
 		htmlElem.removeAttribute('data-intl-overrides');
+		htmlElem.removeAttribute('data-terminology');
 		htmlElem.removeAttribute('data-timezone');
 		htmlElem.removeAttribute('data-oslo');
 		documentLocaleSettings.reset();
@@ -115,6 +117,22 @@ describe('common', () => {
 		});
 	});
 
+	describe('terminology', () => {
+		it('should have default values for all terminology keys if no data-terminology attribute exists', () => {
+			documentLocaleSettings.sync();
+			const value = documentLocaleSettings.terminology;
+			for (const terminologyKey of Object.values(TerminologyKey)) {
+				expect(value).to.have.property(terminologyKey);
+			}
+		});
+		it('should reflect the parsed value of the data-terminology attribute if it exists', () => {
+			htmlElem.setAttribute('data-terminology', '{"educator":"teacher"}');
+			documentLocaleSettings.sync();
+			const value = documentLocaleSettings.terminology;
+			expect(value).to.deep.equal({ educator: 'teacher' });
+		});
+	});
+
 	describe('oslo', () => {
 		it('should default to null config', () => {
 			documentLocaleSettings.sync();
@@ -201,6 +219,15 @@ describe('common', () => {
 			documentLocaleSettings.reset();
 			documentLocaleSettings.addChangeListener(cb);
 			htmlElem.setAttribute('data-lang-default', 'es');
+		});
+		it('should update terminology if "terminology" gets changed', (done) => {
+			const cb = () => {
+				expect(documentLocaleSettings.terminology).to.deep.equal({ educator: 'teacher' });
+				documentLocaleSettings.removeChangeListener(cb);
+				done();
+			};
+			documentLocaleSettings.addChangeListener(cb);
+			htmlElem.setAttribute('data-terminology', '{"educator": "teacher"}');
 		});
 		it('should update timezone if "timezone" gets changed', (done) => {
 			const cb = () => {
