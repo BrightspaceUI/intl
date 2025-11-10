@@ -274,12 +274,13 @@ Options:
 
 ## Terminology
 
-Use `getTerminology` to get the terminology values defined by the `d2l.Languages.Terminology.*` config-variables.
+Use `getTerminology` to get terminology values defined by `d2l.Languages.Terminology.*` config variables.
 
 ```javascript
-import { getTerminology } from '@brightspace-ui/intl/lib/terminology.js';
+import { getTerminology, TerminologyKey } from '@brightspace-ui/intl/lib/terminology.js';
 
-const terminology = getTerminology(); // -> { educator: 'teacher', ... }
+// Get the terminology value defined by the d2l.Languages.Terminology.Educator config variable
+const educatorTerminology = getTerminology(TerminologyKey.Educator);
 ```
 
 ## Language Localization

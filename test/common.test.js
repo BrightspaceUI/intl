@@ -6,6 +6,7 @@ import {
 	supportedLocales
 } from '../lib/common.js';
 import { expect } from '@brightspace-ui/testing';
+import { TerminologyKey } from '../lib/terminology.js';
 
 describe('common', () => {
 
@@ -117,12 +118,14 @@ describe('common', () => {
 	});
 
 	describe('terminology', () => {
-		it('should default to an empty object', () => {
+		it('should have default values for all terminology keys if no data-terminology attribute exists', () => {
 			documentLocaleSettings.sync();
 			const value = documentLocaleSettings.terminology;
-			expect(value).to.deep.equal({});
+			for (const terminologyKey of Object.values(TerminologyKey)) {
+				expect(value).to.have.property(terminologyKey);
+			}
 		});
-		it('should reflect the parsed value of an existing data-terminology attribute', () => {
+		it('should reflect the parsed value of the data-terminology attribute if it exists', () => {
 			htmlElem.setAttribute('data-terminology', '{"educator":"teacher"}');
 			documentLocaleSettings.sync();
 			const value = documentLocaleSettings.terminology;
