@@ -272,6 +272,16 @@ const separator = getSeparator({ nonBreaking: true }); // -> ',\xa0' in en-US
 Options:
 - **nonBreaking**: a Boolean flag, whether to use non-breaking spaces instead of standard spaces; default is `false`
 
+## Terminology
+
+Use `getTerminology` to get the terminology values defined by the `d2l.Languages.Terminology.*` config-variables.
+
+```javascript
+import { getTerminology } from '@brightspace-ui/intl/lib/terminology.js';
+
+const terminology = getTerminology(); // -> { educator: 'teacher', ... }
+```
+
 ## Language Localization
 
 The `Localize` class allows text to be displayed in the user's preferred language.
