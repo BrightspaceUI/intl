@@ -42,7 +42,7 @@
     "@brightspace-ui/testing": "^1",
     "eslint": "^9",
     "eslint-config-brightspace": "^2",
-    "sinon": "^19.0.2"
+    "sinon": "^21.0.0"
   },
   "dependencies": {
     "intl-messageformat": "^10"
