@@ -21,9 +21,9 @@ export default {
 	"intl-common:actions:submit": "ส่ง", // submit action (in Title Case)
 	"intl-common:actions:update": "อัปเดต", // update action (in Title Case)
 	"intl-common:characters:ampersand": "&", // short name or description of the "&" character
-	"intl-common:characters:apostrophe": "'", // short name or description of the "'" character
+	"intl-common:characters:apostrophe": "‘", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "*", // short name or description of the "*" character
-	"intl-common:characters:backslash": "\\", // short name or description of the"\" character
+	"intl-common:characters:backslash": "“, // short name or description of the"\" character
 	"intl-common:characters:colon": ":", // short name or description of the ":" character
 	"intl-common:characters:comma": ",", // short name or description of the "," character
 	"intl-common:characters:greaterThan": ">", // short name or description of the ">" character
@@ -32,7 +32,7 @@ export default {
 	"intl-common:characters:percentSign": "%", // short name or description of the "%" character
 	"intl-common:characters:pipe": "|", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "?", // short name or description of the "?" character
-	"intl-common:characters:quotationMark": "\"-\"", // short name or description of the '"' character
+	"intl-common:characters:quotationMark": "“-”", // short name or description of the '"' character
 	"intl-common:confirm:no": "ไม่", // no response to a question (in Title Case)
 	"intl-common:confirm:ok": "OK", // okay response to a question
 	"intl-common:confirm:yes": "ใช่", // yes response to a question (in Title Case)
