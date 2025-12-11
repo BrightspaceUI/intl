@@ -23,7 +23,7 @@ export default {
 	"intl-common:characters:ampersand": "&", // short name or description of the "&" character
 	"intl-common:characters:apostrophe": "‘", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "*", // short name or description of the "*" character
-	"intl-common:characters:backslash": "“, // short name or description of the"\" character
+	"intl-common:characters:backslash": "“, // short name or description of the",\" character
 	"intl-common:characters:colon": ":", // short name or description of the ":" character
 	"intl-common:characters:comma": ",", // short name or description of the "," character
 	"intl-common:characters:greaterThan": ">", // short name or description of the ">" character
@@ -39,5 +39,5 @@ export default {
 	"intl-common:navigation:back:title": "ย้อนกลับ", // term for navigating back to the previous page (in Title Case)
 	"intl-common:navigation:continue:title": "ดำเนินการต่อ", // continue action (in Title Case)
 	"intl-common:navigation:next:title": "ถัดไป", // term for navigating to the next page or item (in Title Case)
-	"intl-common:navigation:previous:title": "ก่อนหน้า", // term for navigating to the previous page or item (in Title Case)
+	"intl-common:navigation:previous:title": "ก่อนหน้า" // term for navigating to the previous page or item (in Title Case)
 };
