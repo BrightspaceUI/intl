@@ -5,7 +5,7 @@ export default {
 	"intl-common:actions:cancel": "कैंसल करें", // cancel action (in Title Case)
 	"intl-common:actions:clear": "मिटाएं", // clear action (in Title Case)
 	"intl-common:actions:close": "बंद करें", // close action (in Title Case)
-	"intl-common:actions:confirm": "कन्फ़र्म करें", // confirm action (in Title Case)
+	"intl-common:actions:confirm": "कन्फ़र्म करें", // confirm action (in Title Case)
 	"intl-common:actions:copy": "कॉपी करें", // copy action (in Title Case)
 	"intl-common:actions:create": "बनाएँ", // create action (in Title Case)
 	"intl-common:actions:delete": "हटाएँ", // delete action (in Title Case)
