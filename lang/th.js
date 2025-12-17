@@ -20,21 +20,21 @@ export default {
 	"intl-common:actions:search": "ค้นหา", // search action (in Title Case)
 	"intl-common:actions:submit": "ส่ง", // submit action (in Title Case)
 	"intl-common:actions:update": "อัปเดต", // update action (in Title Case)
-	"intl-common:characters:ampersand": "ampersand", // short name or description of the "&" character
-	"intl-common:characters:apostrophe": "apostrophe", // short name or description of the "'" character
-	"intl-common:characters:asterisk": "asterisk", // short name or description of the "*" character
-	"intl-common:characters:backslash": "backslash", // short name or description of the "\" character
-	"intl-common:characters:colon": "colon", // short name or description of the ":" character
-	"intl-common:characters:comma": "comma", // short name or description of the "," character
-	"intl-common:characters:greaterThan": "greater-than sign", // short name or description of the ">" character
-	"intl-common:characters:lessThan": "less-than sign", // short name or description of the "<" character
-	"intl-common:characters:numberSign": "number sign", // short name or description of the "#" character
-	"intl-common:characters:percentSign": "percent sign", // short name or description of the "%" character
-	"intl-common:characters:pipe": "pipe", // short name or description of the "|" character
-	"intl-common:characters:questionMark": "question mark", // short name or description of the "?" character
-	"intl-common:characters:quotationMark": "quotation mark", // short name or description of the '"' character
+	"intl-common:characters:ampersand": "และ", // short name or description of the "&" character
+	"intl-common:characters:apostrophe": "เครื่องหมายแสดงความเป็นเจ้าของ/ย่อ", // short name or description of the "'" character
+	"intl-common:characters:asterisk": "เครื่องหมายดอกจัน", // short name or description of the "*" character
+	"intl-common:characters:backslash": "เครื่องหมายทับกลับ", // short name or description of the "\" character
+	"intl-common:characters:colon": "เครื่องหมายทวิภาค", // short name or description of the ":" character
+	"intl-common:characters:comma": "เครื่องหมายจุลภาค", // short name or description of the "," character
+	"intl-common:characters:greaterThan": "เครื่องหมายมากกว่า", // short name or description of the ">" character
+	"intl-common:characters:lessThan": "เครื่องหมายน้อยกว่า", // short name or description of the "<" character
+	"intl-common:characters:numberSign": "เครื่องหมายจำนวน", // short name or description of the "#" character
+	"intl-common:characters:percentSign": "เครื่องหมายร้อยละ", // short name or description of the "%" character
+	"intl-common:characters:pipe": "เครื่องหมายขีดตั้ง", // short name or description of the "|" character
+	"intl-common:characters:questionMark": "เครื่องหมายคำถาม", // short name or description of the "?" character
+	"intl-common:characters:quotationMark": "เครื่องหมายคำพูด", // short name or description of the '"' character
 	"intl-common:confirm:no": "ไม่", // no response to a question (in Title Case)
-	"intl-common:confirm:ok": "OK", // okay response to a question
+	"intl-common:confirm:ok": "ตกลง", // okay response to a question
 	"intl-common:confirm:yes": "ใช่", // yes response to a question (in Title Case)
 	"intl-common:navigation:back:title": "ย้อนกลับ", // term for navigating back to the previous page (in Title Case)
 	"intl-common:navigation:continue:title": "ดำเนินการต่อ", // continue action (in Title Case)
