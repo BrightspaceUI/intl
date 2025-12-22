@@ -45,6 +45,6 @@
     "sinon": "^21.0.0"
   },
   "dependencies": {
-    "intl-messageformat": "^10"
+    "intl-messageformat": "^11"
   }
 }
