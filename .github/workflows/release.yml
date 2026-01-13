@@ -16,7 +16,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node
-        uses: Brightspace/third-party-actions@actions/setup-node
+        uses: Brightspace/setup-node@main
         with:
           node-version-file: .nvmrc
       - name: Semantic Release
