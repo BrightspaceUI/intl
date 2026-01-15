@@ -17,7 +17,7 @@ export default [
 	{
 		files: ['lang/*.js'],
 		rules: {
-			'quotes': 0
+			'@stylistic/quotes': 0
 		}
 	}
 ];
