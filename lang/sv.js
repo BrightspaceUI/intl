@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "Klar", // done action (in Title Case)
 	"intl-common:actions:edit": "Redigera", // edit action (in Title Case)
 	"intl-common:actions:finish": "Slutför", // finish action (in Title Case)
+	"intl-common:actions:more": "Mer", // more action (in Title Case)
 	"intl-common:actions:print": "Skriv ut", // print action (in Title Case)
 	"intl-common:actions:remove": "Ta bort", // remove action (in Title Case)
 	"intl-common:actions:save": "Spara", // save action (in Title Case)

@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "Hoàn tất", // done action (in Title Case)
 	"intl-common:actions:edit": "Chỉnh sửa", // edit action (in Title Case)
 	"intl-common:actions:finish": "Xong", // finish action (in Title Case)
+	"intl-common:actions:more": "Xem thêm", // more action (in Title Case)
 	"intl-common:actions:print": "In", // print action (in Title Case)
 	"intl-common:actions:remove": "Loại bỏ", // remove action (in Title Case)
 	"intl-common:actions:save": "Lưu", // save action (in Title Case)

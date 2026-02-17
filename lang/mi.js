@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "Kua oti", // done action (in Title Case)
 	"intl-common:actions:edit": "Whakatika", // edit action (in Title Case)
 	"intl-common:actions:finish": "Mutu", // finish action (in Title Case)
+	"intl-common:actions:more": "Ētahi atu", // more action (in Title Case)
 	"intl-common:actions:print": "Tā", // print action (in Title Case)
 	"intl-common:actions:remove": "Tango", // remove action (in Title Case)
 	"intl-common:actions:save": "Tiaki", // save action (in Title Case)
