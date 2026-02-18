@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "เสร็จสิ้น", // done action (in Title Case)
 	"intl-common:actions:edit": "แก้ไข", // edit action (in Title Case)
 	"intl-common:actions:finish": "เสร็จสิ้น", // finish action (in Title Case)
+	"intl-common:actions:more": "เพิ่มเติม", // more action (in Title Case)
 	"intl-common:actions:print": "พิมพ์", // print action (in Title Case)
 	"intl-common:actions:remove": "ลบ", // remove action (in Title Case)
 	"intl-common:actions:save": "บันทึก", // save action (in Title Case)

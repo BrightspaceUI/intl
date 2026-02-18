@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "Wedi Gorffen", // done action (in Title Case)
 	"intl-common:actions:edit": "Golygu", // edit action (in Title Case)
 	"intl-common:actions:finish": "Gorffen", // finish action (in Title Case)
+	"intl-common:actions:more": "Mwy", // more action (in Title Case)
 	"intl-common:actions:print": "Argraffu", // print action (in Title Case)
 	"intl-common:actions:remove": "Tynnu", // remove action (in Title Case)
 	"intl-common:actions:save": "Cadw", // save action (in Title Case)

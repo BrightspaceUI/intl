@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "Fertig", // done action (in Title Case)
 	"intl-common:actions:edit": "Bearbeiten", // edit action (in Title Case)
 	"intl-common:actions:finish": "Fertigstellen", // finish action (in Title Case)
+	"intl-common:actions:more": "Mehr", // more action (in Title Case)
 	"intl-common:actions:print": "Drucken", // print action (in Title Case)
 	"intl-common:actions:remove": "Entfernen", // remove action (in Title Case)
 	"intl-common:actions:save": "Speichern", // save action (in Title Case)
