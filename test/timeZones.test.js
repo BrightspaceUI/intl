@@ -1,7 +1,7 @@
 import {
 	getTimeZoneData,
+	getTimeZoneIdentifiers,
 	getTimeZonesData,
-	timeZoneIdentifiers,
 	validateTimeZone
 } from '../lib/timeZones.js';
 import { expect } from '@brightspace-ui/testing';
@@ -19,7 +19,7 @@ describe('timeZones', () => {
 
 		it('should return all time zones by default', async() => {
 			const timeZones = await getTimeZonesData();
-			expect(timeZones.length).to.equal(timeZoneIdentifiers.length);
+			expect(timeZones.length).to.equal(getTimeZoneIdentifiers().length);
 			expect(timeZones[0]).to.have.all.keys('abbreviation', 'city', 'country', 'friendlyName', 'identifier', 'inputName', 'localName', 'offset');
 		});
 
