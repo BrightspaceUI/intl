@@ -267,7 +267,7 @@ describe('getLocalizeClass', () => {
 
 		afterEach(() => {
 			documentLocaleSettings.oslo.batch = null;
-		})
+		});
 
 		it('should not update OSLO batch URL if documentLocaleSettings.oslo.batch is falsy', async() => {
 			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], {
