@@ -203,14 +203,15 @@ async function fetchWithCaching(resource) {
 	return await cacheValue.json();
 }
 
-function fetchWithPooling(resource) {
+function fetchWithPooling(resource, languageId = 0) {
 
 	// At most one request per resource.
 
 	let promise = blobs.get(resource);
 	if (promise === undefined) {
 		promise = fetchWithCaching(resource);
-		blobs.set(resource, promise);
+		const key = [resource, languageId].join('-');
+		blobs.set(key, promise);
 	}
 	return promise;
 }
@@ -291,7 +292,7 @@ async function shouldFetchOverrides() {
 	return isOsloAvailable;
 }
 
-async function fetchOverride(formatFunc) {
+async function fetchOverride(formatFunc, languageId = 0) {
 
 	let resource, res, requestURL;
 
@@ -300,7 +301,7 @@ async function fetchOverride(formatFunc) {
 		// If batching is available, pool requests together.
 
 		resource = formatFunc();
-		res = fetchWithPooling(resource);
+		res = fetchWithPooling(resource, languageId);
 
 	} else /* shouldUseCollectionFetch() == true */ {
 
@@ -344,14 +345,15 @@ export function __enableDebugging() {
 export async function getLocalizeOverrideResources(
 	langCode,
 	translations,
-	formatFunc
+	formatFunc,
+	languageId = 0
 ) {
 	const promises = [];
 
 	promises.push(translations);
 
 	if (await shouldFetchOverrides()) {
-		const overrides = await fetchOverride(formatFunc);
+		const overrides = await fetchOverride(formatFunc, languageId);
 		promises.push(overrides);
 	}
 
@@ -363,7 +365,7 @@ export async function getLocalizeOverrideResources(
 	};
 }
 
-export async function getLocalizeResources(
+export async function getLocalizeResources( // dead?
 	possibleLanguages,
 	filterFunc,
 	formatFunc,
