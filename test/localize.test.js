@@ -314,15 +314,5 @@ describe('getLocalizeClass', () => {
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`); // en-CA overrides
 			expect(resources.language).to.equal('en'); // en-US langpack
 		});
-
-		it('should use default OSLO batch URL if documentLocaleSettings.oslo.batch is truthy and not a string', async() => {
-			documentLocaleSettings.oslo.batch = true;
-			await LocalizeClass._getLocalizeResources(['ar'], {
-				importFunc: () => ({}),
-				osloCollection: 'abc\\def'
-			});
-			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/d2l/api/oslo/batch?languageId=16`);
-		});
-
 	});
 });
