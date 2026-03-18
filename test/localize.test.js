@@ -262,57 +262,50 @@ describe('Localize', () => {
 });
 
 describe('getLocalizeClass', () => {
+
 	const LocalizeClass = getLocalizeClass();
+
 	describe('_getLocalizeResources', () => {
+
+		const config = {
+			importFunc: () => ({}),
+			osloCollection: 'abc\\def'
+		}
+
+		beforeEach(() => {
+			documentLocaleSettings.oslo.batch = '/batch/url';
+		});
 
 		afterEach(() => {
 			documentLocaleSettings.oslo.batch = null;
 		});
 
-		it('should not update OSLO batch URL if documentLocaleSettings.oslo.batch is falsy', async() => {
-			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], {
-				importFunc: () => ({}),
-				osloCollection: 'abc\\def'
-			});
+		it('should not update OSLO batch URL if documentLocaleSettings.oslo.batch is falsy', async () => {
+			documentLocaleSettings.oslo.batch = null;
+			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], config);
 			expect(documentLocaleSettings.oslo.batch).to.be.null;
 		});
 
 		it('should update OSLO batch URL to match the resolved language', async() => {
-			documentLocaleSettings.oslo.batch = '/batch/url';
-			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], {
-				importFunc: () => ({}),
-				osloCollection: 'abc\\def'
-			});
+			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=2`);
 		});
 
 		it('should update OSLO batch URL to use en-US given no langs', async() => {
-			documentLocaleSettings.oslo.batch = '/batch/url';
-			await LocalizeClass._getLocalizeResources([], {
-				importFunc: () => ({}),
-				osloCollection: 'abc\\def'
-			});
+			await LocalizeClass._getLocalizeResources([], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
 		});
 
 		it('should handle en-CA as an override langpack only', async() => {
-			documentLocaleSettings.oslo.batch = '/batch/url';
-			const resources = await LocalizeClass._getLocalizeResources(['en-ca', 'en-us'], {
-				importFunc: () => ({}),
-				osloCollection: 'abc\\def'
-			});
+			const resources = await LocalizeClass._getLocalizeResources(['en-ca', 'en-us'], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=13`); // en-CA overrides
 			expect(resources.language).to.equal('en'); // en-US langpack
 		});
 
 		it('should not use en-CA if preceeded by en-US', async() => {
-			documentLocaleSettings.oslo.batch = '/batch/url';
-			const resources = await LocalizeClass._getLocalizeResources(['en-us', 'en-ca'], {
-				importFunc: () => ({}),
-				osloCollection: 'abc\\def'
-			});
-			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`); // en-CA overrides
-			expect(resources.language).to.equal('en'); // en-US langpack
+			const resources = await LocalizeClass._getLocalizeResources(['en-us', 'en-ca'], config);
+			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
+			expect(resources.language).to.equal('en');
 		});
 	});
 });
