@@ -270,7 +270,7 @@ describe('getLocalizeClass', () => {
 		const config = {
 			importFunc: () => ({}),
 			osloCollection: 'abc\\def'
-		}
+		};
 
 		beforeEach(() => {
 			documentLocaleSettings.oslo.batch = '/batch/url';
@@ -280,7 +280,7 @@ describe('getLocalizeClass', () => {
 			documentLocaleSettings.oslo.batch = null;
 		});
 
-		it('should not update OSLO batch URL if documentLocaleSettings.oslo.batch is falsy', async () => {
+		it('should not update OSLO batch URL if documentLocaleSettings.oslo.batch is falsy', async() => {
 			documentLocaleSettings.oslo.batch = null;
 			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], config);
 			expect(documentLocaleSettings.oslo.batch).to.be.null;
