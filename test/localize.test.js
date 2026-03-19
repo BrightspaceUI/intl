@@ -296,16 +296,16 @@ describe('getLocalizeClass', () => {
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
 		});
 
-		it('should handle en-CA as an override langpack only', async() => {
-			const resources = await LocalizeClass._getLocalizeResources(['en-ca', 'en-us'], config);
-			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=13`); // en-CA overrides
-			expect(resources.language).to.equal('en'); // en-US langpack
-		});
-
-		it('should not use en-CA if preceeded by en-US', async() => {
-			const resources = await LocalizeClass._getLocalizeResources(['en-us', 'en-ca'], config);
-			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
-			expect(resources.language).to.equal('en');
+		[
+			[['en-us', 'en-ca'], 1],
+			[['en-ca', 'en-us'], 13],
+			[['en-ca'], 13]
+		].forEach(([langs, expected]) => {
+			it(`should resolve ${langs} to languageId ${expected} for overrides`, async() => {
+				const resources = await LocalizeClass._getLocalizeResources(langs, config);
+				expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=${expected}`);
+				expect(resources.language).to.equal('en'); // always en-US langpack
+			});
 		});
 	});
 });
