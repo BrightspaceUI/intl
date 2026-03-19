@@ -1,4 +1,4 @@
-import { commonResourcesImportCount, Localize, localizeMarkup } from '../lib/localize.js';
+import { commonResourcesImportCount, getLocalizeClass, Localize, localizeMarkup } from '../lib/localize.js';
 import { expect, fixture } from '@brightspace-ui/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 import { spy } from 'sinon';
@@ -259,4 +259,53 @@ describe('Localize', () => {
 
 	});
 
+});
+
+describe('getLocalizeClass', () => {
+
+	const LocalizeClass = getLocalizeClass();
+
+	describe('_getLocalizeResources', () => {
+
+		const config = {
+			importFunc: () => ({}),
+			osloCollection: 'abc\\def'
+		};
+
+		beforeEach(() => {
+			documentLocaleSettings.oslo.batch = '/batch/url';
+		});
+
+		afterEach(() => {
+			documentLocaleSettings.oslo.batch = null;
+		});
+
+		it('should not update OSLO batch URL if documentLocaleSettings.oslo.batch is falsy', async() => {
+			documentLocaleSettings.oslo.batch = null;
+			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], config);
+			expect(documentLocaleSettings.oslo.batch).to.be.null;
+		});
+
+		it('should update OSLO batch URL to match the resolved language', async() => {
+			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], config);
+			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=2`);
+		});
+
+		it('should update OSLO batch URL to use en-US given no langs', async() => {
+			await LocalizeClass._getLocalizeResources([], config);
+			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
+		});
+
+		[
+			[['en-us', 'en-ca'], 1],
+			[['en-ca', 'en-us'], 13],
+			[['en-ca'], 13]
+		].forEach(([langs, expected]) => {
+			it(`should resolve ${langs} to languageId ${expected} for overrides`, async() => {
+				const resources = await LocalizeClass._getLocalizeResources(langs, config);
+				expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=${expected}`);
+				expect(resources.language).to.equal('en'); // always en-US langpack
+			});
+		});
+	});
 });
