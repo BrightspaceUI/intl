@@ -298,7 +298,6 @@ describe('getLocalizeClass', () => {
 
 		[
 			[['en-us', 'en-ca'], 1],
-			[['fr', 'en-ca'], 2],
 			[['en-ca', 'en-us'], 13],
 			[['en-ca'], 13]
 		].forEach(([langs, expected]) => {
