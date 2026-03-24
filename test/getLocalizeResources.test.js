@@ -15,7 +15,7 @@ const VersionPrev = 'W\\"abc123"';
 const OsloBatch = { batch: UrlBatch, collection: UrlCollection, version: VersionPrev };
 const OsloDisabled = { batch: null, collection: null, version: null };
 const OsloSingle = { batch: null, collection: UrlCollection, version: null };
-const UrlOverrides = `${UrlCollection}${ResourceOverrides}`;
+const UrlOverrides = `${UrlCollection}/${ResourceOverrides}`;
 
 function formatFunc() {
 	return 'd2l-package\\some-component';
