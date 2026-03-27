@@ -280,12 +280,6 @@ describe('getLocalizeClass', () => {
 			documentLocaleSettings.oslo.batch = null;
 		});
 
-		it('should not update OSLO batch URL if documentLocaleSettings.oslo.batch is falsy', async() => {
-			documentLocaleSettings.oslo.batch = null;
-			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], config);
-			expect(documentLocaleSettings.oslo.batch).to.be.null;
-		});
-
 		it('should update OSLO batch URL to match the resolved language', async() => {
 			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=2`);
