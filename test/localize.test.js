@@ -274,10 +274,12 @@ describe('getLocalizeClass', () => {
 
 		beforeEach(() => {
 			documentLocaleSettings.oslo.batch = '/batch/url';
+			documentLocaleSettings.oslo.collection = '/collection/url';
 		});
 
 		afterEach(() => {
 			documentLocaleSettings.oslo.batch = null;
+			documentLocaleSettings.oslo.collection = null;
 		});
 
 		it('should update OSLO batch URL to match the resolved language', async() => {
@@ -285,9 +287,21 @@ describe('getLocalizeClass', () => {
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=2`);
 		});
 
+		it('should update OSLO collection URL to match the resolved language', async() => {
+			await LocalizeClass._getLocalizeResources(['fr-be', 'fr', 'en'], config);
+			expect(documentLocaleSettings.oslo.collection).to.equal(`${document.location.origin}/collection/url?languageId=2`);
+		});
+
 		it('should update OSLO batch URL to use en-US given no langs', async() => {
 			await LocalizeClass._getLocalizeResources([], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
+		});
+
+		it('should not update OSLO URLs if collection is null', async () => {
+			documentLocaleSettings.oslo.collection = null;
+			await LocalizeClass._getLocalizeResources(['fr-be'], config);
+			expect(documentLocaleSettings.oslo.batch).to.equal('/batch/url');
+			expect(documentLocaleSettings.oslo.collection).to.be.null;
 		});
 
 		[
