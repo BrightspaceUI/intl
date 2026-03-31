@@ -297,7 +297,7 @@ describe('getLocalizeClass', () => {
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
 		});
 
-		it('should not update OSLO URLs if collection is null', async () => {
+		it('should not update OSLO URLs if collection is null', async() => {
 			documentLocaleSettings.oslo.collection = null;
 			await LocalizeClass._getLocalizeResources(['fr-be'], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal('/batch/url');
