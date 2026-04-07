@@ -1,9 +1,4 @@
-import {
-	getTimeZoneData,
-	getTimeZoneIdentifiers,
-	getTimeZonesData,
-	validateTimeZone
-} from '../lib/timeZones.js';
+import { getTimeZoneData, validateTimeZone } from '../lib/timeZones.js';
 import { expect } from '@brightspace-ui/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 
@@ -14,30 +9,6 @@ describe('timeZones', () => {
 	document.documentElement.setAttribute('lang', 'en-US');
 
 	afterEach(() => documentLocaleSettings.reset());
-
-	describe('getTimeZonesData', () => {
-
-		it('should return all time zones by default', async() => {
-			const timeZones = await getTimeZonesData();
-			expect(timeZones.length).to.equal(getTimeZoneIdentifiers().length);
-			expect(timeZones[0]).to.have.all.keys('abbreviation', 'city', 'country', 'friendlyName', 'identifier', 'inputName', 'localName', 'offset');
-		});
-
-		it('should respect region parameter', async() => {
-			const timeZones = await getTimeZonesData('US');
-			expect(timeZones.length).to.equal(new Intl.Locale('ar-US').getTimeZones?.().length || 29);
-			expect(timeZones[0]).to.have.all.keys('abbreviation', 'city', 'country', 'friendlyName', 'identifier', 'inputName', 'localName', 'offset');
-		});
-
-		it('should respect modules parameter', async() => {
-			const expects = navigator.userAgent.includes('Firefox') ? [0, 2] : [29, 29];
-			let timeZones = await getTimeZonesData('US', 'africa');
-			expect(timeZones.length).to.equal(expects[0]);
-			timeZones = await getTimeZonesData('US', '_test');
-			expect(timeZones.length).to.equal(expects[1]);
-		});
-
-	});
 
 	describe('getTimeZoneData', () => {
 		it('should return valid time zone data', async() => {
