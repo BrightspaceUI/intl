@@ -608,6 +608,7 @@ describe('dateTime', () => {
 
 		[
 			{ format: 'd/M/yyyy', expect: '3/8/2015' },
+			{ format: 'd/M/yy', expect: '3/8/15' },
 			{ format: 'dd.MM.yyyy', expect: '03.08.2015' },
 			{ format: 'dd/MM/yyyy', expect: '03/08/2015' },
 			{ format: 'M/d/yyyy', expect: '8/3/2015' },
@@ -746,6 +747,7 @@ describe('dateTime', () => {
 
 		[
 			{ format: 'd/M/yyyy', val: '9/4/1958' },
+			{ format: 'd/M/yy', val: '9/4/1958' },
 			{ format: 'dd.MM.yyyy', val: '09.04.1958' },
 			{ format: 'dd/MM/yyyy', val: '09/04/1958' },
 			{ format: 'M/d/yyyy', val: '4/9/1958' },
@@ -755,7 +757,7 @@ describe('dateTime', () => {
 			{ format: 'yyyy-MM-dd', val: '1958-04-09' }
 		].forEach((input) => {
 			it(`should parse format "${input.format}"`, () => {
-				documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:input.format } } } };
+				documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short: input.format } } } };
 				const value = parseDate(input.val);
 				expect(value.getFullYear()).to.equal(1958);
 				expect(value.getMonth()).to.equal(3);
