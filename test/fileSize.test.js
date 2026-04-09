@@ -34,6 +34,8 @@ describe('formatFileSize', () => {
 	[
 		{ locale: 'ar', expect: ['1 بايت', '2 بايت', '1 كيلو بايت', '1 ميغا بايت', '1 غيغا بايت'] },
 		{ locale: 'ar-SA', expect: ['1 بايت', '2 بايت', '1 كيلو بايت', '1 ميغا بايت', '1 غيغا بايت'] },
+		{ locale: 'ca', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
+		{ locale: 'ca-ES', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'cy-GB', expect: ['1 beit', '2 beit', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'da', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
 		{ locale: 'da-DK', expect: ['1 byte', '2 bytes', '1 KB', '1 MB', '1 GB'] },
