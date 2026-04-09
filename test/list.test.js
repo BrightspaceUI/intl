@@ -11,6 +11,8 @@ describe('getSeparator', () => {
 	[
 		{ locale: 'ar', expect: [' ، ', '\xa0،\xa0'] },
 		{ locale: 'ar-SA', expect: [' ، ', '\xa0،\xa0'] },
+		{ locale: 'ca', expect: [', ', ',\xa0'] },
+		{ locale: 'ca-ES', expect: [', ', ',\xa0'] },
 		{ locale: 'cy-GB', expect: [', ', ',\xa0'] },
 		{ locale: 'da', expect: [', ', ',\xa0'] },
 		{ locale: 'da-DK', expect: [', ', ',\xa0'] },

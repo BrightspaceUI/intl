@@ -314,6 +314,8 @@ describe('dateTime', () => {
 		[
 			{ locale: 'ar', expect: ['01:28', '1:28 ص', '01:28 EST', '1:28 ص EST', '13:52', '1:52 م', '13:52 EST', '1:52 م EST'] },
 			{ locale: 'ar-SA', expect: ['01:28', '1:28 ص', '01:28 EST', '1:28 ص EST', '13:52', '1:52 م', '13:52 EST', '1:52 م EST'] },
+			{ locale: 'ca', expect: ['1:28', '1:28 a. m.', '1:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
+			{ locale: 'ca-ES', expect: ['1:28', '1:28 a. m.', '1:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
 			{ locale: 'cy-GB', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
 			{ locale: 'da', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
 			{ locale: 'da-DK', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
@@ -555,6 +557,8 @@ describe('dateTime', () => {
 			[
 				{ locale: 'ar', inputs: ['1:28 ص', '01:28', '1:52 م', '13:52'] },
 				{ locale: 'ar-SA', inputs: ['1:28 ص', '01:28', '1:52 م', '13:52'] },
+				{ locale: 'ca', inputs: ['1:28 a. m.', '1:28', '1:52 p. m.', '13:52'] },
+				{ locale: 'ca-ES', inputs: ['1:28 a. m.', '1:28', '1:52 p. m.', '13:52'] },
 				{ locale: 'cy-GB', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
 				{ locale: 'da', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
 				{ locale: 'da-DK', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
@@ -659,6 +663,8 @@ describe('dateTime', () => {
 		[
 			{ locale: 'ar', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
 			{ locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
+			{ locale: 'ca', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'de juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'de juny', 'de juny'] },
+			{ locale: 'ca-ES', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'de juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'de juny', 'de juny'] },
 			{ locale: 'cy-GB', expect: ['Dydd Mawrth, 4 Mehefin 2019', '04 Mehefin 2019', '04/06/2019', 'Mehefin 2019', '4 Mehefin', '4 Meh', 'Dydd Mawrth', 'Maw', 'Mehefin', 'Meh'] },
 			{ locale: 'da', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
 			{ locale: 'da-DK', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
@@ -783,6 +789,8 @@ describe('dateTime', () => {
 			[
 				{ locale: 'ar', date: '29/05/2025' },
 				{ locale: 'ar-SA', date: '29/05/2025' },
+				{ locale: 'ca', date: '29/5/2025' },
+				{ locale: 'ca-ES', date: '29/5/2025' },
 				{ locale: 'cy-GB', date: '29/05/2025' },
 				{ locale: 'da', date: '29.05.2025' },
 				{ locale: 'da-DK', date: '29.05.2025' },
