@@ -663,8 +663,8 @@ describe('dateTime', () => {
 		[
 			{ locale: 'ar', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
 			{ locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
-			{ locale: 'ca', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'de juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'de juny', 'de juny'] },
-			{ locale: 'ca-ES', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'de juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'de juny', 'de juny'] },
+			{ locale: 'ca', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'juny', 'juny'] },
+			{ locale: 'ca-ES', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'juny', 'juny'] },
 			{ locale: 'cy-GB', expect: ['Dydd Mawrth, 4 Mehefin 2019', '04 Mehefin 2019', '04/06/2019', 'Mehefin 2019', '4 Mehefin', '4 Meh', 'Dydd Mawrth', 'Maw', 'Mehefin', 'Meh'] },
 			{ locale: 'da', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
 			{ locale: 'da-DK', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
