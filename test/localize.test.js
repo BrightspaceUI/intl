@@ -315,5 +315,36 @@ describe('getLocalizeClass', () => {
 				expect(resources.language).to.equal('en'); // always en-US langpack
 			});
 		});
+
+		it('should generate valid OSLO absolute URLs inside of a srcdoc', async() => {
+			const iframe = document.createElement('iframe');
+			const p = new Promise(r => {
+				iframe.onload = async() => {
+					const iframeLocalizeClass = iframe.contentWindow.getLocalizeClass();
+					await iframeLocalizeClass._getLocalizeResources(['en'], config);
+					expect(iframe.contentWindow.self.origin).to.equal(document.location.origin);
+					expect(iframe.contentWindow.documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
+					r();
+				};
+			});
+			iframe.srcdoc = `
+				<html>
+				<head>
+					<script type="module">
+						import { getDocumentLocaleSettings } from '../lib/common.js';
+						import { getLocalizeClass } from '../lib/localize.js';
+						window.getLocalizeClass = getLocalizeClass;
+
+						window.documentLocaleSettings = getDocumentLocaleSettings();
+						window.documentLocaleSettings.oslo.batch = '/batch/url';
+						window.documentLocaleSettings.oslo.collection = '/collection/url';
+					</script>
+				</head>
+				<body></body>
+				</html>`;
+			document.body.appendChild(iframe);
+			await p;
+		});
+
 	});
 });
