@@ -316,7 +316,7 @@ describe('getLocalizeClass', () => {
 			});
 		});
 
-		it('should generate valid OSLO absolute URLs inside of a srcdoc', async () => {
+		it('should generate valid OSLO absolute URLs inside of a srcdoc', async() => {
 			const iframe = document.createElement('iframe');
 			const p = new Promise(r => {
 				iframe.onload = async() => {
