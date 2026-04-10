@@ -319,7 +319,7 @@ describe('getLocalizeClass', () => {
 		it('should generate valid OSLO absolute URLs inside of a srcdoc', async () => {
 			const iframe = document.createElement('iframe');
 			const p = new Promise(r => {
-				iframe.onload = async () => {
+				iframe.onload = async() => {
 					const iframeLocalizeClass = iframe.contentWindow.getLocalizeClass();
 					await iframeLocalizeClass._getLocalizeResources(['en'], config);
 					expect(iframe.contentWindow.self.origin).to.equal(document.location.origin);
