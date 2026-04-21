@@ -6,6 +6,24 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"zero",
+			"one",
+			"two",
+			"few",
+			"many",
+			"other"
+		],
+		ordinal: [
+			"zero",
+			"one",
+			"two",
+			"few",
+			"many",
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		aa: "Affareg",
 		ab: "Abchaseg",
@@ -1062,6 +1080,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

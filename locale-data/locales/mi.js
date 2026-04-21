@@ -6,6 +6,14 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"other"
+		],
+		ordinal: [
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		ab: "Apakāhiana",
 		ace: "Akanīhi",
@@ -901,6 +909,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

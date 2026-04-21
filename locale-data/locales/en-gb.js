@@ -6,6 +6,18 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"one",
+			"other"
+		],
+		ordinal: [
+			"one",
+			"two",
+			"few",
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		ff: "Fulah",
 		bla: "Siksika",
@@ -1151,6 +1163,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

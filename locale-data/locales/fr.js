@@ -6,6 +6,17 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"one",
+			"many",
+			"other"
+		],
+		ordinal: [
+			"one",
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		ady: "adygué",
 		ang: "vieil anglais",
@@ -1137,6 +1148,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

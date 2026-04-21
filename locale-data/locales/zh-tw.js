@@ -6,6 +6,14 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"other"
+		],
+		ordinal: [
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		aa: "阿法文",
 		ab: "阿布哈茲文",
@@ -1122,6 +1130,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

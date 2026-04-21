@@ -6,6 +6,14 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"other"
+		],
+		ordinal: [
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		aa: "อะฟาร์",
 		ab: "อับฮาเซีย",
@@ -1141,6 +1149,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

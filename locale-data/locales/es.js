@@ -6,6 +6,16 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"one",
+			"many",
+			"other"
+		],
+		ordinal: [
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		ace: "acehnés",
 		ady: "adigué",
@@ -1066,6 +1076,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

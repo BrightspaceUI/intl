@@ -6,6 +6,19 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"one",
+			"other"
+		],
+		ordinal: [
+			"one",
+			"two",
+			"few",
+			"many",
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		aa: "अफ़ार",
 		ab: "अब्ख़ाज़ियन",
@@ -1047,6 +1060,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

@@ -6,6 +6,19 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"zero",
+			"one",
+			"two",
+			"few",
+			"many",
+			"other"
+		],
+		ordinal: [
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		ar_001: "العربية الرسمية الحديثة",
 		arn: "المابودونجونية",
@@ -1047,6 +1060,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "arab",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

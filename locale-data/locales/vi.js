@@ -6,6 +6,15 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"other"
+		],
+		ordinal: [
+			"one",
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		aa: "Tiếng Afar",
 		ab: "Tiếng Abkhazia",
@@ -1079,6 +1088,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

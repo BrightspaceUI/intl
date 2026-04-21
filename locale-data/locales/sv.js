@@ -6,6 +6,16 @@ export default {
 			lineOrder: "top-to-bottom"
 		}
 	},
+	pluralClass: {
+		cardinal: [
+			"one",
+			"other"
+		],
+		ordinal: [
+			"one",
+			"other"
+		]
+	},
 	langaugeDisplayNames: {
 		aa: "afar",
 		ab: "abchaziska",
@@ -1131,6 +1141,7 @@ export default {
 			titleCase: {}
 		}
 	},
+	numberingSystemId: "latn",
 	numberingSystem: {
 		type: "numeric",
 		digits: [

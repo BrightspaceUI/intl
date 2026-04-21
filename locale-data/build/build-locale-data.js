@@ -47,6 +47,10 @@ await (async() => {
 		data[originalLocale] = {
 			sourceLocale: locale,
 			layout: cldr.extractLayout(locale),
+			pluralClass: {
+				cardinal: cldr.extractPluralClasses(locale, 'cardinal'),
+				ordinal: cldr.extractPluralClasses(locale, 'ordinal')
+			},
 			langaugeDisplayNames: cldr.extractLanguageDisplayNames(locale),
 			territoryDisplayNames: cldr.extractTerritoryDisplayNames(locale),
 			localeDisplayPattern: cldr.extractLocaleDisplayPattern(locale),
@@ -58,6 +62,7 @@ await (async() => {
 					titleCase: utils.shouldTitleCaseMonths(locale)
 				}
 			},
+			numberingSystemId: cldr.extractDefaultNumberSystemId(locale),
 			numberingSystem: cldr.extractNumberingSystem(cldr.extractDefaultNumberSystemId(locale)),
 			numberSymbols: {
 				latn: cldr.extractNumberSymbols(locale, 'latn'),
