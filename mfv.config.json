@@ -1,0 +1,14 @@
+{
+  "source": "en",
+  "path": "./lang/",
+  "localesMap": {
+    "ar": "ar-eg",
+    "es-es": "es",
+    "es": "es-mx",
+    "fr-fr": "fr",
+    "fr-on": "fr-ca",
+    "fr": "fr-ca",
+    "zh-cn": "zh-Hans",
+    "zh-tw": "zh-Hant"
+  }
+}
