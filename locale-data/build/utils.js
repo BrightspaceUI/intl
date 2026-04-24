@@ -73,17 +73,3 @@ export async function shouldTitleCaseMonths(locale) {
 
 	return result;
 }
-
-/**
- * Capitalizes the first letter of a month name if CLDR data indicates it should
- * be title-cased in a UI list or menu context for the given locale.
- *
- * @param {string} monthName - The month name to potentially capitalize
- * @param {string} locale - BCP 47 locale tag (e.g. 'es', 'cs', 'fr-CA')
- * @returns {string}
- */
-export async function capitalizeMonthForUI(monthName, locale) {
-	const titleCase = await shouldTitleCaseMonths(locale);
-	if (!titleCase.standaloneUiListOrMenu) return monthName;
-	return monthName.charAt(0).toUpperCase() + monthName.slice(1);
-}
