@@ -51,8 +51,6 @@ await (async() => {
 				cardinal: cldr.extractPluralClasses(locale, 'cardinal'),
 				ordinal: cldr.extractPluralClasses(locale, 'ordinal')
 			},
-			langaugeDisplayNames: cldr.extractLanguageDisplayNames(locale),
-			territoryDisplayNames: cldr.extractTerritoryDisplayNames(locale),
 			localeDisplayPattern: cldr.extractLocaleDisplayPattern(locale),
 			dateFormats: cldr.extractDateFormats(locale, 'gregorian'),
 			dateFormatItems: cldr.extractDateFormatItems(locale, 'gregorian'),
