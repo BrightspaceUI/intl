@@ -25,10 +25,9 @@ export async function shouldTitleCaseMonths(locale) {
 		standaloneUiListOrMenu: false,
 	};
 
-	const candidates = [
-		locale.replace('-', '_'),
-		locale.split('-')[0],
-	];
+	const regional = locale.replace('-', '_');
+	const base = locale.split('-')[0];
+	const candidates = regional !== base ? [regional, base] : [base];
 
 	for (const candidate of candidates) {
 		try {
@@ -37,9 +36,15 @@ export async function shouldTitleCaseMonths(locale) {
 				return { ...result, ...override.default.shouldTitleCaseMonths };
 			}
 		} catch {
-			// no override file, continue to CLDR
+			// no override file
 		}
 	}
+
+	// Check CLDR XML. Always include both the regional and base language files as
+	// candidates, matching ICU4J's getWithFallback() resource bundle inheritance behaviour.
+	// A regional file with no `<contextTransforms>` block, or one that has the block but
+	// omits month entries entirely, is treated as "inherit from parent" — we `continue`
+	// in both cases so the base locale's month rules are used as the fallback.
 
 	for (const candidate of candidates) {
 		const filePath = resolve(cldrMainPath, `${candidate}.xml`);
@@ -50,19 +55,22 @@ export async function shouldTitleCaseMonths(locale) {
 			continue;
 		}
 
-		if (!xml.includes('<contextTransforms>')) return result;
+		if (!xml.includes('<contextTransforms>')) continue;
 
 		const formatBlock = xml.match(
 			/<contextTransformUsage\s+type="month-format-except-narrow">([\s\S]*?)<\/contextTransformUsage>/
 		);
+		const standaloneBlock = xml.match(
+			/<contextTransformUsage\s+type="month-standalone-except-narrow">([\s\S]*?)<\/contextTransformUsage>/
+		);
+
+		if (!formatBlock && !standaloneBlock) continue;
+
 		if (formatBlock) {
 			result.formatStandAlone = formatBlock[1].includes('type="stand-alone"');
 			result.formatUiListOrMenu = formatBlock[1].includes('type="uiListOrMenu"');
 		}
 
-		const standaloneBlock = xml.match(
-			/<contextTransformUsage\s+type="month-standalone-except-narrow">([\s\S]*?)<\/contextTransformUsage>/
-		);
 		if (standaloneBlock) {
 			result.standaloneStandAlone = standaloneBlock[1].includes('type="stand-alone"');
 			result.standaloneUiListOrMenu = standaloneBlock[1].includes('type="uiListOrMenu"');

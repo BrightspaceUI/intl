@@ -1,8 +1,6 @@
 export default {
 	shouldTitleCaseMonths: {
-		formatStandAlone: false,
-		formatUiListOrMenu: false,
-		standaloneStandAlone: false,
+		standaloneStandAlone: true,
 		standaloneUiListOrMenu: true,
 	},
 };
