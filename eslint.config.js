@@ -15,7 +15,7 @@ export default [
 		},
 	},
 	{
-		files: ['lang/*.js'],
+		files: ['lang/*.js', 'locale-data/locales/*.js'],
 		rules: {
 			'@stylistic/quotes': 0
 		}
