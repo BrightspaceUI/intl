@@ -13,6 +13,7 @@
   "files": [
     "/lang",
     "/lib",
+    "!/lib/locale-data",
     "/helpers"
   ],
   "publishConfig": {
