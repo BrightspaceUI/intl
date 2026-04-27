@@ -1,11 +1,8 @@
 import * as utils from './utils.js';
 import { cwd, exit, stderr, stdout } from 'node:process';
-import { dirname, posix } from 'node:path';
-import { readdir, writeFile } from 'node:fs/promises';
 import cldr from 'cldr';
-import config from '../../mfv.config.json' with { type: 'json' };
-
-const SAVE_PATH = posix.join(dirname(import.meta.url), '../locales/{locale}.js').replace(/file:(\/c:)?/i, '');
+import config from '../mfv.config.json' with { type: 'json' };
+import { readdir } from 'node:fs/promises';
 
 function getDelimiters(locale) {
 	let delimiters;
@@ -28,12 +25,12 @@ function getDelimiters(locale) {
 	return delimiters;
 }
 
-await (async() => {
+export async function generateLocaleData() {
 
 	const data = {};
-
 	const locales = config.path && (await readdir(`${cwd()}/${config.path}`).catch(() => {}))?.map(f => f.split('.')[0]);
 	const padLength = Math.max(...locales.map(l => l.length)) + 1;
+
 	locales.forEach(locale => {
 		const originalLocale = locale;
 		try {
@@ -71,13 +68,5 @@ await (async() => {
 		};
 	});
 
-	locales.forEach(async locale => {
-		const contents = `export default ${JSON.stringify(data[locale], null, '\t')};\n`;
-
-		await writeFile(
-			SAVE_PATH.replace('{locale}', locale),
-			// unquote keys, leaving octals and other invalid identifiers alone
-			contents.replace(new RegExp('"([\\p{L}[\\p{Nd}--[0]]_][\\p{L}\\p{Nd}_]+?|[\\p{L}\\p{Nd}_])":', 'giv'), '$1:')
-		);
-	});
-})();
+	return data;
+}
