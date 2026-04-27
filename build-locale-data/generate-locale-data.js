@@ -41,8 +41,21 @@ export async function generateLocaleData() {
 			stderr.write(e.message);
 			exit(1);
 		}
+
+		const [languageCode, territoryCode] = locale.split('-');
+		const languageDisplayName = cldr.extractLanguageDisplayNames(locale)[languageCode];
+		const territoryDisplayName = cldr.extractTerritoryDisplayNames(locale)[territoryCode];
+		const scriptDisplayName = cldr.extractScriptDisplayNames(locale)[territoryCode];
+
 		data[originalLocale] = {
+			languageDisplayName,
+			territoryDisplayName,
+			scriptDisplayName,
+			localeDisplayName: cldr.extractLocaleDisplayPattern(locale).localePattern
+				.replace('{0}', languageDisplayName)
+				.replace('{1}', territoryDisplayName || scriptDisplayName || ''),
 			sourceLocale: locale,
+			localeCode: originalLocale,
 			layout: cldr.extractLayout(locale),
 			pluralClass: {
 				cardinal: cldr.extractPluralClasses(locale, 'cardinal'),
