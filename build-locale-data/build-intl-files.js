@@ -1,20 +1,45 @@
 import { dirname, posix } from 'node:path';
+import {
+	supportedBaseLocales as existingBaseLocales,
+	supportedLangpacks as existingLangpacks,
+	supportedLocalesDetails as existingLocalesDetails
+} from '../lib/locale-data/supported.js';
 import { readFile, writeFile } from 'node:fs/promises';
-import { supportedLocalesDetails as existingLocaleDetails } from '../lib/locale-data/supported.js';
-import { log } from 'node:console';
+import { env } from 'node:process';
 
+const { NEW_LOCALE } = env;
 const PATH_LOCALE_DATA = posix.join(dirname(import.meta.url), '../lib/locale-data/locales/{locale}.js').replace(/file:(\/c:)?/i, '');
 const PATH_SUPPORTED = posix.join(dirname(import.meta.url), '../lib/locale-data/supported.js').replace(/file:(\/c:)?/i, '');
 const COMMENT_DELIMITER = '// end generated locale data';
 
 export async function buildIntlFiles(data) {
 	let supportedContents = await readFile(PATH_SUPPORTED, 'utf-8');
-	const supportedBaseLocales = new Set();
-	const supportedLangpacks = [];
+	const supportedBaseLocales = new Set(existingBaseLocales);
+	const supportedLangpacks = [ ...existingLangpacks ];
 	const supportedLocaleDetails = [];
+
+	if (NEW_LOCALE) {
+		if (existingLocalesDetails.find(l => l.code === NEW_LOCALE)) {
+			throw new Error(`Locale ${NEW_LOCALE} already exists. Choose a different locale code.`);
+		}
+		const id = existingLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
+		const newLocaleBase = NEW_LOCALE.split('-')[0];
+		const newLocaleData = data[NEW_LOCALE] || !existingBaseLocales.includes(newLocaleBase) && data[newLocaleBase];
+		if (!newLocaleData) {
+			throw new Error(`Locale data for ${NEW_LOCALE} not found. Make sure to include it in the source data.`);
+		}
+		supportedLocaleDetails.push({ id, code: NEW_LOCALE, source: data[NEW_LOCALE].sourceLocale, pack: '${NEW_LOCALE}', dir: 'ltr', name: 'TODO: locale display name' });
+		supportedBaseLocales.add(NEW_LOCALE.split('-')[0]);
+		if (supportedLangpacks.includes(newLocaleBase)) {
+			supportedLangpacks.push(NEW_LOCALE);
+		} else {
+			supportedLangpacks.push(newLocaleBase);
+		}
+	}
+
 	Object.keys(data).forEach(async locale => {
-		const { id, code } = existingLocaleDetails.find(l => l.pack === locale) || {};
-		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${locale}', source: '${data[locale].sourceLocale}', pack: '${locale}', dir: '${data[locale].layout.orientation.characterOrder}', name: '${data[locale].localeDisplayName}' },`);
+		const { id, code } = existingLocalesDetails.find(l => l.pack === locale) || {};
+		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', pack: '${locale}', dir: '${data[locale].layout.orientation.characterOrder}', name: '${data[locale].localeDisplayName}' },`);
 		supportedBaseLocales.add(locale.split('-')[0]);
 		supportedLangpacks.push(locale);
 
