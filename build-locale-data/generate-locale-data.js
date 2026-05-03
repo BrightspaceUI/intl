@@ -57,7 +57,6 @@ export async function generateLocaleData() {
 			sourceLocale: locale,
 			localeCode: originalLocale,
 			layout: cldr.extractLayout(locale),
-			characters: cldr.extractCharacters(locale),
 			pluralClass: {
 				cardinal: cldr.extractPluralClasses(locale, 'cardinal'),
 				ordinal: cldr.extractPluralClasses(locale, 'ordinal')
