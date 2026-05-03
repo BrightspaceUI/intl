@@ -2,13 +2,12 @@
   "source": "en",
   "path": "./lang/",
   "localesMap": {
-    "ar": "ar-eg",
     "es-es": "es",
-    "es": "es-mx",
+    "es": "es-MX",
     "fr-fr": "fr",
-    "fr-on": "fr-ca",
-    "fr": "fr-ca",
-    "zh-cn": "zh-Hans",
+    "fr-on": "fr-CA-u-sd-caon",
+    "fr": "fr-CA",
+    "zh-cn": "zh",
     "zh-tw": "zh-Hant"
   }
 }

@@ -35,25 +35,57 @@ export async function generateLocaleData() {
 		const originalLocale = locale;
 		try {
 			locale = config.localesMap[locale] || locale;
-			locale = Intl.getCanonicalLocales(locale.trim().toLowerCase())[0];
+			locale = Intl.getCanonicalLocales([locale])[0];
 			stdout.write(`${originalLocale.padEnd(padLength)}${locale !== originalLocale ? ` ->  ${locale}` : ''}\n`);
 		} catch (e) {
 			stderr.write(e.message);
 			exit(1);
 		}
 
-		const [languageCode, territoryCode] = locale.split('-');
-		const languageDisplayName = cldr.extractLanguageDisplayNames(locale)[languageCode];
-		const territoryDisplayName = cldr.extractTerritoryDisplayNames(locale)[territoryCode];
-		const scriptDisplayName = cldr.extractScriptDisplayNames(locale)[territoryCode];
+		const [ coreLocaleTag, unicodeExtensions ] = locale.split('-u-');
+		const {
+			//ca: calendar,
+			co: collation,
+			hc: hourCycle,
+			nu: numberingSystemId,
+			sd: subdivision
+		} = Object.fromEntries(
+			unicodeExtensions?.match(/(?:[a-z]{2}-([a-z0-9]+))/g)
+				.map(e => e.split('-')) || []
+		);
+
+		let gc, languageTag, territoryTag, scriptTag;
+		try {
+			({ language: languageTag, region: territoryTag, script: scriptTag } = new Intl.Locale(coreLocaleTag));
+		} catch {
+			[gc, languageTag, scriptTag, territoryTag] =
+				//                    [ language ]    [    script   ]      [territory]
+				coreLocaleTag.match(/^([a-z]{2,3})(?:-([A-Z][a-z]{3}))?(?:-([A-Z]{2}))?/);
+		}
+
+		locale = [languageTag, scriptTag, territoryTag].filter(Boolean).join('-');
+
+		const languageDisplayName = cldr.extractLanguageDisplayNames(locale)[languageTag];
+		const territoryDisplayName = cldr.extractTerritoryDisplayNames(locale)[territoryTag];
+		const subdivisionDisplayName = subdivision && cldr.extractSubdivisionDisplayNames(locale)[subdivision];
+		const scriptDisplayName = cldr.extractScriptDisplayNames(locale)[scriptTag];
+
+		const localeQualifiers = [territoryDisplayName, subdivisionDisplayName, scriptDisplayName].reduce((acc, q) => {
+			return acc
+				? (q ? cldr.extractLocaleDisplayPattern(locale).localeSeparator
+					.replace('{0}', acc)
+					.replace('{1}', q) : acc)
+				: q;
+		}, '');
 
 		data[originalLocale] = {
 			languageDisplayName,
 			territoryDisplayName,
 			scriptDisplayName,
-			localeDisplayName: cldr.extractLocaleDisplayPattern(locale).localePattern
+			localeDisplayName: localeQualifiers ? cldr.extractLocaleDisplayPattern(locale).localePattern
 				.replace('{0}', languageDisplayName)
-				.replace('{1}', territoryDisplayName || scriptDisplayName || ''),
+				.replace('{1}', localeQualifiers)
+				: languageDisplayName,
 			sourceLocale: locale,
 			localeCode: originalLocale,
 			layout: cldr.extractLayout(locale),
@@ -70,7 +102,7 @@ export async function generateLocaleData() {
 					titleCase: utils.shouldTitleCaseMonths(locale)
 				}
 			},
-			numberingSystemId: cldr.extractDefaultNumberSystemId(locale),
+			numberingSystemId: numberingSystemId || cldr.extractDefaultNumberSystemId(locale),
 			numberingSystem: cldr.extractNumberingSystem(cldr.extractDefaultNumberSystemId(locale)),
 			numberSymbols: {
 				latn: cldr.extractNumberSymbols(locale, 'latn'),
