@@ -15,7 +15,7 @@ const COMMENT_DELIMITER = '// end generated locale data';
 export async function buildIntlFiles(data) {
 	let supportedContents = await readFile(PATH_SUPPORTED, 'utf-8');
 	const supportedBaseLocales = new Set(existingBaseLocales);
-	const supportedLangpacks = [ ...existingLangpacks ];
+	const supportedLangpacks = new Set(existingLangpacks);
 	const supportedLocaleDetails = [];
 
 	if (NEW_LOCALE) {
@@ -31,9 +31,9 @@ export async function buildIntlFiles(data) {
 		supportedLocaleDetails.push({ id, code: NEW_LOCALE, source: data[NEW_LOCALE].sourceLocale, pack: '${NEW_LOCALE}', dir: 'ltr', name: 'TODO: locale display name' });
 		supportedBaseLocales.add(NEW_LOCALE.split('-')[0]);
 		if (supportedLangpacks.includes(newLocaleBase)) {
-			supportedLangpacks.push(NEW_LOCALE);
+			supportedLangpacks.add(NEW_LOCALE);
 		} else {
-			supportedLangpacks.push(newLocaleBase);
+			supportedLangpacks.add(newLocaleBase);
 		}
 	}
 
@@ -41,7 +41,7 @@ export async function buildIntlFiles(data) {
 		const { id, code } = existingLocalesDetails.find(l => l.pack === locale) || {};
 		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', pack: '${locale}', dir: '${data[locale].layout.orientation.characterOrder === 'right-to-left' ? 'rtl' : 'ltr'}', name: '${data[locale].localeDisplayName}' },`);
 		supportedBaseLocales.add(locale.split('-')[0]);
-		supportedLangpacks.push(locale);
+		supportedLangpacks.add(locale);
 
 		const contents = `export default ${JSON.stringify(data[locale], null, '\t')};\n`;
 
@@ -53,7 +53,7 @@ export async function buildIntlFiles(data) {
 	});
 
 	const supportedBaseLocalesString = `export const supportedBaseLocales = ['${[...supportedBaseLocales].join("', '")}'];`;
-	const supportedLangpacksString = `export const supportedLangpacks = ['${supportedLangpacks.join("', '")}'];`;
+	const supportedLangpacksString = `export const supportedLangpacks = ['${[...supportedLangpacks].join("', '")}'];`;
 	const supportedLocaleDetailsString = `export const supportedLocalesDetails = [${supportedLocaleDetails.join('')}\n];`;
 
 	supportedContents =
