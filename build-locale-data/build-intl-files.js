@@ -39,7 +39,7 @@ export async function buildIntlFiles(data) {
 
 	Object.keys(data).forEach(async locale => {
 		const { id, code } = existingLocalesDetails.find(l => l.pack === locale) || {};
-		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', pack: '${locale}', dir: '${data[locale].layout.orientation.characterOrder}', name: '${data[locale].localeDisplayName}' },`);
+		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', pack: '${locale}', dir: '${data[locale].layout.orientation.characterOrder === 'right-to-left' ? 'rtl' : 'ltr'}', name: '${data[locale].localeDisplayName}' },`);
 		supportedBaseLocales.add(locale.split('-')[0]);
 		supportedLangpacks.push(locale);
 
