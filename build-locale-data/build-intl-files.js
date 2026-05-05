@@ -1,11 +1,11 @@
 import { dirname, posix } from 'node:path';
+import { env, exit, stderr } from 'node:process';
 import {
 	supportedBaseLocales as existingBaseLocales,
 	supportedLangpacks as existingLangpacks,
 	supportedLocalesDetails as existingLocalesDetails
 } from '../lib/locale-data/supported.js';
 import { readFile, writeFile } from 'node:fs/promises';
-import { env } from 'node:process';
 
 const { NEW_LOCALE } = env;
 const PATH_LOCALE_DATA = posix.join(dirname(import.meta.url), '../lib/locale-data/locales/{locale}.js').replace(/file:(\/c:)?/i, '');
@@ -19,26 +19,33 @@ export async function buildIntlFiles(data) {
 	const supportedLocaleDetails = [];
 
 	if (NEW_LOCALE) {
-		if (existingLocalesDetails.find(l => l.code === NEW_LOCALE)) {
-			throw new Error(`Locale ${NEW_LOCALE} already exists. Choose a different locale code.`);
+		const existingLocale = existingLocalesDetails.find(l =>
+			l.code.toLowerCase() === NEW_LOCALE.toLowerCase()
+			|| l.source.toLowerCase() === NEW_LOCALE.toLowerCase()
+			&& l.overrideCode !== NEW_LOCALE)
+		if (existingLocale) {
+			stderr.write(`\nError: Locale ${NEW_LOCALE} already exists${existingLocale.pack !== NEW_LOCALE ? ` as ${existingLocale.pack}` : ''}. Choose a different locale code.`);
+			exit(1);
 		}
-		const id = existingLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
+		//const id = existingLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
 		const newLocaleBase = NEW_LOCALE.split('-')[0];
 		const newLocaleData = data[NEW_LOCALE] || !existingBaseLocales.includes(newLocaleBase) && data[newLocaleBase];
 		if (!newLocaleData) {
-			throw new Error(`Locale data for ${NEW_LOCALE} not found. Make sure to include it in the source data.`);
+			stderr.err(`\nError: Locale data for ${NEW_LOCALE} not found. Choose a different locale code.`);
 		}
-		supportedLocaleDetails.push({ id, code: NEW_LOCALE, source: data[NEW_LOCALE].sourceLocale, pack: '${NEW_LOCALE}', dir: 'ltr', name: 'TODO: locale display name' });
+		//supportedLocaleDetails.push({ id, code: NEW_LOCALE, source: data[NEW_LOCALE].sourceLocale, pack: '${NEW_LOCALE}', dir: 'ltr', name: 'TODO: locale display name' });
 		supportedBaseLocales.add(NEW_LOCALE.split('-')[0]);
-		if (supportedLangpacks.includes(newLocaleBase)) {
-			supportedLangpacks.add(NEW_LOCALE);
+		if (supportedLangpacks.has(newLocaleBase)) {
+			//supportedLangpacks.add(NEW_LOCALE);
 		} else {
 			supportedLangpacks.add(newLocaleBase);
 		}
 	}
 
+	const newId = existingLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
+
 	Object.keys(data).forEach(async locale => {
-		const { id, code } = existingLocalesDetails.find(l => l.pack === locale) || {};
+		const { id = newId, code = NEW_LOCALE } = existingLocalesDetails.find(l => l.pack === locale) || {};
 		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', pack: '${locale}', dir: '${data[locale].layout.orientation.characterOrder === 'right-to-left' ? 'rtl' : 'ltr'}', name: '${data[locale].localeDisplayName}' },`);
 		supportedBaseLocales.add(locale.split('-')[0]);
 		supportedLangpacks.add(locale);
