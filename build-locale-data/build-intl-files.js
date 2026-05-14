@@ -56,7 +56,7 @@ export async function buildIntlFiles(data) {
 		const dir = data[locale]?.layout.orientation.characterOrder === 'right-to-left' ? 'rtl' : 'ltr';
 		const packStr = (name && pack) || (code === NEW_LOCALE) ? `pack: '${locale}', ` : '';
 		const overrideCodeStr = overrideCode ? `overrideCode: '${overrideCode}', ` : '';
-		const localeDisplayName = NEW_LOCALE ? name || data[locale]?.localeDisplayName : name;
+		const localeDisplayName = NEW_LOCALE ? name || data[locale]?.localeDisplayName : data[locale]?.localeDisplayName;
 		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', ${packStr}${overrideCodeStr}dir: '${dir}', name: '${localeDisplayName}' },`);
 		supportedBaseLocales.add(locale.split('-')[0]);
 		if (pack || code === NEW_LOCALE) supportedLangpacks.add(locale);
