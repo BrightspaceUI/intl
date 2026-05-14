@@ -21,20 +21,21 @@ export async function buildIntlFiles(data) {
 	if (NEW_LOCALE) {
 		const existingLocale = existingLocalesDetails.find(l =>
 			l.code.toLowerCase() === NEW_LOCALE.toLowerCase()
-			|| l.source.toLowerCase() === NEW_LOCALE.toLowerCase()
+			|| l.source?.toLowerCase() === NEW_LOCALE.toLowerCase()
 			&& l.overrideCode !== NEW_LOCALE)
 		if (existingLocale) {
-			stderr.write(`\nError: Locale ${NEW_LOCALE} already exists${existingLocale.pack !== NEW_LOCALE ? ` as ${existingLocale.pack}` : ''}. Choose a different locale code.`);
+			stderr.write(`\nError: Locale "${NEW_LOCALE}" already exists${existingLocale.pack && existingLocale.pack !== NEW_LOCALE ? ` as "${existingLocale.pack}"` : ''}. Choose a different locale code.`);
 			exit(1);
 		}
-		//const id = existingLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
+
 		const newLocaleBase = NEW_LOCALE.split('-')[0];
 		const newLocaleData = data[NEW_LOCALE] || !existingBaseLocales.includes(newLocaleBase) && data[newLocaleBase];
 		if (!newLocaleData) {
-			stderr.err(`\nError: Locale data for ${NEW_LOCALE} not found. Choose a different locale code.`);
+			stderr.write(`\nError: Locale data for "${NEW_LOCALE}" not found. Choose a different locale code.`);
+			exit(1);
 		}
-		//supportedLocaleDetails.push({ id, code: NEW_LOCALE, source: data[NEW_LOCALE].sourceLocale, pack: '${NEW_LOCALE}', dir: 'ltr', name: 'TODO: locale display name' });
-		supportedBaseLocales.add(NEW_LOCALE.split('-')[0]);
+
+		supportedBaseLocales.add(newLocaleBase);
 		if (supportedLangpacks.has(newLocaleBase)) {
 			//supportedLangpacks.add(NEW_LOCALE);
 		} else {
@@ -45,10 +46,20 @@ export async function buildIntlFiles(data) {
 	const newId = existingLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
 
 	Object.keys(data).forEach(async locale => {
-		const { id = newId, code = NEW_LOCALE } = existingLocalesDetails.find(l => l.pack === locale) || {};
-		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', pack: '${locale}', dir: '${data[locale].layout.orientation.characterOrder === 'right-to-left' ? 'rtl' : 'ltr'}', name: '${data[locale].localeDisplayName}' },`);
+		const {
+			id = newId,
+			code = locale,
+			overrideCode,
+			name,
+			pack
+		} = existingLocalesDetails.find(l => l.pack === locale) || existingLocalesDetails.find(l => l.code === locale) || {};
+		const dir = data[locale]?.layout.orientation.characterOrder === 'right-to-left' ? 'rtl' : 'ltr';
+		const packStr = (name && pack) || (code === NEW_LOCALE) ? `pack: '${locale}', ` : '';
+		const overrideCodeStr = overrideCode ? `overrideCode: '${overrideCode}', ` : '';
+		const localeDisplayName = NEW_LOCALE ? name || data[locale]?.localeDisplayName : name;
+		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', ${packStr}${overrideCodeStr}dir: '${dir}', name: '${localeDisplayName}' },`);
 		supportedBaseLocales.add(locale.split('-')[0]);
-		supportedLangpacks.add(locale);
+		if (pack || code === NEW_LOCALE) supportedLangpacks.add(locale);
 
 		const contents = `export default ${JSON.stringify(data[locale], null, '\t')};\n`;
 

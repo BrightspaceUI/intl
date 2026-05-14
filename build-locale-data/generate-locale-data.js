@@ -1,8 +1,8 @@
 import * as utils from './utils.js';
-import { cwd, env, exit, stderr, stdout } from 'node:process';
+import { env, exit, stderr, stdout } from 'node:process';
 import cldr from 'cldr';
 import config from '../mfv.config.json' with { type: 'json' };
-import { readdir } from 'node:fs/promises';
+import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
 
 const { NEW_LOCALE } = env;
 
@@ -30,18 +30,20 @@ function getDelimiters(locale) {
 export async function generateLocaleData() {
 
 	const data = {};
-	const locales = config.path && (await readdir(`${cwd()}/${config.path}`).catch(() => [])).map(f => f.split('.')[0]);
+	const locales = supportedLocalesDetails.map(l => l.pack || l.code)
 	const padOriginalLength = Math.max(...locales.map(l => l.length)) + 1;
 	const padMappedLength = Math.max(...Object.values(config.localesMap).map(l => l.length)) + 1;
 
 	if (NEW_LOCALE) {
-		const sourceLocale = utils.getLikelySubtagSource(NEW_LOCALE);
+		const sourceLocale = utils.getLikelySubtagSource(Intl.getCanonicalLocales([NEW_LOCALE])[0]) ?? NEW_LOCALE;
 		if (sourceLocale !== NEW_LOCALE) {
-			if (locales.includes(sourceLocale)) {
-				stdout.write(`Warning: Locale ${NEW_LOCALE} is the likely subtag of ${sourceLocale} but ${sourceLocale} already exists.\n\n`)
+			const { pack, code } = supportedLocalesDetails.find(l => l.source === sourceLocale) || {};
+			if (pack || code) {
+				stdout.write(`Error: Locale "${NEW_LOCALE}" is the likely subtag of "${sourceLocale}" but "${sourceLocale}" is already the source for "${pack || code}".\n\n`)
+				exit(1);
 				locales.push(NEW_LOCALE);
 			} else {
-				stdout.write(`Warning: Locale ${NEW_LOCALE} is the likely subtag of ${sourceLocale}. Using ${sourceLocale} instead.\n\n`)
+				stdout.write(`Warning: Locale "${NEW_LOCALE}" is the likely subtag of "${sourceLocale}". Using "${sourceLocale}" instead.\n\n`)
 				locales.push(sourceLocale);
 			}
 		} else {

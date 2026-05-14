@@ -42,7 +42,7 @@ let _likelySubtags = null;
  *
  * @returns {{ fromTo: Map<string, string>, toFrom: Map<string, string>, expand: (tag: string) => string | null }}
  */
-function getLikelySubtagsMaps() {
+export function getLikelySubtagsMaps() {
 	if (_likelySubtags) return _likelySubtags;
 
 	const xml = readFileSync(resolve(cldrSupplementalPath, 'likelySubtags.xml'), 'utf-8');
