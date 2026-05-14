@@ -1,5 +1,5 @@
-import { createRequire } from 'module';
 import { readdirSync, readFileSync } from 'fs';
+import { createRequire } from 'module';
 import { resolve } from 'path';
 
 const _require = createRequire(import.meta.url);

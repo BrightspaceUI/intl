@@ -22,7 +22,7 @@ export async function buildIntlFiles(data) {
 		const existingLocale = existingLocalesDetails.find(l =>
 			l.code.toLowerCase() === NEW_LOCALE.toLowerCase()
 			|| l.source?.toLowerCase() === NEW_LOCALE.toLowerCase()
-			&& l.overrideCode !== NEW_LOCALE)
+			&& l.overrideCode !== NEW_LOCALE);
 		if (existingLocale) {
 			stderr.write(`\nError: Locale "${NEW_LOCALE}" already exists${existingLocale.pack && existingLocale.pack !== NEW_LOCALE ? ` as "${existingLocale.pack}"` : ''}. Choose a different locale code.`);
 			exit(1);
@@ -74,8 +74,7 @@ export async function buildIntlFiles(data) {
 	const supportedLangpacksString = `export const supportedLangpacks = ['${[...supportedLangpacks].join("', '")}'];`;
 	const supportedLocaleDetailsString = `export const supportedLocalesDetails = [${supportedLocaleDetails.join('')}\n];`;
 
-	supportedContents =
-`export const defaultLocale = 'en';
+	supportedContents = `export const defaultLocale = 'en';
 ${supportedBaseLocalesString}
 ${supportedLangpacksString}
 ${supportedLocaleDetailsString}

@@ -30,7 +30,7 @@ function getDelimiters(locale) {
 export async function generateLocaleData() {
 
 	const data = {};
-	const locales = supportedLocalesDetails.map(l => l.pack || l.code)
+	const locales = supportedLocalesDetails.map(l => l.pack || l.code);
 	const padOriginalLength = Math.max(...locales.map(l => l.length)) + 1;
 	const padMappedLength = Math.max(...Object.values(config.localesMap).map(l => l.length)) + 1;
 
@@ -39,11 +39,11 @@ export async function generateLocaleData() {
 		if (sourceLocale !== NEW_LOCALE) {
 			const { pack, code } = supportedLocalesDetails.find(l => l.source === sourceLocale) || {};
 			if (pack || code) {
-				stdout.write(`Error: Locale "${NEW_LOCALE}" is the likely subtag of "${sourceLocale}" but "${sourceLocale}" is already the source for "${pack || code}".\n\n`)
+				stdout.write(`Error: Locale "${NEW_LOCALE}" is the likely subtag of "${sourceLocale}" but "${sourceLocale}" is already the source for "${pack || code}".\n\n`);
 				exit(1);
 				locales.push(NEW_LOCALE);
 			} else {
-				stdout.write(`Warning: Locale "${NEW_LOCALE}" is the likely subtag of "${sourceLocale}". Using "${sourceLocale}" instead.\n\n`)
+				stdout.write(`Warning: Locale "${NEW_LOCALE}" is the likely subtag of "${sourceLocale}". Using "${sourceLocale}" instead.\n\n`);
 				locales.push(sourceLocale);
 			}
 		} else {
@@ -65,8 +65,8 @@ export async function generateLocaleData() {
 		const [ coreLocaleTag, unicodeExtensions ] = locale.split('-u-');
 		const {
 			//ca: calendar,
-			co: collation,
-			hc: hourCycle,
+			//co: collation,
+			//hc: hourCycle,
 			nu: numberingSystemId,
 			sd: subdivision
 		} = Object.fromEntries(
