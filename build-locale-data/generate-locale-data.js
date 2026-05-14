@@ -41,14 +41,11 @@ export async function generateLocaleData() {
 			if (pack || code) {
 				stdout.write(`Error: Locale "${NEW_LOCALE}" is the likely subtag of "${sourceLocale}" but "${sourceLocale}" is already the source for "${pack || code}".\n\n`);
 				exit(1);
-				locales.push(NEW_LOCALE);
 			} else {
 				stdout.write(`Warning: Locale "${NEW_LOCALE}" is the likely subtag of "${sourceLocale}". Using "${sourceLocale}" instead.\n\n`);
-				locales.push(sourceLocale);
 			}
-		} else {
-			locales.push(sourceLocale);
 		}
+		locales.push(sourceLocale);
 	}
 
 	locales.forEach(locale => {
@@ -83,7 +80,6 @@ export async function generateLocaleData() {
 				coreLocaleTag.match(/^([a-z]{2,3})(?:-([A-Z][a-z]{3}))?(?:-([A-Z]{2}))?/);
 		}
 
-		//locale = [languageTag, scriptTag, territoryTag].filter(Boolean).join('-');
 		stdout.write(`${originalLocale.padEnd(padOriginalLength)}${mappedLocale !== originalLocale ? ` ->  ${mappedLocale.padEnd(padMappedLength)}` : ''}${coreLocaleTag !== mappedLocale ? ` ->  ${coreLocaleTag}` : ''}\n`);
 
 		const languageDisplayName = cldr.extractLanguageDisplayNames(coreLocaleTag)[languageTag];

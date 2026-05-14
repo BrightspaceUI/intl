@@ -34,13 +34,6 @@ export async function buildIntlFiles(data) {
 			stderr.write(`\nError: Locale data for "${NEW_LOCALE}" not found. Choose a different locale code.`);
 			exit(1);
 		}
-
-		supportedBaseLocales.add(newLocaleBase);
-		if (supportedLangpacks.has(newLocaleBase)) {
-			//supportedLangpacks.add(NEW_LOCALE);
-		} else {
-			supportedLangpacks.add(newLocaleBase);
-		}
 	}
 
 	const newId = existingLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
@@ -54,12 +47,14 @@ export async function buildIntlFiles(data) {
 			pack
 		} = existingLocalesDetails.find(l => l.pack === locale) || existingLocalesDetails.find(l => l.code === locale) || {};
 		const dir = data[locale]?.layout.orientation.characterOrder === 'right-to-left' ? 'rtl' : 'ltr';
-		const packStr = (name && pack) || (code === NEW_LOCALE) ? `pack: '${locale}', ` : '';
+		const packStr = (name && pack) || (code === data[locale]?.sourceLocale) ? `pack: '${locale}', ` : '';
 		const overrideCodeStr = overrideCode ? `overrideCode: '${overrideCode}', ` : '';
 		const localeDisplayName = NEW_LOCALE ? name || data[locale]?.localeDisplayName : data[locale]?.localeDisplayName;
 		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', ${packStr}${overrideCodeStr}dir: '${dir}', name: '${localeDisplayName}' },`);
-		supportedBaseLocales.add(locale.split('-')[0]);
-		if (pack || code === NEW_LOCALE) supportedLangpacks.add(locale);
+		if (locale.length === 2) {
+			supportedBaseLocales.add(locale);
+		}
+		if (packStr) supportedLangpacks.add(locale);
 
 		const contents = `export default ${JSON.stringify(data[locale], null, '\t')};\n`;
 
