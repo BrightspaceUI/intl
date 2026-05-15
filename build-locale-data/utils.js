@@ -191,3 +191,16 @@ export async function shouldTitleCaseMonths(locale) {
 
 	return result;
 }
+
+export function parseLocaleTag(tag) {
+	const canonicalTag = Intl.getCanonicalLocales([tag])[0];
+	let gc, languageTag, territoryTag, scriptTag;
+	try {
+		({ language: languageTag, region: territoryTag, script: scriptTag } = new Intl.Locale(canonicalTag));
+	} catch {
+		[gc, languageTag, scriptTag, territoryTag] =
+			//                    [ language ]    [    script   ]      [territory]
+			canonicalTag.match(/^([a-z]{2,3})(?:-([A-Z][a-z]{3}))?(?:-([A-Z]{2}))?/);
+	}
+	return { languageTag, territoryTag, scriptTag };
+}

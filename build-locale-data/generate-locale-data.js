@@ -4,6 +4,8 @@ import cldr from 'cldr';
 import config from '../mfv.config.json' with { type: 'json' };
 import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
 
+const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
 const { NEW_LOCALE } = env;
 
 function getDelimiters(locale) {
@@ -30,6 +32,8 @@ function getDelimiters(locale) {
 export async function generateLocaleData() {
 
 	const data = {};
+	const weekData = cldr.extractWeekData();
+	console.log(JSON.stringify(weekData, null, '\t'));
 	const locales = supportedLocalesDetails.map(l => l.pack || l.code);
 	const padOriginalLength = Math.max(...locales.map(l => l.length)) + 1;
 	const padMappedLength = Math.max(...Object.values(config.localesMap).map(l => l.length)) + 1;
@@ -96,6 +100,43 @@ export async function generateLocaleData() {
 		}, '');
 
 		const sourceLocale = utils.getLikelySubtagSource(coreLocaleTag);
+		const likelySubtag = utils.getLikelySubtagsMaps().expand(coreLocaleTag);
+
+		const firstDay = (() => {
+			const { territoryTag } = utils.parseLocaleTag(likelySubtag);
+			for (const tag of [territoryTag, '001']) {
+				for (const { territories, day } of weekData.firstDay) {
+					if (territories.includes(tag)) {
+						return daysOfWeek.indexOf(day);
+					}
+				}
+			}
+			return 1; // default to Monday
+		})();
+
+		const weekendStart = (() => {
+			const { territoryTag } = utils.parseLocaleTag(likelySubtag);
+			for (const tag of [territoryTag, '001']) {
+				for (const { territories, day } of weekData.weekendStart) {
+					if (territories.includes(tag)) {
+						return daysOfWeek.indexOf(day);
+					}
+				}
+			}
+			return 1; // default to Monday
+		})();
+
+		const weekendEnd = (() => {
+			const { territoryTag } = utils.parseLocaleTag(likelySubtag);
+			for (const tag of [territoryTag, '001']) {
+				for (const { territories, day } of weekData.weekendEnd) {
+					if (territories.includes(tag)) {
+						return daysOfWeek.indexOf(day);
+					}
+				}
+			}
+			return 1; // default to Monday
+		})();
 
 		data[originalLocale] = {
 			languageDisplayName,
@@ -107,6 +148,7 @@ export async function generateLocaleData() {
 				: languageDisplayName,
 			sourceLocale,
 			localeCode: originalLocale,
+			likelySubtag,
 			layout: cldr.extractLayout(coreLocaleTag),
 			pluralClass: {
 				cardinal: cldr.extractPluralClasses(coreLocaleTag, 'cardinal'),
@@ -115,6 +157,12 @@ export async function generateLocaleData() {
 			localeDisplayPattern: cldr.extractLocaleDisplayPattern(coreLocaleTag),
 			dateFormats: cldr.extractDateFormats(coreLocaleTag, 'gregorian'),
 			dateFormatItems: cldr.extractDateFormatItems(coreLocaleTag, 'gregorian'),
+			timeFormats: cldr.extractTimeFormats(coreLocaleTag, 'gregorian'),
+			weekData: {
+				firstDay,
+				weekendStart,
+				weekendEnd
+			},
 			months: {
 				...cldr.extractMonthNames(coreLocaleTag, 'gregorian'),
 				transforms: {
