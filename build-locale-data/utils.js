@@ -204,3 +204,30 @@ export function parseLocaleTag(tag) {
 	}
 	return { languageTag, territoryTag, scriptTag };
 }
+
+const UNICODE_TO_DOTNET_MAP = {
+	'G': 'g',
+	'y': 'yyyy',
+	'M': 'MM',
+	'd': 'dd',
+	'E': 'ddd',
+	'EEEE': 'dddd',
+	'a': 'tt',
+	'H': 'HH',
+	'h': 'hh',
+	'm': 'mm',
+	's': 'ss',
+	'z': 'zzz',
+};
+
+// Match quoted literals or runs of repeated characters
+const CLDR_PATTERN_REGEX = /'[^']*'|(.)\1*/g;
+
+export function unicodePatternToDotNetFormat(skeleton) {
+	CLDR_PATTERN_REGEX.lastIndex = 0;
+	return skeleton.replace(CLDR_PATTERN_REGEX, (match, symbol) => {
+		if (!symbol) return match;
+		console.log(match, symbol);
+		return UNICODE_TO_DOTNET_MAP[match] ?? match;
+	});
+}
