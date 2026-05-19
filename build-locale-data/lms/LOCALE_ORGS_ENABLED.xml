@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Data Table="LOCALE_ORGS_ENABLED" xmlns="http://schemas.desire2learn.com/xml/schemas/dbschema.xsd">
+	<Columns>
+		<Field Name="LocaleId" Type="System.Int32" />
+		<Field Name="OrgId" Type="System.Int32" />
+		<Field Name="Enabled" Type="System.Boolean" />
+	</Columns>
+	<Rows>
+		<Row>
+			<Field Name="LocaleId" Value="1" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="2" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="3" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="5" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="6" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="7" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="9" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="10" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="11" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="12" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="13" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="14" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="15" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="16" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="17" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="19" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="20" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="21" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="22" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="23" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="24" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="25" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="26" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="27" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="28" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+		<Row>
+			<Field Name="LocaleId" Value="29" />
+			<Field Name="OrgId" Value="0" />
+			<Field Name="Enabled" Value="True" />
+		</Row>
+	</Rows>
+</Data>

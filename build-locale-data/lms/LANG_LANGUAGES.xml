@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Data Table="LANG_LANGUAGES" xmlns="http://schemas.desire2learn.com/xml/schemas/dbschema.xsd">
+	<Columns>
+		<Field Name="LanguageId" Type="System.Int32" />
+		<Field Name="Name" Type="System.String" />
+		<Field Name="IsDeleted" Type="System.Boolean" />
+		<Field Name="LanguageTypeId" Type="System.Int32" />
+		<Field Name="ParentLanguageId" Type="System.Int32" />
+		<Field Name="CultureClass" Type="System.String" />
+		<Field Name="OwnerOrgId" Type="System.Int32" />
+	</Columns>
+	<Rows>
+		<Row>
+			<Field Name="LanguageId" Value="1" />
+			<Field Name="Name" Value="English" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="en-us" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="2" />
+			<Field Name="Name" Value="français (Canada)" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="fr-ca" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="11" />
+			<Field Name="Name" Value="English (United Kingdom)" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="en-gb" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="13" />
+			<Field Name="Name" Value="English (Canada)" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="en-ca" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="16" />
+			<Field Name="Name" Value="العربية" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="ar-sa" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="17" />
+			<Field Name="Name" Value="中文" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="zh-cn" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="18" />
+			<Field Name="Name" Value="español (México)" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="es-mx" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="19" />
+			<Field Name="Name" Value="português" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="pt-br" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="20" />
+			<Field Name="Name" Value="中文 (繁體)" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="zh-tw" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="21" />
+			<Field Name="Name" Value="日本語" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="ja-jp" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="22" />
+			<Field Name="Name" Value="한국어" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="ko-kr" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="23" />
+			<Field Name="Name" Value="Türkçe" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="tr-tr" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="24" />
+			<Field Name="Name" Value="svenska" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="sv-se" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="25" />
+			<Field Name="Name" Value="Nederlands" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="nl-nl" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="26" />
+			<Field Name="Name" Value="Deutsch" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="de-de" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="28" />
+			<Field Name="Name" Value="dansk" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="da-dk" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="29" />
+			<Field Name="Name" Value="français" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="fr-fr" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="30" />
+			<Field Name="Name" Value="español" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="es-es" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="31" />
+			<Field Name="Name" Value="Cymraeg" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="cy-gb" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="32" />
+			<Field Name="Name" Value="français (Canada, Ontario)" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="fr-on" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="33" />
+			<Field Name="Name" Value="हिन्दी" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="hi-in" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="34" />
+			<Field Name="Name" Value="Māori" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="mi-nz" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="35" />
+			<Field Name="Name" Value="ʻŌlelo Hawaiʻi" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="haw-us" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="36" />
+			<Field Name="Name" Value="Tiếng Việt" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="vi-vn" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="37" />
+			<Field Name="Name" Value="ไทย" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="th-th" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="38" />
+			<Field Name="Name" Value="català" />
+			<Field Name="IsDeleted" Value="False" />
+			<Field Name="ParentLanguageId" IsNull="true" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="ca-es" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+		<Row>
+			<Field Name="LanguageId" Value="1000" />
+			<Field Name="Name" Value="D2L Last Default" />
+			<Field Name="IsDeleted" Value="True" />
+			<Field Name="ParentLanguageId" Value="1" />
+			<Field Name="LanguageTypeId" Value="1" />
+			<Field Name="CultureClass" Value="en" />
+			<Field Name="OwnerOrgId" IsNull="true" />
+		</Row>
+	</Rows>
+</Data>
