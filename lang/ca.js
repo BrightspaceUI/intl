@@ -32,10 +32,10 @@ export default {
 	"intl-common:characters:numberSign": "signe numèric", // short name or description of the "#" character
 	"intl-common:characters:percentSign": "signe de percentatge", // short name or description of the "%" character
 	"intl-common:characters:pipe": "barra vertical", // short name or description of the "|" character
-	"intl-common:characters:questionMark": "signe d'interrogació", // short name or description of the "?" character
+	"intl-common:characters:questionMark": "signe d’interrogació", // short name or description of the "?" character
 	"intl-common:characters:quotationMark": "cometes", // short name or description of the '"' character
 	"intl-common:confirm:no": "No", // no response to a question (in Title Case)
-	"intl-common:confirm:ok": "D'acord", // okay response to a question
+	"intl-common:confirm:ok": "D’acord", // okay response to a question
 	"intl-common:confirm:yes": "Sí", // yes response to a question (in Title Case)
 	"intl-common:navigation:back:title": "Enrere", // term for navigating back to the previous page (in Title Case)
 	"intl-common:navigation:continue:title": "Continua", // continue action (in Title Case)
