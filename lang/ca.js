@@ -2,7 +2,7 @@ export default {
 	"intl-common:actions:add": "Afegir", // add action (in Title Case)
 	"intl-common:actions:apply": "Aplicar", // apply action (in Title Case)
 	"intl-common:actions:browse": "Navega", // browse action (in Title Case)
-	"intl-common:actions:cancel": "Cancel·lar", // cancel action (in Title Case)
+	"intl-common:actions:cancel": "Cancellar", // cancel action (in Title Case)
 	"intl-common:actions:clear": "Esborrar", // clear action (in Title Case)
 	"intl-common:actions:close": "Tancar", // close action (in Title Case)
 	"intl-common:actions:confirm": "Confirma", // confirm action (in Title Case)
