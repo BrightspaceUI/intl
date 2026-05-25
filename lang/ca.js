@@ -21,13 +21,13 @@ export default {
 	"intl-common:actions:search": "Cerca", // search action (in Title Case)
 	"intl-common:actions:submit": "Lliurar", // submit action (in Title Case)
 	"intl-common:actions:update": "Actualitzar", // update action (in Title Case)
-	"intl-common:characters:ampersand": "signe \"&\"", // short name or description of the "&" character
+	"intl-common:characters:ampersand": "signe «&»", // short name or description of the "&" character
 	"intl-common:characters:apostrophe": "apòstrof", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "asterisc", // short name or description of the "*" character
 	"intl-common:characters:backslash": "barra invertida", // short name or description of the "\" character
 	"intl-common:characters:colon": "dos punts", // short name or description of the ":" character
 	"intl-common:characters:comma": "coma", // short name or description of the "," character
-	"intl-common:characters:greaterThan": "signe \"més gran que\"", // short name or description of the ">" character
+	"intl-common:characters:greaterThan": "signe «més gran que»", // short name or description of the ">" character
 	"intl-common:characters:lessThan": "signe de menor que", // short name or description of the "<" character
 	"intl-common:characters:numberSign": "signe numèric", // short name or description of the "#" character
 	"intl-common:characters:percentSign": "signe de percentatge", // short name or description of the "%" character
