@@ -14,7 +14,7 @@
     "/lang",
     "/lib",
     "!/lib/locale-data/",
-    "/lib/locales-data/supported.js",
+    "/lib/locale-data/supported.js",
     "/helpers"
   ],
   "publishConfig": {
