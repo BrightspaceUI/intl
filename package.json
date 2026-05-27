@@ -13,7 +13,8 @@
   "files": [
     "/lang",
     "/lib",
-    "!/lib/locale-data",
+    "!/lib/locale-data/",
+    "/lib/locales-data/support.js",
     "/helpers"
   ],
   "publishConfig": {

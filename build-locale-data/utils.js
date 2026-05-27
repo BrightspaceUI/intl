@@ -1,10 +1,120 @@
+import { readdirSync, readFileSync } from 'fs';
 import { createRequire } from 'module';
-import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 const _require = createRequire(import.meta.url);
 const cldrMainPath = resolve(_require.resolve('cldr'), '../../3rdparty/cldr/common/main');
+const cldrSupplementalPath = resolve(_require.resolve('cldr'), '../../3rdparty/cldr/common/supplemental');
 const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathname;
+
+/** @type {string[] | null} */
+let _availableLocales = null;
+
+/**
+ * Returns the list of available CLDR locales, derived from the filenames in
+ * the cldr/common/main directory, normalised to BCP 47 (hyphens, no .xml).
+ * Sorted shortest-first so bare language tags (e.g. 'fr') are matched before
+ * regional variants (e.g. 'fr-CA') during the available-locale scan.
+ *
+ * @returns {string[]}
+ */
+function getAvailableLocales() {
+	if (_availableLocales) return _availableLocales;
+	_availableLocales = readdirSync(cldrMainPath)
+		.filter(f => f.endsWith('.xml'))
+		.map(f => f.slice(0, -4).replaceAll('_', '-'))
+		.sort((a, b) => a.length - b.length);
+	return _availableLocales;
+}
+
+/** @type {{ fromTo: Map<string, string>, toFrom: Map<string, string> } | null} */
+let _likelySubtags = null;
+
+/**
+ * Lazily loads and parses the CLDR likelySubtags XML, building:
+ *   - fromTo: shorter tag → fully-expanded tag (e.g. 'fr' → 'fr-Latn-FR')
+ *   - toFrom: fully-expanded tag → shorter tag (e.g. 'fr-Latn-FR' → 'fr')
+ *   - expand: maximises any tag, synthesising missing subtags from the
+ *             language's base expansion when the tag isn't in fromTo directly
+ *
+ * For toFrom, first-entry wins: CLDR lists more-specific "from" tags before
+ * catch-all entries like "und", so the first mapping for a given "to" is best.
+ *
+ * @returns {{ fromTo: Map<string, string>, toFrom: Map<string, string>, expand: (tag: string) => string | null }}
+ */
+export function getLikelySubtagsMaps() {
+	if (_likelySubtags) return _likelySubtags;
+
+	const xml = readFileSync(resolve(cldrSupplementalPath, 'likelySubtags.xml'), 'utf-8');
+
+	const fromTo = new Map();
+	const toFrom = new Map();
+	for (const match of xml.matchAll(/<likelySubtag\s+from="([^"]+)"\s+to="([^"]+)"/g)) {
+		const from = match[1].replaceAll('_', '-');
+		const to = match[2].replaceAll('_', '-');
+		fromTo.set(from, to);
+		if (!toFrom.has(to)) toFrom.set(to, from);
+	}
+
+	/**
+	 * Maximises a locale tag. If it's directly in fromTo, returns that.
+	 * Otherwise synthesises the maximised form by taking the language's base
+	 * expansion and substituting in the tag's own script/region subtags.
+	 * Returns null if the language has no known expansion.
+	 *
+	 * Script substitution is safe: the only available locales (main/ files) not
+	 * in fromTo and without an explicit script are lang-region tags like 'fr-CA'.
+	 * While CLDR does have alternate-script entries for some of those regions
+	 * (e.g. 'en-Shaw-GB'), those entries always carry an explicit script subtag
+	 * in their key, so they are never synthesised — they hit the direct
+	 * fromTo.has() branch instead.
+	 *
+	 * @param {string} tag - A BCP 47 locale tag, already hyphen-normalised.
+	 * @returns {string | null}
+	 */
+	const expand = (tag) => {
+		if (fromTo.has(tag)) return fromTo.get(tag);
+		const parts = tag.split('-');
+		const lang = parts[0];
+		const hasScript = parts[1]?.length === 4;
+		const script = hasScript ? parts[1] : undefined;
+		const region = hasScript ? parts[2] : parts[1];
+		const base = fromTo.get(lang);
+		if (!base) return null;
+		const [baseLang, baseScript, baseRegion] = base.split('-');
+		return [baseLang, script ?? baseScript, region ?? baseRegion].filter(Boolean).join('-');
+	};
+
+	_likelySubtags = { fromTo, toFrom, expand };
+	return _likelySubtags;
+}
+
+/**
+ * Given a locale tag, returns the shortest known CLDR available locale tag
+ * that maximises to the same fully-expanded form, or `null` if none is found.
+ *
+ * For example:
+ *   getLikelySubtagSource('fr-Latn-CA') // → 'fr-CA'
+ *   getLikelySubtagSource('zh-CN')      // → 'zh'
+ *   getLikelySubtagSource('en-Latn-US') // → 'en'
+ *
+ * @param {string} locale - A BCP 47 locale tag.
+ * @returns {string | null} The shortest matching available locale, or `null`.
+ */
+export function getLikelySubtagSource(locale) {
+	const { toFrom, expand } = getLikelySubtagsMaps();
+	const expanded = expand(locale.replaceAll('_', '-'));
+	if (!expanded) return null;
+
+	// Walk available locales shortest-first; the first one whose maximised form
+	// matches is the shortest available tag for this maximised form.
+	for (const available of getAvailableLocales()) {
+		if (expand(available) === expanded) return available;
+	}
+
+	// Safety net: fall back to the direct CLDR reverse map.
+	return toFrom.get(expanded) ?? null;
+}
 
 /**
  * Returns an object indicating whether CLDR context transform data specifies
