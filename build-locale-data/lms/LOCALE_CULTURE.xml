@@ -28,7 +28,7 @@
 	<Rows>
 		<Row>
 			<Field Name="CultureId" Value="1"/>
-			<Field Name="CultureCode" Value="en-US"/>
+			<Field Name="CultureCode" Value="en-us"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -38,11 +38,11 @@
 			<Field Name="PercentSymbol" Value="%"/>
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="MM/dd/yyyy"/>
-			<Field Name="ShortDateFormat" Value="M/d/yy"/>
-			<Field Name="StandardDateFormat" Value="MMMM d, yyyy"/>
+			<Field Name="InputDateFormat" Value="M/d/yyyy"/>
+			<Field Name="ShortDateFormat" Value="M/d/yyyy"/>
+			<Field Name="StandardDateFormat" Value="MMM d, yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd, MMMM d, yyyy"/>
-			<Field Name="TimeFormat" Value="h:mm tt"/>
+			<Field Name="TimeFormat" Value="h:mm tt"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="MMMM d"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -53,32 +53,32 @@
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="2"/>
-			<Field Name="CultureCode" Value="fr-CA"/>
+			<Field Name="CultureCode" Value="fr-ca"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
 			<Field Name="GroupSizes" Value="3"/>
-			<Field Name="GroupSeparator" Value=" "/>
+			<Field Name="GroupSeparator" Value=" "/>
 			<Field Name="DecimalSeparator" Value=","/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="1"/>
-			<Field Name="PercentNegativePattern" Value="1"/>
+			<Field Name="PercentPositivePattern" Value="0"/>
+			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="yyyy-MM-dd"/>
-			<Field Name="ShortDateFormat" Value="y-MM-dd"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
+			<Field Name="ShortDateFormat" Value="yyyy-MM-dd"/>
+			<Field Name="StandardDateFormat" Value="MMM d yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd d MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="HH 'h' mm"/>
+			<Field Name="TimeFormat" Value="HH' h 'mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
-			<Field Name="MonthAndDay" Value="d MMMM"/>
+			<Field Name="MonthAndDay" Value="MMMM d"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="0"/>
 			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
-			<Field Name="ShortMonthAndDay" Value="d MMM"/>
+			<Field Name="ShortMonthAndDay" Value="MMM d"/>
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="3"/>
-			<Field Name="CultureCode" Value="en-GB"/>
+			<Field Name="CultureCode" Value="en-gb"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -89,21 +89,21 @@
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd/MM/y"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
+			<Field Name="ShortDateFormat" Value="dd/MM/yyyy"/>
+			<Field Name="StandardDateFormat" Value="dd MMMM yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd, d MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="HH:mm"/>
+			<Field Name="TimeFormat" Value="h:mm tt"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="d MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
-			<Field Name="FirstDayOfWeek" Value="1"/>
+			<Field Name="FirstDayOfWeek" Value="0"/>
 			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
 			<Field Name="ShortMonthAndDay" Value="d MMM"/>
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="5"/>
-			<Field Name="CultureCode" Value="en-CA"/>
+			<Field Name="CultureCode" Value="en-ca"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -113,11 +113,11 @@
 			<Field Name="PercentSymbol" Value="%"/>
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="yyyy-MM-dd"/>
-			<Field Name="ShortDateFormat" Value="y-MM-dd"/>
-			<Field Name="StandardDateFormat" Value="MMMM d, yyyy"/>
+			<Field Name="InputDateFormat" Value="M/d/yyyy"/>
+			<Field Name="ShortDateFormat" Value="M/d/yyyy"/>
+			<Field Name="StandardDateFormat" Value="MMM d, yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd, MMMM d, yyyy"/>
-			<Field Name="TimeFormat" Value="h:mm tt"/>
+			<Field Name="TimeFormat" Value="h:mm tt"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="MMMM d"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -128,34 +128,9 @@
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="6"/>
-			<Field Name="CultureCode" Value="ar-SA"/>
-			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
+			<Field Name="CultureCode" Value="ar-sa"/>
+			<Field Name="NativeDigits" Value="٠,١,٢,٣,٤,٥,٦,٧,٨,٩"/>
 			<Field Name="NegativeNumberPattern" Value="3"/>
-			<Field Name="NegativeSign" Value="‎-"/>
-			<Field Name="GroupSizes" Value="3"/>
-			<Field Name="GroupSeparator" Value=","/>
-			<Field Name="DecimalSeparator" Value="."/>
-			<Field Name="PercentSymbol" Value="‎%‎"/>
-			<Field Name="PercentPositivePattern" Value="0"/>
-			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="dd‏/MM‏/yyyy"/>
-			<Field Name="ShortDateFormat" Value="d‏/M‏/y"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd، d MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="h:mm tt"/>
-			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
-			<Field Name="MonthAndDay" Value="d MMMM"/>
-			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
-			<Field Name="FirstDayOfWeek" Value="6"/>
-			<Field Name="WeekendStartDay" Value="5"/>
-			<Field Name="WeekendEndDay" Value="6"/>
-			<Field Name="ShortMonthAndDay" Value="d MMM"/>
-		</Row>
-		<Row>
-			<Field Name="CultureId" Value="7"/>
-			<Field Name="CultureCode" Value="zh-CN"/>
-			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
-			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
 			<Field Name="GroupSizes" Value="3"/>
 			<Field Name="GroupSeparator" Value=","/>
@@ -163,22 +138,47 @@
 			<Field Name="PercentSymbol" Value="%"/>
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="yyyy/MM/dd"/>
-			<Field Name="ShortDateFormat" Value="y/M/d"/>
+			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
+			<Field Name="ShortDateFormat" Value="dd/MM/yyyy"/>
+			<Field Name="StandardDateFormat" Value="dd MMMM, yyyy"/>
+			<Field Name="LongDateFormat" Value="dddd, d MMMM, yyyy"/>
+			<Field Name="TimeFormat" Value="h:mm tt"/>
+			<Field Name="YearAndMonth" Value="MMMM, yyyy"/>
+			<Field Name="MonthAndDay" Value="d MMMM"/>
+			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
+			<Field Name="FirstDayOfWeek" Value="6"/>
+			<Field Name="WeekendStartDay" Value="4"/>
+			<Field Name="WeekendEndDay" Value="5"/>
+			<Field Name="ShortMonthAndDay" Value="d MMM"/>
+		</Row>
+		<Row>
+			<Field Name="CultureId" Value="7"/>
+			<Field Name="CultureCode" Value="zh-cn"/>
+			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
+			<Field Name="NegativeNumberPattern" Value="1"/>
+			<Field Name="NegativeSign" Value="-"/>
+			<Field Name="GroupSizes" Value="3"/>
+			<Field Name="GroupSeparator" Value=","/>
+			<Field Name="DecimalSeparator" Value="."/>
+			<Field Name="PercentSymbol" Value="%"/>
+			<Field Name="PercentPositivePattern" Value="1"/>
+			<Field Name="PercentNegativePattern" Value="1"/>
+			<Field Name="InputDateFormat" Value="yyyy/M/d"/>
+			<Field Name="ShortDateFormat" Value="yyyy/M/d"/>
 			<Field Name="StandardDateFormat" Value="yyyy年M月d日"/>
-			<Field Name="LongDateFormat" Value="yyyy年M月d日dddd"/>
-			<Field Name="TimeFormat" Value="HH:mm"/>
+			<Field Name="LongDateFormat" Value="yyyy年M月d日"/>
+			<Field Name="TimeFormat" Value="H:mm"/>
 			<Field Name="YearAndMonth" Value="yyyy年M月"/>
 			<Field Name="MonthAndDay" Value="M月d日"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
-			<Field Name="FirstDayOfWeek" Value="1"/>
+			<Field Name="FirstDayOfWeek" Value="0"/>
 			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
 			<Field Name="ShortMonthAndDay" Value="M月d日"/>
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="9"/>
-			<Field Name="CultureCode" Value="es-MX"/>
+			<Field Name="CultureCode" Value="es-mx"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -189,21 +189,21 @@
 			<Field Name="PercentPositivePattern" Value="1"/>
 			<Field Name="PercentNegativePattern" Value="1"/>
 			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd/MM/yy"/>
-			<Field Name="StandardDateFormat" Value="d 'de' MMMM 'de' yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd, d 'de' MMMM 'de' yyyy"/>
-			<Field Name="TimeFormat" Value="h:mm tt"/>
-			<Field Name="YearAndMonth" Value="MMMM 'de' yyyy"/>
-			<Field Name="MonthAndDay" Value="d 'de' MMMM"/>
+			<Field Name="ShortDateFormat" Value="dd/MM/yyyy"/>
+			<Field Name="StandardDateFormat" Value="d' de 'MMMM' de 'yyyy"/>
+			<Field Name="LongDateFormat" Value="dddd d' de 'MMMM' de 'yyyy"/>
+			<Field Name="TimeFormat" Value="HH:mm"/>
+			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
+			<Field Name="MonthAndDay" Value="d' de 'MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="0"/>
 			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
-			<Field Name="ShortMonthAndDay" Value="d MMM"/>
+			<Field Name="ShortMonthAndDay" Value="d' de 'MMM"/>
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="10"/>
-			<Field Name="CultureCode" Value="pt-BR"/>
+			<Field Name="CultureCode" Value="pt-br"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -211,24 +211,24 @@
 			<Field Name="GroupSeparator" Value="."/>
 			<Field Name="DecimalSeparator" Value=","/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="0"/>
-			<Field Name="PercentNegativePattern" Value="0"/>
+			<Field Name="PercentPositivePattern" Value="1"/>
+			<Field Name="PercentNegativePattern" Value="1"/>
 			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd/MM/y"/>
-			<Field Name="StandardDateFormat" Value="d 'de' MMMM 'de' yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd, d 'de' MMMM 'de' yyyy"/>
-			<Field Name="TimeFormat" Value="HH:mm"/>
-			<Field Name="YearAndMonth" Value="MMMM 'de' yyyy"/>
-			<Field Name="MonthAndDay" Value="d 'de' MMMM"/>
+			<Field Name="ShortDateFormat" Value="dd/MM/yyyy"/>
+			<Field Name="StandardDateFormat" Value="d' de 'MMMM' de 'yyyy"/>
+			<Field Name="LongDateFormat" Value="dddd, d' de 'MMMM' de 'yyyy"/>
+			<Field Name="TimeFormat" Value="H:mm"/>
+			<Field Name="YearAndMonth" Value="MMMM' de 'yyyy"/>
+			<Field Name="MonthAndDay" Value="dd' de 'MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="0"/>
 			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
-			<Field Name="ShortMonthAndDay" Value="d 'de' MMM"/>
+			<Field Name="ShortMonthAndDay" Value="dd' de 'MMM"/>
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="11"/>
-			<Field Name="CultureCode" Value="zh-TW"/>
+			<Field Name="CultureCode" Value="zh-tw"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -236,13 +236,13 @@
 			<Field Name="GroupSeparator" Value=","/>
 			<Field Name="DecimalSeparator" Value="."/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="0"/>
-			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="yyyy/MM/dd"/>
-			<Field Name="ShortDateFormat" Value="y/M/d"/>
+			<Field Name="PercentPositivePattern" Value="1"/>
+			<Field Name="PercentNegativePattern" Value="1"/>
+			<Field Name="InputDateFormat" Value="yyyy/M/d"/>
+			<Field Name="ShortDateFormat" Value="yyyy/M/d"/>
 			<Field Name="StandardDateFormat" Value="yyyy年M月d日"/>
-			<Field Name="LongDateFormat" Value="yyyy年M月d日 dddd"/>
-			<Field Name="TimeFormat" Value="Bh:mm"/>
+			<Field Name="LongDateFormat" Value="yyyy年M月d日"/>
+			<Field Name="TimeFormat" Value="tt hh:mm"/>
 			<Field Name="YearAndMonth" Value="yyyy年M月"/>
 			<Field Name="MonthAndDay" Value="M月d日"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -253,7 +253,7 @@
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="12"/>
-			<Field Name="CultureCode" Value="ja-JP"/>
+			<Field Name="CultureCode" Value="ja-jp"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -261,12 +261,12 @@
 			<Field Name="GroupSeparator" Value=","/>
 			<Field Name="DecimalSeparator" Value="."/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="0"/>
-			<Field Name="PercentNegativePattern" Value="0"/>
+			<Field Name="PercentPositivePattern" Value="1"/>
+			<Field Name="PercentNegativePattern" Value="1"/>
 			<Field Name="InputDateFormat" Value="yyyy/MM/dd"/>
-			<Field Name="ShortDateFormat" Value="y/MM/dd"/>
+			<Field Name="ShortDateFormat" Value="yyyy/MM/dd"/>
 			<Field Name="StandardDateFormat" Value="yyyy年M月d日"/>
-			<Field Name="LongDateFormat" Value="yyyy年M月d日dddd"/>
+			<Field Name="LongDateFormat" Value="yyyy年M月d日"/>
 			<Field Name="TimeFormat" Value="H:mm"/>
 			<Field Name="YearAndMonth" Value="yyyy年M月"/>
 			<Field Name="MonthAndDay" Value="M月d日"/>
@@ -278,7 +278,7 @@
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="13"/>
-			<Field Name="CultureCode" Value="ko-KR"/>
+			<Field Name="CultureCode" Value="ko-kr"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -288,13 +288,13 @@
 			<Field Name="PercentSymbol" Value="%"/>
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="yyyy. MM. dd."/>
-			<Field Name="ShortDateFormat" Value="yy. M. d."/>
-			<Field Name="StandardDateFormat" Value="yyyy년 MMMM d일"/>
-			<Field Name="LongDateFormat" Value="yyyy년 MMMM d일 dddd"/>
+			<Field Name="InputDateFormat" Value="yyyy-MM-dd"/>
+			<Field Name="ShortDateFormat" Value="yyyy-MM-dd"/>
+			<Field Name="StandardDateFormat" Value="yyyy년 M월 d일"/>
+			<Field Name="LongDateFormat" Value="yyyy년 M월 d일 dddd"/>
 			<Field Name="TimeFormat" Value="tt h:mm"/>
-			<Field Name="YearAndMonth" Value="yyyy년 MMMM"/>
-			<Field Name="MonthAndDay" Value="MMMM d일"/>
+			<Field Name="YearAndMonth" Value="yyyy년 M월"/>
+			<Field Name="MonthAndDay" Value="M월 d일"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="0"/>
 			<Field Name="WeekendStartDay" Value="6"/>
@@ -303,7 +303,7 @@
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="14"/>
-			<Field Name="CultureCode" Value="tr-TR"/>
+			<Field Name="CultureCode" Value="tr-tr"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -311,49 +311,49 @@
 			<Field Name="GroupSeparator" Value="."/>
 			<Field Name="DecimalSeparator" Value=","/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="0"/>
-			<Field Name="PercentNegativePattern" Value="0"/>
+			<Field Name="PercentPositivePattern" Value="2"/>
+			<Field Name="PercentNegativePattern" Value="2"/>
 			<Field Name="InputDateFormat" Value="dd.MM.yyyy"/>
-			<Field Name="ShortDateFormat" Value="d.MM.y"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
-			<Field Name="LongDateFormat" Value="d MMMM yyyy dddd"/>
+			<Field Name="ShortDateFormat" Value="dd.MM.yyyy"/>
+			<Field Name="StandardDateFormat" Value="dd MMMM yyyy"/>
+			<Field Name="LongDateFormat" Value="dd MMMM yyyy dddd"/>
 			<Field Name="TimeFormat" Value="HH:mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
-			<Field Name="MonthAndDay" Value="d MMMM"/>
+			<Field Name="MonthAndDay" Value="dd MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="1"/>
 			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
-			<Field Name="ShortMonthAndDay" Value="d MMM"/>
+			<Field Name="ShortMonthAndDay" Value="dd MMM"/>
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="15"/>
-			<Field Name="CultureCode" Value="sv-SE"/>
+			<Field Name="CultureCode" Value="sv-se"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
-			<Field Name="NegativeSign" Value="−"/>
+			<Field Name="NegativeSign" Value="-"/>
 			<Field Name="GroupSizes" Value="3"/>
-			<Field Name="GroupSeparator" Value=" "/>
+			<Field Name="GroupSeparator" Value=" "/>
 			<Field Name="DecimalSeparator" Value=","/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="1"/>
-			<Field Name="PercentNegativePattern" Value="1"/>
+			<Field Name="PercentPositivePattern" Value="0"/>
+			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="yyyy-MM-dd"/>
-			<Field Name="ShortDateFormat" Value="y-MM-dd"/>
+			<Field Name="ShortDateFormat" Value="yyyy-MM-dd"/>
 			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd d MMMM yyyy"/>
+			<Field Name="LongDateFormat" Value="dddd 'den' d MMMM yyyy"/>
 			<Field Name="TimeFormat" Value="HH:mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
-			<Field Name="MonthAndDay" Value="d MMMM"/>
+			<Field Name="MonthAndDay" Value="dd MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="1"/>
 			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
-			<Field Name="ShortMonthAndDay" Value="d MMM"/>
+			<Field Name="ShortMonthAndDay" Value="dd MMM"/>
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="16"/>
-			<Field Name="CultureCode" Value="nl-NL"/>
+			<Field Name="CultureCode" Value="nl-nl"/>
 			<Field Name="NativeDigits" Value="0,1,2,3,4,5,6,7,8,9"/>
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
@@ -364,10 +364,10 @@
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="dd-MM-yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd-MM-y"/>
+			<Field Name="ShortDateFormat" Value="dd-MM-yyyy"/>
 			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd d MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="HH:mm"/>
+			<Field Name="TimeFormat" Value="HH':'mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="d MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -386,13 +386,13 @@
 			<Field Name="GroupSeparator" Value="."/>
 			<Field Name="DecimalSeparator" Value=","/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="1"/>
-			<Field Name="PercentNegativePattern" Value="1"/>
+			<Field Name="PercentPositivePattern" Value="0"/>
+			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="dd.MM.yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd.MM.yy"/>
+			<Field Name="ShortDateFormat" Value="dd.MM.yyyy"/>
 			<Field Name="StandardDateFormat" Value="d. MMMM yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd, d. MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="HH:mm"/>
+			<Field Name="LongDateFormat" Value="dddd d. MMMM yyyy"/>
+			<Field Name="TimeFormat" Value="HH':'mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="d. MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -411,13 +411,13 @@
 			<Field Name="GroupSeparator" Value="."/>
 			<Field Name="DecimalSeparator" Value=","/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="1"/>
-			<Field Name="PercentNegativePattern" Value="1"/>
+			<Field Name="PercentPositivePattern" Value="0"/>
+			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="dd.MM.yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd.MM.y"/>
-			<Field Name="StandardDateFormat" Value="d. MMMM yyyy"/>
+			<Field Name="ShortDateFormat" Value="dd.MM.yyyy"/>
+			<Field Name="StandardDateFormat" Value="d. MMM. yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd 'den' d. MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="HH.mm"/>
+			<Field Name="TimeFormat" Value="HH':'mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="d. MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -433,16 +433,16 @@
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
 			<Field Name="GroupSizes" Value="3"/>
-			<Field Name="GroupSeparator" Value=" "/>
+			<Field Name="GroupSeparator" Value=" "/>
 			<Field Name="DecimalSeparator" Value=","/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="1"/>
-			<Field Name="PercentNegativePattern" Value="1"/>
+			<Field Name="PercentPositivePattern" Value="0"/>
+			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd/MM/y"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
+			<Field Name="ShortDateFormat" Value="dd/MM/yyyy"/>
+			<Field Name="StandardDateFormat" Value="d MMM yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd d MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="HH:mm"/>
+			<Field Name="TimeFormat" Value="HH' h 'mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="d MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -464,17 +464,17 @@
 			<Field Name="PercentPositivePattern" Value="1"/>
 			<Field Name="PercentNegativePattern" Value="1"/>
 			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="d/M/yy"/>
-			<Field Name="StandardDateFormat" Value="d 'de' MMMM 'de' yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd, d 'de' MMMM 'de' yyyy"/>
-			<Field Name="TimeFormat" Value="H:mm"/>
-			<Field Name="YearAndMonth" Value="MMMM 'de' yyyy"/>
-			<Field Name="MonthAndDay" Value="d 'de' MMMM"/>
+			<Field Name="ShortDateFormat" Value="dd/MM/yyyy"/>
+			<Field Name="StandardDateFormat" Value="d' de 'MMMM' de 'yyyy"/>
+			<Field Name="LongDateFormat" Value="dddd d' de 'MMMM' de 'yyyy"/>
+			<Field Name="TimeFormat" Value="HH:mm"/>
+			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
+			<Field Name="MonthAndDay" Value="d' de 'MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="1"/>
 			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
-			<Field Name="ShortMonthAndDay" Value="d MMM"/>
+			<Field Name="ShortMonthAndDay" Value="d' de 'MMM"/>
 		</Row>
 		<Row>
 			<Field Name="CultureId" Value="22"/>
@@ -489,12 +489,12 @@
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd/MM/yy"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
+			<Field Name="ShortDateFormat" Value="dd/MM/yyyy"/>
+			<Field Name="StandardDateFormat" Value="dd MMMM yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd, d MMMM yyyy"/>
 			<Field Name="TimeFormat" Value="HH:mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
-			<Field Name="MonthAndDay" Value="MMMM d"/>
+			<Field Name="MonthAndDay" Value="d MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="1"/>
 			<Field Name="WeekendStartDay" Value="6"/>
@@ -508,16 +508,16 @@
 			<Field Name="NegativeNumberPattern" Value="1"/>
 			<Field Name="NegativeSign" Value="-"/>
 			<Field Name="GroupSizes" Value="3"/>
-			<Field Name="GroupSeparator" Value=" "/>
+			<Field Name="GroupSeparator" Value=" "/>
 			<Field Name="DecimalSeparator" Value=","/>
 			<Field Name="PercentSymbol" Value="%"/>
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
 			<Field Name="InputDateFormat" Value="yyyy-MM-dd"/>
-			<Field Name="ShortDateFormat" Value="y-MM-dd"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd d MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="HH 'h' mm"/>
+			<Field Name="ShortDateFormat" Value="yyyy-MM-dd"/>
+			<Field Name="StandardDateFormat" Value="MMM d yyyy"/>
+			<Field Name="LongDateFormat" Value="dddd' le 'd MMMM yyyy"/>
+			<Field Name="TimeFormat" Value="HH' h 'mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="d MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -536,18 +536,18 @@
 			<Field Name="GroupSeparator" Value=","/>
 			<Field Name="DecimalSeparator" Value="."/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="0"/>
-			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="d/M/yy"/>
+			<Field Name="PercentPositivePattern" Value="1"/>
+			<Field Name="PercentNegativePattern" Value="1"/>
+			<Field Name="InputDateFormat" Value="dd-MM-yyyy"/>
+			<Field Name="ShortDateFormat" Value="dd-MM-yyyy"/>
 			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd, d MMMM yyyy"/>
 			<Field Name="TimeFormat" Value="h:mm tt"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
 			<Field Name="MonthAndDay" Value="d MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
-			<Field Name="FirstDayOfWeek" Value="0"/>
-			<Field Name="WeekendStartDay" Value="0"/>
+			<Field Name="FirstDayOfWeek" Value="1"/>
+			<Field Name="WeekendStartDay" Value="6"/>
 			<Field Name="WeekendEndDay" Value="0"/>
 			<Field Name="ShortMonthAndDay" Value="d MMM"/>
 		</Row>
@@ -561,11 +561,11 @@
 			<Field Name="GroupSeparator" Value=","/>
 			<Field Name="DecimalSeparator" Value="."/>
 			<Field Name="PercentSymbol" Value="%"/>
-			<Field Name="PercentPositivePattern" Value="0"/>
-			<Field Name="PercentNegativePattern" Value="0"/>
+			<Field Name="PercentPositivePattern" Value="1"/>
+			<Field Name="PercentNegativePattern" Value="1"/>
 			<Field Name="InputDateFormat" Value="dd-MM-yyyy"/>
-			<Field Name="ShortDateFormat" Value="dd-MM-y"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
+			<Field Name="ShortDateFormat" Value="dd-MM-yyyy"/>
+			<Field Name="StandardDateFormat" Value="d MMM yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd, d MMMM yyyy"/>
 			<Field Name="TimeFormat" Value="h:mm tt"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
@@ -588,11 +588,11 @@
 			<Field Name="PercentSymbol" Value="%"/>
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="d/M/yy"/>
-			<Field Name="StandardDateFormat" Value="d MMMM yyyy"/>
+			<Field Name="InputDateFormat" Value="d/M/yyyy"/>
+			<Field Name="ShortDateFormat" Value="d/M/yyyy"/>
+			<Field Name="StandardDateFormat" Value="d MMM yyyy"/>
 			<Field Name="LongDateFormat" Value="dddd, d MMMM yyyy"/>
-			<Field Name="TimeFormat" Value="h:mm tt"/>
+			<Field Name="TimeFormat" Value="h:mm tt"/>
 			<Field Name="YearAndMonth" Value="yyyy MMMM"/>
 			<Field Name="MonthAndDay" Value="MMMM d"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
@@ -613,13 +613,13 @@
 			<Field Name="PercentSymbol" Value="%"/>
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="d/M/yy"/>
-			<Field Name="StandardDateFormat" Value="d MMMM, yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd, d MMMM, yyyy"/>
+			<Field Name="InputDateFormat" Value="d/M/yyyy"/>
+			<Field Name="ShortDateFormat" Value="d/M/yyyy"/>
+			<Field Name="StandardDateFormat" Value="d MMM yyyy"/>
+			<Field Name="LongDateFormat" Value="dddd, 'ngày' d MMMM 'năm' yyyy"/>
 			<Field Name="TimeFormat" Value="HH:mm"/>
-			<Field Name="YearAndMonth" Value="MMMM 'năm' yyyy"/>
-			<Field Name="MonthAndDay" Value="d MMMM"/>
+			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
+			<Field Name="MonthAndDay" Value="MMMM d"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="1"/>
 			<Field Name="WeekendStartDay" Value="6"/>
@@ -638,13 +638,13 @@
 			<Field Name="PercentSymbol" Value="%"/>
 			<Field Name="PercentPositivePattern" Value="0"/>
 			<Field Name="PercentNegativePattern" Value="0"/>
-			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
-			<Field Name="ShortDateFormat" Value="d/M/yy"/>
-			<Field Name="StandardDateFormat" Value="d MMMM g yyyy"/>
-			<Field Name="LongDateFormat" Value="ddddที่ d MMMM g yyyy"/>
-			<Field Name="TimeFormat" Value="HH:mm"/>
+			<Field Name="InputDateFormat" Value="d/M/yyyy"/>
+			<Field Name="ShortDateFormat" Value="d/M/yyyy"/>
+			<Field Name="StandardDateFormat" Value="d MMM yyyy"/>
+			<Field Name="LongDateFormat" Value="d MMMM G yyyy"/>
+			<Field Name="TimeFormat" Value="H:mm"/>
 			<Field Name="YearAndMonth" Value="MMMM yyyy"/>
-			<Field Name="MonthAndDay" Value="d MMMM"/>
+			<Field Name="MonthAndDay" Value="MMMM d"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="0"/>
 			<Field Name="WeekendStartDay" Value="6"/>
@@ -665,10 +665,10 @@
 			<Field Name="PercentNegativePattern" Value="1"/>
 			<Field Name="InputDateFormat" Value="dd/MM/yyyy"/>
 			<Field Name="ShortDateFormat" Value="d/M/yy"/>
-			<Field Name="StandardDateFormat" Value="d MMMM 'del' yyyy"/>
-			<Field Name="LongDateFormat" Value="dddd, d MMMM 'del' yyyy"/>
+			<Field Name="StandardDateFormat" Value="d MMMM' del 'yyyy"/>
+			<Field Name="LongDateFormat" Value="dddd, d MMMM' del 'yyyy"/>
 			<Field Name="TimeFormat" Value="H:mm"/>
-			<Field Name="YearAndMonth" Value="MMMM 'del' yyyy"/>
+			<Field Name="YearAndMonth" Value="MMMM' del 'yyyy"/>
 			<Field Name="MonthAndDay" Value="d MMMM"/>
 			<Field Name="DurationFormat" Value="{hhh}:{mm}:{ss}"/>
 			<Field Name="FirstDayOfWeek" Value="1"/>
