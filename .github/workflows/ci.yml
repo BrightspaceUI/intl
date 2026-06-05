@@ -15,3 +15,10 @@ jobs:
         run: npm run lint
       - name: Unit Tests
         run: npm run test:unit
+      - name: Upload test report
+        if: (!cancelled()) && github.actor != 'dependabot[bot]'
+        uses: Brightspace/test-reporting-action@main
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
