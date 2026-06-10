@@ -1,12 +1,16 @@
 import { dirname, posix } from 'node:path';
+import { env } from 'node:process';
 import { readFile, writeFile } from 'node:fs/promises';
 import {
+	getLikelySubtagSource,
 	toInputDateFormat,
 	unicodePatternToDotNetFormat,
 	unicodePatternToDotNetFormatPassthroughYear,
 } from './utils.js';
 import cldr from 'cldr';
 import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
+
+const { NEW_LOCALE } = env;
 const PATH_LMS = posix.join(dirname(import.meta.url), 'lms').replace(/file:(\/c:)?/i, '');
 const PATH_LOCALE_XML = `${PATH_LMS}/LOCALE.xml`;
 const PATH_LOCALE_CULTURE_XML = `${PATH_LMS}/LOCALE_CULTURE.xml`;
@@ -15,18 +19,10 @@ const PATH_LOCALE_ORGS_ENABLED_XML = `${PATH_LMS}/LOCALE_ORGS_ENABLED.xml`;
 const PATH_ORG_LANGS_XML = `${PATH_LMS}/ORG_LANGS.xml`;
 const PATH_INSTALL_OSLO_PS1 = `${PATH_LMS}/Install-Oslo.ps1`;
 
-/**
- * Parses the existing LOCALE.xml to return a Map of LanguageId → LocaleId.
- * This preserves the existing LocaleId assignments across regenerations.
- *
- * @returns {Promise<Map<number, number>>}
- */
 async function readExistingLocaleIdMap() {
 	try {
 		const xml = await readFile(PATH_LOCALE_XML, 'utf-8');
 		const map = new Map();
-		// Each <Row> block may have LocaleId and LanguageId in any order, so we
-		// extract all rows first then parse the two field values from each block.
 		for (const rowMatch of xml.matchAll(/<Row>([\s\S]*?)<\/Row>/g)) {
 			const block = rowMatch[1];
 			const localeIdMatch = block.match(/<Field Name="LocaleId" Value="(\d+)"/);
@@ -41,24 +37,10 @@ async function readExistingLocaleIdMap() {
 	}
 }
 
-/**
- * Returns the locale data object for the given locale details entry.
- * The data object is keyed by `pack` if present, otherwise by `code`.
- *
- * @param {Record<string, object>} data - Result of generateLocaleData().
- * @param {{ code: string, pack?: string }} localeDetails
- * @returns {object | undefined}
- */
 function getLocaleData(data, localeDetails) {
 	return data[localeDetails.pack] ?? data[localeDetails.code];
 }
 
-/**
- * Returns true if the given locale data indicates a right-to-left script.
- *
- * @param {object | undefined} localeData
- * @returns {boolean}
- */
 function isRtl(localeData) {
 	return localeData?.layout?.orientation?.characterOrder === 'right-to-left';
 }
@@ -67,14 +49,6 @@ function isRtl(localeData) {
 // Row builders
 // ---------------------------------------------------------------------------
 
-/**
- * Builds a single <Row> element for LOCALE.xml.
- *
- * @param {{ id: number, name: string }} localeDetails
- * @param {number} localeId
- * @param {object | undefined} localeData
- * @returns {string}
- */
 function buildLocaleRow(localeDetails, localeId, localeData) {
 	const name = localeDetails.name || localeData?.localeDisplayName;
 	const rtl = isRtl(localeData);
@@ -91,40 +65,25 @@ function buildLocaleRow(localeDetails, localeId, localeData) {
 \t\t</Row>`;
 }
 
-/**
- * Builds a single <Row> element for LOCALE_CULTURE.xml.
- *
- * @param {{ id: number, code: string, pack?: string, dir: string }} localeDetails
- * @param {number} localeId
- * @param {object | undefined} localeData
- * @returns {string}
- */
 function buildCultureRow(localeDetails, localeId, localeData) {
-	// Number symbols: prefer the default numbering system's symbols; fall back
-	// to 'latn' if default is not present under a different key.
 	const ns = localeData?.numberSymbols?.default ?? localeData?.numberSymbols?.latn ?? {};
 	const decimal = ns.decimal ?? '.';
 	const group = ns.group ?? ',';
 	const percentSign = ns.percentSign ?? '%';
 	const minusSign = ns.minusSign ?? '-';
 
-	// Native digits from the default numbering system, comma-separated.
 	const nativeDigits = (localeData?.numberingSystem?.digits ?? Array.from({ length: 10 }, (_, i) => String(i))).join(',');
 
 	const rtl = isRtl(localeData);
 	const negativeNumberPattern = rtl ? 3 : 1;
 
-	// Percent pattern: 1 if the CLDR pattern uses " %" (narrow-space + %), else 0.
 	const percentPositivePattern = derivePercentPattern(localeData);
 
-	// CultureCode: canonical BCP 47 (e.g. 'ca-ES', 'en-US').
-	// For well-known overrides that LMS expects in lowercase keep them lower.
 	const cultureCode = deriveCultureCode(localeDetails.code);
 
-	// Date / time formats from CLDR data.
 	const shortDate = localeData?.dateFormats?.short ?? '';
 	const longDate = localeData?.dateFormats?.full ?? '';
-	const standardDate = localeData?.dateFormats?.long ?? '';
+	const standardDate = localeData?.dateFormats?.medium ?? '';
 	const timeShort = localeData?.timeFormats?.short ?? '';
 	const yMMMM = localeData?.dateFormatItems?.yMMMM ?? '';
 	const MMMMd = localeData?.dateFormatItems?.MMMMd ?? '';
@@ -175,13 +134,6 @@ function buildCultureRow(localeDetails, localeId, localeData) {
 \t\t</Row>`;
 }
 
-/**
- * Builds a single <Row> element for LANG_LANGUAGES.xml.
- *
- * @param {{ id: number, code: string, name: string }} localeDetails
- * @param {object | undefined} localeData
- * @returns {string}
- */
 function buildLangLanguagesRow(localeDetails, localeData) {
 	const name = localeDetails.name || localeData?.localeDisplayName;
 	return `\t\t<Row>
@@ -262,14 +214,7 @@ function derivePercentPattern(localeData) {
 // Document builders
 // ---------------------------------------------------------------------------
 
-/**
- * Generates the LOCALE.xml content.
- *
- * @param {Array<object>} sortedLocales - Sorted by LocaleId ascending.
- * @param {Map<number, number>} localeIdMap - id (LanguageId) → LocaleId.
- * @param {Record<string, object>} data
- * @returns {string}
- */
+
 function buildLocaleXml(sortedLocales, localeIdMap, data) {
 	const rows = sortedLocales
 		.map(locale => buildLocaleRow(locale, localeIdMap.get(locale.id), getLocaleData(data, locale)))
@@ -292,14 +237,6 @@ ${rows}
 `;
 }
 
-/**
- * Generates the LOCALE_CULTURE.xml content.
- *
- * @param {Array<object>} sortedLocales - Sorted by LocaleId ascending.
- * @param {Map<number, number>} localeIdMap - id (LanguageId) → LocaleId.
- * @param {Record<string, object>} data
- * @returns {string}
- */
 function buildLocaleCultureXml(sortedLocales, localeIdMap, data) {
 	const rows = sortedLocales
 		.map(locale => buildCultureRow(locale, localeIdMap.get(locale.id), getLocaleData(data, locale)))
@@ -339,13 +276,6 @@ ${rows}
 `;
 }
 
-/**
- * Generates the LANG_LANGUAGES.xml content.
- *
- * @param {Array<object>} sortedByLanguageId - Sorted by LanguageId (id) ascending.
- * @param {Record<string, object>} data
- * @returns {string}
- */
 function buildLangLanguagesXml(sortedByLanguageId, data) {
 	const rows = sortedByLanguageId
 		.map(locale => buildLangLanguagesRow(locale, getLocaleData(data, locale)))
@@ -378,13 +308,6 @@ ${rows}
 `;
 }
 
-/**
- * Generates the LOCALE_ORGS_ENABLED.xml content.
- *
- * @param {Array<object>} sortedLocales - Sorted by LocaleId ascending.
- * @param {Map<number, number>} localeIdMap - id (LanguageId) → LocaleId.
- * @returns {string}
- */
 function buildLocaleOrgsEnabledXml(sortedLocales, localeIdMap) {
 	const rows = sortedLocales
 		.map(locale => {
@@ -411,18 +334,6 @@ ${rows}
 `;
 }
 
-/**
- * Generates the ORG_LANGS.xml content.
- *
- * Rows are ordered as:
- *   1. OrgId=6606 / LanguageId=1  (hardcoded)
- *   2. OrgId=6606 / LanguageId=2  (hardcoded)
- *   3. OrgId=0    / LanguageId=1  (hardcoded)
- *   4. All remaining locales sorted by LanguageId (id), each with OrgId=6606.
- *
- * @param {Array<object>} sortedByLanguageId - All locales sorted by id ascending.
- * @returns {string}
- */
 function buildOrgLangsXml(sortedByLanguageId) {
 	const hardcoded = `\t\t<Row>
 \t\t\t<Field Name="OrgId" Value="6606" />
@@ -469,13 +380,6 @@ ${dynamicRows}
 `;
 }
 
-/**
- * Generates the Install-Oslo.ps1 $locales array line.
- * All locale codes sorted alphabetically, excluding en-us.
- *
- * @param {Array<object>} allLocales
- * @returns {string}
- */
 function buildInstallOsloPowerShell(allLocales) {
 	const codes = allLocales
 		.map(l => l.code)
@@ -518,6 +422,39 @@ $locales = @(${localesStr})
  */
 export async function buildLMSFiles(data) {
 	// ------------------------------------------------------------------
+	// Build the working locale list.
+	// When NEW_LOCALE is set, buildIntlFiles writes the new entry to
+	// supported.js in parallel — so supportedLocalesDetails (a static
+	// import resolved at startup) never includes it. We reconstruct the
+	// new locale's details here directly from `data`, using the same
+	// source-resolution logic as generateLocaleData().
+	// ------------------------------------------------------------------
+	let allLocales = [...supportedLocalesDetails];
+
+	if (NEW_LOCALE) {
+		const canonical = Intl.getCanonicalLocales([NEW_LOCALE])[0];
+		const sourceLocale = getLikelySubtagSource(canonical) ?? canonical;
+		const newLocaleData = data[sourceLocale] ?? data[canonical];
+
+		const alreadyPresent = supportedLocalesDetails.some(
+			l => l.code.toLowerCase() === NEW_LOCALE.toLowerCase()
+				|| (l.pack ?? l.code) === sourceLocale
+		);
+
+		if (newLocaleData && !alreadyPresent) {
+			const newId = supportedLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
+			allLocales = [...supportedLocalesDetails, {
+				id: newId,
+				code: canonical.toLowerCase(),
+				source: sourceLocale,
+				pack: sourceLocale,
+				dir: isRtl(newLocaleData) ? 'rtl' : 'ltr',
+				name: newLocaleData.localeDisplayName,
+			}];
+		}
+	}
+
+	// ------------------------------------------------------------------
 	// Build the LocaleId map.
 	// LocaleId is a separate sequence from the `id` (LanguageId) in
 	// supported.js. The source of truth is the existing LOCALE.xml.
@@ -531,7 +468,7 @@ export async function buildLMSFiles(data) {
 	const localeIdMap = new Map(); // id (LanguageId) → LocaleId
 	let nextLocaleId = maxExistingLocaleId + 1;
 
-	for (const locale of supportedLocalesDetails) {
+	for (const locale of allLocales) {
 		if (existingLocaleIdMap.has(locale.id)) {
 			localeIdMap.set(locale.id, existingLocaleIdMap.get(locale.id));
 		} else {
@@ -544,12 +481,12 @@ export async function buildLMSFiles(data) {
 	// ------------------------------------------------------------------
 
 	// Sorted by LocaleId for LOCALE.xml, LOCALE_CULTURE.xml, LOCALE_ORGS_ENABLED.xml
-	const sortedByLocaleId = [...supportedLocalesDetails].sort(
+	const sortedByLocaleId = [...allLocales].sort(
 		(a, b) => localeIdMap.get(a.id) - localeIdMap.get(b.id)
 	);
 
 	// Sorted by LanguageId (id) for LANG_LANGUAGES.xml and ORG_LANGS.xml
-	const sortedByLanguageId = [...supportedLocalesDetails].sort((a, b) => a.id - b.id);
+	const sortedByLanguageId = [...allLocales].sort((a, b) => a.id - b.id);
 
 	// ------------------------------------------------------------------
 	// Generate and write all files in parallel
@@ -560,6 +497,6 @@ export async function buildLMSFiles(data) {
 		writeFile(PATH_LANG_LANGUAGES_XML, buildLangLanguagesXml(sortedByLanguageId, data)),
 		writeFile(PATH_LOCALE_ORGS_ENABLED_XML, buildLocaleOrgsEnabledXml(sortedByLocaleId, localeIdMap)),
 		writeFile(PATH_ORG_LANGS_XML, buildOrgLangsXml(sortedByLanguageId)),
-		writeFile(PATH_INSTALL_OSLO_PS1, buildInstallOsloPowerShell(supportedLocalesDetails)),
+		writeFile(PATH_INSTALL_OSLO_PS1, buildInstallOsloPowerShell(allLocales)),
 	]);
 }
