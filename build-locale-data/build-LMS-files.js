@@ -1,16 +1,18 @@
 import { dirname, posix } from 'node:path';
-import { env } from 'node:process';
 import { readFile, writeFile } from 'node:fs/promises';
 import {
-	getLikelySubtagSource,
 	toInputDateFormat,
 	unicodePatternToDotNetFormat,
 	unicodePatternToDotNetFormatPassthroughYear,
 } from './utils.js';
 import cldr from 'cldr';
+import { env } from 'node:process';
 import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
 
 const { NEW_LOCALE } = env;
+// Full file: URL for supported.js — used with a cache-busting query string
+// to force a fresh import after buildIntlFiles has updated the file.
+const PATH_SUPPORTED = new URL('../lib/locale-data/supported.js', import.meta.url).href;
 const PATH_LMS = posix.join(dirname(import.meta.url), 'lms').replace(/file:(\/c:)?/i, '');
 const PATH_LOCALE_XML = `${PATH_LMS}/LOCALE.xml`;
 const PATH_LOCALE_CULTURE_XML = `${PATH_LMS}/LOCALE_CULTURE.xml`;
@@ -213,7 +215,6 @@ function derivePercentPattern(localeData) {
 // ---------------------------------------------------------------------------
 // Document builders
 // ---------------------------------------------------------------------------
-
 
 function buildLocaleXml(sortedLocales, localeIdMap, data) {
 	const rows = sortedLocales
@@ -421,44 +422,68 @@ $locales = @(${localesStr})
  * @param {Record<string, object>} data - Result of generateLocaleData().
  */
 export async function buildLMSFiles(data) {
-	// ------------------------------------------------------------------
-	// Build the working locale list.
-	// When NEW_LOCALE is set, buildIntlFiles writes the new entry to
-	// supported.js in parallel — so supportedLocalesDetails (a static
-	// import resolved at startup) never includes it. We reconstruct the
-	// new locale's details here directly from `data`, using the same
-	// source-resolution logic as generateLocaleData().
-	// ------------------------------------------------------------------
-	let allLocales = [...supportedLocalesDetails];
-
 	if (NEW_LOCALE) {
-		const canonical = Intl.getCanonicalLocales([NEW_LOCALE])[0];
-		const sourceLocale = getLikelySubtagSource(canonical) ?? canonical;
-		const newLocaleData = data[sourceLocale] ?? data[canonical];
-
-		const alreadyPresent = supportedLocalesDetails.some(
-			l => l.code.toLowerCase() === NEW_LOCALE.toLowerCase()
-				|| (l.pack ?? l.code) === sourceLocale
+		// buildIntlFiles has already run (build-files.js sequences them when
+		// NEW_LOCALE is set). Re-import supported.js fresh by appending a
+		// cache-busting query string — Node keys the module cache on the full
+		// URL, so this bypasses the stale startup snapshot.
+		const { supportedLocalesDetails: freshLocales } = await import(
+			`${PATH_SUPPORTED}?t=${Date.now()}`
 		);
 
-		if (newLocaleData && !alreadyPresent) {
-			const newId = supportedLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
-			allLocales = [...supportedLocalesDetails, {
-				id: newId,
-				code: canonical.toLowerCase(),
-				source: sourceLocale,
-				pack: sourceLocale,
-				dir: isRtl(newLocaleData) ? 'rtl' : 'ltr',
-				name: newLocaleData.localeDisplayName,
-			}];
-		}
+		// Find the entry that buildIntlFiles just added.
+		const existingCodes = new Set(supportedLocalesDetails.map(l => l.code));
+		const newLocale = freshLocales.find(l => !existingCodes.has(l.code));
+		if (!newLocale) return;
+
+		// Assign the next available LocaleId from the existing LOCALE.xml.
+		const existingLocaleIdMap = await readExistingLocaleIdMap();
+		const newLocaleId = existingLocaleIdMap.size > 0
+			? Math.max(...existingLocaleIdMap.values()) + 1
+			: 1;
+
+		const localeData = getLocaleData(data, newLocale);
+
+		// Read all existing files in parallel.
+		const [localeXml, cultureXml, langXml, orgsXml, orgLangsXml] = await Promise.all([
+			readFile(PATH_LOCALE_XML, 'utf-8'),
+			readFile(PATH_LOCALE_CULTURE_XML, 'utf-8'),
+			readFile(PATH_LANG_LANGUAGES_XML, 'utf-8'),
+			readFile(PATH_LOCALE_ORGS_ENABLED_XML, 'utf-8'),
+			readFile(PATH_ORG_LANGS_XML, 'utf-8'),
+		]);
+
+		// Insert anchors: rows go just before </Rows> in most files;
+		// in LANG_LANGUAGES they go before the hardcoded LanguageId=1000 row.
+		const ROWS_CLOSE = '\t</Rows>';
+		const LANG_ANCHOR = '\t\t<Row>\n\t\t\t<Field Name="LanguageId" Value="1000"';
+
+		// Use replacer functions so that special $ characters in locale
+		// display names or format strings are never misinterpreted.
+		await Promise.all([
+			writeFile(PATH_LOCALE_XML,
+				localeXml.replace(ROWS_CLOSE, () =>
+					`${buildLocaleRow(newLocale, newLocaleId, localeData)}\n${ROWS_CLOSE}`)),
+			writeFile(PATH_LOCALE_CULTURE_XML,
+				cultureXml.replace(ROWS_CLOSE, () =>
+					`${buildCultureRow(newLocale, newLocaleId, localeData)}\n${ROWS_CLOSE}`)),
+			writeFile(PATH_LANG_LANGUAGES_XML,
+				langXml.replace(LANG_ANCHOR, () =>
+					`${buildLangLanguagesRow(newLocale, localeData)}\n${LANG_ANCHOR}`)),
+			writeFile(PATH_LOCALE_ORGS_ENABLED_XML,
+				orgsXml.replace(ROWS_CLOSE, () =>
+					`\t\t<Row>\n\t\t\t<Field Name="LocaleId" Value="${newLocaleId}" />\n\t\t\t<Field Name="OrgId" Value="0" />\n\t\t\t<Field Name="Enabled" Value="True" />\n\t\t</Row>\n${ROWS_CLOSE}`)),
+			writeFile(PATH_ORG_LANGS_XML,
+				orgLangsXml.replace(ROWS_CLOSE, () =>
+					`\t\t<Row>\n\t\t\t<Field Name="OrgId" Value="6606" />\n\t\t\t<Field Name="LanguageId" Value="${newLocale.id}" />\n\t\t\t<Field Name="IsActive" Value="True" />\n\t\t\t<Field Name="IsEdited" Value="False" />\n\t\t</Row>\n${ROWS_CLOSE}`)),
+			writeFile(PATH_INSTALL_OSLO_PS1, buildInstallOsloPowerShell(freshLocales)),
+		]);
+
+		return;
 	}
 
 	// ------------------------------------------------------------------
-	// Build the LocaleId map.
-	// LocaleId is a separate sequence from the `id` (LanguageId) in
-	// supported.js. The source of truth is the existing LOCALE.xml.
-	// New locales not yet present there are assigned maxLocaleId + 1.
+	// Full regeneration (no NEW_LOCALE).
 	// ------------------------------------------------------------------
 	const existingLocaleIdMap = await readExistingLocaleIdMap(); // LanguageId → LocaleId
 	const maxExistingLocaleId = existingLocaleIdMap.size > 0
@@ -468,7 +493,7 @@ export async function buildLMSFiles(data) {
 	const localeIdMap = new Map(); // id (LanguageId) → LocaleId
 	let nextLocaleId = maxExistingLocaleId + 1;
 
-	for (const locale of allLocales) {
+	for (const locale of supportedLocalesDetails) {
 		if (existingLocaleIdMap.has(locale.id)) {
 			localeIdMap.set(locale.id, existingLocaleIdMap.get(locale.id));
 		} else {
@@ -476,27 +501,20 @@ export async function buildLMSFiles(data) {
 		}
 	}
 
-	// ------------------------------------------------------------------
-	// Sorted views
-	// ------------------------------------------------------------------
-
 	// Sorted by LocaleId for LOCALE.xml, LOCALE_CULTURE.xml, LOCALE_ORGS_ENABLED.xml
-	const sortedByLocaleId = [...allLocales].sort(
+	const sortedByLocaleId = [...supportedLocalesDetails].sort(
 		(a, b) => localeIdMap.get(a.id) - localeIdMap.get(b.id)
 	);
 
 	// Sorted by LanguageId (id) for LANG_LANGUAGES.xml and ORG_LANGS.xml
-	const sortedByLanguageId = [...allLocales].sort((a, b) => a.id - b.id);
+	const sortedByLanguageId = [...supportedLocalesDetails].sort((a, b) => a.id - b.id);
 
-	// ------------------------------------------------------------------
-	// Generate and write all files in parallel
-	// ------------------------------------------------------------------
 	await Promise.all([
 		writeFile(PATH_LOCALE_XML, buildLocaleXml(sortedByLocaleId, localeIdMap, data)),
 		writeFile(PATH_LOCALE_CULTURE_XML, buildLocaleCultureXml(sortedByLocaleId, localeIdMap, data)),
 		writeFile(PATH_LANG_LANGUAGES_XML, buildLangLanguagesXml(sortedByLanguageId, data)),
 		writeFile(PATH_LOCALE_ORGS_ENABLED_XML, buildLocaleOrgsEnabledXml(sortedByLocaleId, localeIdMap)),
 		writeFile(PATH_ORG_LANGS_XML, buildOrgLangsXml(sortedByLanguageId)),
-		writeFile(PATH_INSTALL_OSLO_PS1, buildInstallOsloPowerShell(allLocales)),
+		writeFile(PATH_INSTALL_OSLO_PS1, buildInstallOsloPowerShell(supportedLocalesDetails)),
 	]);
 }
