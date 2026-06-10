@@ -33,7 +33,6 @@ export async function generateLocaleData() {
 
 	const data = {};
 	const weekData = cldr.extractWeekData();
-	console.log(JSON.stringify(weekData, null, '\t'));
 	const locales = supportedLocalesDetails.map(l => l.pack || l.code);
 	const padOriginalLength = Math.max(...locales.map(l => l.length)) + 1;
 	const padMappedLength = Math.max(...Object.values(config.localesMap).map(l => l.length)) + 1;
@@ -158,6 +157,8 @@ export async function generateLocaleData() {
 			dateFormats: cldr.extractDateFormats(coreLocaleTag, 'gregorian'),
 			dateFormatItems: cldr.extractDateFormatItems(coreLocaleTag, 'gregorian'),
 			timeFormats: cldr.extractTimeFormats(coreLocaleTag, 'gregorian'),
+			dayPeriods: cldr.extractDayPeriods(coreLocaleTag, 'gregorian'),
+			dayNames: cldr.extractDayNames(coreLocaleTag, 'gregorian'),
 			weekData: {
 				firstDay,
 				weekendStart,
