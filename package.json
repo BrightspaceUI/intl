@@ -8,8 +8,7 @@
     "lint": "eslint .",
     "start": "web-dev-server --node-resolve --watch --open /demo/",
     "test:unit": "d2l-test-runner",
-    "test": "npm run lint && npm run test:unit",
-    "build-locale-data": "node build-locale-data/build-files.js"
+    "test": "npm run lint && npm run test:unit"
   },
   "files": [
     "/lang",
