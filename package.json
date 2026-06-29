@@ -43,7 +43,7 @@
   "devDependencies": {
     "@brightspace-ui/testing": "^1",
     "eslint": "^9",
-    "eslint-config-brightspace": "^3",
+    "eslint-config-brightspace": "^4",
     "sinon": "^22.0.0"
   },
   "dependencies": {
