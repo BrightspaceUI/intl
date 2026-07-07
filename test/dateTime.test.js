@@ -676,13 +676,13 @@ describe('dateTime', () => {
 		});
 
 		[
-			{ locale: 'ar', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
-			{ locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
+			{ locale: 'ar', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04‏/06‏/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
+			{ locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04‏/06‏/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
 			{ locale: 'ca', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'juny', 'juny'] },
 			{ locale: 'ca-ES', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'juny', 'juny'] },
 			{ locale: 'cy-GB', expect: ['Dydd Mawrth, 4 Mehefin 2019', '04 Mehefin 2019', '04/06/2019', 'Mehefin 2019', '4 Mehefin', '4 Meh', 'Dydd Mawrth', 'Maw', 'Mehefin', 'Meh'] },
-			{ locale: 'da', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
-			{ locale: 'da-DK', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
+			{ locale: 'da', expect: ['tirsdag den 4. juni 2019', '4. jun. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
+			{ locale: 'da-DK', expect: ['tirsdag den 4. juni 2019', '4. jun. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
 			{ locale: 'de', expect: ['Dienstag 4. Juni 2019', '4. Juni 2019', '04.06.2019', 'Juni 2019', '4. Juni', '4. Juni', 'Dienstag', 'Di.', 'Juni', 'Juni'] },
 			{ locale: 'de-DE', expect: ['Dienstag 4. Juni 2019', '4. Juni 2019', '04.06.2019', 'Juni 2019', '4. Juni', '4. Juni', 'Dienstag', 'Di.', 'Juni', 'Juni'] },
 			{ locale: 'en', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4', 'Jun 4', 'Tuesday', 'Tue', 'June', 'Jun'] },
@@ -704,8 +704,8 @@ describe('dateTime', () => {
 			{ locale: 'ko-KR', expect: ['2019년 6월 4일 화요일', '2019년 6월 4일', '2019-06-04', '2019년 6월', '6월 4일', '6월 4일', '화요일', '화', '6월', '6월'] },
 			{ locale: 'nl', expect: ['dinsdag 4 juni 2019', '4 juni 2019', '04-06-2019', 'juni 2019', '4 juni', '4 jun.', 'dinsdag', 'di', 'juni', 'jun.'] },
 			{ locale: 'nl-NL', expect: ['dinsdag 4 juni 2019', '4 juni 2019', '04-06-2019', 'juni 2019', '4 juni', '4 jun.', 'dinsdag', 'di', 'juni', 'jun.'] },
-			{ locale: 'pt', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', '04 de jun', 'terça-feira', 'ter', 'junho', 'jun'] },
-			{ locale: 'pt-BR', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', '04 de jun', 'terça-feira', 'ter', 'junho', 'jun'] },
+			{ locale: 'pt', expect: ['terça-feira, 4 de junho de 2019', '4 de junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', '04 de jun', 'terça-feira', 'ter', 'junho', 'jun'] },
+			{ locale: 'pt-BR', expect: ['terça-feira, 4 de junho de 2019', '4 de junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', '04 de jun', 'terça-feira', 'ter', 'junho', 'jun'] },
 			{ locale: 'sv', expect: ['Tisdag den 4 juni 2019', '4 juni 2019', '2019-06-04', 'juni 2019', '04 juni', '04 juni', 'Tisdag', 'Tis', 'juni', 'juni'] },
 			{ locale: 'sv-SE', expect: ['Tisdag den 4 juni 2019', '4 juni 2019', '2019-06-04', 'juni 2019', '04 juni', '04 juni', 'Tisdag', 'Tis', 'juni', 'juni'] },
 			{ locale: 'tr', expect: ['04 Haziran 2019 Salı', '04 Haziran 2019', '04.06.2019', 'Haziran 2019', '04 Haziran', '04 Haz', 'Salı', 'Sal', 'Haziran', 'Haz'] },
