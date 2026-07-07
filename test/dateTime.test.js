@@ -11,14 +11,31 @@ import {
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
-import { expect } from '@brightspace-ui/testing';
+import { expect, oneEvent } from '@brightspace-ui/testing';
+import { localeData, registerLocaleDataListener } from '../lib/locale-data/current.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
+
+const documentLocaleSettings = getDocumentLocaleSettings();
+
+async function waitForLocaleData() {
+	if (!Object.keys(localeData).length) await oneEvent(document, 'document-locale-data-change');
+}
+
+async function setLanguage(lang) {
+	documentLocaleSettings.language = lang;
+	await waitForLocaleData();
+}
 
 describe('dateTime', () => {
 
-	const documentLocaleSettings = getDocumentLocaleSettings();
+	beforeEach(async() => {
+		await waitForLocaleData();
+	});
 
-	afterEach(() => documentLocaleSettings.reset());
+	afterEach(() => {
+		documentLocaleSettings.reset();
+		registerLocaleDataListener();
+	});
 
 	describe('converting date/time', () => {
 
@@ -354,14 +371,14 @@ describe('dateTime', () => {
 			['early', 'late'].forEach((timeOfDay) => {
 				['short', 'full'].forEach((format) => {
 					[true, false].forEach((hour24) => {
-						it(`should format ${input.locale}/${timeOfDay}/${format}/${hour24}`, () => {
-							documentLocaleSettings.language = input.locale;
+						index++;
+						((idx) => it(`should format ${input.locale}/${timeOfDay}/${format}/${hour24}`, async() => {
+							await setLanguage(input.locale);
 							documentLocaleSettings.overrides = { date: { hour24: hour24 } };
-							index++;
 							const time = timeOfDay === 'early' ? earlyTime : lateTime;
 							const value = formatTime(time, { format: format, timezone: 'EST' });
-							expect(value).to.equal(input.expect[index]);
-						});
+							expect(value).to.equal(input.expect[idx]);
+						}))(index);
 					});
 				});
 			});
@@ -593,14 +610,12 @@ describe('dateTime', () => {
 				{ locale: 'zh-CN', inputs: ['上午 1:28', '1:28', '下午 1:52', '13:52'] },
 				{ locale: 'zh-TW', inputs: ['上午 01:28', '01:28', '下午 01:52', '13:52'] }
 			].forEach((input) => {
-				let index = -1;
-				input.inputs.forEach((value) => {
-					it(`should parse "${value}" in locale ${input.locale}`, () => {
-						index++;
-						documentLocaleSettings.language = input.locale;
-						documentLocaleSettings.overrides = { date: { hour24: index % 2 === 1 } };
+				input.inputs.forEach((value, idx) => {
+					it(`should parse "${value}" in locale ${input.locale}`, async() => {
+						await setLanguage(input.locale);
+						documentLocaleSettings.overrides = { date: { hour24: idx % 2 === 1 } };
 						const time = parseTime(value, timeOptions);
-						assertTime(time, expects[index].hour, expects[index].minute);
+						assertTime(time, expects[idx].hour, expects[idx].minute);
 					});
 				});
 			});
@@ -699,14 +714,12 @@ describe('dateTime', () => {
 			{ locale: 'zh-CN', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '6月4日', '週二', '週二', '六月', '六月'] },
 			{ locale: 'zh-TW', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '6月4日', '星期二', '週二', '六月', '六月'] }
 		].forEach((input) => {
-			let index = -1;
-			['full', 'medium', 'short', 'monthYear', 'monthDay', 'shortMonthDay', 'longDayOfWeek', 'shortDayOfWeek', 'longMonth', 'shortMonth'].forEach((format) => {
-				it(`should format ${input.locale}/${format}`, () => {
-					documentLocaleSettings.language = input.locale;
-					index++;
+			['full', 'medium', 'short', 'monthYear', 'monthDay', 'shortMonthDay', 'longDayOfWeek', 'shortDayOfWeek', 'longMonth', 'shortMonth'].forEach((format, idx) => {
+				it(`should format ${input.locale}/${format}`, async() => {
+					await setLanguage(input.locale);
 					const date = new Date(2019, 5, 4);
 					const value = formatDate(date, { format: format });
-					expect(value).to.equal(input.expect[index]);
+					expect(value).to.equal(input.expect[idx]);
 				});
 			});
 		});
@@ -825,8 +838,8 @@ describe('dateTime', () => {
 				{ locale: 'zh-CN', date: '2025/5/29' },
 				{ locale: 'zh-TW', date: '2025/5/29' }
 			].forEach((input) => {
-				it(`should parse date in locale ${input.locale}`, () => {
-					documentLocaleSettings.language = input.locale;
+				it(`should parse date in locale ${input.locale}`, async() => {
+					await setLanguage(input.locale);
 					const date = parseDate(input.date);
 					expect(date.getFullYear()).to.equal(2025);
 					expect(date.getMonth()).to.equal(4);
@@ -1069,16 +1082,16 @@ describe('dateTime', () => {
 			});
 		});
 
-		it('should respect the document locale', () => {
-			documentLocaleSettings.language = 'fr';
+		it('should respect the document locale', async() => {
+			await setLanguage('fr');
 
 			const date = hoursAgo(1);
 			const result = formatRelativeDateTime(date);
 			expect(result).to.equal('il y a 1 heure');
 		});
 
-		it('should respect different starting days of the week', () => {
-			documentLocaleSettings.language = 'fr';
+		it('should respect different starting days of the week', async() => {
+			await setLanguage('fr');
 
 			mockNow = '1/6/2023, 4:00:00 AM';
 
@@ -1106,8 +1119,8 @@ describe('dateTime', () => {
 				expect(result).to.equal('3:58 AM');
 			});
 
-			it('should return the short date on a different date', () => {
-				documentLocaleSettings.language = 'fr';
+			it('should return the short date on a different date', async() => {
+				await setLanguage('fr');
 
 				const date = monthsAgo(1);
 				const result = formatRelativeDateTime(date);
