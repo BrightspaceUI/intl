@@ -2,7 +2,10 @@ import * as utils from './utils.js';
 import { env, exit, stderr, stdout } from 'node:process';
 import cldr from 'cldr';
 import config from '../mfv.config.json' with { type: 'json' };
+import { merge } from '../lib/common.js';
 import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
+
+const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathname;
 
 const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
@@ -51,7 +54,7 @@ export async function generateLocaleData() {
 		locales.push(sourceLocale);
 	}
 
-	locales.forEach(locale => {
+	locales.forEach(async locale => {
 		const originalLocale = locale;
 		let mappedLocale;
 		try {
@@ -179,6 +182,11 @@ export async function generateLocaleData() {
 			delimiters: getDelimiters(coreLocaleTag),
 			listPatterns: cldr.extractListPatterns(coreLocaleTag)
 		};
+
+		try {
+			const override = await import(`${overridesPath}/${sourceLocale}.js`);
+			merge(data[originalLocale], override, true);
+		} catch { /* no override fil */ }
 	});
 
 	return data;

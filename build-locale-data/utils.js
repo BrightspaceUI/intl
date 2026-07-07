@@ -5,7 +5,6 @@ import { resolve } from 'path';
 const _require = createRequire(import.meta.url);
 const cldrMainPath = resolve(_require.resolve('cldr'), '../../3rdparty/cldr/common/main');
 const cldrSupplementalPath = resolve(_require.resolve('cldr'), '../../3rdparty/cldr/common/supplemental');
-const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathname;
 
 /** @type {string[] | null} */
 let _availableLocales = null;
@@ -138,17 +137,6 @@ export async function shouldTitleCaseMonths(locale) {
 	const regional = locale.replace('-', '_');
 	const base = locale.split('-')[0];
 	const candidates = regional !== base ? [regional, base] : [base];
-
-	for (const candidate of candidates) {
-		try {
-			const override = await import(`${overridesPath}/${candidate}.js`);
-			if (override.default?.shouldTitleCaseMonths) {
-				return { ...result, ...override.default.shouldTitleCaseMonths };
-			}
-		} catch {
-			// no override file
-		}
-	}
 
 	// Check CLDR XML. Always include both the regional and base language files as
 	// candidates, matching ICU4J's getWithFallback() resource bundle inheritance behaviour.
