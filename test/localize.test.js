@@ -299,17 +299,17 @@ describe('getLocalizeClass', () => {
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
 		});
 
-		it('should update OSLO batch URL to use `data-language-id` if present', async () => {
+		it('should update OSLO batch URL to use `data-language-id` if present', async() => {
 			document.documentElement.dataset.languageId = '1009';
 			await LocalizeClass._getLocalizeResources(['en-US'], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1009`);
 		});
 
 		it('should not update OSLO URLs if document flag is not present', async() => {
-			delete document.documentElement.dataset.customLang
+			delete document.documentElement.dataset.customLang;
 			await LocalizeClass._getLocalizeResources(['fr-be'], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal('/batch/url');
-			expect(documentLocaleSettings.oslo.collection).to.equal('/collection/url')
+			expect(documentLocaleSettings.oslo.collection).to.equal('/collection/url');
 		});
 
 		it('should not update OSLO URLs if collection is null', async() => {
