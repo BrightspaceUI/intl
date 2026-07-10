@@ -1,6 +1,6 @@
 {
   "name": "@brightspace-ui/intl",
-  "version": "3.38.2",
+  "version": "3.39.0",
   "description": "Internationalization APIs for number, date, time and file size formatting and parsing in D2L Brightspace.",
   "main": "lib/number.js",
   "type": "module",
@@ -18,7 +18,8 @@
     "/helpers"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,7 @@
   "devDependencies": {
     "@brightspace-ui/testing": "^1",
     "eslint": "^9",
-    "eslint-config-brightspace": "^3",
+    "eslint-config-brightspace": "^4",
     "sinon": "^22.0.0"
   },
   "dependencies": {
