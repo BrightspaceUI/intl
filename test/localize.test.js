@@ -275,11 +275,13 @@ describe('getLocalizeClass', () => {
 		beforeEach(() => {
 			documentLocaleSettings.oslo.batch = '/batch/url';
 			documentLocaleSettings.oslo.collection = '/collection/url';
+			document.documentElement.dataset.customLang = '';
 		});
 
 		afterEach(() => {
 			documentLocaleSettings.oslo.batch = null;
 			documentLocaleSettings.oslo.collection = null;
+			delete document.documentElement.dataset.languageId;
 		});
 
 		it('should update OSLO batch URL to match the resolved language', async() => {
@@ -295,6 +297,19 @@ describe('getLocalizeClass', () => {
 		it('should update OSLO batch URL to use en-US given no langs', async() => {
 			await LocalizeClass._getLocalizeResources([], config);
 			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1`);
+		});
+
+		it('should update OSLO batch URL to use `data-language-id` if present', async() => {
+			document.documentElement.dataset.languageId = '1009';
+			await LocalizeClass._getLocalizeResources(['en-US'], config);
+			expect(documentLocaleSettings.oslo.batch).to.equal(`${document.location.origin}/batch/url?languageId=1009`);
+		});
+
+		it('should not update OSLO URLs if document flag is not present', async() => {
+			delete document.documentElement.dataset.customLang;
+			await LocalizeClass._getLocalizeResources(['fr-be'], config);
+			expect(documentLocaleSettings.oslo.batch).to.equal('/batch/url');
+			expect(documentLocaleSettings.oslo.collection).to.equal('/collection/url');
 		});
 
 		it('should not update OSLO URLs if collection is null', async() => {
@@ -328,7 +343,7 @@ describe('getLocalizeClass', () => {
 				};
 			});
 			iframe.srcdoc = `
-				<html>
+				<html data-custom-lang>
 				<head>
 					<script type="module">
 						import { getDocumentLocaleSettings } from '../lib/common.js';
