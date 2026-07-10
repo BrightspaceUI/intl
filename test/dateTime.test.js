@@ -8,6 +8,7 @@ import {
 	formatRelativeDateTime,
 	formatTime,
 	formatTimeFromTimestamp,
+	getDateTimeDescriptor,
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
@@ -281,6 +282,37 @@ describe('dateTime', () => {
 		});
 	});
 
+	describe('getDateTimeDescriptor', () => {
+
+		it('should include stand-alone month and day names for use by the "cccc"/"ccc"/"LLLL"/"LLL" format tokens', async() => {
+			await setLanguage('en');
+			const descriptor = getDateTimeDescriptor();
+			expect(descriptor.calendar.daysStandAlone.wide[1]).to.equal('Monday');
+			expect(descriptor.calendar.daysStandAlone.abbreviated[1]).to.equal('Mon');
+			expect(descriptor.calendar.monthsStandAlone.wide[7]).to.equal('August');
+			expect(descriptor.calendar.monthsStandAlone.abbreviated[7]).to.equal('Aug');
+		});
+
+		describe('"calendar" overrides', () => {
+
+			it('should be applied for a locale without more nuanced front-end locale data', async() => {
+				await setLanguage('en-CA');
+				documentLocaleSettings.overrides = { date: { calendar: { firstDayOfWeek: 5 } } };
+				const descriptor = getDateTimeDescriptor();
+				expect(descriptor.calendar.firstDayOfWeek).to.equal(5);
+			});
+
+			it('should be discarded for a locale with more nuanced front-end locale data', async() => {
+				await setLanguage('en-US');
+				documentLocaleSettings.overrides = { date: { calendar: { firstDayOfWeek: 5 } } };
+				const descriptor = getDateTimeDescriptor();
+				expect(descriptor.calendar.firstDayOfWeek).to.not.equal(5);
+			});
+
+		});
+
+	});
+
 	describe('formatTime', () => {
 
 		const earlyTime = new Date(2015, 7, 25, 1, 28);
@@ -298,6 +330,7 @@ describe('dateTime', () => {
 			{ format: 'HH:mm', expect1: '01:28', expect2: '13:52' },
 			{ format: 'tt h:mm', expect1: 'AM 1:28', expect2: 'PM 1:52' },
 			{ format: 'tt hh:mm', expect1: 'AM 01:28', expect2: 'PM 01:52' },
+			{ format: 'K:mm', expect1: '1:28', expect2: '1:52' },
 			{ format: 'short', expect1: '1:28 AM', expect2: '1:52 PM' },
 			{ format: 'medium', expect1: '1:28 AM', expect2: '1:52 PM' },
 			{ format: 'full', expect1: '1:28 AM EST', expect2: '1:52 PM EST' }
@@ -314,6 +347,11 @@ describe('dateTime', () => {
 		it('should format midnight as hour 12', () => {
 			const value = formatTime(new Date(2015, 7, 25, 0, 1));
 			expect(value).to.equal('12:01 AM');
+		});
+
+		it('should format midnight as hour 0 using the "K" token', () => {
+			const value = formatTime(new Date(2015, 7, 25, 0, 1), { format: 'K:mm' });
+			expect(value).to.equal('0:01');
 		});
 
 		it('should use timezone name from document settings', () => {
@@ -667,9 +705,26 @@ describe('dateTime', () => {
 			{ format: 'dddd', expect: 'Monday' },
 			{ format: 'ddd', expect: 'Mon' },
 			{ format: 'MMMM', expect: 'August' },
-			{ format: 'MMM', expect: 'Aug' }
+			{ format: 'MMM', expect: 'Aug' },
+			{ format: 'cccc', expect: 'Monday' },
+			{ format: 'ccc', expect: 'Mon' },
+			{ format: 'LLLL', expect: 'August' },
+			{ format: 'LLL', expect: 'Aug' }
 		].forEach((input) => {
 			it(`should apply locale format "${input.format}"`, () => {
+				const value = formatDate(new Date(2015, 7, 3), { format: input.format });
+				expect(value).to.equal(input.expect);
+			});
+		});
+
+		[
+			{ format: 'MMMM', type: 'format', expect: 'd’agost' },
+			{ format: 'LLLL', type: 'standalone', expect: 'agost' },
+			{ format: 'MMM', type: 'format', expect: 'd’ag.' },
+			{ format: 'LLL', type: 'standalone', expect: 'ag.' }
+		].forEach(input => {
+			it(`should replace "${input.format}" with ${input.type} month name`, async() => {
+				await setLanguage('ca');
 				const value = formatDate(new Date(2015, 7, 3), { format: input.format });
 				expect(value).to.equal(input.expect);
 			});
@@ -796,6 +851,14 @@ describe('dateTime', () => {
 			expect(value.getFullYear()).to.equal(2025);
 			expect(value.getMonth()).to.equal(4);
 			expect(value.getDate()).to.equal(29);
+		});
+
+		it('should collapse consecutive separator characters in both the format and the input', () => {
+			documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:'M--d---yyyy' } } } };
+			const value = parseDate('4--9---1958');
+			expect(value.getFullYear()).to.equal(1958);
+			expect(value.getMonth()).to.equal(3);
+			expect(value.getDate()).to.equal(9);
 		});
 
 		describe('all locales', () => {
