@@ -293,20 +293,24 @@ describe('dateTime', () => {
 			expect(descriptor.calendar.monthsStandAlone.abbreviated[7]).to.equal('Aug');
 		});
 
-		describe('"calendar" overrides', () => {
+		describe('static "calendar" overrides', () => {
 
 			it('should be applied for a locale without more nuanced front-end locale data', async() => {
-				await setLanguage('en-CA');
-				documentLocaleSettings.overrides = { date: { calendar: { firstDayOfWeek: 5 } } };
+				await setLanguage('af-RU');
+				const shortMonths = Array(12).fill().map((e, idx) => idx + 11);
+				documentLocaleSettings.overrides = { date: { calendar: { firstDayOfWeek: 5, months: { short: shortMonths } } } };
 				const descriptor = getDateTimeDescriptor();
 				expect(descriptor.calendar.firstDayOfWeek).to.equal(5);
+				expect(descriptor.calendar.months.short).to.include.members(shortMonths);
 			});
 
 			it('should be discarded for a locale with more nuanced front-end locale data', async() => {
 				await setLanguage('en-US');
-				documentLocaleSettings.overrides = { date: { calendar: { firstDayOfWeek: 5 } } };
+				const shortMonths = Array(12).fill().map((e, idx) => idx + 11);
+				documentLocaleSettings.overrides = { date: { calendar: { firstDayOfWeek: 5, months: { short: shortMonths } } } };
 				const descriptor = getDateTimeDescriptor();
-				expect(descriptor.calendar.firstDayOfWeek).to.not.equal(5);
+				expect(descriptor.calendar.firstDayOfWeek).to.equal(5);
+				expect(descriptor.calendar.months.short).to.not.include.members(shortMonths);
 			});
 
 		});
@@ -574,7 +578,7 @@ describe('dateTime', () => {
 			});
 
 			it('should not treat hour as PM if using 24-hour clock', () => {
-				documentLocaleSettings.overrides = { date:{ hour24: true } };
+				documentLocaleSettings.overrides = { date: { hour24: true } };
 				const time = parseTime('5', timeOptions);
 				assertTime(time, 5, 0);
 			});
@@ -784,7 +788,7 @@ describe('dateTime', () => {
 	describe('parseDate', () => {
 
 		it('should use "m/d/yyyy" as a default pattern', () => {
-			documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:'abc' } } } };
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short: 'abc' } } } };
 			const value = parseDate('12/13/2003');
 			expect(value.getFullYear()).to.equal(2003);
 			expect(value.getMonth()).to.equal(11);
@@ -831,7 +835,7 @@ describe('dateTime', () => {
 			{ format: 'yyyy-MM-dd', val: '1958-04-09' }
 		].forEach((input) => {
 			it(`should parse format "${input.format}"`, () => {
-				documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short: input.format } } } };
+				documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short: input.format } } } };
 				const value = parseDate(input.val);
 				expect(value.getFullYear()).to.equal(1958);
 				expect(value.getMonth()).to.equal(3);
@@ -846,7 +850,7 @@ describe('dateTime', () => {
 		});
 
 		it('should ignore invalid format parts', () => {
-			documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:'yyyy|M|d|w' } } } };
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short:'yyyy|M|d|w' } } } };
 			const value = parseDate('2025|5|29');
 			expect(value.getFullYear()).to.equal(2025);
 			expect(value.getMonth()).to.equal(4);
@@ -854,11 +858,19 @@ describe('dateTime', () => {
 		});
 
 		it('should collapse consecutive separator characters in both the format and the input', () => {
-			documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:'M--d---yyyy' } } } };
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short:'M--d---yyyy' } } } };
 			const value = parseDate('4--9---1958');
 			expect(value.getFullYear()).to.equal(1958);
 			expect(value.getMonth()).to.equal(3);
 			expect(value.getDate()).to.equal(9);
+		});
+
+		it('should parse dates regardless of separators', () => {
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short:'yyyy . |M\\;\td?_^w' } } } };
+			const value = parseDate('2025(+)5*&29');
+			expect(value.getFullYear()).to.equal(2025);
+			expect(value.getMonth()).to.equal(4);
+			expect(value.getDate()).to.equal(29);
 		});
 
 		describe('all locales', () => {

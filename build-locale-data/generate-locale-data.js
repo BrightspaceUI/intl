@@ -125,7 +125,7 @@ export async function generateLocaleData() {
 					}
 				}
 			}
-			return 1; // default to Monday
+			return 6; // default to Saturday
 		})();
 
 		const weekendEnd = (() => {
@@ -137,7 +137,7 @@ export async function generateLocaleData() {
 					}
 				}
 			}
-			return 1; // default to Monday
+			return 0; // default to Sunday
 		})();
 
 		data[originalLocale] = {
