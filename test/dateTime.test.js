@@ -12,29 +12,22 @@ import {
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
-import { expect, oneEvent } from '@brightspace-ui/testing';
 import { localeData, registerLocaleDataListener } from '../lib/locale-data/current.js';
+import { expect } from '@brightspace-ui/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 
 const documentLocaleSettings = getDocumentLocaleSettings();
 
-async function waitForLocaleData() {
-	if (!Object.keys(localeData).length) await oneEvent(document, 'document-locale-data-change');
-}
-
 async function setLanguage(lang) {
 	documentLocaleSettings.language = lang;
-	await waitForLocaleData();
+	await localeData;
 }
 
 describe('dateTime', () => {
 
-	beforeEach(async() => {
-		await waitForLocaleData();
-	});
-
-	afterEach(() => {
+	afterEach(async() => {
 		documentLocaleSettings.reset();
+		await localeData;
 		registerLocaleDataListener();
 	});
 
