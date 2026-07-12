@@ -2,6 +2,8 @@ import { expect, oneEvent } from '@brightspace-ui/testing';
 import { localeData, registerLocaleDataListener } from '../lib/locale-data/current.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 
+await localeData;
+
 const documentLocaleSettings = getDocumentLocaleSettings();
 
 async function setLanguage(lang) {
