@@ -121,13 +121,12 @@ describe('current', () => {
 				expect(Object.isSealed(localeData)).to.be.false;
 			});
 
-			it('should allow defineProperty to reconfigure an existing top-level property directly', () => {
-				const original = Object.getOwnPropertyDescriptor(localeData, 'sourceLocale');
-				Object.defineProperty(localeData, 'sourceLocale', { ...original, value: 'zz' });
-				expect(localeData.sourceLocale).to.equal('zz');
-
-				Object.defineProperty(localeData, 'sourceLocale', original);
-				expect(localeData.sourceLocale).to.equal(original.value);
+			it('should throw when calling defineProperty on the exported localeData directly', () => {
+				const original = localeData.sourceLocale;
+				expect(() => {
+					Object.defineProperty(localeData, 'sourceLocale', { value: 'zz' });
+				}).to.throw(TypeError);
+				expect(localeData.sourceLocale).to.equal(original);
 			});
 
 			it('should block deletion of an existing top-level property, via both `delete` and Reflect.deleteProperty', () => {
