@@ -104,9 +104,7 @@ describe('current', () => {
 
 			it('should throw when reassigning an existing scalar property', () => {
 				const original = localeData.sourceLocale;
-				expect(() => {
-					localeData.sourceLocale = 'zz';
-				}).to.throw(TypeError);
+				expect(() => localeData.sourceLocale = 'zz').to.throw(TypeError);
 				expect(localeData.sourceLocale).to.equal(original);
 			});
 
@@ -115,6 +113,35 @@ describe('current', () => {
 				await setLanguage('fr');
 				expect(localeData.sourceLocale).to.not.equal(original);
 				expect(localeData.sourceLocale).to.equal('fr');
+			});
+
+			it('should keep top-level properties configurable, without being sealed, to allow future updates', () => {
+				const descriptor = Object.getOwnPropertyDescriptor(localeData, 'sourceLocale');
+				expect(descriptor.configurable).to.be.true;
+				expect(Object.isSealed(localeData)).to.be.false;
+			});
+
+			it('should allow defineProperty to reconfigure an existing top-level property directly', () => {
+				const original = Object.getOwnPropertyDescriptor(localeData, 'sourceLocale');
+				Object.defineProperty(localeData, 'sourceLocale', { ...original, value: 'zz' });
+				expect(localeData.sourceLocale).to.equal('zz');
+
+				Object.defineProperty(localeData, 'sourceLocale', original);
+				expect(localeData.sourceLocale).to.equal(original.value);
+			});
+
+			it('should block deletion of an existing top-level property, via both `delete` and Reflect.deleteProperty', () => {
+				const original = localeData.sourceLocale;
+
+				expect(() => delete localeData.sourceLocale).to.throw(TypeError);
+				expect(localeData.sourceLocale).to.equal(original);
+
+				expect(Reflect.deleteProperty(localeData, 'sourceLocale')).to.be.false;
+				expect(localeData.sourceLocale).to.equal(original);
+			});
+
+			it('should return false from Reflect.deleteProperty for a non-existent property', () => {
+				expect(Reflect.deleteProperty(localeData, 'thisPropertyDoesNotExist')).to.be.false;
 			});
 
 		});
@@ -140,6 +167,12 @@ describe('current', () => {
 			it('should throw when reassigning a deeply nested array element', () => {
 				expect(() => {
 					localeData.pluralClass.cardinal[0] = 'foo';
+				}).to.throw(TypeError);
+			});
+
+			it('should throw when deleting a property from a nested frozen object', () => {
+				expect(() => {
+					delete localeData.dateFormats.full;
 				}).to.throw(TypeError);
 			});
 
