@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "Bitir", // finish action (in Title Case)
 	"intl-common:actions:more": "Daha Fazla", // more action (in Title Case)
 	"intl-common:actions:print": "Yazdır", // print action (in Title Case)
+	"intl-common:actions:reload": "Yeniden Yükle", // reload action (in Title Case)
 	"intl-common:actions:remove": "Kaldır", // remove action (in Title Case)
 	"intl-common:actions:save": "Kaydet", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Kaydet ve Kapat", // save and close action (in Title Case)

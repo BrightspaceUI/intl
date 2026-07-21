@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "Finalitzar", // finish action (in Title Case)
 	"intl-common:actions:more": "Més", // more action (in Title Case)
 	"intl-common:actions:print": "Imprimir", // print action (in Title Case)
+	"intl-common:actions:reload": "Recarregar", // reload action (in Title Case)
 	"intl-common:actions:remove": "Eliminar", // remove action (in Title Case)
 	"intl-common:actions:save": "Desar", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Desar i tancar", // save and close action (in Title Case)

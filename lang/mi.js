@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "Mutu", // finish action (in Title Case)
 	"intl-common:actions:more": "Ä’tahi atu", // more action (in Title Case)
 	"intl-common:actions:print": "Tā", // print action (in Title Case)
+	"intl-common:actions:reload": "Tāuta anō", // reload action (in Title Case)
 	"intl-common:actions:remove": "Tango", // remove action (in Title Case)
 	"intl-common:actions:save": "Tiaki", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Tiaki ka Kati", // save and close action (in Title Case)
