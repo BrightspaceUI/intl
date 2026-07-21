@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "Afslut", // finish action (in Title Case)
 	"intl-common:actions:more": "Flere", // more action (in Title Case)
 	"intl-common:actions:print": "Udskriv", // print action (in Title Case)
+	"intl-common:actions:reload": "Genindlæs", // reload action (in Title Case)
 	"intl-common:actions:remove": "Fjern", // remove action (in Title Case)
 	"intl-common:actions:save": "Gem", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Gem og luk", // save and close action (in Title Case)

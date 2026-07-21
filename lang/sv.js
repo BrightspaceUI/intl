@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "Slutför", // finish action (in Title Case)
 	"intl-common:actions:more": "Mer", // more action (in Title Case)
 	"intl-common:actions:print": "Skriv ut", // print action (in Title Case)
+	"intl-common:actions:reload": "Uppdatera", // reload action (in Title Case)
 	"intl-common:actions:remove": "Ta bort", // remove action (in Title Case)
 	"intl-common:actions:save": "Spara", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Spara och stäng", // save and close action (in Title Case)

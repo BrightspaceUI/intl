@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "إنهاء", // finish action (in Title Case)
 	"intl-common:actions:more": "المزيد", // more action (in Title Case)
 	"intl-common:actions:print": "طباعة", // print action (in Title Case)
+	"intl-common:actions:reload": "إعادة التحميل", // reload action (in Title Case)
 	"intl-common:actions:remove": "إزالة", // remove action (in Title Case)
 	"intl-common:actions:save": "حفظ", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "حفظ وإغلاق", // save and close action (in Title Case)

@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "Hoʻopau", // finish action (in Title Case)
 	"intl-common:actions:more": "Ê»Oi aku", // more action (in Title Case)
 	"intl-common:actions:print": "Paʻi", // print action (in Title Case)
+	"intl-common:actions:reload": "Hoʻouka hou", // reload action (in Title Case)
 	"intl-common:actions:remove": "Wehe", // remove action (in Title Case)
 	"intl-common:actions:save": "Mālama", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Mālama a pani", // save and close action (in Title Case)

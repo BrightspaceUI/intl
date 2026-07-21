@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "完成", // finish action (in Title Case)
 	"intl-common:actions:more": "更多", // more action (in Title Case)
 	"intl-common:actions:print": "打印", // print action (in Title Case)
+	"intl-common:actions:reload": "重新加载", // reload action (in Title Case)
 	"intl-common:actions:remove": "移除", // remove action (in Title Case)
 	"intl-common:actions:save": "保存", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "保存并关闭", // save and close action (in Title Case)

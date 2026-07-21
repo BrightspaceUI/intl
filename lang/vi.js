@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "Xong", // finish action (in Title Case)
 	"intl-common:actions:more": "ThÃªm", // more action (in Title Case)
 	"intl-common:actions:print": "In", // print action (in Title Case)
+	"intl-common:actions:reload": "Tải lại", // reload action (in Title Case)
 	"intl-common:actions:remove": "Loại bỏ", // remove action (in Title Case)
 	"intl-common:actions:save": "Lưu", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Lưu và đóng", // save and close action (in Title Case)

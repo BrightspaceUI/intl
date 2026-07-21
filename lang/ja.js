@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "完了", // finish action (in Title Case)
 	"intl-common:actions:more": "詳細を表示", // more action (in Title Case)
 	"intl-common:actions:print": "印刷", // print action (in Title Case)
+	"intl-common:actions:reload": "再読み込み", // reload action (in Title Case)
 	"intl-common:actions:remove": "削除", // remove action (in Title Case)
 	"intl-common:actions:save": "保存", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "保存して閉じる", // save and close action (in Title Case)

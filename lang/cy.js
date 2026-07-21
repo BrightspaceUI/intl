@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "Gorffen", // finish action (in Title Case)
 	"intl-common:actions:more": "Mwy", // more action (in Title Case)
 	"intl-common:actions:print": "Argraffu", // print action (in Title Case)
+	"intl-common:actions:reload": "Ail-lwytho", // reload action (in Title Case)
 	"intl-common:actions:remove": "Tynnu", // remove action (in Title Case)
 	"intl-common:actions:save": "Cadw", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Cadw a Chau", // save and close action (in Title Case)

@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "마침", // finish action (in Title Case)
 	"intl-common:actions:more": "더 보기", // more action (in Title Case)
 	"intl-common:actions:print": "인쇄", // print action (in Title Case)
+	"intl-common:actions:reload": "다시 로드", // reload action (in Title Case)
 	"intl-common:actions:remove": "제거", // remove action (in Title Case)
 	"intl-common:actions:save": "저장", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "저장 및 닫기", // save and close action (in Title Case)

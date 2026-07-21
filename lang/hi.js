@@ -14,6 +14,7 @@ export default {
 	"intl-common:actions:finish": "समाप्त करें", // finish action (in Title Case)
 	"intl-common:actions:more": "अधिक", // more action (in Title Case)
 	"intl-common:actions:print": "प्रिंट करें", // print action (in Title Case)
+	"intl-common:actions:reload": "रीलोड करें", // reload action (in Title Case)
 	"intl-common:actions:remove": "निकालें", // remove action (in Title Case)
 	"intl-common:actions:save": "सेव करें", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "सेव करके बंद करें", // save and close action (in Title Case)
