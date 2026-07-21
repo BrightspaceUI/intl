@@ -2,7 +2,12 @@ import * as utils from './utils.js';
 import { env, exit, stderr, stdout } from 'node:process';
 import cldr from 'cldr';
 import config from '../mfv.config.json' with { type: 'json' };
+import { merge } from '../lib/common.js';
 import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
+
+const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathname;
+
+const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
 const { NEW_LOCALE } = env;
 
@@ -30,6 +35,7 @@ function getDelimiters(locale) {
 export async function generateLocaleData() {
 
 	const data = {};
+	const weekData = cldr.extractWeekData();
 	const locales = supportedLocalesDetails.map(l => l.pack || l.code);
 	const padOriginalLength = Math.max(...locales.map(l => l.length)) + 1;
 	const padMappedLength = Math.max(...Object.values(config.localesMap).map(l => l.length)) + 1;
@@ -48,7 +54,7 @@ export async function generateLocaleData() {
 		locales.push(sourceLocale);
 	}
 
-	locales.forEach(locale => {
+	locales.forEach(async locale => {
 		const originalLocale = locale;
 		let mappedLocale;
 		try {
@@ -96,6 +102,43 @@ export async function generateLocaleData() {
 		}, '');
 
 		const sourceLocale = utils.getLikelySubtagSource(coreLocaleTag);
+		const likelySubtag = utils.getLikelySubtagsMaps().expand(coreLocaleTag);
+
+		const firstDay = (() => {
+			const { territoryTag } = utils.parseLocaleTag(likelySubtag);
+			for (const tag of [territoryTag, '001']) {
+				for (const { territories, day } of weekData.firstDay) {
+					if (territories.includes(tag)) {
+						return daysOfWeek.indexOf(day);
+					}
+				}
+			}
+			return 1; // default to Monday
+		})();
+
+		const weekendStart = (() => {
+			const { territoryTag } = utils.parseLocaleTag(likelySubtag);
+			for (const tag of [territoryTag, '001']) {
+				for (const { territories, day } of weekData.weekendStart) {
+					if (territories.includes(tag)) {
+						return daysOfWeek.indexOf(day);
+					}
+				}
+			}
+			return 6; // default to Saturday
+		})();
+
+		const weekendEnd = (() => {
+			const { territoryTag } = utils.parseLocaleTag(likelySubtag);
+			for (const tag of [territoryTag, '001']) {
+				for (const { territories, day } of weekData.weekendEnd) {
+					if (territories.includes(tag)) {
+						return daysOfWeek.indexOf(day);
+					}
+				}
+			}
+			return 0; // default to Sunday
+		})();
 
 		data[originalLocale] = {
 			languageDisplayName,
@@ -107,6 +150,7 @@ export async function generateLocaleData() {
 				: languageDisplayName,
 			sourceLocale,
 			localeCode: originalLocale,
+			likelySubtag,
 			layout: cldr.extractLayout(coreLocaleTag),
 			pluralClass: {
 				cardinal: cldr.extractPluralClasses(coreLocaleTag, 'cardinal'),
@@ -115,6 +159,14 @@ export async function generateLocaleData() {
 			localeDisplayPattern: cldr.extractLocaleDisplayPattern(coreLocaleTag),
 			dateFormats: cldr.extractDateFormats(coreLocaleTag, 'gregorian'),
 			dateFormatItems: cldr.extractDateFormatItems(coreLocaleTag, 'gregorian'),
+			timeFormats: cldr.extractTimeFormats(coreLocaleTag, 'gregorian'),
+			dayPeriods: cldr.extractDayPeriods(coreLocaleTag, 'gregorian'),
+			dayNames: cldr.extractDayNames(coreLocaleTag, 'gregorian'),
+			weekData: {
+				firstDay,
+				weekendStart,
+				weekendEnd
+			},
 			months: {
 				...cldr.extractMonthNames(coreLocaleTag, 'gregorian'),
 				transforms: {
@@ -130,6 +182,11 @@ export async function generateLocaleData() {
 			delimiters: getDelimiters(coreLocaleTag),
 			listPatterns: cldr.extractListPatterns(coreLocaleTag)
 		};
+
+		try {
+			const override = await import(`${overridesPath}/${sourceLocale}.js`);
+			merge(data[originalLocale], override, true);
+		} catch { /* no override fil */ }
 	});
 
 	return data;

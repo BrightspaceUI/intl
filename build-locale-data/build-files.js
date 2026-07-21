@@ -3,6 +3,4 @@ import { generateLocaleData } from './generate-locale-data.js';
 
 const localeData = await generateLocaleData();
 
-await Promise.all([
-	buildIntlFiles(localeData)
-]);
+await buildIntlFiles(localeData);

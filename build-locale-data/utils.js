@@ -5,7 +5,6 @@ import { resolve } from 'path';
 const _require = createRequire(import.meta.url);
 const cldrMainPath = resolve(_require.resolve('cldr'), '../../3rdparty/cldr/common/main');
 const cldrSupplementalPath = resolve(_require.resolve('cldr'), '../../3rdparty/cldr/common/supplemental');
-const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathname;
 
 /** @type {string[] | null} */
 let _availableLocales = null;
@@ -139,17 +138,6 @@ export async function shouldTitleCaseMonths(locale) {
 	const base = locale.split('-')[0];
 	const candidates = regional !== base ? [regional, base] : [base];
 
-	for (const candidate of candidates) {
-		try {
-			const override = await import(`${overridesPath}/${candidate}.js`);
-			if (override.default?.shouldTitleCaseMonths) {
-				return { ...result, ...override.default.shouldTitleCaseMonths };
-			}
-		} catch {
-			// no override file
-		}
-	}
-
 	// Check CLDR XML. Always include both the regional and base language files as
 	// candidates, matching ICU4J's getWithFallback() resource bundle inheritance behaviour.
 	// A regional file with no `<contextTransforms>` block, or one that has the block but
@@ -190,4 +178,17 @@ export async function shouldTitleCaseMonths(locale) {
 	}
 
 	return result;
+}
+
+export function parseLocaleTag(tag) {
+	const canonicalTag = Intl.getCanonicalLocales([tag])[0];
+	let gc, languageTag, territoryTag, scriptTag;
+	try {
+		({ language: languageTag, region: territoryTag, script: scriptTag } = new Intl.Locale(canonicalTag));
+	} catch {
+		[gc, languageTag, scriptTag, territoryTag] =
+			//                    [ language ]    [    script   ]      [territory]
+			canonicalTag.match(/^([a-z]{2,3})(?:-([A-Z][a-z]{3}))?(?:-([A-Z]{2}))?/);
+	}
+	return { languageTag, territoryTag, scriptTag };
 }

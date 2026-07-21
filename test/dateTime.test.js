@@ -8,17 +8,28 @@ import {
 	formatRelativeDateTime,
 	formatTime,
 	formatTimeFromTimestamp,
+	getDateTimeDescriptor,
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
+import { localeData, registerLocaleDataListener } from '../lib/locale-data/current.js';
 import { expect } from '@brightspace-ui/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 
+const documentLocaleSettings = getDocumentLocaleSettings();
+
+async function setLanguage(lang) {
+	documentLocaleSettings.language = lang;
+	await localeData;
+}
+
 describe('dateTime', () => {
 
-	const documentLocaleSettings = getDocumentLocaleSettings();
-
-	afterEach(() => documentLocaleSettings.reset());
+	afterEach(async() => {
+		documentLocaleSettings.reset();
+		await localeData;
+		registerLocaleDataListener();
+	});
 
 	describe('converting date/time', () => {
 
@@ -264,6 +275,41 @@ describe('dateTime', () => {
 		});
 	});
 
+	describe('getDateTimeDescriptor', () => {
+
+		it('should include stand-alone month and day names for use by the "cccc"/"ccc"/"LLLL"/"LLL" format tokens', async() => {
+			await setLanguage('en');
+			const descriptor = getDateTimeDescriptor();
+			expect(descriptor.calendar.daysStandAlone.wide[1]).to.equal('Monday');
+			expect(descriptor.calendar.daysStandAlone.abbreviated[1]).to.equal('Mon');
+			expect(descriptor.calendar.monthsStandAlone.wide[7]).to.equal('August');
+			expect(descriptor.calendar.monthsStandAlone.abbreviated[7]).to.equal('Aug');
+		});
+
+		describe('static "calendar" overrides', () => {
+
+			it('should be applied for a locale without more nuanced front-end locale data', async() => {
+				await setLanguage('af-RU');
+				const shortMonths = Array(12).fill().map((e, idx) => idx + 11);
+				documentLocaleSettings.overrides = { date: { calendar: { firstDayOfWeek: 5, months: { short: shortMonths } } } };
+				const descriptor = getDateTimeDescriptor();
+				expect(descriptor.calendar.firstDayOfWeek).to.equal(5);
+				expect(descriptor.calendar.months.short).to.include.members(shortMonths);
+			});
+
+			it('should be discarded for a locale with more nuanced front-end locale data', async() => {
+				await setLanguage('en-US');
+				const shortMonths = Array(12).fill().map((e, idx) => idx + 11);
+				documentLocaleSettings.overrides = { date: { calendar: { firstDayOfWeek: 5, months: { short: shortMonths } } } };
+				const descriptor = getDateTimeDescriptor();
+				expect(descriptor.calendar.firstDayOfWeek).to.equal(5);
+				expect(descriptor.calendar.months.short).to.not.include.members(shortMonths);
+			});
+
+		});
+
+	});
+
 	describe('formatTime', () => {
 
 		const earlyTime = new Date(2015, 7, 25, 1, 28);
@@ -271,7 +317,7 @@ describe('dateTime', () => {
 
 		it('should default "format" to "short"', () => {
 			const value = formatTime(new Date(1981, 3, 14, 10, 3));
-			expect(value).to.equal('10:03 AM');
+			expect(value).to.equal('10:03 AM');
 		});
 
 		[
@@ -281,9 +327,10 @@ describe('dateTime', () => {
 			{ format: 'HH:mm', expect1: '01:28', expect2: '13:52' },
 			{ format: 'tt h:mm', expect1: 'AM 1:28', expect2: 'PM 1:52' },
 			{ format: 'tt hh:mm', expect1: 'AM 01:28', expect2: 'PM 01:52' },
-			{ format: 'short', expect1: '1:28 AM', expect2: '1:52 PM' },
-			{ format: 'medium', expect1: '1:28 AM', expect2: '1:52 PM' },
-			{ format: 'full', expect1: '1:28 AM EST', expect2: '1:52 PM EST' }
+			{ format: 'K:mm', expect1: '1:28', expect2: '1:52' },
+			{ format: 'short', expect1: '1:28 AM', expect2: '1:52 PM' },
+			{ format: 'medium', expect1: '1:28 AM', expect2: '1:52 PM' },
+			{ format: 'full', expect1: '1:28 AM EST', expect2: '1:52 PM EST' }
 		].forEach((input) => {
 			it(`should apply custom format "${input.format}" for 1-digit and 2-digit times`, () => {
 				const options = { format: input.format, timezone: 'EST' };
@@ -296,42 +343,47 @@ describe('dateTime', () => {
 
 		it('should format midnight as hour 12', () => {
 			const value = formatTime(new Date(2015, 7, 25, 0, 1));
-			expect(value).to.equal('12:01 AM');
+			expect(value).to.equal('12:01 AM');
+		});
+
+		it('should format midnight as hour 0 using the "K" token', () => {
+			const value = formatTime(new Date(2015, 7, 25, 0, 1), { format: 'K:mm' });
+			expect(value).to.equal('0:01');
 		});
 
 		it('should use timezone name from document settings', () => {
 			documentLocaleSettings.timezone.name = 'SettingsZone';
 			const value = formatTime(earlyTime, { format: 'full' });
-			expect(value).to.equal('1:28 AM SettingsZone');
+			expect(value).to.equal('1:28 AM SettingsZone');
 		});
 
 		it('should override timezone name from options', () => {
 			documentLocaleSettings.timezone.name = 'SettingsZone';
 			const value = formatTime(earlyTime, { format: 'full', timezone: 'OptionsZone' });
-			expect(value).to.equal('1:28 AM OptionsZone');
+			expect(value).to.equal('1:28 AM OptionsZone');
 		});
 
 		[
 			{ locale: 'ar', expect: ['01:28', '1:28 ص', '01:28 EST', '1:28 ص EST', '13:52', '1:52 م', '13:52 EST', '1:52 م EST'] },
 			{ locale: 'ar-SA', expect: ['01:28', '1:28 ص', '01:28 EST', '1:28 ص EST', '13:52', '1:52 م', '13:52 EST', '1:52 م EST'] },
-			{ locale: 'ca', expect: ['1:28', '1:28 a. m.', '1:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
-			{ locale: 'ca-ES', expect: ['1:28', '1:28 a. m.', '1:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
-			{ locale: 'cy-GB', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'da', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'da-DK', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'de', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'de-DE', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'en', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'en-CA', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'en-GB', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'en-US', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'es', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
-			{ locale: 'es-ES', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
-			{ locale: 'es-MX', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
-			{ locale: 'fr', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
-			{ locale: 'fr-CA', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
-			{ locale: 'fr-FR', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
-			{ locale: 'fr-ON', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
+			{ locale: 'ca', expect: ['1:28', '1:28 a. m.', '1:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
+			{ locale: 'ca-ES', expect: ['1:28', '1:28 a. m.', '1:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
+			{ locale: 'cy-GB', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'da', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'da-DK', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'de', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'de-DE', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'en', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'en-CA', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'en-GB', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'en-US', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'es', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
+			{ locale: 'es-ES', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
+			{ locale: 'es-MX', expect: ['01:28', '1:28 a. m.', '01:28 EST', '1:28 a. m. EST', '13:52', '1:52 p. m.', '13:52 EST', '1:52 p. m. EST'] },
+			{ locale: 'fr', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
+			{ locale: 'fr-CA', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
+			{ locale: 'fr-FR', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
+			{ locale: 'fr-ON', expect: ['01 h 28', '1:28 AM', '01 h 28 EST', '1:28 AM EST', '13 h 52', '1:52 PM', '13 h 52 EST', '1:52 PM EST'] },
 			{ locale: 'hi', expect: ['01:28', '1:28 पूर्वाह्न', '01:28 EST', '1:28 पूर्वाह्न EST', '13:52', '1:52 अपराह्न', '13:52 EST', '1:52 अपराह्न EST'] },
 			{ locale: 'hi-IN', expect: ['01:28', '1:28 पूर्वाह्न', '01:28 EST', '1:28 पूर्वाह्न EST', '13:52', '1:52 अपराह्न', '13:52 EST', '1:52 अपराह्न EST'] },
 			{ locale: 'ja', expect: ['1:28', '1:28 午前', '1:28 EST', '1:28 午前 EST', '13:52', '1:52 午後', '13:52 EST', '1:52 午後 EST'] },
@@ -340,12 +392,12 @@ describe('dateTime', () => {
 			{ locale: 'ko-KR', expect: ['01:28', '오전 1:28', '01:28 EST', '오전 1:28 EST', '13:52', '오후 1:52', '13:52 EST', '오후 1:52 EST'] },
 			{ locale: 'nl', expect: ['01:28', '1:28 a.m.', '01:28 EST', '1:28 a.m. EST', '13:52', '1:52 p.m.', '13:52 EST', '1:52 p.m. EST'] },
 			{ locale: 'nl-NL', expect: ['01:28', '1:28 a.m.', '01:28 EST', '1:28 a.m. EST', '13:52', '1:52 p.m.', '13:52 EST', '1:52 p.m. EST'] },
-			{ locale: 'pt', expect: ['01:28', '1:28 AM', '01:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'pt-BR', expect: ['1:28', '1:28 AM', '1:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
-			{ locale: 'sv', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST'] },
-			{ locale: 'sv-SE', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST'] },
-			{ locale: 'tr', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST'] },
-			{ locale: 'tr-TR', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST'] },
+			{ locale: 'pt', expect: ['1:28', '1:28 AM', '1:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'pt-BR', expect: ['1:28', '1:28 AM', '1:28 EST', '1:28 AM EST', '13:52', '1:52 PM', '13:52 EST', '1:52 PM EST'] },
+			{ locale: 'sv', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST'] },
+			{ locale: 'sv-SE', expect: ['01:28', '1:28 fm', '01:28 EST', '1:28 fm EST', '13:52', '1:52 em', '13:52 EST', '1:52 em EST'] },
+			{ locale: 'tr', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST'] },
+			{ locale: 'tr-TR', expect: ['01:28', '1:28 ÖÖ', '01:28 EST', '1:28 ÖÖ EST', '13:52', '1:52 ÖS', '13:52 EST', '1:52 ÖS EST'] },
 			{ locale: 'zh', expect: ['1:28', '上午 1:28', 'EST 1:28', 'EST 上午 1:28', '13:52', '下午 1:52', 'EST 13:52', 'EST 下午 1:52'] },
 			{ locale: 'zh-CN', expect: ['1:28', '上午 1:28', 'EST 1:28', 'EST 上午 1:28', '13:52', '下午 1:52', 'EST 13:52', 'EST 下午 1:52'] },
 			{ locale: 'zh-TW', expect: ['01:28', '上午 01:28', '01:28 EST', '上午 01:28 EST', '13:52', '下午 01:52', '13:52 EST', '下午 01:52 EST'] }
@@ -354,14 +406,14 @@ describe('dateTime', () => {
 			['early', 'late'].forEach((timeOfDay) => {
 				['short', 'full'].forEach((format) => {
 					[true, false].forEach((hour24) => {
-						it(`should format ${input.locale}/${timeOfDay}/${format}/${hour24}`, () => {
-							documentLocaleSettings.language = input.locale;
+						index++;
+						((idx) => it(`should format ${input.locale}/${timeOfDay}/${format}/${hour24}`, async() => {
+							await setLanguage(input.locale);
 							documentLocaleSettings.overrides = { date: { hour24: hour24 } };
-							index++;
 							const time = timeOfDay === 'early' ? earlyTime : lateTime;
 							const value = formatTime(time, { format: format, timezone: 'EST' });
-							expect(value).to.equal(input.expect[index]);
-						});
+							expect(value).to.equal(input.expect[idx]);
+						}))(index);
 					});
 				});
 			});
@@ -402,7 +454,7 @@ describe('dateTime', () => {
 
 		it('should use today as default "nowProvider"', () => {
 			const now = new Date();
-			const time = parseTime('3:01 PM');
+			const time = parseTime('3:01 PM');
 			expect(time.getFullYear()).to.equal(now.getFullYear());
 			expect(time.getMonth()).to.equal(now.getMonth());
 			expect(time.getDate()).to.equal(now.getDate());
@@ -472,8 +524,8 @@ describe('dateTime', () => {
 
 			[
 				{ val: '1:01', hour: 1, minute: 1 },
-				{ val: '1:01 PM', hour: 13, minute: 1 },
-				{ val: '1:01 pm', hour: 13, minute: 1 },
+				{ val: '1:01 PM', hour: 13, minute: 1 },
+				{ val: '1:01 PM', hour: 13, minute: 1 },
 				{ val: '1:01 P.M.', hour: 13, minute: 1 },
 				{ val: '11 h 29', hour: 11, minute: 29 },
 				{ val: '22 h 56', hour: 22, minute: 56 },
@@ -519,7 +571,7 @@ describe('dateTime', () => {
 			});
 
 			it('should not treat hour as PM if using 24-hour clock', () => {
-				documentLocaleSettings.overrides = { date:{ hour24: true } };
+				documentLocaleSettings.overrides = { date: { hour24: true } };
 				const time = parseTime('5', timeOptions);
 				assertTime(time, 5, 0);
 			});
@@ -559,22 +611,22 @@ describe('dateTime', () => {
 				{ locale: 'ar-SA', inputs: ['1:28 ص', '01:28', '1:52 م', '13:52'] },
 				{ locale: 'ca', inputs: ['1:28 a. m.', '1:28', '1:52 p. m.', '13:52'] },
 				{ locale: 'ca-ES', inputs: ['1:28 a. m.', '1:28', '1:52 p. m.', '13:52'] },
-				{ locale: 'cy-GB', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'da', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'da-DK', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'de', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'de-DE', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'en', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'en-CA', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'en-GB', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'en-US', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'cy-GB', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'da', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'da-DK', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'de', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'de-DE', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'en', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'en-CA', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'en-GB', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'en-US', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
 				{ locale: 'es', inputs: ['01:28 a. m.', '01:28', '01:52 p. m.', '13:52'] },
 				{ locale: 'es-ES', inputs: ['01:28 a. m.', '01:28', '01:52 p. m.', '13:52'] },
 				{ locale: 'es-MX', inputs: ['01:28 a. m.', '01:28', '01:52 p. m.', '13:52'] },
-				{ locale: 'fr', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
-				{ locale: 'fr-CA', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
-				{ locale: 'fr-FR', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
-				{ locale: 'fr-ON', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
+				{ locale: 'fr', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
+				{ locale: 'fr-CA', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
+				{ locale: 'fr-FR', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
+				{ locale: 'fr-ON', inputs: ['01 h 28 AM', '01 h 28', '01 h 52 PM', '13 h 52'] },
 				{ locale: 'hi', inputs: ['1:28 पूर्वाह्न', '01:28', '1:52 अपराह्न', '13:52'] },
 				{ locale: 'hi-IN', inputs: ['1:28 पूर्वाह्न', '01:28', '1:52 अपराह्न', '13:52'] },
 				{ locale: 'ja', inputs: [/*'1:28 午前'*/'1:28', '1:28', '1:52 午後', '13:52'] },
@@ -583,8 +635,8 @@ describe('dateTime', () => {
 				{ locale: 'ko-KR', inputs: [/*'오전 1:28'*/'1:28', '01:28', '오후 1:52', '13:52'] },
 				{ locale: 'nl', inputs: ['1:28 a.m.', '01:28', '1:52 p.m.', '13:52'] },
 				{ locale: 'nl-NL', inputs: ['1:28 a.m.', '01:28', '1:52 p.m.', '13:52'] },
-				{ locale: 'pt', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
-				{ locale: 'pt-BR', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52'] },
+				{ locale: 'pt', inputs: ['1:28 AM', '01:28', '1:52 PM', '13:52'] },
+				{ locale: 'pt-BR', inputs: ['1:28 AM', '1:28', '1:52 PM', '13:52'] },
 				{ locale: 'sv', inputs: ['1:28 fm', '01:28', '1:52 em', '13:52'] },
 				{ locale: 'sv-SE', inputs: ['1:28 fm', '01:28', '1:52 em', '13:52'] },
 				{ locale: 'tr', inputs: [/*'1:28 ÖÖ'*/'1:28', '01:28', '1:52 ÖS', '13:52'] },
@@ -593,14 +645,12 @@ describe('dateTime', () => {
 				{ locale: 'zh-CN', inputs: ['上午 1:28', '1:28', '下午 1:52', '13:52'] },
 				{ locale: 'zh-TW', inputs: ['上午 01:28', '01:28', '下午 01:52', '13:52'] }
 			].forEach((input) => {
-				let index = -1;
-				input.inputs.forEach((value) => {
-					it(`should parse "${value}" in locale ${input.locale}`, () => {
-						index++;
-						documentLocaleSettings.language = input.locale;
-						documentLocaleSettings.overrides = { date: { hour24: index % 2 === 1 } };
+				input.inputs.forEach((value, idx) => {
+					it(`should parse "${value}" in locale ${input.locale}`, async() => {
+						await setLanguage(input.locale);
+						documentLocaleSettings.overrides = { date: { hour24: idx % 2 === 1 } };
 						const time = parseTime(value, timeOptions);
-						assertTime(time, expects[index].hour, expects[index].minute);
+						assertTime(time, expects[idx].hour, expects[idx].minute);
 					});
 				});
 			});
@@ -652,7 +702,11 @@ describe('dateTime', () => {
 			{ format: 'dddd', expect: 'Monday' },
 			{ format: 'ddd', expect: 'Mon' },
 			{ format: 'MMMM', expect: 'August' },
-			{ format: 'MMM', expect: 'Aug' }
+			{ format: 'MMM', expect: 'Aug' },
+			{ format: 'cccc', expect: 'Monday' },
+			{ format: 'ccc', expect: 'Mon' },
+			{ format: 'LLLL', expect: 'August' },
+			{ format: 'LLL', expect: 'Aug' }
 		].forEach((input) => {
 			it(`should apply locale format "${input.format}"`, () => {
 				const value = formatDate(new Date(2015, 7, 3), { format: input.format });
@@ -661,13 +715,26 @@ describe('dateTime', () => {
 		});
 
 		[
-			{ locale: 'ar', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
-			{ locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04/06/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
+			{ format: 'MMMM', type: 'format', expect: 'd’agost' },
+			{ format: 'LLLL', type: 'standalone', expect: 'agost' },
+			{ format: 'MMM', type: 'format', expect: 'd’ag.' },
+			{ format: 'LLL', type: 'standalone', expect: 'ag.' }
+		].forEach(input => {
+			it(`should replace "${input.format}" with ${input.type} month name`, async() => {
+				await setLanguage('ca');
+				const value = formatDate(new Date(2015, 7, 3), { format: input.format });
+				expect(value).to.equal(input.expect);
+			});
+		});
+
+		[
+			{ locale: 'ar', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04‏/06‏/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
+			{ locale: 'ar-SA', expect: ['الثلاثاء, 4 يونيو, 2019', '04 يونيو, 2019', '04‏/06‏/2019', 'يونيو, 2019', '4 يونيو', '4 يونيو', 'الثلاثاء', 'ثلاثاء', 'يونيو', 'يونيو'] },
 			{ locale: 'ca', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'juny', 'juny'] },
 			{ locale: 'ca-ES', expect: ['dimarts, 4 de juny del 2019', '4 de juny del 2019', '4/6/19', 'juny del 2019', '4 de juny', '4 de juny', 'dimarts', 'dt.', 'juny', 'juny'] },
 			{ locale: 'cy-GB', expect: ['Dydd Mawrth, 4 Mehefin 2019', '04 Mehefin 2019', '04/06/2019', 'Mehefin 2019', '4 Mehefin', '4 Meh', 'Dydd Mawrth', 'Maw', 'Mehefin', 'Meh'] },
-			{ locale: 'da', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
-			{ locale: 'da-DK', expect: ['tirsdag den 4. juni 2019', '4. jun.. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
+			{ locale: 'da', expect: ['tirsdag den 4. juni 2019', '4. jun. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
+			{ locale: 'da-DK', expect: ['tirsdag den 4. juni 2019', '4. jun. 2019', '04.06.2019', 'juni 2019', '4. juni', '4. jun.', 'tirsdag', 'tir.', 'juni', 'jun.'] },
 			{ locale: 'de', expect: ['Dienstag 4. Juni 2019', '4. Juni 2019', '04.06.2019', 'Juni 2019', '4. Juni', '4. Juni', 'Dienstag', 'Di.', 'Juni', 'Juni'] },
 			{ locale: 'de-DE', expect: ['Dienstag 4. Juni 2019', '4. Juni 2019', '04.06.2019', 'Juni 2019', '4. Juni', '4. Juni', 'Dienstag', 'Di.', 'Juni', 'Juni'] },
 			{ locale: 'en', expect: ['Tuesday, June 4, 2019', 'Jun 4, 2019', '6/4/2019', 'June 2019', 'June 4', 'Jun 4', 'Tuesday', 'Tue', 'June', 'Jun'] },
@@ -689,8 +756,8 @@ describe('dateTime', () => {
 			{ locale: 'ko-KR', expect: ['2019년 6월 4일 화요일', '2019년 6월 4일', '2019-06-04', '2019년 6월', '6월 4일', '6월 4일', '화요일', '화', '6월', '6월'] },
 			{ locale: 'nl', expect: ['dinsdag 4 juni 2019', '4 juni 2019', '04-06-2019', 'juni 2019', '4 juni', '4 jun.', 'dinsdag', 'di', 'juni', 'jun.'] },
 			{ locale: 'nl-NL', expect: ['dinsdag 4 juni 2019', '4 juni 2019', '04-06-2019', 'juni 2019', '4 juni', '4 jun.', 'dinsdag', 'di', 'juni', 'jun.'] },
-			{ locale: 'pt', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', '04 de jun', 'terça-feira', 'ter', 'junho', 'jun'] },
-			{ locale: 'pt-BR', expect: ['terça-feira, 4 de junho de 2019', '4 de  junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', '04 de jun', 'terça-feira', 'ter', 'junho', 'jun'] },
+			{ locale: 'pt', expect: ['terça-feira, 4 de junho de 2019', '4 de junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', '04 de jun', 'terça-feira', 'ter', 'junho', 'jun'] },
+			{ locale: 'pt-BR', expect: ['terça-feira, 4 de junho de 2019', '4 de junho de 2019', '04/06/2019', 'junho de 2019', '04 de junho', '04 de jun', 'terça-feira', 'ter', 'junho', 'jun'] },
 			{ locale: 'sv', expect: ['Tisdag den 4 juni 2019', '4 juni 2019', '2019-06-04', 'juni 2019', '04 juni', '04 juni', 'Tisdag', 'Tis', 'juni', 'juni'] },
 			{ locale: 'sv-SE', expect: ['Tisdag den 4 juni 2019', '4 juni 2019', '2019-06-04', 'juni 2019', '04 juni', '04 juni', 'Tisdag', 'Tis', 'juni', 'juni'] },
 			{ locale: 'tr', expect: ['04 Haziran 2019 Salı', '04 Haziran 2019', '04.06.2019', 'Haziran 2019', '04 Haziran', '04 Haz', 'Salı', 'Sal', 'Haziran', 'Haz'] },
@@ -699,14 +766,12 @@ describe('dateTime', () => {
 			{ locale: 'zh-CN', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '6月4日', '週二', '週二', '六月', '六月'] },
 			{ locale: 'zh-TW', expect: ['2019年6月4日', '2019年6月4日', '2019/6/4', '2019年6月', '6月4日', '6月4日', '星期二', '週二', '六月', '六月'] }
 		].forEach((input) => {
-			let index = -1;
-			['full', 'medium', 'short', 'monthYear', 'monthDay', 'shortMonthDay', 'longDayOfWeek', 'shortDayOfWeek', 'longMonth', 'shortMonth'].forEach((format) => {
-				it(`should format ${input.locale}/${format}`, () => {
-					documentLocaleSettings.language = input.locale;
-					index++;
+			['full', 'medium', 'short', 'monthYear', 'monthDay', 'shortMonthDay', 'longDayOfWeek', 'shortDayOfWeek', 'longMonth', 'shortMonth'].forEach((format, idx) => {
+				it(`should format ${input.locale}/${format}`, async() => {
+					await setLanguage(input.locale);
 					const date = new Date(2019, 5, 4);
 					const value = formatDate(date, { format: format });
-					expect(value).to.equal(input.expect[index]);
+					expect(value).to.equal(input.expect[idx]);
 				});
 			});
 		});
@@ -716,7 +781,7 @@ describe('dateTime', () => {
 	describe('parseDate', () => {
 
 		it('should use "m/d/yyyy" as a default pattern', () => {
-			documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:'abc' } } } };
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short: 'abc' } } } };
 			const value = parseDate('12/13/2003');
 			expect(value.getFullYear()).to.equal(2003);
 			expect(value.getMonth()).to.equal(11);
@@ -763,7 +828,7 @@ describe('dateTime', () => {
 			{ format: 'yyyy-MM-dd', val: '1958-04-09' }
 		].forEach((input) => {
 			it(`should parse format "${input.format}"`, () => {
-				documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short: input.format } } } };
+				documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short: input.format } } } };
 				const value = parseDate(input.val);
 				expect(value.getFullYear()).to.equal(1958);
 				expect(value.getMonth()).to.equal(3);
@@ -778,8 +843,24 @@ describe('dateTime', () => {
 		});
 
 		it('should ignore invalid format parts', () => {
-			documentLocaleSettings.overrides = { date:{ formats:{ dateFormats:{ short:'yyyy|M|d|w' } } } };
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short:'yyyy|M|d|w' } } } };
 			const value = parseDate('2025|5|29');
+			expect(value.getFullYear()).to.equal(2025);
+			expect(value.getMonth()).to.equal(4);
+			expect(value.getDate()).to.equal(29);
+		});
+
+		it('should collapse consecutive separator characters in both the format and the input', () => {
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short:'M--d---yyyy' } } } };
+			const value = parseDate('4--9---1958');
+			expect(value.getFullYear()).to.equal(1958);
+			expect(value.getMonth()).to.equal(3);
+			expect(value.getDate()).to.equal(9);
+		});
+
+		it('should parse dates regardless of separators', () => {
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short:'yyyy . |M\\;\td?_^w' } } } };
+			const value = parseDate('2025(+)5*&29');
 			expect(value.getFullYear()).to.equal(2025);
 			expect(value.getMonth()).to.equal(4);
 			expect(value.getDate()).to.equal(29);
@@ -787,8 +868,8 @@ describe('dateTime', () => {
 
 		describe('all locales', () => {
 			[
-				{ locale: 'ar', date: '29/05/2025' },
-				{ locale: 'ar-SA', date: '29/05/2025' },
+				{ locale: 'ar', date: '29‏/05‏/2025' },
+				{ locale: 'ar-SA', date: '29‏/05‏/2025' },
 				{ locale: 'ca', date: '29/5/2025' },
 				{ locale: 'ca-ES', date: '29/5/2025' },
 				{ locale: 'cy-GB', date: '29/05/2025' },
@@ -825,8 +906,8 @@ describe('dateTime', () => {
 				{ locale: 'zh-CN', date: '2025/5/29' },
 				{ locale: 'zh-TW', date: '2025/5/29' }
 			].forEach((input) => {
-				it(`should parse date in locale ${input.locale}`, () => {
-					documentLocaleSettings.language = input.locale;
+				it(`should parse date in locale ${input.locale}`, async() => {
+					await setLanguage(input.locale);
 					const date = parseDate(input.date);
 					expect(date.getFullYear()).to.equal(2025);
 					expect(date.getMonth()).to.equal(4);
@@ -841,13 +922,13 @@ describe('dateTime', () => {
 
 		it('should default "format" to "short"', () => {
 			const value = formatDateTime(new Date(1981, 3, 14, 10, 3));
-			expect(value).to.equal('4/14/1981 10:03 AM');
+			expect(value).to.equal('4/14/1981 10:03 AM');
 		});
 
 		[
-			{ format: 'full', expect: 'Monday, August 3, 2015 1:44 PM EST' },
-			{ format: 'medium', expect: 'Aug 3, 2015 1:44 PM' },
-			{ format: 'short', expect: '8/3/2015 1:44 PM' },
+			{ format: 'full', expect: 'Monday, August 3, 2015 1:44 PM EST' },
+			{ format: 'medium', expect: 'Aug 3, 2015 1:44 PM' },
+			{ format: 'short', expect: '8/3/2015 1:44 PM' },
 			{ format: 'monthYear', expect: 'August 2015' },
 			{ format: 'monthDay', expect: 'August 3' },
 			{ format: 'shortMonthDay', expect: 'Aug 3' },
@@ -1069,16 +1150,16 @@ describe('dateTime', () => {
 			});
 		});
 
-		it('should respect the document locale', () => {
-			documentLocaleSettings.language = 'fr';
+		it('should respect the document locale', async() => {
+			await setLanguage('fr');
 
 			const date = hoursAgo(1);
 			const result = formatRelativeDateTime(date);
 			expect(result).to.equal('il y a 1 heure');
 		});
 
-		it('should respect different starting days of the week', () => {
-			documentLocaleSettings.language = 'fr';
+		it('should respect different starting days of the week', async() => {
+			await setLanguage('fr');
 
 			mockNow = '1/6/2023, 4:00:00 AM';
 
@@ -1103,11 +1184,11 @@ describe('dateTime', () => {
 			it('should return the short time on the same date', () => {
 				const date = minutesAgo(2);
 				const result = formatRelativeDateTime(date);
-				expect(result).to.equal('3:58 AM');
+				expect(result).to.equal('3:58 AM');
 			});
 
-			it('should return the short date on a different date', () => {
-				documentLocaleSettings.language = 'fr';
+			it('should return the short date on a different date', async() => {
+				await setLanguage('fr');
 
 				const date = monthsAgo(1);
 				const result = formatRelativeDateTime(date);

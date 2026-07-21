@@ -27,8 +27,9 @@
 		import * as timeZonesMapper from '../lib/_timeZones/mapper.js';
 		import * as timeZonesData from '../lib/_timeZones/data/index.js';
 		import * as timeZones from '../lib/timeZones.js';
+		import * as supported from '../lib/locale-data/supported.js';
 
-		window.intl = { ...common, ...dateTime, ...fileSize, ...list, ...number, ...localize, timeZones: { ...timeZonesMapper, data: timeZonesData, basic: timeZones } };
+		window.intl = { ...common, ...dateTime, ...fileSize, ...list, ...localize, ...number, ...supported, timeZones: { ...timeZonesMapper, data: timeZonesData, basic: timeZones } };
 
 		render(
 			common.supportedLocalesDetails.map(({ code, localName }) => html`<option value="${code}">${localName}</option>`),
