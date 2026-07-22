@@ -19,7 +19,18 @@ describe('current', () => {
 
 	describe('localeData', () => {
 
-		it('should be populated with the default locale data on load', () => {
+		it('should be populated with the document lang data on load', () => {
+			expect(localeData.sourceLocale).to.equal('en');
+			expect(localeData.localeCode).to.equal('en');
+			expect(Object.keys(localeData).length).to.be.above(0);
+		});
+
+		it('should fall back to the default locale', async() => {
+			documentLocaleSettings.language = 'fr';
+			await localeData;
+			expect(localeData.sourceLocale).to.equal('fr');
+			documentLocaleSettings.language = null;
+			await localeData;
 			expect(localeData.sourceLocale).to.equal('en');
 			expect(localeData.localeCode).to.equal('en');
 			expect(Object.keys(localeData).length).to.be.above(0);
