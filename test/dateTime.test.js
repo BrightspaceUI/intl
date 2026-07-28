@@ -12,6 +12,7 @@ import {
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
+import { formatDateTimeSkeleton } from '../lib/dateTimeSkeleton.js';
 import { localeData, registerLocaleDataListener } from '../lib/locale-data/current.js';
 import { expect } from '@brightspace-ui/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
@@ -946,6 +947,12 @@ describe('dateTime', () => {
 			});
 		});
 
+		it('should call formatDateTimeSkeleton when `skeleton` option is set', async() => {
+			await setLanguage('de-DE');
+			const result = formatDateTime(new Date(2015, 7, 3, 13, 44), { skeleton: 'EEEELLLLdyjm', forceUnsupportedFormat: true });
+			expect(result).to.equal('Montag, 3. August 2015 um 13:44');
+		})
+
 	});
 
 	describe('formatDateTimeFromTimestamp', () => {
@@ -988,6 +995,67 @@ describe('dateTime', () => {
 				expect(result).to.deep.equal(formatDateTime(test.expectedDate, options));
 			});
 		});
+	});
+
+	describe('formatDateTimeSkeleton', () => {
+		it('should format date and time using skeleton', () => {
+			const date = new Date(2021, 0, 15, 14, 30);
+			const skeleton = 'yLLLLdjms';
+			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
+			expect(result).to.equal('January 15, 2021 at 2:30:00 PM');
+		});
+		it('should throw an error without `forceUnsupportedFormat` option', () => {
+			const date = new Date(2021, 0, 15, 14, 30);
+			const skeleton = 'Mdy';
+			expect(() => formatDateTimeSkeleton(date, { skeleton })).to.throw();
+		});
+		it('should throw an error for invalid skeleton', () => {
+			const date = new Date(2021, 0, 15, 14, 30);
+			const skeleton = 'invalidSkeleton';
+			expect(() => formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true })).to.throw();
+		});
+		it('should format date and time using skeleton with document timezone', () => {
+			documentLocaleSettings.timezone.identifier = 'America/Los_Angeles';
+			const date = new Date(2021, 0, 15, 14, 30);
+			const skeleton = 'yLLLLdjms';
+			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
+			expect(result).to.equal('January 15, 2021 at 11:30:00 AM');
+		});
+		it('should format date and time using skeleton with timezone option', () => {
+			const timeZone = 'America/Los_Angeles';
+			const date = new Date(Date.UTC(2021, 0, 15, 19, 30));
+			const skeleton = 'yLLLLdjms';
+			const result = formatDateTimeSkeleton(date, { skeleton, timeZone, forceUnsupportedFormat: true });
+			expect(result).to.equal('January 15, 2021 at 11:30:00 AM');
+		});
+		it('should ignore time symbols when `time` is false', () => {
+			const date = new Date(2021, 0, 15, 14, 30);
+			const skeleton = 'HhJjKkmsaZzVvSsBbAOXxy';
+			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true }, { time: false });
+			expect(result).to.equal('2021');
+		});
+		it('should ignore date symbols when `date` is false', () => {
+			const date = new Date(2021, 0, 15, 14, 30);
+			const skeleton = 'GyMLdEecHH';
+			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true }, { date: false });
+			expect(result).to.equal('2 PM');
+		})
+		it('should render stand-along months appropriately', async() => {
+			await setLanguage('ca-ES');
+			const date = new Date(2021, 3, 15, 14, 30);
+			let skeleton = 'MMMM';
+			let result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
+			expect(result).to.equal('abril');
+			skeleton = 'MMMMd';
+			result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
+			expect(result).to.equal('15 d’abril');
+		})
+		it('should replace static symbols with dynamic symbols', async() => {
+			const date = new Date(2021, 3, 15, 14, 30);
+			const skeleton = 'HH';
+			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
+			expect(result).to.equal('2 PM');
+		})
 	});
 
 	describe('formatDateFromTimestamp', () => {
