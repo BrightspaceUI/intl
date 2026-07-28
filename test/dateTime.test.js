@@ -12,9 +12,9 @@ import {
 	parseDate,
 	parseTime
 } from '../lib/dateTime.js';
-import { formatDateTimeSkeleton } from '../lib/dateTimeSkeleton.js';
 import { localeData, registerLocaleDataListener } from '../lib/locale-data/current.js';
 import { expect } from '@brightspace-ui/testing';
+import { formatDateTimeSkeleton } from '../lib/dateTimeSkeleton.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 
 const documentLocaleSettings = getDocumentLocaleSettings();
@@ -951,7 +951,7 @@ describe('dateTime', () => {
 			await setLanguage('de-DE');
 			const result = formatDateTime(new Date(2015, 7, 3, 13, 44), { skeleton: 'EEEELLLLdyjm', forceUnsupportedFormat: true });
 			expect(result).to.equal('Montag, 3. August 2015 um 13:44');
-		})
+		});
 
 	});
 
@@ -1039,7 +1039,7 @@ describe('dateTime', () => {
 			const skeleton = 'GyMLdEecHH';
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true }, { date: false });
 			expect(result).to.equal('2 PM');
-		})
+		});
 		it('should render stand-along months appropriately', async() => {
 			await setLanguage('ca-ES');
 			const date = new Date(2021, 3, 15, 14, 30);
@@ -1049,13 +1049,13 @@ describe('dateTime', () => {
 			skeleton = 'MMMMd';
 			result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
 			expect(result).to.equal('15 d’abril');
-		})
+		});
 		it('should replace static symbols with dynamic symbols', async() => {
 			const date = new Date(2021, 3, 15, 14, 30);
 			const skeleton = 'HH';
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
 			expect(result).to.equal('2 PM');
-		})
+		});
 	});
 
 	describe('formatDateFromTimestamp', () => {
