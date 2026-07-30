@@ -1016,7 +1016,7 @@ describe('dateTime', () => {
 		});
 		it('should format date and time using skeleton with document timezone', () => {
 			documentLocaleSettings.timezone.identifier = 'America/Los_Angeles';
-			const date = new Date(2021, 0, 15, 14, 30);
+			const date = new Date(Date.UTC(2021, 0, 15, 19, 30));
 			const skeleton = 'yLLLLdjms';
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
 			expect(result).to.equal('January 15, 2021 at 11:30:00 AM');
