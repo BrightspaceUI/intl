@@ -1,6 +1,6 @@
 export default {
 	"intl-common:actions:add": "Dodaj", // add action (in Title Case)
-	"intl-common:actions:apply": "Aplikuj", // apply action (in Title Case)
+	"intl-common:actions:apply": "Zastosuj", // apply action (in Title Case)
 	"intl-common:actions:browse": "Przeglądaj", // browse action (in Title Case)
 	"intl-common:actions:cancel": "Anuluj", // cancel action (in Title Case)
 	"intl-common:actions:clear": "Wyczyść", // clear action (in Title Case)
@@ -9,9 +9,9 @@ export default {
 	"intl-common:actions:copy": "Kopia", // copy action (in Title Case)
 	"intl-common:actions:create": "Utwórz", // create action (in Title Case)
 	"intl-common:actions:delete": "Usuń", // delete action (in Title Case)
-	"intl-common:actions:done": "Wykonane", // done action (in Title Case)
+	"intl-common:actions:done": "Gotowe", // done action (in Title Case)
 	"intl-common:actions:edit": "Edytuj", // edit action (in Title Case)
-	"intl-common:actions:finish": "Zakończenie", // finish action (in Title Case)
+	"intl-common:actions:finish": "Zakończ", // finish action (in Title Case)
 	"intl-common:actions:more": "Więcej", // more action (in Title Case)
 	"intl-common:actions:print": "Drukuj", // print action (in Title Case)
 	"intl-common:actions:reload": "Reload", // reload action (in Title Case)
@@ -19,10 +19,10 @@ export default {
 	"intl-common:actions:save": "Zapisz", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Zapisz i zamknij", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Zapisz i utwórz nowy", // save and new action (in Title Case)
-	"intl-common:actions:search": "Wyszukiwanie", // search action (in Title Case)
+	"intl-common:actions:search": "Wyszukaj", // search action (in Title Case)
 	"intl-common:actions:submit": "Prześlij", // submit action (in Title Case)
 	"intl-common:actions:update": "Aktualizuj", // update action (in Title Case)
-	"intl-common:characters:ampersand": "ampersand", // short name or description of the "&" character
+	"intl-common:characters:ampersand": "Ampersand", // short name or description of the "&" character
 	"intl-common:characters:apostrophe": "apostrof", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "gwiazdka", // short name or description of the "*" character
 	"intl-common:characters:backslash": "ukośnik wsteczny", // short name or description of the "\" character
@@ -30,7 +30,7 @@ export default {
 	"intl-common:characters:comma": "przecinek", // short name or description of the "," character
 	"intl-common:characters:greaterThan": "znak większości", // short name or description of the ">" character
 	"intl-common:characters:lessThan": "znak mniejszości", // short name or description of the "<" character
-	"intl-common:characters:numberSign": "znak numeryczny", // short name or description of the "#" character
+	"intl-common:characters:numberSign": "kratka", // short name or description of the "#" character
 	"intl-common:characters:percentSign": "znak procentowy", // short name or description of the "%" character
 	"intl-common:characters:pipe": "pionowa kreska", // short name or description of the "|" character
 	"intl-common:characters:questionMark": "znak zapytania", // short name or description of the "?" character
