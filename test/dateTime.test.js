@@ -1040,7 +1040,7 @@ describe('dateTime', () => {
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true }, { date: false });
 			expect(result).to.equal('2 PM');
 		});
-		it('should render stand-along months appropriately', async() => {
+		it('should render stand-alone months appropriately', async() => {
 			await setLanguage('ca-ES');
 			const date = new Date(2021, 3, 15, 14, 30);
 			let skeleton = 'MMMM';
