@@ -28,8 +28,9 @@
 		import * as timeZonesData from '../lib/_timeZones/data/index.js';
 		import * as timeZones from '../lib/timeZones.js';
 		import * as supported from '../lib/locale-data/supported.js';
+		import { formatDateTimeSkeleton } from '../lib/dateTimeSkeleton.js';
 
-		window.intl = { ...common, ...dateTime, ...fileSize, ...list, ...localize, ...number, ...supported, timeZones: { ...timeZonesMapper, data: timeZonesData, basic: timeZones } };
+		window.intl = { ...common, ...dateTime, ...fileSize, ...list, ...localize, ...number, ...supported, formatDateTimeSkeleton, timeZones: { ...timeZonesMapper, data: timeZonesData, basic: timeZones } };
 
 		render(
 			common.supportedLocalesDetails.map(({ code, localName }) => html`<option value="${code}">${localName}</option>`),
