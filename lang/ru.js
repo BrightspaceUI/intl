@@ -14,7 +14,7 @@ export default {
 	"intl-common:actions:finish": "Завершить", // finish action (in Title Case)
 	"intl-common:actions:more": "Подробнее", // more action (in Title Case)
 	"intl-common:actions:print": "Печать", // print action (in Title Case)
-	"intl-common:actions:reload": "Reload", // reload action (in Title Case)
+	"intl-common:actions:reload": "Перезагрузить", // reload action (in Title Case)
 	"intl-common:actions:remove": "Удалить", // remove action (in Title Case)
 	"intl-common:actions:save": "Сохранить", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Сохранить и закрыть", // save and close action (in Title Case)
