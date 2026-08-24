@@ -14,7 +14,7 @@ export default {
 	"intl-common:actions:finish": "Zakończ", // finish action (in Title Case)
 	"intl-common:actions:more": "Więcej", // more action (in Title Case)
 	"intl-common:actions:print": "Drukuj", // print action (in Title Case)
-	"intl-common:actions:reload": "Reload", // reload action (in Title Case)
+	"intl-common:actions:reload": "Odśwież", // reload action (in Title Case)
 	"intl-common:actions:remove": "Usuń", // remove action (in Title Case)
 	"intl-common:actions:save": "Zapisz", // save action (in Title Case)
 	"intl-common:actions:saveAndClose": "Zapisz i zamknij", // save and close action (in Title Case)
