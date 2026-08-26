@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "web-dev-server --node-resolve --watch --open /demo/",
     "test:unit": "d2l-test-runner",
-    "test": "npm run lint && npm run test:unit"
+    "test": "npm run lint && npm run test:unit",
+    "build-locale-data": "node ./build-locale-data/build-files.js"
   },
   "files": [
     "/lang",
@@ -41,6 +42,7 @@
   "homepage": "https://github.com/BrightspaceUI/intl",
   "devDependencies": {
     "@brightspace-ui/testing": "^1",
+    "cldr": "^8.0.0",
     "eslint": "^9",
     "eslint-config-brightspace": "^4",
     "sinon": "^22.0.0"

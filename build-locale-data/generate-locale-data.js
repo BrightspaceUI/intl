@@ -2,7 +2,7 @@ import * as utils from './utils.js';
 import { env, exit, stderr, stdout } from 'node:process';
 import cldr from 'cldr';
 import config from '../mfv.config.json' with { type: 'json' };
-import { merge } from '../lib/common.js';
+import { merge } from '../lib/common.util.js';
 import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
 
 const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathname;
