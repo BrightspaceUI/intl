@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "Выполнено", // done action (in Title Case)
 	"intl-common:actions:edit": "Редактировать", // edit action (in Title Case)
 	"intl-common:actions:finish": "Завершить", // finish action (in Title Case)
+	"intl-common:actions:insert": "Insert", // insert action (in Title Case)
 	"intl-common:actions:more": "Подробнее", // more action (in Title Case)
 	"intl-common:actions:print": "Печать", // print action (in Title Case)
 	"intl-common:actions:reload": "Перезагрузить", // reload action (in Title Case)
