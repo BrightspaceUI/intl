@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "Fet", // done action (in Title Case)
 	"intl-common:actions:edit": "Editar", // edit action (in Title Case)
 	"intl-common:actions:finish": "Finalitzar", // finish action (in Title Case)
+	"intl-common:actions:insert": "Insert", // insert action (in Title Case)
 	"intl-common:actions:more": "Més", // more action (in Title Case)
 	"intl-common:actions:print": "Imprimir", // print action (in Title Case)
 	"intl-common:actions:reload": "Recarregar", // reload action (in Title Case)

@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "Gereed", // done action (in Title Case)
 	"intl-common:actions:edit": "Bewerken", // edit action (in Title Case)
 	"intl-common:actions:finish": "Voltooien", // finish action (in Title Case)
+	"intl-common:actions:insert": "Insert", // insert action (in Title Case)
 	"intl-common:actions:more": "Meer", // more action (in Title Case)
 	"intl-common:actions:print": "Afdrukken", // print action (in Title Case)
 	"intl-common:actions:reload": "Opnieuw laden", // reload action (in Title Case)

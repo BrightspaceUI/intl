@@ -12,6 +12,7 @@ export default {
 	"intl-common:actions:done": "終了", // done action (in Title Case)
 	"intl-common:actions:edit": "編集", // edit action (in Title Case)
 	"intl-common:actions:finish": "完了", // finish action (in Title Case)
+	"intl-common:actions:insert": "Insert", // insert action (in Title Case)
 	"intl-common:actions:more": "詳細を表示", // more action (in Title Case)
 	"intl-common:actions:print": "印刷", // print action (in Title Case)
 	"intl-common:actions:reload": "再読み込み", // reload action (in Title Case)
