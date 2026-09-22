@@ -1,5 +1,5 @@
 import { getTimeZoneData, validateTimeZone } from '../lib/timeZones.js';
-import { expect } from '@brightspace-ui/testing';
+import { expect } from '@open-wc/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 
 describe('timeZones', () => {

@@ -5,7 +5,8 @@ import {
 	supportedBaseLocales,
 	supportedLocales
 } from '../lib/common.js';
-import { expect } from '@brightspace-ui/testing';
+import { expect } from '@open-wc/testing';
+import { localeData } from '../lib/locale-data/current.js';
 import { TerminologyKey } from '../lib/terminology.js';
 
 describe('common', () => {
@@ -14,7 +15,7 @@ describe('common', () => {
 
 	const documentLocaleSettings = getDocumentLocaleSettings();
 
-	afterEach(() => {
+	afterEach(async() => {
 		htmlElem.removeAttribute('lang');
 		htmlElem.removeAttribute('data-lang-default');
 		htmlElem.removeAttribute('data-intl-overrides');
@@ -22,6 +23,7 @@ describe('common', () => {
 		htmlElem.removeAttribute('data-timezone');
 		htmlElem.removeAttribute('data-oslo');
 		documentLocaleSettings.reset();
+		await localeData;
 	});
 
 	it('should default to "en"', () => {

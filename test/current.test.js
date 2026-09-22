@@ -1,4 +1,4 @@
-import { expect, oneEvent } from '@brightspace-ui/testing';
+import { expect, oneEvent } from '@open-wc/testing';
 import { localeData, registerLocaleDataListener } from '../lib/locale-data/current.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 

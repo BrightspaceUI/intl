@@ -15,7 +15,9 @@ jobs:
           node-version-file: .nvmrc
           d2l-registry-token: ${{ secrets.D2L_PACKAGE_REGISTRY_AUTH_TOKEN }}
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npx playwright install --with-deps
       - name: Lint
         run: npm run lint
       - name: Unit Tests

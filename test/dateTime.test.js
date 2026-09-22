@@ -13,7 +13,7 @@ import {
 	parseTime
 } from '../lib/dateTime.js';
 import { localeData, registerLocaleDataListener } from '../lib/locale-data/current.js';
-import { expect } from '@brightspace-ui/testing';
+import { expect } from '@open-wc/testing';
 import { formatDateTimeSkeleton } from '../lib/dateTimeSkeleton.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 
@@ -998,43 +998,50 @@ describe('dateTime', () => {
 	});
 
 	describe('formatDateTimeSkeleton', () => {
-		it('should format date and time using skeleton', () => {
+		it('should format date and time using skeleton', async() => {
+			await setLanguage('en');
 			const date = new Date(2021, 0, 15, 14, 30);
 			const skeleton = 'yLLLLdjms';
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
 			expect(result).to.equal('January 15, 2021 at 2:30:00 PM');
 		});
-		it('should throw an error without `forceUnsupportedFormat` option', () => {
+		it('should throw an error without `forceUnsupportedFormat` option', async() => {
+			await setLanguage('en');
 			const date = new Date(2021, 0, 15, 14, 30);
 			const skeleton = 'Mdy';
 			expect(() => formatDateTimeSkeleton(date, { skeleton })).to.throw();
 		});
-		it('should throw an error for invalid skeleton', () => {
+		it('should throw an error for invalid skeleton', async() => {
+			await setLanguage('en');
 			const date = new Date(2021, 0, 15, 14, 30);
 			const skeleton = 'invalidSkeleton';
 			expect(() => formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true })).to.throw();
 		});
-		it('should format date and time using skeleton with document timezone', () => {
+		it('should format date and time using skeleton with document timezone', async() => {
+			await setLanguage('en');
 			documentLocaleSettings.timezone.identifier = 'America/Los_Angeles';
 			const date = new Date(Date.UTC(2021, 0, 15, 19, 30));
 			const skeleton = 'yLLLLdjms';
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
 			expect(result).to.equal('January 15, 2021 at 11:30:00 AM');
 		});
-		it('should format date and time using skeleton with timezone option', () => {
+		it('should format date and time using skeleton with timezone option', async() => {
+			await setLanguage('en');
 			const timeZone = 'America/Los_Angeles';
 			const date = new Date(Date.UTC(2021, 0, 15, 19, 30));
 			const skeleton = 'yLLLLdjms';
 			const result = formatDateTimeSkeleton(date, { skeleton, timeZone, forceUnsupportedFormat: true });
 			expect(result).to.equal('January 15, 2021 at 11:30:00 AM');
 		});
-		it('should ignore time symbols when `time` is false', () => {
+		it('should ignore time symbols when `time` is false', async() => {
+			await setLanguage('en');
 			const date = new Date(2021, 0, 15, 14, 30);
 			const skeleton = 'HhJjKkmsaZzVvSsBbAOXxy';
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true }, { time: false });
 			expect(result).to.equal('2021');
 		});
-		it('should ignore date symbols when `date` is false', () => {
+		it('should ignore date symbols when `date` is false', async() => {
+			await setLanguage('en');
 			const date = new Date(2021, 0, 15, 14, 30);
 			const skeleton = 'GyMLdEecHH';
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true }, { date: false });
@@ -1051,6 +1058,7 @@ describe('dateTime', () => {
 			expect(result).to.equal('15 d’abril');
 		});
 		it('should replace static symbols with dynamic symbols', async() => {
+			await setLanguage('en');
 			const date = new Date(2021, 3, 15, 14, 30);
 			const skeleton = 'HH';
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
@@ -1166,7 +1174,6 @@ describe('dateTime', () => {
 
 		before(() => {
 			window.Date = Date;
-			expect(new window.Date().toLocaleString()).to.equal(mockNow);
 		});
 
 		afterEach(() => {

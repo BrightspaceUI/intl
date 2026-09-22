@@ -1,4 +1,4 @@
-import { expect } from '@brightspace-ui/testing';
+import { expect } from '@open-wc/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 import { getSeparator } from '../lib/list.js';
 
