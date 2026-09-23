@@ -49,6 +49,6 @@
     "sinon": "^22"
   },
   "dependencies": {
-    "intl-messageformat": "^11"
+    "intl-messageformat": "^12"
   }
 }
