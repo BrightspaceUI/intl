@@ -1,5 +1,5 @@
 import { commonResourcesImportCount, getLocalizeClass, Localize, localizeMarkup } from '../lib/localize.js';
-import { expect, fixture } from '@brightspace-ui/testing';
+import { expect, fixture } from '@open-wc/testing';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 import { spy } from 'sinon';
 

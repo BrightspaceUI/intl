@@ -1,4 +1,4 @@
-import { expect } from '@brightspace-ui/testing';
+import { expect } from '@open-wc/testing';
 import { formatFileSize } from '../lib/fileSize.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 
