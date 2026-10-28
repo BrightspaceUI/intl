@@ -1025,13 +1025,37 @@ describe('dateTime', () => {
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
 			expect(result).to.equal('January 15, 2021 at 11:30:00 AM');
 		});
-		it('should format date and time using skeleton with timezone option', async() => {
+		it('should format date and time using skeleton with timeZone option', async() => {
 			await setLanguage('en');
 			const timeZone = 'America/Los_Angeles';
 			const date = new Date(Date.UTC(2021, 0, 15, 19, 30));
 			const skeleton = 'yLLLLdjms';
 			const result = formatDateTimeSkeleton(date, { skeleton, timeZone, forceUnsupportedFormat: true });
 			expect(result).to.equal('January 15, 2021 at 11:30:00 AM');
+		});
+		it('should format date and time using skeleton with timeZoneName option', async() => {
+			await setLanguage('en');
+			const timeZone = 'America/Los_Angeles';
+			const date = new Date(Date.UTC(2021, 0, 15, 19, 30));
+			const skeleton = 'yLLLLdjms';
+			const result = formatDateTimeSkeleton(date, { skeleton, timeZone, timeZoneName: 'long', forceUnsupportedFormat: true });
+			expect(result).to.equal('January 15, 2021 at 11:30:00 AM Pacific Standard Time');
+		});
+		it('should format date and time using short timezone skeleton (z)', async() => {
+			await setLanguage('en');
+			const timeZone = 'America/Los_Angeles';
+			const date = new Date(Date.UTC(2021, 6, 15, 19, 30));
+			const skeleton = 'yLLLLdjmsz';
+			const result = formatDateTimeSkeleton(date, { skeleton, timeZone, forceUnsupportedFormat: true });
+			expect(result).to.equal('July 15, 2021 at 12:30:00 PM PDT');
+		});
+		it('should format date and time using long timezone skeleton (zzzz)', async() => {
+			await setLanguage('en');
+			const timeZone = 'America/Los_Angeles';
+			const date = new Date(Date.UTC(2021, 0, 15, 19, 30));
+			const skeleton = 'yLLLLdjmszzzz';
+			const result = formatDateTimeSkeleton(date, { skeleton, timeZone, forceUnsupportedFormat: true });
+			expect(result).to.equal('January 15, 2021 at 11:30:00 AM Pacific Standard Time');
 		});
 		it('should ignore time symbols when `time` is false', async() => {
 			await setLanguage('en');
