@@ -953,6 +953,18 @@ describe('dateTime', () => {
 			expect(result).to.equal('Montag, 3. August 2015 um 13:44');
 		});
 
+		it('should produce the same time by format or skeleton', async() => {
+			await setLanguage('en');
+			documentLocaleSettings.timezone.identifier = 'America/Los_Angeles';
+			const date = new Date(2021, 0, 15, 14, 30);
+			const skeleton = 'yMMMdjm';
+			const expectedPattern = /^Jan 15, 2021,? (at )?2:30\sPM$/;
+			let result = formatDateTime(date, { skeleton, forceUnsupportedFormat: true });
+			expect(result).to.match(expectedPattern);
+			result = formatDateTime(date, { format: 'medium' });
+			expect(result).to.match(expectedPattern);
+		});
+
 	});
 
 	describe('formatDateTimeFromTimestamp', () => {
