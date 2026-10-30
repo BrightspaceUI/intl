@@ -2,7 +2,6 @@ import * as utils from './utils.js';
 import { env, exit, stderr, stdout } from 'node:process';
 import cldr from 'cldr';
 import config from '../mfv.config.json' with { type: 'json' };
-import { merge } from '../lib/common.js';
 import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
 
 const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathname;
@@ -10,6 +9,24 @@ const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathna
 const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
 const { NEW_LOCALE } = env;
+
+function merge(obj1, obj2, keepOriginal = false) {
+	if (obj2 === undefined || obj2 === null || typeof(obj2) !== 'object') {
+		return;
+	}
+	for (const i in obj2) {
+		// eslint-disable-next-line no-prototype-builtins
+		if (obj1.hasOwnProperty(i)) {
+			if (typeof(obj2[i]) === 'object' && typeof(obj1[i]) === 'object') {
+				merge(obj1[i], obj2[i]);
+			} else {
+				if (keepOriginal) obj1[`_original_${i}`] = obj1[i];
+				obj1[i] = obj2[i];
+			}
+		}
+	}
+	return obj1;
+}
 
 function getDelimiters(locale) {
 	let delimiters;
