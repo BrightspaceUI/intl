@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "web-dev-server --node-resolve --watch --open /demo/",
     "test:unit": "web-test-runner \"test/**/*.test.js\" --playwright --browsers chromium firefox webkit",
-    "test": "npm run lint && npm run test:unit"
+    "test": "npm run lint && npm run test:unit",
+    "build:locale": "node build-locale-data/build-files.js --new-locale"
   },
   "files": [
     "/lang",

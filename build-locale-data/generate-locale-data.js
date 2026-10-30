@@ -1,5 +1,5 @@
 import * as utils from './utils.js';
-import { env, exit, stderr, stdout } from 'node:process';
+import { argv, exit, stderr, stdout } from 'node:process';
 import cldr from 'cldr';
 import config from '../mfv.config.json' with { type: 'json' };
 import { supportedLocalesDetails } from '../lib/locale-data/supported.js';
@@ -8,7 +8,7 @@ const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathna
 
 const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
-const { NEW_LOCALE } = env;
+const NEW_LOCALE = argv[argv.findIndex(a => a === '--new-locale') + 1]?.trim();
 
 function merge(obj1, obj2, keepOriginal = false) {
 	if (obj2 === undefined || obj2 === null || typeof(obj2) !== 'object') {
