@@ -1,5 +1,5 @@
+import { argv, exit, stderr } from 'node:process';
 import { dirname, posix } from 'node:path';
-import { env, exit, stderr } from 'node:process';
 import {
 	supportedBaseLocales as existingBaseLocales,
 	supportedLangpacks as existingLangpacks,
@@ -7,7 +7,7 @@ import {
 } from '../lib/locale-data/supported.js';
 import { readFile, writeFile } from 'node:fs/promises';
 
-const { NEW_LOCALE } = env;
+const NEW_LOCALE = argv[argv.findIndex(a => a === '--new-locale') + 1]?.trim();
 const PATH_LOCALE_DATA = posix.join(dirname(import.meta.url), '../lib/locale-data/locales/{locale}.js').replace(/file:(\/c:)?/i, '');
 const PATH_SUPPORTED = posix.join(dirname(import.meta.url), '../lib/locale-data/supported.js').replace(/file:(\/c:)?/i, '');
 const COMMENT_DELIMITER = '// end generated locale data';
