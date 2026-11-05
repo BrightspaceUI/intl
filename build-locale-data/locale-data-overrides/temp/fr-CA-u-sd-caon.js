@@ -1,10 +1,10 @@
 export default {
 	languageDisplayName: "Français",
-	territoryDisplayName: "Canada, Ontario",
+	territoryDisplayName: "Ontario",
 	scriptDisplayName: "",
-	localeDisplayName: "Français (Canada, Ontario)",
+	localeDisplayName: "Français (Ontario)",
 	sourceLocale: "fr-CA",
-	localeCode: "fr-CA-u-sd-caon",
+	localeCode: "fr-on",
 	likelySubtag: "fr-Latn-CA",
 	layout: {
 		orientation: {

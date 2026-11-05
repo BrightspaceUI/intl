@@ -28,6 +28,15 @@ function merge(obj1, obj2, keepOriginal = false) {
 	return obj1;
 }
 
+// Loads the first override file found for the given locale names (in priority order)
+async function importOverride(dir, localeNames) {
+	for (const name of new Set(localeNames)) {
+		try {
+			return (await import(`${dir}/${name}.js`)).default;
+		} catch { /* no override file for this name */ }
+	}
+}
+
 function getDelimiters(locale) {
 	let delimiters;
 	const lang = locale.split('-')[0];
@@ -157,7 +166,7 @@ export async function generateLocaleData() {
 			return 0; // default to Sunday
 		})();
 
-		data[sourceLocale] = {
+		data[mappedLocale] = {
 			languageDisplayName,
 			territoryDisplayName,
 			scriptDisplayName,
@@ -201,18 +210,10 @@ export async function generateLocaleData() {
 		};
 
 		// Temporary overrides. Remove when D2L data is fully in sync with CLDR data
-		try {
-			const { default: override } = await import(`${overridesPath}/temp/${sourceLocale}.js`);
-			merge(data[sourceLocale], override, true);
-		} catch { /* no temp override file */ }
+		merge(data[mappedLocale], await importOverride(`${overridesPath}/temp`, [locale, sourceLocale]));
 		// Permanent overrives
-		try {
-			const { default: override } = await import(`${overridesPath}/${sourceLocale}.js`);
-			merge(data[sourceLocale], override, true);
-		} catch { /* no override file */ }
+		merge(data[mappedLocale], await importOverride(overridesPath, [locale, sourceLocale]), true);
 	}));
-
-	console.log(Object.keys(data));
 
 	return data;
 }

@@ -4,7 +4,7 @@ export default {
 	scriptDisplayName: "繁體",
 	localeDisplayName: "中文(繁体)",
 	sourceLocale: "zh-Hant",
-	localeCode: "zh-Hant",
+	localeCode: "zh-tw",
 	likelySubtag: "zh-Hant-TW",
 	layout: {
 		orientation: {

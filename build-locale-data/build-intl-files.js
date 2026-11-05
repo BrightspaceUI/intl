@@ -6,11 +6,14 @@ import {
 	supportedLocalesDetails as existingLocalesDetails
 } from '../lib/locale-data/supported.js';
 import { readFile, writeFile } from 'node:fs/promises';
+import config from '../mfv.config.json' with { type: 'json' };
 
 const NEW_LOCALE = argv[argv.findIndex(a => a === '--new-locale') + 1]?.trim();
 const PATH_LOCALE_DATA = posix.join(dirname(import.meta.url), '../lib/locale-data/locales/{locale}.js').replace(/file:(\/c:)?/i, '');
 const PATH_SUPPORTED = posix.join(dirname(import.meta.url), '../lib/locale-data/supported.js').replace(/file:(\/c:)?/i, '');
 const COMMENT_DELIMITER = '// end generated locale data';
+
+const originalLocales = Object.fromEntries(Object.entries(config.localesMap).map(([original, mapped]) => [mapped, original]));
 
 export async function buildIntlFiles(data) {
 	let supportedContents = await readFile(PATH_SUPPORTED, 'utf-8');
@@ -39,22 +42,25 @@ export async function buildIntlFiles(data) {
 	const newId = existingLocalesDetails.reduce((max, l) => Math.max(max, l.id), 0) + 1;
 
 	Object.keys(data).forEach(async locale => {
+		// `locale` is the (possibly mapped) data key, used for the locale file name.
+		// `localeCode` is the original pack/code from supported.js
+		const localeCode = originalLocales[locale] ?? locale;
 		const {
 			id = newId,
 			code = locale,
 			overrideCode,
 			name,
 			pack
-		} = existingLocalesDetails.find(l => l.pack === locale) || existingLocalesDetails.find(l => l.code === locale) || {};
+		} = existingLocalesDetails.find(l => (l.pack || l.code) === localeCode) || {};
 		const dir = data[locale]?.layout.orientation.characterOrder === 'right-to-left' ? 'rtl' : 'ltr';
-		const packStr = (name && pack) || (code === data[locale]?.sourceLocale) ? `pack: '${locale}', ` : '';
+		const packStr = (name && pack) || (code === data[locale]?.sourceLocale) ? `pack: '${localeCode}', ` : '';
 		const overrideCodeStr = overrideCode ? `overrideCode: '${overrideCode}', ` : '';
 		const localeDisplayName = NEW_LOCALE ? name || data[locale]?.localeDisplayName : data[locale]?.localeDisplayName;
 		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', ${packStr}${overrideCodeStr}dir: '${dir}', name: '${localeDisplayName}' },`);
-		if (locale.length === 2) {
-			supportedBaseLocales.add(locale);
+		if (localeCode.length === 2) {
+			supportedBaseLocales.add(localeCode);
 		}
-		if (packStr) supportedLangpacks.add(locale);
+		if (packStr) supportedLangpacks.add(localeCode);
 
 		const contents = `export default ${JSON.stringify(data[locale], null, '\t')};\n`;
 

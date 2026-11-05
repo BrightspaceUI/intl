@@ -4,7 +4,7 @@ export default {
 	scriptDisplayName: "",
 	localeDisplayName: "Français (Canada)",
 	sourceLocale: "fr-CA",
-	localeCode: "fr-CA",
+	localeCode: "fr",
 	likelySubtag: "fr-Latn-CA",
 	layout: {
 		orientation: {
