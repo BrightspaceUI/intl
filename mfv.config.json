@@ -3,7 +3,7 @@
   "path": "./lang/",
   "localesMap": {
     "es-es": "es",
-    "es": "es-MX",
+    "es": "es-419",
     "fr-fr": "fr",
     "fr-on": "fr-CA-u-sd-caon",
     "fr": "fr-CA",

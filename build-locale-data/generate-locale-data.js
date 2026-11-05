@@ -71,7 +71,7 @@ export async function generateLocaleData() {
 		locales.push(sourceLocale);
 	}
 
-	locales.forEach(async locale => {
+	await Promise.all(locales.map(async locale => {
 		const originalLocale = locale;
 		let mappedLocale;
 		try {
@@ -82,7 +82,7 @@ export async function generateLocaleData() {
 			exit(1);
 		}
 
-		const [ coreLocaleTag, unicodeExtensions ] = locale.split('-u-');
+		const [coreLocaleTag, unicodeExtensions] = locale.split('-u-');
 		const {
 			//ca: calendar,
 			//co: collation,
@@ -157,7 +157,7 @@ export async function generateLocaleData() {
 			return 0; // default to Sunday
 		})();
 
-		data[originalLocale] = {
+		data[sourceLocale] = {
 			languageDisplayName,
 			territoryDisplayName,
 			scriptDisplayName,
@@ -200,11 +200,19 @@ export async function generateLocaleData() {
 			listPatterns: cldr.extractListPatterns(coreLocaleTag)
 		};
 
+		// Temporary overrides. Remove when D2L data is fully in sync with CLDR data
 		try {
-			const override = await import(`${overridesPath}/${sourceLocale}.js`);
-			merge(data[originalLocale], override, true);
-		} catch { /* no override fil */ }
-	});
+			const { default: override } = await import(`${overridesPath}/temp/${sourceLocale}.js`);
+			merge(data[sourceLocale], override, true);
+		} catch { /* no temp override file */ }
+		// Permanent overrives
+		try {
+			const { default: override } = await import(`${overridesPath}/${sourceLocale}.js`);
+			merge(data[sourceLocale], override, true);
+		} catch { /* no override file */ }
+	}));
+
+	console.log(Object.keys(data));
 
 	return data;
 }

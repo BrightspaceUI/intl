@@ -1,0 +1,371 @@
+export default {
+	languageDisplayName: "ʻŌlelo Hawaiʻi",
+	territoryDisplayName: "ʻAmelika Hui Pū ʻIa",
+	scriptDisplayName: "",
+	localeDisplayName: "ʻŌlelo Hawaiʻi (ʻAmelika Hui Pū ʻIa)",
+	sourceLocale: "haw",
+	localeCode: "haw",
+	likelySubtag: "haw-Latn-US",
+	layout: {
+		orientation: {
+			characterOrder: "left-to-right",
+			lineOrder: "top-to-bottom"
+		}
+	},
+	pluralClass: {
+		cardinal: [
+			"one",
+			"other"
+		],
+		ordinal: [
+			"other"
+		]
+	},
+	localeDisplayPattern: {
+		localePattern: "{0} ({1})",
+		localeSeparator: "{0}, {1}",
+		localeKeyTypePattern: "{0}: {1}"
+	},
+	dateFormats: {
+		full: "EEEE, d MMMM y",
+		long: "d MMMM y",
+		medium: "d MMM y",
+		short: "d/M/yy"
+	},
+	dateFormatItems: {
+		Ed: "E d",
+		Ehm: "E h:mm a",
+		Ehms: "E h:mm:ss a",
+		Gy: "y G",
+		GyMMM: "MMM y G",
+		GyMMMd: "d MMM y G",
+		GyMMMEd: "E, d MMM y G",
+		h: "h a",
+		hm: "h:mm a",
+		hms: "h:mm:ss a",
+		hmsv: "h:mm:ss a v",
+		hmv: "h:mm a v",
+		Md: "d/M",
+		MEd: "E, d/M",
+		MMMd: "d MMM",
+		MMMEd: "E, d MMM",
+		yM: "M/y",
+		yMd: "d/M/y",
+		yMEd: "E, d/M/y",
+		yMMM: "MMM y",
+		yMMMd: "d MMM y",
+		yMMMEd: "E, d MMM y",
+		Bh: "h B",
+		Bhm: "h:mm B",
+		Bhms: "h:mm:ss B",
+		d: "d",
+		E: "ccc",
+		EBh: "E h B",
+		EBhm: "E h:mm B",
+		EBhms: "E h:mm:ss B",
+		Eh: "E h a",
+		EHm: "E HH:mm",
+		EHms: "E HH:mm:ss",
+		GyM: "G y-MM",
+		GyMd: "G y-MM-dd",
+		GyMEd: "G y-MM-dd, E",
+		H: "HH",
+		Hm: "HH:mm",
+		Hms: "HH:mm:ss",
+		Hmsv: "HH:mm:ss v",
+		Hmv: "HH:mm v",
+		hv: "h a v",
+		Hv: "HH'h' v",
+		M: "L",
+		MMM: "LLL",
+		MMMMd: "MMMM d",
+		MMMMW: "'week' W 'of' MMMM",
+		ms: "mm:ss",
+		y: "y",
+		yMMMM: "y MMMM",
+		yQQQ: "y QQQ",
+		yQQQQ: "y QQQQ",
+		yw: "'week' w 'of' Y"
+	},
+	timeFormats: {
+		full: "h:mm:ss a zzzz",
+		long: "h:mm:ss a z",
+		medium: "h:mm:ss a",
+		short: "h:mm a"
+	},
+	dayPeriods: {
+		format: {
+			abbreviated: {
+				am: "AM",
+				pm: "PM"
+			},
+			narrow: {
+				am: "AM",
+				pm: "PM"
+			},
+			wide: {
+				am: "AM",
+				pm: "PM"
+			}
+		},
+		standAlone: {
+			abbreviated: {
+				am: "AM",
+				pm: "PM"
+			},
+			narrow: {
+				am: "AM",
+				pm: "PM"
+			},
+			wide: {
+				am: "AM",
+				pm: "PM"
+			}
+		}
+	},
+	dayNames: {
+		format: {
+			abbreviated: [
+				"LP",
+				"P1",
+				"P2",
+				"P3",
+				"P4",
+				"P5",
+				"P6"
+			],
+			narrow: [
+				"S",
+				"M",
+				"T",
+				"W",
+				"T",
+				"F",
+				"S"
+			],
+			wide: [
+				"Lāpule",
+				"Poʻakahi",
+				"Poʻalua",
+				"Poʻakolu",
+				"Poʻahā",
+				"Poʻalima",
+				"Poʻaono"
+			],
+			short: [
+				"LP",
+				"P1",
+				"P2",
+				"P3",
+				"P4",
+				"P5",
+				"P6"
+			]
+		},
+		standAlone: {
+			abbreviated: [
+				"LP",
+				"P1",
+				"P2",
+				"P3",
+				"P4",
+				"P5",
+				"P6"
+			],
+			narrow: [
+				"S",
+				"M",
+				"T",
+				"W",
+				"T",
+				"F",
+				"S"
+			],
+			wide: [
+				"Lāpule",
+				"Poʻakahi",
+				"Poʻalua",
+				"Poʻakolu",
+				"Poʻahā",
+				"Poʻalima",
+				"Poʻaono"
+			],
+			short: [
+				"LP",
+				"P1",
+				"P2",
+				"P3",
+				"P4",
+				"P5",
+				"P6"
+			]
+		}
+	},
+	weekData: {
+		firstDay: 0,
+		weekendStart: 6,
+		weekendEnd: 0
+	},
+	months: {
+		format: {
+			abbreviated: [
+				"Ian.",
+				"Pep.",
+				"Mal.",
+				"ʻAp.",
+				"Mei",
+				"Iun.",
+				"Iul.",
+				"ʻAu.",
+				"Kep.",
+				"ʻOk.",
+				"Now.",
+				"Kek."
+			],
+			narrow: [
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12"
+			],
+			wide: [
+				"Ianuali",
+				"Pepeluali",
+				"Malaki",
+				"ʻApelila",
+				"Mei",
+				"Iune",
+				"Iulai",
+				"ʻAukake",
+				"Kepakemapa",
+				"ʻOkakopa",
+				"Nowemapa",
+				"Kekemapa"
+			]
+		},
+		standAlone: {
+			abbreviated: [
+				"Ian.",
+				"Pep.",
+				"Mal.",
+				"ʻAp.",
+				"Mei",
+				"Iun.",
+				"Iul.",
+				"ʻAu.",
+				"Kep.",
+				"ʻOk.",
+				"Now.",
+				"Kek."
+			],
+			narrow: [
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12"
+			],
+			wide: [
+				"Ianuali",
+				"Pepeluali",
+				"Malaki",
+				"ʻApelila",
+				"Mei",
+				"Iune",
+				"Iulai",
+				"ʻAukake",
+				"Kepakemapa",
+				"ʻOkakopa",
+				"Nowemapa",
+				"Kekemapa"
+			]
+		},
+		transforms: {
+			titleCase: {}
+		}
+	},
+	numberingSystemId: "latn",
+	numberingSystem: {
+		type: "numeric",
+		digits: [
+			"0",
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"7",
+			"8",
+			"9"
+		]
+	},
+	numberSymbols: {
+		latn: {
+			decimal: ".",
+			group: ",",
+			list: ";",
+			percentSign: "%",
+			plusSign: "+",
+			minusSign: "-",
+			approximatelySign: "~",
+			exponential: "E",
+			superscriptingExponent: "×",
+			perMille: "‰",
+			infinity: "∞",
+			nan: "NaN",
+			timeSeparator: ":"
+		},
+		default: {
+			decimal: ".",
+			group: ",",
+			list: ";",
+			percentSign: "%",
+			plusSign: "+",
+			minusSign: "-",
+			approximatelySign: "~",
+			exponential: "E",
+			superscriptingExponent: "×",
+			perMille: "‰",
+			infinity: "∞",
+			nan: "NaN",
+			timeSeparator: ":"
+		}
+	},
+	delimiters: {
+		quotationStart: "“",
+		quotationEnd: "”",
+		alternateQuotationStart: "‘",
+		alternateQuotationEnd: "’",
+		apostrophe: "'"
+	},
+	listPatterns: {
+		default: {
+			2: "{0}, {1}",
+			start: "{0}, {1}",
+			middle: "{0}, {1}",
+			end: "{0}, {1}"
+		},
+		or: {
+			2: "{0} or {1}",
+			start: "{0}, {1}",
+			middle: "{0}, {1}",
+			end: "{0}, or {1}"
+		}
+	}
+};
