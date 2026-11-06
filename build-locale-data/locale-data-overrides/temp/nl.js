@@ -1,6 +1,5 @@
 export default {
 	territoryDisplayName: "Nederland",
-	scriptDisplayName: "",
 	localeDisplayName: "Nederlands (Nederland)",
 	dateFormats: {
 		medium: "d MMMM y"

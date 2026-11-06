@@ -1,6 +1,5 @@
 export default {
 	territoryDisplayName: "日本",
-	scriptDisplayName: "",
 	localeDisplayName: "日本語 (日本)",
 	dateFormats: {
 		full: "y年M月d日",

@@ -1,7 +1,6 @@
 export default {
 	languageDisplayName: "Dansk",
 	territoryDisplayName: "danmark",
-	scriptDisplayName: "",
 	localeDisplayName: "Dansk (danmark)",
 	dateFormatItems: {
 		hm: "h:mm a",

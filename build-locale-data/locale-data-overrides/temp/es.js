@@ -1,7 +1,6 @@
 export default {
 	languageDisplayName: "Español",
 	territoryDisplayName: "España",
-	scriptDisplayName: "",
 	localeDisplayName: "Español (España)",
 	dateFormats: {
 		full: "EEEE d 'de' MMMM 'de' y",

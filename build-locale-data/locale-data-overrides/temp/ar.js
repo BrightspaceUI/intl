@@ -1,6 +1,4 @@
 export default {
-	territoryDisplayName: "",
-	scriptDisplayName: "",
 	dateFormats: {
 		full: "EEEE, d MMMM, y",
 		medium: "dd MMMM, y",

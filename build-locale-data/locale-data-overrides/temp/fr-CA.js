@@ -1,6 +1,5 @@
 export default {
 	languageDisplayName: "Français",
-	scriptDisplayName: "",
 	localeDisplayName: "Français (Canada)",
 	dateFormats: {
 		long: "MMMM d y",

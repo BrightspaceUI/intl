@@ -168,8 +168,8 @@ export async function generateLocaleData() {
 
 		data[mappedLocale] = {
 			languageDisplayName,
-			territoryDisplayName,
-			scriptDisplayName,
+			territoryDisplayName: territoryDisplayName ?? '',
+			scriptDisplayName: scriptDisplayName ?? '',
 			localeDisplayName: localeQualifiers ? cldr.extractLocaleDisplayPattern(coreLocaleTag).localePattern
 				.replace('{0}', languageDisplayName)
 				.replace('{1}', localeQualifiers)

@@ -1,6 +1,5 @@
 export default {
 	territoryDisplayName: "简体",
-	scriptDisplayName: "",
 	localeDisplayName: "中文(简体)",
 	dateFormats: {
 		full: "y年M月d日"

@@ -1,7 +1,6 @@
 export default {
 	languageDisplayName: "Svenska",
 	territoryDisplayName: "Sverige",
-	scriptDisplayName: "",
 	localeDisplayName: "Svenska (Sverige)",
 	dateFormats: {
 		full: "EEEE 'den' d MMMM y"
