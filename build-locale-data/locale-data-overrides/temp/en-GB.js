@@ -1,5 +1,4 @@
 export default {
-	scriptDisplayName: "",
 	dateFormats: {
 		medium: "dd MMMM y"
 	},

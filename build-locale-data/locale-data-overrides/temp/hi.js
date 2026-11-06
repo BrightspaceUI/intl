@@ -1,7 +1,6 @@
 export default {
 	languageDisplayName: "हिंदी",
 	territoryDisplayName: "भारत",
-	scriptDisplayName: "",
 	localeDisplayName: "हिंदी (भारत)",
 	dateFormats: {
 		short: "dd-MM-y"

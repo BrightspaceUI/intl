@@ -1,6 +1,5 @@
 export default {
 	territoryDisplayName: "Y Deyrnas Unedig",
-	scriptDisplayName: "",
 	localeDisplayName: "Cymraeg (Y Deyrnas Unedig)",
 	dateFormats: {
 		medium: "dd MMMM y",

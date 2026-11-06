@@ -1,4 +1,1 @@
-export default {
-	territoryDisplayName: "",
-	scriptDisplayName: ""
-};
+export default {};

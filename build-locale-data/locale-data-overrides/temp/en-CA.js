@@ -1,5 +1,4 @@
 export default {
-	scriptDisplayName: "",
 	dateFormats: {
 		short: "M/d/y"
 	},

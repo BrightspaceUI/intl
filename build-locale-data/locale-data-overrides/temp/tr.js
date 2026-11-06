@@ -1,6 +1,5 @@
 export default {
 	territoryDisplayName: "Türkiye",
-	scriptDisplayName: "",
 	localeDisplayName: "Türkçe (Türkiye)",
 	dateFormats: {
 		full: "dd MMMM y EEEE",

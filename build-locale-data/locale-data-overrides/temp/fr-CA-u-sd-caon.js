@@ -1,7 +1,6 @@
 export default {
 	languageDisplayName: "Français",
 	territoryDisplayName: "Ontario",
-	scriptDisplayName: "",
 	localeDisplayName: "Français (Ontario)",
 	dateFormats: {
 		full: "EEEE 'le' d MMMM y",

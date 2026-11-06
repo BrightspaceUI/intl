@@ -1100,6 +1100,13 @@ describe('dateTime', () => {
 			const result = formatDateTimeSkeleton(date, { skeleton, forceUnsupportedFormat: true });
 			expect(result).to.equal('2 PM');
 		});
+		it('should construct Intl.DateTimeFormat with the source locale', async() => {
+			await setLanguage('fr-on');
+			const date = new Date(2021, 3, 15, 14, 30);
+			const format = 'full';
+			const result = formatDateTimeSkeleton(date, { format });
+			expect(result).to.equal('jeudi 15 avril 2021 à 14 h 30');
+		});
 	});
 
 	describe('formatDateFromTimestamp', () => {
