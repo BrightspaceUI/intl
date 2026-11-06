@@ -15,7 +15,7 @@ export default [
 		},
 	},
 	{
-		files: ['lang/*.js', 'lib/locale-data/locales/*.js'],
+		files: ['lang/*.js', 'lib/locale-data/locales/*.js', 'build-locale-data/locale-data-overrides/**/*.js'],
 		rules: {
 			'@stylistic/quotes': 0
 		}
