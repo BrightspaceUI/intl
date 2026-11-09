@@ -1,7 +1,6 @@
 export default {
 	languageDisplayName: "Português",
 	territoryDisplayName: "Brasil",
-	scriptDisplayName: "",
 	localeDisplayName: "Português (Brasil)",
 	dateFormats: {
 		medium: "d 'de' MMMM 'de' y"

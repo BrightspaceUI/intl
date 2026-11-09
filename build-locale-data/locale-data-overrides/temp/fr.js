@@ -1,7 +1,6 @@
 export default {
 	languageDisplayName: "Français",
 	territoryDisplayName: "France",
-	scriptDisplayName: "",
 	localeDisplayName: "Français (France)",
 	timeFormats: {
 		full: "HH 'h' mm 'min' ss 's' zzzz",

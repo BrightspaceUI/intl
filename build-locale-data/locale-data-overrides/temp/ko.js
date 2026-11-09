@@ -1,6 +1,5 @@
 export default {
 	territoryDisplayName: "대한민국",
-	scriptDisplayName: "",
 	localeDisplayName: "한국어 (대한민국)",
 	dateFormats: {
 		medium: "y년 M월 d일",
