@@ -23,14 +23,14 @@ export default {
 	"intl-common:actions:search": "Поиск", // search action (in Title Case)
 	"intl-common:actions:submit": "Отправить", // submit action (in Title Case)
 	"intl-common:actions:update": "Обновить", // update action (in Title Case)
-	"intl-common:characters:ampersand": "Амперсанд", // short name or description of the "&" character
+	"intl-common:characters:ampersand": "амперсанд", // short name or description of the "&" character
 	"intl-common:characters:apostrophe": "Апостроф", // short name or description of the "'" character
 	"intl-common:characters:asterisk": "Звездочка", // short name or description of the "*" character
 	"intl-common:characters:backslash": "Обратная косая черта", // short name or description of the "\" character
 	"intl-common:characters:colon": "Двоеточие", // short name or description of the ":" character
 	"intl-common:characters:comma": "запятая", // short name or description of the "," character
-	"intl-common:characters:greaterThan": "знак «больше»", // short name or description of the ">" character
-	"intl-common:characters:lessThan": "знак «меньше»", // short name or description of the "<" character
+	"intl-common:characters:greaterThan": "знак больше", // short name or description of the ">" character
+	"intl-common:characters:lessThan": "знак меньше", // short name or description of the "<" character
 	"intl-common:characters:numberSign": "символ номера", // short name or description of the "#" character
 	"intl-common:characters:percentSign": "знак процента", // short name or description of the "%" character
 	"intl-common:characters:pipe": "труба", // short name or description of the "|" character
