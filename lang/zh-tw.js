@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "儲存並關閉", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "儲存並新增", // save and new action (in Title Case)
 	"intl-common:actions:search": "搜尋", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "提交", // submit action (in Title Case)
 	"intl-common:actions:update": "更新", // update action (in Title Case)
 	"intl-common:characters:ampersand": "& 符號", // short name or description of the "&" character

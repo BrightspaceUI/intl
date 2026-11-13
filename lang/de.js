@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Speichern und schließen", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Speichern und neu", // save and new action (in Title Case)
 	"intl-common:actions:search": "Suchen", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Senden", // submit action (in Title Case)
 	"intl-common:actions:update": "Aktualisieren", // update action (in Title Case)
 	"intl-common:characters:ampersand": "Kaufmännisches Und", // short name or description of the "&" character

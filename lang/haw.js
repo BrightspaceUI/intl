@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Mālama a pani", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Mālama a hou", // save and new action (in Title Case)
 	"intl-common:actions:search": "Huli", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Waiho mai", // submit action (in Title Case)
 	"intl-common:actions:update": "Hōʻano hou", // update action (in Title Case)
 	"intl-common:characters:ampersand": "ampersand", // short name or description of the "&" character

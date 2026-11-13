@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "บันทึกและปิด", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "บันทึกและสร้างใหม่", // save and new action (in Title Case)
 	"intl-common:actions:search": "ค้นหา", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "ส่ง", // submit action (in Title Case)
 	"intl-common:actions:update": "อัปเดต", // update action (in Title Case)
 	"intl-common:characters:ampersand": "และ", // short name or description of the "&" character

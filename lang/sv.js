@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Spara och stäng", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Spara och ny", // save and new action (in Title Case)
 	"intl-common:actions:search": "Sök", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Skicka in", // submit action (in Title Case)
 	"intl-common:actions:update": "Uppdatera", // update action (in Title Case)
 	"intl-common:characters:ampersand": "et-tecken", // short name or description of the "&" character

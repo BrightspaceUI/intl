@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Lưu và đóng", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Lưu và tạo mới", // save and new action (in Title Case)
 	"intl-common:actions:search": "Tìm kiếm", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Gửi", // submit action (in Title Case)
 	"intl-common:actions:update": "Cập nhật", // update action (in Title Case)
 	"intl-common:characters:ampersand": "dấu và", // short name or description of the "&" character
