@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Desar i tancar", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Desar i nou", // save and new action (in Title Case)
 	"intl-common:actions:search": "Cercar", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Lliurar", // submit action (in Title Case)
 	"intl-common:actions:update": "Actualitzar", // update action (in Title Case)
 	"intl-common:characters:ampersand": "signe «&»", // short name or description of the "&" character

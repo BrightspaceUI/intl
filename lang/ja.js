@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "保存して閉じる", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "保存して新規作成", // save and new action (in Title Case)
 	"intl-common:actions:search": "検索", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "送信", // submit action (in Title Case)
 	"intl-common:actions:update": "更新", // update action (in Title Case)
 	"intl-common:characters:ampersand": "アンパサンド", // short name or description of the "&" character

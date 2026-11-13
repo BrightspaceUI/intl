@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Tiaki ka Kati", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Tiaki me te Hōu", // save and new action (in Title Case)
 	"intl-common:actions:search": "Rapu", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Whakaurungia", // submit action (in Title Case)
 	"intl-common:actions:update": "Whakahōu", // update action (in Title Case)
 	"intl-common:characters:ampersand": "me", // short name or description of the "&" character

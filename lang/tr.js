@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Kaydet ve Kapat", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Kaydet ve Yeni", // save and new action (in Title Case)
 	"intl-common:actions:search": "Ara", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Gönder", // submit action (in Title Case)
 	"intl-common:actions:update": "Güncelle", // update action (in Title Case)
 	"intl-common:characters:ampersand": "ve işareti", // short name or description of the "&" character

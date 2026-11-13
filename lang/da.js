@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Gem og luk", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Gem og ny", // save and new action (in Title Case)
 	"intl-common:actions:search": "Søg", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Indsend", // submit action (in Title Case)
 	"intl-common:actions:update": "Opdater", // update action (in Title Case)
 	"intl-common:characters:ampersand": "og-tegn", // short name or description of the "&" character

@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Сохранить и закрыть", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Сохранить и создать", // save and new action (in Title Case)
 	"intl-common:actions:search": "Поиск", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Отправить", // submit action (in Title Case)
 	"intl-common:actions:update": "Обновить", // update action (in Title Case)
 	"intl-common:characters:ampersand": "амперсанд", // short name or description of the "&" character

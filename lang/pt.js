@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Salvar e Fechar", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Salvar e Novo", // save and new action (in Title Case)
 	"intl-common:actions:search": "Pesquisar", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Enviar", // submit action (in Title Case)
 	"intl-common:actions:update": "Atualizar", // update action (in Title Case)
 	"intl-common:characters:ampersand": "E comercial", // short name or description of the "&" character

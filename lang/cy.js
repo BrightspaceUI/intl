@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Cadw a Chau", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Cadw a Newydd", // save and new action (in Title Case)
 	"intl-common:actions:search": "Chwilio", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Cyflwyno", // submit action (in Title Case)
 	"intl-common:actions:update": "Diweddaru", // update action (in Title Case)
 	"intl-common:characters:ampersand": "ampersand", // short name or description of the "&" character
