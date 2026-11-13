@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "저장 및 닫기", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "저장 및 새로 만들기", // save and new action (in Title Case)
 	"intl-common:actions:search": "검색", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "제출", // submit action (in Title Case)
 	"intl-common:actions:update": "업데이트", // update action (in Title Case)
 	"intl-common:characters:ampersand": "앰퍼샌드", // short name or description of the "&" character

@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "सेव करके बंद करें", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "सेव करें और नया", // save and new action (in Title Case)
 	"intl-common:actions:search": "खोजें", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "सबमिट करें", // submit action (in Title Case)
 	"intl-common:actions:update": "अपडेट करें", // update action (in Title Case)
 	"intl-common:characters:ampersand": "ऐंपरसैंड", // short name or description of the "&" character

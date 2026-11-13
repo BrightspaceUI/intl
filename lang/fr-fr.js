@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Enregistrer et fermer", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Enregistrer et nouveau", // save and new action (in Title Case)
 	"intl-common:actions:search": "Rechercher", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Soumettre", // submit action (in Title Case)
 	"intl-common:actions:update": "Mettre à jour", // update action (in Title Case)
 	"intl-common:characters:ampersand": "esperluette", // short name or description of the "&" character

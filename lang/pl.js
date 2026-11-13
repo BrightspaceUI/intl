@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Zapisz i zamknij", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Zapisz i utwórz nowy", // save and new action (in Title Case)
 	"intl-common:actions:search": "Wyszukaj", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Prześlij", // submit action (in Title Case)
 	"intl-common:actions:update": "Aktualizuj", // update action (in Title Case)
 	"intl-common:characters:ampersand": "Ampersand", // short name or description of the "&" character

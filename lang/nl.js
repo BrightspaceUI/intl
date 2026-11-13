@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "Opslaan en sluiten", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "Opslaan en nieuw", // save and new action (in Title Case)
 	"intl-common:actions:search": "Zoeken", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "Indienen", // submit action (in Title Case)
 	"intl-common:actions:update": "Bijwerken", // update action (in Title Case)
 	"intl-common:characters:ampersand": "en-teken", // short name or description of the "&" character

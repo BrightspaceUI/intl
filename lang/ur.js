@@ -21,6 +21,7 @@ export default {
 	"intl-common:actions:saveAndClose": "سیوو اور کلوز کریں", // save and close action (in Title Case)
 	"intl-common:actions:saveAndNew": "سیوو کریں اور نیا سیوو کریں", // save and new action (in Title Case)
 	"intl-common:actions:search": "تلاش کریں", // search action (in Title Case)
+	"intl-common:actions:select": "Select", // select action (in Title Case)
 	"intl-common:actions:submit": "جمع کروائیں", // submit action (in Title Case)
 	"intl-common:actions:update": "اپ ڈیٹ کریں", // update action (in Title Case)
 	"intl-common:characters:ampersand": "ایمپرسینڈ", // short name or description of the "&" character
