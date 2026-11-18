@@ -1,5 +1,6 @@
-import { commonResourcesImportCount, getLocalizeClass, Localize, localizeMarkup } from '../lib/localize.js';
+import { commonResourcesImportCount, commonTerms, getLocalizeClass, Localize, localizeMarkup } from '../lib/localize.js';
 import { expect, fixture } from '@open-wc/testing';
+import englishTerms from '../lang/en.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
 import { spy } from 'sinon';
 
@@ -243,6 +244,13 @@ describe('Localize', () => {
 				await localizer.ready;
 				expect(() => localizer.localizeCommon('navigation:back:title'))
 					.to.throw('localizeCommon() cannot be used unless loadCommon in localizeConfig is enabled');
+			});
+
+			it('should ensure commonTerms contains all English keys', () => {
+				const englishKeys = Object.keys(englishTerms)
+					.filter(key => !key.startsWith('intl-common:characters'))
+					.map(key => key.slice('intl-common:'.length));
+				expect(commonTerms).to.have.members(englishKeys);
 			});
 
 		});
