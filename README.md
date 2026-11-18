@@ -401,18 +401,19 @@ const localizer = new Localize({
 
 #### localizeCommon
 
-The localized value of the following common terms can be accessed using `localizeCommon(name)`:
+The localized value of [these common terms](blob/main/lang/en.js) can be accessed using `localizeCommon(name)`, where `intl-common:` is omitted from the term name.
 
-Navigation
-* `navigation:back:title` (Back)
-* `navigation:next:title` (Next)
-* `navigation:previous:title` (Previous)
+Example:
+
+```javascript
+const value = localizer.localizeCommon('actions:copy'); // -> Copy in en-US
+```
 
 #### localizeCharacter
 
 The localized value of the following characters can be accessed using `localizeCharacter(char)`:
-* `'` (apostrophe)
 * `&` (ampersand)
+* `'` (apostrophe)
 * `*` (asterisk)
 * `\` (backslash)
 * `:` (colon)
