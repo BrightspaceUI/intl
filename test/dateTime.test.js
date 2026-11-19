@@ -1112,6 +1112,13 @@ describe('dateTime', () => {
 			result = formatDateTimeSkeleton(date, { format });
 			expect(result).to.equal('jeudi 15 avril 2021 à 14 h 30');
 		});
+
+		it('should respect short date format override', async() => {
+			setLanguage('en');
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short: 'dd.MM.yyyy' } } } };
+			const result = formatDateTimeSkeleton(new Date(2021, 3, 5, 14, 30), { format: 'short' }, { time: false });
+			expect(result).to.equal('05.03.2021');
+		});
 	});
 
 	describe('formatDateFromTimestamp', () => {
