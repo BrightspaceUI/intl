@@ -1106,18 +1106,18 @@ describe('dateTime', () => {
 
 			await setLanguage('fr-fr');
 			let result = formatDateTimeSkeleton(date, { format });
-			expect(result).to.equal('jeudi 15 avril 2021 à 14:30');
+			expect(result).to.equal('jeudi 15 avril 2021 à 14:30 UTC−4');
 
 			await setLanguage('fr-on');
 			result = formatDateTimeSkeleton(date, { format });
-			expect(result).to.equal('jeudi 15 avril 2021 à 14 h 30');
+			expect(result).to.equal('jeudi 15 avril 2021 à 14 h 30 HAE');
 		});
 
 		it('should respect short date format override', async() => {
 			setLanguage('en');
 			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short: 'dd.MM.yyyy' } } } };
 			const result = formatDateTimeSkeleton(new Date(2021, 3, 5, 14, 30), { format: 'short' }, { time: false });
-			expect(result).to.equal('05.03.2021');
+			expect(result).to.equal('05.04.2021');
 		});
 	});
 

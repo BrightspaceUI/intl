@@ -5,10 +5,13 @@ export default {
 		full: "y年M月d日"
 	},
 	dateFormatItems: {
-		hm: "B hh:mm"
+		hm: "a hh:mm"
 	},
 	timeFormats: {
-		short: "B hh:mm"
+		full: "ah:mm:ss [zzzz]",
+		long: "ah:mm:ss [z]",
+		medium: "ah:mm:ss",
+		short: "a hh:mm"
 	},
 	months: {
 		format: {
