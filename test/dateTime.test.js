@@ -691,6 +691,7 @@ describe('dateTime', () => {
 			{ format: 'dd. MMMM yyyy', expect: '03. August 2015' },
 			{ format: 'd. MMMM', expect: '3. August' },
 			{ format: 'full', expect: 'Monday, August 3, 2015' },
+			{ format: 'long', expect: 'August 3, 2015' },
 			{ format: 'medium', expect: 'Aug 3, 2015' },
 			{ format: 'short', expect: '8/3/2015' },
 			{ format: 'monthYear', expect: 'August 2015' },
@@ -928,6 +929,7 @@ describe('dateTime', () => {
 
 		[
 			{ format: 'full', expect: 'Monday, August 3, 2015 1:44 PM EST' },
+			{ format: 'long', expect: 'August 3, 2015 1:44 PM' },
 			{ format: 'medium', expect: 'Aug 3, 2015 1:44 PM' },
 			{ format: 'short', expect: '8/3/2015 1:44 PM' },
 			{ format: 'monthYear', expect: 'August 2015' },
