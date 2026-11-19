@@ -1,4 +1,4 @@
-import { commonResourcesImportCount, commonTerms, getLocalizeClass, Localize, localizeMarkup } from '../lib/localize.js';
+import { characterTermPrefix, commonResourcesImportCount, commonTermPrefix, commonTerms, getLocalizeClass, Localize, localizeMarkup } from '../lib/localize.js';
 import { expect, fixture } from '@open-wc/testing';
 import englishTerms from '../lang/en.js';
 import { getDocumentLocaleSettings } from '../lib/common.js';
@@ -133,10 +133,16 @@ describe('Localize', () => {
 			expect(localized).to.equal('D2L is my employer');
 		});
 
-		it('should accept exapnded/spread params', async() => {
+		it('should accept expanded/spread params', async() => {
 			await localizer.ready;
 			const localized = localizer.localize('many', 'type', 'message', 'count', 2);
 			expect(localized).to.equal('This message has 2 arguments');
+		});
+
+		it('should return empty string for empty name', async() => {
+			await localizer.ready;
+			const localized = localizer.localize();
+			expect(localized).to.equal('');
 		});
 
 		it('should select the correct category for shimmed locales', async() => {
@@ -226,6 +232,16 @@ describe('Localize', () => {
 					.to.throw('localizeCharacter() cannot be used unless loadCommon in localizeConfig is enabled');
 			});
 
+			it('should throw an error if localize() is used for character', async() => {
+				expect(() => localizer.localize(`${characterTermPrefix}:ampersand`))
+					.to.throw('localize() cannot be used for characters, use localizeCharacter(\'&\') instead');
+			});
+
+			it('should throw an error if localize() is used for unknown character', async() => {
+				expect(() => localizer.localize(`${characterTermPrefix}:dollarSign`))
+					.to.throw('localizeCharacter() does not support character: "dollarSign"');
+			});
+
 		});
 
 		describe('localizeCommon', () => {
@@ -248,9 +264,14 @@ describe('Localize', () => {
 
 			it('should ensure commonTerms contains all English keys', () => {
 				const englishKeys = Object.keys(englishTerms)
-					.filter(key => !key.startsWith('intl-common:characters'))
-					.map(key => key.slice('intl-common:'.length));
+					.filter(key => !key.startsWith(characterTermPrefix))
+					.map(key => key.slice(commonTermPrefix.length + 1));
 				expect(commonTerms).to.have.members(englishKeys);
+			});
+
+			it('should throw an error if localize() is used for common term', async() => {
+				expect(() => localizerCommon.localize(`${commonTermPrefix}:navigation:back:title`))
+					.to.throw('localize() cannot be used for common terms, use localizeCommon(\'navigation:back:title\') instead');
 			});
 
 		});
