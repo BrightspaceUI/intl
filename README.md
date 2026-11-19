@@ -99,6 +99,7 @@ const date = formatDateTime(
 Options:
 - **format**: pattern to use when rendering the date-time; default is `'short'`.
   - **full**: long weekday, month names and timezone. e.g. `'Wednesday, September 23, 2015 1:25 PM EST'`
+  - **long**: short month names. e.g. `'September 23, 2015 1:25 PM'`
   - **medium**: short month names. e.g. `'Sept 23, 2015 1:25 PM'`
   - **short**: abbreviated date format. e.g. `'9/23/2015 1:25 PM'`
 
@@ -152,7 +153,8 @@ const value = formatDate(
 Options:
 - **format**: pattern to use when rendering the date; default is `'short'`.
   - **full**: long weekday and month names. e.g. `'Wednesday, September 23, 2015'`
-  - **medium**: long month names. e.g. `'September 23, 2015'`
+  - **long**: long month names. e.g. `'September 23, 2015'`
+  - **medium**: short month names. e.g. `'Sept 23, 2015'`
   - **short**: abbreviated date format. e.g. `'9/23/2015'`
   - **monthYear**: month and year only. e.g. `'September 2015'`
   - **monthDay**: month and day only. e.g. `'September 23'`
