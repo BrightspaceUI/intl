@@ -401,7 +401,7 @@ const localizer = new Localize({
 
 #### localizeCommon
 
-The localized value of [these common terms](blob/main/lang/en.js) can be accessed using `localizeCommon(name)`, where `intl-common:` is omitted from the term name.
+The localized value of [these common terms](lang/en.js) can be accessed using `localizeCommon(name)`, where `intl-common:` is omitted from the term name.
 
 Example:
 
