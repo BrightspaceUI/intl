@@ -1103,16 +1103,24 @@ describe('dateTime', () => {
 			expect(result).to.equal('2 PM');
 		});
 		it('should construct Intl.DateTimeFormat with the source locale', async() => {
-			const date = new Date(2021, 3, 15, 14, 30);
+			documentLocaleSettings.timezone.identifier = 'America/Los_Angeles';
+			const date = Date.UTC(2021, 3, 15, 14, 30);
 			const format = 'full';
 
 			await setLanguage('fr-fr');
 			let result = formatDateTimeSkeleton(date, { format });
-			expect(result).to.equal('jeudi 15 avril 2021 à 14:30');
+			expect(result).to.equal('jeudi 15 avril 2021 à 07:30 UTC−7');
 
 			await setLanguage('fr-on');
 			result = formatDateTimeSkeleton(date, { format });
-			expect(result).to.equal('jeudi 15 avril 2021 à 14 h 30');
+			expect(result).to.equal('jeudi 15 avril 2021 à 07 h 30 HAP');
+		});
+
+		it('should respect short date format override', async() => {
+			await setLanguage('en');
+			documentLocaleSettings.overrides = { date: { formats: { dateFormats: { short: 'dd.MM.yyyy' } } } };
+			const result = formatDateTimeSkeleton(new Date(2021, 3, 5, 14, 30), { format: 'short' }, { time: false });
+			expect(result).to.equal('05.04.2021');
 		});
 	});
 
