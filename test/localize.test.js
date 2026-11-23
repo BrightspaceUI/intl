@@ -139,10 +139,16 @@ describe('Localize', () => {
 			expect(localized).to.equal('This message has 2 arguments');
 		});
 
-		it('should return empty string for empty name', async() => {
-			await localizer.ready;
-			const localized = localizer.localize();
-			expect(localized).to.equal('');
+		[
+			{ name: 'empty', value: '' },
+			{ name: 'undefined', value: undefined },
+			{ name: 'non-string', value: {} }
+		].forEach(({ name, value }) => {
+			it(`should return empty string for name: "${name}"`, async() => {
+				await localizer.ready;
+				const localized = localizer.localize(value);
+				expect(localized).to.equal('');
+			});
 		});
 
 		it('should select the correct category for shimmed locales', async() => {
