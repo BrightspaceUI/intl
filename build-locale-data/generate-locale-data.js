@@ -8,7 +8,7 @@ const overridesPath = new URL('./locale-data-overrides', import.meta.url).pathna
 
 const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
-const NEW_LOCALE = argv[argv.findIndex(a => a === '--new-locale') + 1]?.trim();
+const NEW_LOCALE = argv[argv.findIndex(a => a === '--new-locale') + 1 || -1]?.trim();
 
 function merge(obj1, obj2, keepOriginal = false) {
 	if (obj2 === undefined || obj2 === null || typeof(obj2) !== 'object') {
@@ -204,6 +204,10 @@ export async function generateLocaleData() {
 			numberSymbols: {
 				latn: cldr.extractNumberSymbols(coreLocaleTag, 'latn'),
 				default: cldr.extractNumberSymbols(coreLocaleTag, cldr.extractDefaultNumberSystemId(coreLocaleTag))
+			},
+			percentFormat: {
+				latn: cldr.extractNumberFormats(coreLocaleTag, 'latn').percent.default,
+				default: cldr.extractNumberFormats(coreLocaleTag, cldr.extractDefaultNumberSystemId(coreLocaleTag)).percent.default
 			},
 			delimiters: getDelimiters(coreLocaleTag),
 			listPatterns: cldr.extractListPatterns(coreLocaleTag)
