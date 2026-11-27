@@ -67,7 +67,7 @@ export async function generateLocaleData() {
 	const padMappedLength = Math.max(...Object.values(config.localesMap).map(l => l.length)) + 1;
 
 	if (NEW_LOCALE) {
-		const sourceLocale = utils.getLikelySubtagSource(Intl.getCanonicalLocales([NEW_LOCALE])[0]) ?? NEW_LOCALE;
+		const sourceLocale = utils.resolveNewLocale(NEW_LOCALE);
 		if (sourceLocale !== NEW_LOCALE) {
 			const { pack, code } = supportedLocalesDetails.find(l => l.source === sourceLocale) || {};
 			if (pack || code) {

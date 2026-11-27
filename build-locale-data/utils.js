@@ -116,6 +116,14 @@ export function getLikelySubtagSource(locale) {
 }
 
 /**
+ * @param {string} newLocale - The locale as given on the command line.
+ * @returns {string}
+ */
+export function resolveNewLocale(newLocale) {
+	return getLikelySubtagSource(Intl.getCanonicalLocales([newLocale])[0]) ?? newLocale;
+}
+
+/**
  * Returns an object indicating whether CLDR context transform data specifies
  * that month names should be title-cased, for each combination of:
  *   - grammatical form: "format" (used within a date) vs "standalone" (used alone)
