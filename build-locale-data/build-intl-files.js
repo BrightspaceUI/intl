@@ -8,7 +8,7 @@ import {
 import { readFile, writeFile } from 'node:fs/promises';
 import config from '../mfv.config.json' with { type: 'json' };
 
-const NEW_LOCALE = argv[argv.findIndex(a => a === '--new-locale') + 1]?.trim();
+const NEW_LOCALE = argv[argv.findIndex(a => a === '--new-locale') + 1 || -1]?.trim();
 const PATH_LOCALE_DATA = posix.join(dirname(import.meta.url), '../lib/locale-data/locales/{locale}.js').replace(/file:(\/c:)?/i, '');
 const PATH_SUPPORTED = posix.join(dirname(import.meta.url), '../lib/locale-data/supported.js').replace(/file:(\/c:)?/i, '');
 const COMMENT_DELIMITER = '// end generated locale data';
@@ -57,7 +57,7 @@ export async function buildIntlFiles(data) {
 		const overrideCodeStr = overrideCode ? `overrideCode: '${overrideCode}', ` : '';
 		const localeDisplayName = NEW_LOCALE ? name || data[locale]?.localeDisplayName : data[locale]?.localeDisplayName;
 		supportedLocaleDetails.push(`\n\t{ id: ${id}, code: '${code}', source: '${data[locale].sourceLocale}', ${packStr}${overrideCodeStr}dir: '${dir}', name: '${localeDisplayName}' },`);
-		if (localeCode.length === 2) {
+		if (!localeCode.includes('-')) {
 			supportedBaseLocales.add(localeCode);
 		}
 		if (packStr) supportedLangpacks.add(localeCode);
@@ -71,8 +71,8 @@ export async function buildIntlFiles(data) {
 		);
 	});
 
-	const supportedBaseLocalesString = `export const supportedBaseLocales = ['${[...supportedBaseLocales].join("', '")}'];`;
-	const supportedLangpacksString = `export const supportedLangpacks = ['${[...supportedLangpacks].join("', '")}'];`;
+	const supportedBaseLocalesString = `export const supportedBaseLocales = ['${[...supportedBaseLocales].sort().join("', '")}'];`;
+	const supportedLangpacksString = `export const supportedLangpacks = ['${[...supportedLangpacks].sort().join("', '")}'];`;
 	const supportedLocaleDetailsString = `export const supportedLocalesDetails = [${supportedLocaleDetails.join('')}\n];`;
 
 	supportedContents = `export const defaultLocale = 'en';
