@@ -7,6 +7,7 @@ import {
 } from '../lib/locale-data/supported.js';
 import { readFile, writeFile } from 'node:fs/promises';
 import config from '../mfv.config.json' with { type: 'json' };
+import { resolveNewLocale } from './utils.js';
 
 const NEW_LOCALE = argv[argv.findIndex(a => a === '--new-locale') + 1 || -1]?.trim();
 const PATH_LOCALE_DATA = posix.join(dirname(import.meta.url), '../lib/locale-data/locales/{locale}.js').replace(/file:(\/c:)?/i, '');
@@ -22,18 +23,19 @@ export async function buildIntlFiles(data) {
 	const supportedLocaleDetails = [];
 
 	if (NEW_LOCALE) {
+		// The data is generated for the resolved locale (e.g. 'tl' -> 'fil'), see generate-locale-data.js
+		const resolvedLocale = resolveNewLocale(NEW_LOCALE);
+		const isNewLocale = value => [NEW_LOCALE, resolvedLocale].some(n => n.toLowerCase() === value?.toLowerCase());
 		const existingLocale = existingLocalesDetails.find(l =>
-			l.code.toLowerCase() === NEW_LOCALE.toLowerCase()
-			|| l.source?.toLowerCase() === NEW_LOCALE.toLowerCase()
+			isNewLocale(l.code)
+			|| isNewLocale(l.source)
 			&& l.overrideCode !== NEW_LOCALE);
 		if (existingLocale) {
 			stderr.write(`\nError: Locale "${NEW_LOCALE}" already exists${existingLocale.pack && existingLocale.pack !== NEW_LOCALE ? ` as "${existingLocale.pack}"` : ''}. Choose a different locale code.`);
 			exit(1);
 		}
 
-		const newLocaleBase = NEW_LOCALE.split('-')[0];
-		const newLocaleData = data[NEW_LOCALE] || !existingBaseLocales.includes(newLocaleBase) && data[newLocaleBase];
-		if (!newLocaleData) {
+		if (!data[resolvedLocale]) {
 			stderr.write(`\nError: Locale data for "${NEW_LOCALE}" not found. Choose a different locale code.`);
 			exit(1);
 		}
